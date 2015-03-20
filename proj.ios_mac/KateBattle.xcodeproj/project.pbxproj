@@ -78,6 +78,12 @@
 		D71056AB1ABBAE3E00130056 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A81ABBAE3E00130056 /* GameScene.cpp */; };
 		D71056AE1ABBAE9D00130056 /* JsonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056AC1ABBAE9D00130056 /* JsonReader.cpp */; };
 		D71056AF1ABBAE9D00130056 /* JsonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056AC1ABBAE9D00130056 /* JsonReader.cpp */; };
+		D7503E071ABBCA5500566380 /* JoyStick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7503E051ABBCA5500566380 /* JoyStick.cpp */; };
+		D7503E081ABBCA5500566380 /* JoyStick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7503E051ABBCA5500566380 /* JoyStick.cpp */; };
+		D7503E0D1ABC09FB00566380 /* directioncontrol1.png in Resources */ = {isa = PBXBuildFile; fileRef = D7503E0B1ABC09FB00566380 /* directioncontrol1.png */; };
+		D7503E0E1ABC09FB00566380 /* directioncontrol1.png in Resources */ = {isa = PBXBuildFile; fileRef = D7503E0B1ABC09FB00566380 /* directioncontrol1.png */; };
+		D7503E0F1ABC09FB00566380 /* directioncontrol2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7503E0C1ABC09FB00566380 /* directioncontrol2.png */; };
+		D7503E101ABC09FB00566380 /* directioncontrol2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7503E0C1ABC09FB00566380 /* directioncontrol2.png */; };
 		D7666B631ABAF88B00369CF4 /* Kernal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B611ABAF88B00369CF4 /* Kernal.cpp */; };
 		D7666B641ABAF88B00369CF4 /* Kernal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B611ABAF88B00369CF4 /* Kernal.cpp */; };
 		D7666B681ABAF9F500369CF4 /* SoundsController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B661ABAF9F500369CF4 /* SoundsController.cpp */; };
@@ -185,6 +191,10 @@
 		D71056A91ABBAE3E00130056 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = scenes/GameScene.h; sourceTree = "<group>"; };
 		D71056AC1ABBAE9D00130056 /* JsonReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JsonReader.cpp; path = tools/JsonReader.cpp; sourceTree = "<group>"; };
 		D71056AD1ABBAE9D00130056 /* JsonReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonReader.h; path = tools/JsonReader.h; sourceTree = "<group>"; };
+		D7503E051ABBCA5500566380 /* JoyStick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JoyStick.cpp; path = tools/JoyStick.cpp; sourceTree = "<group>"; };
+		D7503E061ABBCA5500566380 /* JoyStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoyStick.h; path = tools/JoyStick.h; sourceTree = "<group>"; };
+		D7503E0B1ABC09FB00566380 /* directioncontrol1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directioncontrol1.png; sourceTree = "<group>"; };
+		D7503E0C1ABC09FB00566380 /* directioncontrol2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directioncontrol2.png; sourceTree = "<group>"; };
 		D7666B611ABAF88B00369CF4 /* Kernal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Kernal.cpp; path = kernal/Kernal.cpp; sourceTree = "<group>"; };
 		D7666B621ABAF88B00369CF4 /* Kernal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Kernal.h; path = kernal/Kernal.h; sourceTree = "<group>"; };
 		D7666B661ABAF9F500369CF4 /* SoundsController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundsController.cpp; path = tools/SoundsController.cpp; sourceTree = "<group>"; };
@@ -304,6 +314,8 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D7503E0B1ABC09FB00566380 /* directioncontrol1.png */,
+				D7503E0C1ABC09FB00566380 /* directioncontrol2.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
@@ -417,6 +429,8 @@
 				D7666B671ABAF9F500369CF4 /* SoundsController.h */,
 				D71056AC1ABBAE9D00130056 /* JsonReader.cpp */,
 				D71056AD1ABBAE9D00130056 /* JsonReader.h */,
+				D7503E051ABBCA5500566380 /* JoyStick.cpp */,
+				D7503E061ABBCA5500566380 /* JoyStick.h */,
 			);
 			name = "tools ";
 			sourceTree = "<group>";
@@ -532,6 +546,7 @@
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
+				D7503E0D1ABC09FB00566380 /* directioncontrol1.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
@@ -539,6 +554,7 @@
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				D7503E0F1ABC09FB00566380 /* directioncontrol2.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
@@ -554,6 +570,8 @@
 				46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
+				D7503E0E1ABC09FB00566380 /* directioncontrol1.png in Resources */,
+				D7503E101ABC09FB00566380 /* directioncontrol2.png in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
@@ -568,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D71056AE1ABBAE9D00130056 /* JsonReader.cpp in Sources */,
+				D7503E071ABBCA5500566380 /* JoyStick.cpp in Sources */,
 				D710569E1ABBAC7800130056 /* Hero.cpp in Sources */,
 				D710569A1ABBA62B00130056 /* Entity.cpp in Sources */,
 				D71056A61ABBAE1900130056 /* MenuScene.cpp in Sources */,
@@ -592,6 +611,7 @@
 				D7666B691ABAF9F500369CF4 /* SoundsController.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				D710569F1ABBAC7800130056 /* Hero.cpp in Sources */,
+				D7503E081ABBCA5500566380 /* JoyStick.cpp in Sources */,
 				D71056A31ABBAD9D00130056 /* Monster.cpp in Sources */,
 				D71056AF1ABBAE9D00130056 /* JsonReader.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
