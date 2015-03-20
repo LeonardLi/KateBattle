@@ -66,6 +66,22 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
+		D710569A1ABBA62B00130056 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056981ABBA62B00130056 /* Entity.cpp */; };
+		D710569B1ABBA62B00130056 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056981ABBA62B00130056 /* Entity.cpp */; };
+		D710569E1ABBAC7800130056 /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D710569C1ABBAC7800130056 /* Hero.cpp */; };
+		D710569F1ABBAC7800130056 /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D710569C1ABBAC7800130056 /* Hero.cpp */; };
+		D71056A21ABBAD9D00130056 /* Monster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A01ABBAD9D00130056 /* Monster.cpp */; };
+		D71056A31ABBAD9D00130056 /* Monster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A01ABBAD9D00130056 /* Monster.cpp */; };
+		D71056A61ABBAE1900130056 /* MenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A41ABBAE1900130056 /* MenuScene.cpp */; };
+		D71056A71ABBAE1900130056 /* MenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A41ABBAE1900130056 /* MenuScene.cpp */; };
+		D71056AA1ABBAE3E00130056 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A81ABBAE3E00130056 /* GameScene.cpp */; };
+		D71056AB1ABBAE3E00130056 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056A81ABBAE3E00130056 /* GameScene.cpp */; };
+		D71056AE1ABBAE9D00130056 /* JsonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056AC1ABBAE9D00130056 /* JsonReader.cpp */; };
+		D71056AF1ABBAE9D00130056 /* JsonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71056AC1ABBAE9D00130056 /* JsonReader.cpp */; };
+		D7666B631ABAF88B00369CF4 /* Kernal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B611ABAF88B00369CF4 /* Kernal.cpp */; };
+		D7666B641ABAF88B00369CF4 /* Kernal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B611ABAF88B00369CF4 /* Kernal.cpp */; };
+		D7666B681ABAF9F500369CF4 /* SoundsController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B661ABAF9F500369CF4 /* SoundsController.cpp */; };
+		D7666B691ABAF9F500369CF4 /* SoundsController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7666B661ABAF9F500369CF4 /* SoundsController.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +173,22 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		D71056981ABBA62B00130056 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = models/Entity.cpp; sourceTree = "<group>"; };
+		D71056991ABBA62B00130056 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = models/Entity.h; sourceTree = "<group>"; };
+		D710569C1ABBAC7800130056 /* Hero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hero.cpp; path = models/Hero.cpp; sourceTree = "<group>"; };
+		D710569D1ABBAC7800130056 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hero.h; path = models/Hero.h; sourceTree = "<group>"; };
+		D71056A01ABBAD9D00130056 /* Monster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Monster.cpp; path = models/Monster.cpp; sourceTree = "<group>"; };
+		D71056A11ABBAD9D00130056 /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = models/Monster.h; sourceTree = "<group>"; };
+		D71056A41ABBAE1900130056 /* MenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuScene.cpp; path = scenes/MenuScene.cpp; sourceTree = "<group>"; };
+		D71056A51ABBAE1900130056 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuScene.h; path = scenes/MenuScene.h; sourceTree = "<group>"; };
+		D71056A81ABBAE3E00130056 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = scenes/GameScene.cpp; sourceTree = "<group>"; };
+		D71056A91ABBAE3E00130056 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = scenes/GameScene.h; sourceTree = "<group>"; };
+		D71056AC1ABBAE9D00130056 /* JsonReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JsonReader.cpp; path = tools/JsonReader.cpp; sourceTree = "<group>"; };
+		D71056AD1ABBAE9D00130056 /* JsonReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonReader.h; path = tools/JsonReader.h; sourceTree = "<group>"; };
+		D7666B611ABAF88B00369CF4 /* Kernal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Kernal.cpp; path = kernal/Kernal.cpp; sourceTree = "<group>"; };
+		D7666B621ABAF88B00369CF4 /* Kernal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Kernal.h; path = kernal/Kernal.h; sourceTree = "<group>"; };
+		D7666B661ABAF9F500369CF4 /* SoundsController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundsController.cpp; path = tools/SoundsController.cpp; sourceTree = "<group>"; };
+		D7666B671ABAF9F500369CF4 /* SoundsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundsController.h; path = tools/SoundsController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,10 +317,10 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
-				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
-				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
+				D71056971ABBA5F600130056 /* models */,
+				D71056961ABBA4A000130056 /* scenes */,
+				D7666B651ABAF9B900369CF4 /* tools  */,
+				D7666B601ABAF85700369CF4 /* kernal */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -340,6 +372,54 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		D71056961ABBA4A000130056 /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
+				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
+				D71056A41ABBAE1900130056 /* MenuScene.cpp */,
+				D71056A51ABBAE1900130056 /* MenuScene.h */,
+				D71056A81ABBAE3E00130056 /* GameScene.cpp */,
+				D71056A91ABBAE3E00130056 /* GameScene.h */,
+			);
+			name = scenes;
+			sourceTree = "<group>";
+		};
+		D71056971ABBA5F600130056 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				D71056981ABBA62B00130056 /* Entity.cpp */,
+				D71056991ABBA62B00130056 /* Entity.h */,
+				D710569C1ABBAC7800130056 /* Hero.cpp */,
+				D710569D1ABBAC7800130056 /* Hero.h */,
+				D71056A01ABBAD9D00130056 /* Monster.cpp */,
+				D71056A11ABBAD9D00130056 /* Monster.h */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		D7666B601ABAF85700369CF4 /* kernal */ = {
+			isa = PBXGroup;
+			children = (
+				46880B8519C43A87006E1F66 /* AppDelegate.h */,
+				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
+				D7666B611ABAF88B00369CF4 /* Kernal.cpp */,
+				D7666B621ABAF88B00369CF4 /* Kernal.h */,
+			);
+			name = kernal;
+			sourceTree = "<group>";
+		};
+		D7666B651ABAF9B900369CF4 /* tools  */ = {
+			isa = PBXGroup;
+			children = (
+				D7666B661ABAF9F500369CF4 /* SoundsController.cpp */,
+				D7666B671ABAF9F500369CF4 /* SoundsController.h */,
+				D71056AC1ABBAE9D00130056 /* JsonReader.cpp */,
+				D71056AD1ABBAE9D00130056 /* JsonReader.h */,
+			);
+			name = "tools ";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -487,10 +567,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71056AE1ABBAE9D00130056 /* JsonReader.cpp in Sources */,
+				D710569E1ABBAC7800130056 /* Hero.cpp in Sources */,
+				D710569A1ABBA62B00130056 /* Entity.cpp in Sources */,
+				D71056A61ABBAE1900130056 /* MenuScene.cpp in Sources */,
+				D71056A21ABBAD9D00130056 /* Monster.cpp in Sources */,
+				D7666B631ABAF88B00369CF4 /* Kernal.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				D7666B681ABAF9F500369CF4 /* SoundsController.cpp in Sources */,
+				D71056AA1ABBAE3E00130056 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,8 +587,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71056AB1ABBAE3E00130056 /* GameScene.cpp in Sources */,
+				D7666B641ABAF88B00369CF4 /* Kernal.cpp in Sources */,
+				D7666B691ABAF9F500369CF4 /* SoundsController.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				D710569F1ABBAC7800130056 /* Hero.cpp in Sources */,
+				D71056A31ABBAD9D00130056 /* Monster.cpp in Sources */,
+				D71056AF1ABBAE9D00130056 /* JsonReader.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				D710569B1ABBA62B00130056 /* Entity.cpp in Sources */,
+				D71056A71ABBAE1900130056 /* MenuScene.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
