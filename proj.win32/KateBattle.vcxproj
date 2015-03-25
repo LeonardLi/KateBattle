@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\tools;..\Classes\models;..\Classes\kernal;..\Classes\scenes;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -138,12 +138,30 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\kernal\Kernal.cpp" />
+    <ClCompile Include="..\Classes\models\Entity.cpp" />
+    <ClCompile Include="..\Classes\models\Hero.cpp" />
+    <ClCompile Include="..\Classes\models\Monster.cpp" />
+    <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\MenuScene.cpp" />
+    <ClCompile Include="..\Classes\tools\JoyStick.cpp" />
+    <ClCompile Include="..\Classes\tools\JsonReader.cpp" />
+    <ClCompile Include="..\Classes\tools\SoundsController.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\kernal\Kernal.h" />
+    <ClInclude Include="..\Classes\models\Entity.h" />
+    <ClInclude Include="..\Classes\models\Hero.h" />
+    <ClInclude Include="..\Classes\models\Monster.h" />
+    <ClInclude Include="..\Classes\scenes\GameScene.h" />
+    <ClInclude Include="..\Classes\scenes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\scenes\MenuScene.h" />
+    <ClInclude Include="..\Classes\tools\JoyStick.h" />
+    <ClInclude Include="..\Classes\tools\JsonReader.h" />
+    <ClInclude Include="..\Classes\tools\SoundsController.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

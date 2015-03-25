@@ -6,7 +6,7 @@
 //
 //
 
-#include "JoyStick.h"
+#include "tools/JoyStick.h"
 USING_NS_CC;
 
 Joystick* Joystick::create(std::string chassisPath,std::string dotPath)

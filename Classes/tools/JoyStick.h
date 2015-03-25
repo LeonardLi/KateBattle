@@ -5,7 +5,7 @@
 //  Created by Leonard on 15/3/20.
 //
 //
-
+#include "cocos2d.h"
 #ifndef __KateBattle__JoyStick__
 #define __KateBattle__JoyStick__
 
@@ -26,40 +26,40 @@ enum JoystickEnum
 class Joystick : public cocos2d::Layer
 {
 public:
-    /** 启动搖杆器 */
+    /** �����u���� */
     void onRun();
-    /** 清除数据 */
+    /** ������� */
     void onDisable();
-    /** 设置死亡半径，即超出半径將摇杆器失效 */
+    /** ���������뾶���������뾶��ҡ����ʧЧ */
     void setDieRadius(float radius);
-    /** 设置无效区域半径（如果在无效区域內，將重置） */
+    /** ������Ч����뾶���������Ч����ȣ������ã� */
     void setFailRadius(float radius);
-    /** 是否显示底盘和触点 */
+    /** �Ƿ���ʾ���̺ʹ��� */
     void setVisibleJoystick(bool visible);
-    /** 是否自由变换摇杆器的位置，即在屏幕上每一次按下鼠标时的坐标将是摇杆器的坐标，移动时将不改变摇杆器坐标，直到下次按下鼠标 */
+    /** �Ƿ����ɱ任ҡ������λ�ã�������Ļ��ÿһ�ΰ������ʱ�����꽫��ҡ���������꣬�ƶ�ʱ�����ı�ҡ�������ֱ꣬���´ΰ������ */
     void setAutoPosition(bool value);
-    /** 回调函数指针 */
+    /** �ص�����ָ�� */
     std::function<void(JoystickEnum)> onDirection;
-    /** 静态创建函数（需要传入底盘和触点图片路径） */
+    /** ��̬������������Ҫ������̺ʹ���ͼƬ·���� */
     static Joystick* create(std::string chassisPath,std::string dotPath);
-    /** 初始化摇杆器（需要传入底盘和触点图片路径） */
+    /** ��ʼ��ҡ��������Ҫ������̺ʹ���ͼƬ·���� */
     void initWithJoystick(std::string chassisPath,std::string dotPath);
 protected:
-    /** 有效区域半径 */
+    /** ��Ч����뾶 */
     float _radius;
-    /** 失效区域半径 */
+    /** ʧЧ����뾶 */
     float _failradius;
-    /** 是否移出有效区域 */
+    /** �Ƿ��Ƴ���Ч���� */
     bool isMoveOut;
-    /** 是否存在有效区域半径 */
+    /** �Ƿ������Ч����뾶 */
     bool isDieRadius;
-    /** 是否自由变换摇杆器坐标 */
+    /** �Ƿ����ɱ任ҡ�������� */
     bool isAutoPosition;
-    /** 方向 */
+    /** ���� */
     JoystickEnum _direction;
-    /** 底盘 */
+    /** ���� */
     cocos2d::Sprite* _chassis;
-    /** 触点 */
+    /** ���� */
     cocos2d::Sprite* _touchDot;
     cocos2d::EventListenerTouchOneByOne* listener;
     
@@ -67,16 +67,16 @@ protected:
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
     /**
-     1、设置触点，并判断是否在无效区域内（如果在无效区域内，将重置）
-     2、发送角度变化（如果不在无效区域内） */
+     1�����ô��㣬���ж��Ƿ�����Ч�����ڣ��������Ч�����ڣ������ã�
+     2�����ͽǶȱ仯�����������Ч�����ڣ� */
     void setTouchDotPosition(cocos2d::Vec2 vec1, cocos2d::Vec2 vec2);
     /**
-     1、计算摇杆器八方向
-     2、发送角度变化，回调弧度变化函数 */
+     1������ҡ�����˷���
+     2�����ͽǶȱ仯���ص����ȱ仯���� */
     void changeAngle( cocos2d::Vec2 position );
-    /** 回调注册的监听函数 */
+    /** �ص�ע��ļ������� */
     void callDirectionFun();
-    /** 重置（当弧度不是 DEFAULT时才重置） */
+    /** ���ã������Ȳ��� DEFAULTʱ�����ã� */
     void resetState();
     
 };
