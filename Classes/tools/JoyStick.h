@@ -9,6 +9,7 @@
 #ifndef __KateBattle__JoyStick__
 #define __KateBattle__JoyStick__
 
+#include "cocos2d.h"
 
 enum JoystickEnum
 {

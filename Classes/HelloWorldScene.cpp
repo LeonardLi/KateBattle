@@ -1,5 +1,5 @@
 #include "HelloWorldScene.h"
-#include "Classes/tools/JoyStick.h"
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -72,11 +72,6 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
-    auto joystick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
-    this->addChild(joystick);
-    joystick->setPosition(Vec2(200,200));
-    joystick->onDirection = CC_CALLBACK_1(HelloWorld::onDirectionChange, this);
-    joystick->onRun();
     return true;
 }
 
@@ -93,10 +88,4 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
-}
-
-void HelloWorld::onDirectionChange(JoystickEnum direction){
-    
-    
-    printf("%d",direction);
 }

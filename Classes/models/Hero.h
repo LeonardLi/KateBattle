@@ -11,10 +11,16 @@
 #include "Entity.h"
 class Hero : public Entity{
 public:
+	Hero();
+	static Hero* create(cocos2d::Sprite* sprite);
+	virtual bool init(cocos2d::Sprite* sprite);
+
+	static Hero* initFromJson();
 private:
 
 public:
 private:
+	CC_SYNTHESIZE(int, m_hp, Hp);
 };
 
 

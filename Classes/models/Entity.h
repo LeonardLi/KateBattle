@@ -12,16 +12,22 @@
 #include <stdio.h>
 #include <cocos2d.h>
 
-class Entity{
+class Entity:public cocos2d::Node{
 public:
     Entity();
-    virtual bool injectSprite(cocos2d::Sprite* injectSprite);
+	void bindSprite(cocos2d::Sprite* sprite);
+	cocos2d::Sprite* getSprite();
+	bool isDead();
+    //virtual bool injectSprite(cocos2d::Sprite* injectSprite)=0;
 protected:
+	void onDead();
 private:
 
 public:
 protected:
-    cocos2d::Sprite mViewSprite;
+    cocos2d::Sprite* mViewSprite;
+	bool m_isDead;
+
 private:
     
     
