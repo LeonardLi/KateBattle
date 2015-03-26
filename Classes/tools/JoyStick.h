@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 
-enum JoystickEnum
+enum class JoystickEnum
 {
     DEFAULT,
     D_UP,

@@ -6,7 +6,7 @@
 //
 //
 
-#include "tools/JoyStick.h"
+#include "JoyStick.h"
 USING_NS_CC;
 
 Joystick* Joystick::create(std::string chassisPath,std::string dotPath)
@@ -27,7 +27,7 @@ void Joystick::initWithJoystick(std::string chassisPath,std::string dotPath)
     isDieRadius = false;
     isAutoPosition = false;
     isMoveOut = false;
-    _direction = DEFAULT;
+    _direction = JoystickEnum::DEFAULT;
 
 }
 
@@ -141,35 +141,35 @@ void Joystick::changeAngle( Vec2 position )
     auto angle = CC_RADIANS_TO_DEGREES(position.getAngle());
     if(angle > -22.5 && angle < 22.5)
     {
-        _direction=D_RIGHT;
+        _direction=JoystickEnum::D_RIGHT;
     }
     else if(angle > 22.5 && angle < 67.5)
     {
-        _direction=D_RIGHT_UP;
+        _direction=JoystickEnum::D_RIGHT_UP;
     }
     else if(angle > 67.5 && angle < 112.5)
     {
-        _direction=D_UP;
+        _direction=JoystickEnum::D_UP;
     }
     else if(angle > 112.5 && angle < 157.5)
     {
-        _direction=D_LEFT_UP;
+        _direction=JoystickEnum::D_LEFT_UP;
     }
     else if((angle > 157.5 && angle < 180)||(angle < -157.5 && angle > -180))
     {
-        _direction=D_LEFT;
+        _direction=JoystickEnum::D_LEFT;
     }
     else if(angle < -112.5 && angle > -157.5)
     {
-        _direction=D_LEFT_DOWN;
+        _direction=JoystickEnum::D_LEFT_DOWN;
     }
     else if(angle < -67.5 && angle > -112.5)
     {
-        _direction=D_DOWN;
+        _direction=JoystickEnum::D_DOWN;
     }
     else if(angle < -22.5 && angle > -67.5)
     {
-        _direction=D_RIGHT_DOWN;
+        _direction=JoystickEnum::D_RIGHT_DOWN;
     }
     callDirectionFun();
 }
@@ -184,9 +184,9 @@ void Joystick::callDirectionFun()
 
 void Joystick::resetState()
 {
-    if(_direction != DEFAULT)
+    if(_direction != JoystickEnum::DEFAULT)
     {
-        _direction = DEFAULT;
+        _direction = JoystickEnum::DEFAULT;
         callDirectionFun();
     }
 }
