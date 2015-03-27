@@ -96,7 +96,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 }
 
 void HelloWorld::onDirectionChange(JoystickEnum direction){
-
-
-    printf("%d",direction);
+	log("%d\n", direction);
 }

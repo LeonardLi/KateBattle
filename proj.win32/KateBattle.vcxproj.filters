@@ -68,35 +68,35 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\scenes\HelloWorldScene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\tools\JoyStick.h">
+    <ClInclude Include="..\Classes\JoyStick.h">
       <Filter>src\tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\kernal\Kernal.h">
+    <ClInclude Include="..\Classes\JsonReader.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SoundsController.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Entity.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Hero.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Kernal.h">
       <Filter>src\kernal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\models\Entity.h">
-      <Filter>src\models</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\models\Hero.h">
-      <Filter>src\models</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\models\Monster.h">
-      <Filter>src\models</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\tools\JsonReader.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\tools\SoundsController.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\MenuScene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\GameScene.h">
-      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
