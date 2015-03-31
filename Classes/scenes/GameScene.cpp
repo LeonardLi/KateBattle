@@ -9,9 +9,14 @@
 #include "StateAttack.h"
 #include "StateUseSkill.h"
 #include "MonsterFSM.h"
-USING_NS_CC;
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
+#include "VisibleRect.h"
 
-enum  class EnumMsgType;
+
+USING_NS_CC;
+using namespace ui;
+
 
 #define COLLIDEMARGIN 30
 
@@ -52,12 +57,20 @@ bool GameScene::init()
                                            "CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(GameScene::menuCloseCallback, this));
+    
+    auto popupItem = MenuItemImage::create(
+                                           "CloseNormal.png",
+                                           "CloseSelected.png",
+                                           CC_CALLBACK_1(GameScene::_popupEquitmentMenu, this));
+    
 
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
+    popupItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+                                origin.y + closeItem->getContentSize().height*2));
 
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
+    auto menu = Menu::create(closeItem, popupItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
@@ -87,7 +100,7 @@ bool GameScene::init()
 
 	m_hero = Hero::create(Sprite::create("wolf.png"));
 	m_hero->setPosition(200, 200);
-	this->addChild(m_hero, 1);
+	this->addChild(m_hero, 0);
 
 
     m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
@@ -101,7 +114,7 @@ bool GameScene::init()
 
 
 	m_monsterMgr = MonsterManager::createWithLevel(11);
-	this->addChild(m_monsterMgr);
+	this->addChild(m_monsterMgr, 0);
 
 	this->scheduleUpdate();
 
@@ -110,22 +123,22 @@ bool GameScene::init()
 
 	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
 	
-	//��ȡjson�ļ�
-	//���ݴ���Ĳ�ͬ�Ĺؿ�ֵ
-	//���뱳��(�ؿ���ֵ��ӦͼƬ)
-	//������ϷUI
-	//���뱳������
-	//����Ӣ�ۣ�Ӣ�۸������ԡ�װ������Ʒ�����ܣ�
-	//���벻ͬ����
+	//∂¡»°jsonŒƒº˛
+	//∏˘æ›¥´»Îµƒ≤ªÕ¨µƒπÿø®÷µ
+	//‘ÿ»Î±≥æ∞(πÿø® ˝÷µ∂‘”¶Õº∆¨)
+	//‘ÿ»Î”Œœ∑UI
+	//‘ÿ»Î±≥æ∞∂Øª≠
+	//‘ÿ»Î”¢–€£®”¢–€∏˜÷÷ Ù–‘°¢◊∞±∏°¢ŒÔ∆∑°¢ººƒ‹£©
+	//‘ÿ»Î≤ªÕ¨π÷ŒÔ
 	//auto monsterMgr = MonsterManager::createWithLevel(level,=====!!!Map!!!====);
 
-	//��Ϸ�߼�update();
+	//”Œœ∑¬ﬂº≠update();
 
 
-	//�ؿ�������
-	//дJSON�ļ�
-	//��������(��һ�ء������桢���˵�)
-	//ɾ��֮ǰ����Ԫ�أ������У�
+	//πÿø®Ω· ¯∫Û
+	//–¥JSONŒƒº˛
+	//µØ≥ˆΩÁ√Ê(œ¬“ªπÿ°¢÷ÿ–¬ÕÊ°¢÷˜≤Àµ•)
+	//…æ≥˝÷Æ«∞ΩÁ√Ê‘™Àÿ£® ˝◊È÷–£©
     return true;
 }
 
@@ -214,44 +227,121 @@ void GameScene::postBossUseSkillNotification(float dt){
 
 }
 
-void GameScene::_popupEquitmentMenu(){
+void GameScene::_popupEquitmentMenu(cocos2d::Ref* sender){
+    Director::getInstance()->pause();
+    EquipmentLayer* eqLayer = EquipmentLayer::create();
+    this->addChild(eqLayer);
+}
+
+void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
 
 }
 
-void GameScene::_popupSetupMenu(){
+void GameScene::_popupInventoryMenu(cocos2d::Ref* sender){
 
 }
 
-void GameScene::_popupInventoryMenu(){
-
-}
-
-void GameScene::_popupWinLayer(){
+void GameScene::_popupWinLayer(cocos2d::Ref* sender){
 
 }
 
 //////////////////////////////////////////////////////////////////////////
+
 
 void PopupLayer::onEnter(){
-	Action* popupMenu = CCSequence::create(CCScaleTo::create(0.0f, 0.0f)
-		, CCScaleTo::create(0.06f, 1.05f)
-		, CCScaleTo::create(0.08f, 0.95f)
-		, CCScaleTo::create(0.08f, 1.0f)
-		, NULL);
+    Layer::onEnter();
+}
+
+void PopupLayer::onExit(){
+    Layer::onExit();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EquipmentLayer::EquipmentLayer(){
+EquipmentLayer::EquipmentLayer():
+m__pMenu(NULL)
+{
 }
 
 EquipmentLayer::~EquipmentLayer(){
+    CC_SAFE_RELEASE(m__pMenu);
 }
 
-void EquipmentLayer::loadPic(std::string csbfile){
-	
+void EquipmentLayer::loadPicFromCSB(std::string csbfile){
+    auto rootNode = CSLoader::createNode(csbfile);
+    rootNode->setPosition(VisibleRect::center());
+    this->addChild(rootNode, 2);
+    Button* button = static_cast<Button*>(rootNode->getChildByName("Button"));
+    button->addClickEventListener(CC_CALLBACK_1(EquipmentLayer::_ClickCallBack, this));
+
+    
 }
 
 bool EquipmentLayer::init(){
+    if (LayerColor::init()) {
+        return false;
+    }
+    
+    Menu* menu = Menu::create();
+    menu->setPosition(CCPointZero);
+    setMenuButton(menu);
+    
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    listener->onTouchBegan = CC_CALLBACK_2(EquipmentLayer::onTouchBegan, this);
+    listener->onTouchEnded = CC_CALLBACK_2(EquipmentLayer::onTouchEnded, this);
+    listener->onTouchMoved = CC_CALLBACK_2(EquipmentLayer::onTouchMoved, this);
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
+    
+    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    
+    
+    setColor(ccc3(0, 0, 0));
+    setOpacity(128);
+    loadPicFromCSB("Node.csb");
 	return true;
+}
+
+void EquipmentLayer::onEnter(){
+    log("Equipment onEnter==================1");
+    PopupLayer::onEnter();
+    log("Equipment onEnter==================2");
+    Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
+                                           , ScaleTo::create(0.06f, 1.05f)
+                                           , ScaleTo::create(0.08f, 0.95f)
+                                           , ScaleTo::create(0.08f, 1.0f)
+                                           , NULL);
+    this->runAction(popupMenu);
+}
+
+void EquipmentLayer::onExit(){
+    PopupLayer::onExit();
+}
+
+void EquipmentLayer::_ClickCallBack(cocos2d::Ref* sender){
+    
+    Node* node = dynamic_cast<Node*>(sender);
+    
+    log("click the button %d",node->getTag());
+    
+    if(m_callbackListener && m_callback){
+        (m_callbackListener->*m_callback)(node);
+    }
+}
+
+void EquipmentLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
+    m_callbackListener = target;
+    m_callback = callFun;
+}
+
+bool EquipmentLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
+    return true;
+}
+
+void EquipmentLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+
+void EquipmentLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+
 }

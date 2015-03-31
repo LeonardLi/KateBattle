@@ -12,7 +12,7 @@
 #include "SimpleAudioEngine.h"
 
 
-class CocosDenshion::SimpleAudioEngine;
+
 
 class SoundsController:public CocosDenshion::SimpleAudioEngine{
 public:

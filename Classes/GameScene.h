@@ -39,10 +39,10 @@ private:
 
 
 	/*popup menu callback*/
-	void _popupEquitmentMenu();
-	void _popupSetupMenu();
-	void _popupInventoryMenu();
-	void _popupWinLayer();
+    void _popupEquitmentMenu(cocos2d::Ref* sender);
+	void _popupSetupMenu(cocos2d::Ref* sender);
+	void _popupInventoryMenu(cocos2d::Ref* sender);
+	void _popupWinLayer(cocos2d::Ref* sender);
 
 	/*Joystick callback*/
 	void onDirectionChange(JoystickEnum);
@@ -78,14 +78,15 @@ Author: xiaoDe
 Function: basic class for popuplayer
 Date: 2015/4/10
 *//************************************************************************/
-class PopupLayer :public cocos2d::Layer{
+class PopupLayer :public cocos2d::LayerColor{
 public: 	
 
-	virtual void loadPic(std::string) = 0;
-
+	virtual void loadPicFromCSB(std::string) = 0;
 protected:
 
 	virtual void onEnter();
+    virtual void onExit();
+    
 };
 
 /************************************************************************/
@@ -97,15 +98,31 @@ Date: 2015/4/10
 *//************************************************************************/
 class EquipmentLayer : public PopupLayer{
 public:
-	virtual void loadPic(std::string csbfile);
+	virtual void loadPicFromCSB(std::string csbfile);
 
 	CREATE_FUNC(EquipmentLayer);
 
 	virtual bool init();
-
+    virtual void onEnter();
+    virtual void onExit();
+    
+    //touch时间监听，屏蔽向下触摸
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    
+    void _ClickCallBack(cocos2d::Ref* sender);
+    void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
+    
 private:
 	EquipmentLayer();
 	~EquipmentLayer();
+    
+    cocos2d::Ref* m_callbackListener;
+    cocos2d::SEL_CallFuncN m_callback;
+    
+    CC_SYNTHESIZE_RETAIN(cocos2d::Menu*, m__pMenu, MenuButton);
+
 };
 
 /************************************************************************/

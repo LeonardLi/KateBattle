@@ -5,7 +5,7 @@
 //  Created by Leonard on 15/3/19.
 //
 //
-
+#include "cocos2d.h"
 #include "Kernal.h"
 #include "JsonReader.h"
 #include "GameScene.h"

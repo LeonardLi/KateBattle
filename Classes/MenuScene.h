@@ -18,7 +18,9 @@ public:
 
 private:
 	virtual bool init();
-	void menuCloseCallback(Ref* pSender);
+    void menuCloseCallback(cocos2d::Ref* pSender);
+    
+    
 };
 
 #endif /* defined(__KateBattle__MenuScene__) */

@@ -25,7 +25,6 @@ public:
     
 private:
 	Kernal();
-
 	~Kernal();
 	
 	bool _initFromFile();
