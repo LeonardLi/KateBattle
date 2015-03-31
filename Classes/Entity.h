@@ -12,15 +12,24 @@
 #include <stdio.h>
 #include <cocos2d.h>
 
-class Entity:public cocos2d::Node{
+class Entity:public cocos2d::Node
+{
 public:
     Entity();
+	//绑定精灵
 	void bindSprite(cocos2d::Sprite* sprite);
+	//获取绑定精灵
 	cocos2d::Sprite* getSprite();
+	//是否死亡
 	bool isDead();
+	//受到攻击时逻辑函数
+	void hurtMe(int iHurtValue);
     //virtual bool injectSprite(cocos2d::Sprite* injectSprite)=0;
 protected:
-	void onDead();
+	//死亡时行为函数
+	virtual void onDead();
+	//受到攻击时行为函数
+	virtual void onHurt();
 private:
 
 public:
@@ -29,7 +38,7 @@ protected:
 	bool m_isDead;
 
 private:
-    
+
     
 };
 

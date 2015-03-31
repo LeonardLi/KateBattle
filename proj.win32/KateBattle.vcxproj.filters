@@ -60,6 +60,18 @@
     <ClCompile Include="..\Classes\scenes\GameScene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\SceneMgr.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\models\Equipment.cpp">
+      <Filter>src\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\models\Iventory.cpp">
+      <Filter>src\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\ControllerMoveBase.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -97,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Kernal.h">
       <Filter>src\kernal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tools\SceneMgr.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\models\Equipment.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\models\Iventory.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tools\ControllerMoveBase.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@
 #include "Hero.h"
 USING_NS_CC;
 Hero::Hero(){
-
+	m_moveController = nullptr;
 }
 
 Hero* Hero::create(Sprite* sprite){
@@ -31,8 +31,11 @@ bool Hero::init(Sprite* sprite){
 	{
 		CC_BREAK_IF(!sprite);
 		bindSprite(sprite);
+		m_moveController = ControllerMoveBase::create(this);
+		this->addChild(m_moveController);
 		bRet = true;
 	} while (0);
 
 	return bRet;
 }
+

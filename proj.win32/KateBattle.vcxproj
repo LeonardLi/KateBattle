@@ -140,13 +140,17 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\kernal\Kernal.cpp" />
     <ClCompile Include="..\Classes\models\Entity.cpp" />
+    <ClCompile Include="..\Classes\models\Equipment.cpp" />
     <ClCompile Include="..\Classes\models\Hero.cpp" />
+    <ClCompile Include="..\Classes\models\Iventory.cpp" />
     <ClCompile Include="..\Classes\models\Monster.cpp" />
     <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
     <ClCompile Include="..\Classes\scenes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\scenes\MenuScene.cpp" />
+    <ClCompile Include="..\Classes\tools\ControllerMoveBase.cpp" />
     <ClCompile Include="..\Classes\tools\JoyStick.cpp" />
     <ClCompile Include="..\Classes\tools\JsonReader.cpp" />
+    <ClCompile Include="..\Classes\tools\SceneMgr.cpp" />
     <ClCompile Include="..\Classes\tools\SoundsController.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -160,8 +164,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\JsonReader.h" />
     <ClInclude Include="..\Classes\Kernal.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
+    <ClInclude Include="..\Classes\models\Equipment.h" />
+    <ClInclude Include="..\Classes\models\Iventory.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\SoundsController.h" />
+    <ClInclude Include="..\Classes\tools\ControllerMoveBase.h" />
+    <ClInclude Include="..\Classes\tools\SceneMgr.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

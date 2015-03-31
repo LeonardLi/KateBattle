@@ -9,14 +9,21 @@
 #include "Entity.h"
 USING_NS_CC;
 
-Entity::Entity(){
+Entity::Entity()
+{
+	this->mViewSprite = nullptr;
+}
+
+Sprite* Entity::getSprite()
+{
+	return mViewSprite;
 
 }
 
 void Entity::bindSprite(Sprite* sprite)
 {
-	if (this->mViewSprite!= NULL)
-		mViewSprite->removeFromParentAndCleanup(true);
+	if (this->mViewSprite != nullptr)
+	mViewSprite->removeFromParentAndCleanup(true);
 
 	this->mViewSprite = sprite;
 	this->addChild(mViewSprite);
@@ -33,4 +40,42 @@ bool Entity::isDead()
 
 void Entity::onDead()
 {
+	//死亡时行为
+}
+
+void Entity::onHurt()
+{
+	//被攻击时行为
+}
+
+
+
+void Entity::hurtMe(int iHurtValue){
+	if (m_isDead)
+	{
+		return;
+	}
+
+	/*
+	if(iHurtValue<=getDefense())
+	{
+	iHurtValue=1;
+	}
+	//设置血量
+	int iCurHp = getiHp();
+	int iAfterHp = iCurHp - iHurtValue; 
+
+	onHurt(iHurtValue);
+
+	if(iAfterHp>0)
+	{
+	setHp(iAfterHp);
+	}
+	//死亡
+	else
+	{
+	m_isDead=true;
+	onDead();
+	}
+	*/
 }

@@ -1,5 +1,8 @@
 #include "HelloWorldScene.h"
 #include "JoyStick.h"
+#include "Hero.h"
+#include "cocos2d.h"
+#include "ControllerMoveBase.h"
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -72,10 +75,17 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
 
+	hero = Hero::create(Sprite::create("wolf.png"));
+	hero->setPosition(200, 200);
+	this->addChild(hero, 1);
+
+
     auto joystick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
     this->addChild(joystick);
     joystick->setPosition(Vec2(200,200));
     joystick->onDirection = CC_CALLBACK_1(HelloWorld::onDirectionChange, this);
+
+
     joystick->onRun();
     return true;
 }
@@ -95,6 +105,8 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-void HelloWorld::onDirectionChange(JoystickEnum direction){
+JoystickEnum HelloWorld::onDirectionChange(JoystickEnum direction){
 	log("%d\n", direction);
+	hero->m_moveController->simpleMove(direction);
+	return direction;
 }

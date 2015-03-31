@@ -40,7 +40,7 @@ public:
     /** 是否自由变换摇杆器的位置，即在屏幕上每一次按下鼠标时的坐标将是摇杆器的坐标，移动时将不改变摇杆器坐标，直到下次按下鼠标 */
     void setAutoPosition(bool value);
     /** 回调函数指针 */
-    std::function<void(JoystickEnum)> onDirection;
+	std::function<JoystickEnum(JoystickEnum)> onDirection;
     /** 静态创建函数（需要传入底盘和触点图片路径） */
     static Joystick* create(std::string chassisPath,std::string dotPath);
     /** 初始化摇杆器（需要传入底盘和触点图片路径） */

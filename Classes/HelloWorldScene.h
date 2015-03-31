@@ -2,7 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-
+class Hero;
 enum class JoystickEnum;
 
 class HelloWorld : public cocos2d::Layer
@@ -20,7 +20,10 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
-    void onDirectionChange(JoystickEnum);
+	JoystickEnum onDirectionChange(JoystickEnum);
+
+private:
+	Hero* hero;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
