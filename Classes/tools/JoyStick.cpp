@@ -7,6 +7,7 @@
 //
 
 #include "JoyStick.h"
+#include "cocos2d.h"
 USING_NS_CC;
 
 Joystick* Joystick::create(std::string chassisPath,std::string dotPath)
@@ -51,10 +52,10 @@ bool Joystick::onTouchBegan(Touch* touch,Event* event)
     }
     if( isAutoPosition==false && isDieRadius )
     {
-        if( locationInNode.getLength() > _radius )
-        {
-            return false;
-        }
+		 if( locationInNode.getLength() > _radius )
+		 {
+		 return false;
+		 }
     }
     _touchDot->setPosition(locationInNode);
     if( locationInNode.getLength() > _failradius )
@@ -69,16 +70,28 @@ void Joystick::onTouchMoved(Touch* touch,Event* event)
     Vec2 locationInNode = this->convertToNodeSpace(touch->getLocation());
     if( isDieRadius )
     {
-        if( locationInNode.getLength() < _radius )
-        {
-            if( isMoveOut )
-            {
-                _touchDot->setPosition(locationInNode);
-                isMoveOut = false;
-            }
-            setTouchDotPosition(locationInNode,_touchDot->getPosition() + touch->getDelta());
-            return;
-        }
+		if (locationInNode.getLength() < _radius)
+		{
+			if (isMoveOut)
+			{
+				_touchDot->setPosition(locationInNode);
+				isMoveOut = false;
+			}
+			setTouchDotPosition(locationInNode, _touchDot->getPosition() + touch->getDelta());
+			return;
+		}	
+		else if (locationInNode.getLength() > _radius+120)
+		{
+			_touchDot->setPosition(0, 0);
+			resetState();
+		}
+		else
+		{	
+			setTouchDotPosition(locationInNode, _touchDot->getPosition() + touch->getDelta());
+			_touchDot->setPosition(locationInNode.x / (locationInNode.getLength() / _radius), locationInNode.y / (locationInNode.getLength() / _radius));
+			return;
+		}
+
     }
     else
     {
@@ -87,8 +100,8 @@ void Joystick::onTouchMoved(Touch* touch,Event* event)
     }
     
     isMoveOut = true;
-    _touchDot->setPosition(0,0);
-    resetState();
+	
+    
 }
 
 void Joystick::onTouchEnded(Touch* touch,Event* event)

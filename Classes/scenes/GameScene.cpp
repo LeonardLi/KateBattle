@@ -80,11 +80,11 @@ bool GameScene::init()
 	this->addChild(m_hero, 1);
 
 
-     m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
+    m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
     this->addChild(m_stick);
     m_stick->setPosition(Vec2(200,200));
-	m_stick->setDieRadius(100);
-	m_stick->setFailRadius(30);
+	m_stick->setDieRadius(120);
+	m_stick->setFailRadius(0);
 
 	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
 
