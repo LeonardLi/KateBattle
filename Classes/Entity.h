@@ -8,8 +8,6 @@
 
 #ifndef __KateBattle__Entity__
 #define __KateBattle__Entity__
-
-#include <stdio.h>
 #include <cocos2d.h>
 
 class Entity:public cocos2d::Node
@@ -24,13 +22,13 @@ public:
 	bool isDead();
 	//受到攻击时逻辑函数
 	void hurtMe(int iHurtValue);
-    //virtual bool injectSprite(cocos2d::Sprite* injectSprite)=0;
+
 protected:
 	//死亡时行为函数
-	virtual void onDead();
+	virtual void onDead() = 0;
 	//受到攻击时行为函数
-	virtual void onHurt();
-private:
+	virtual void onHurt() = 0;
+private: 
 
 public:
 protected:

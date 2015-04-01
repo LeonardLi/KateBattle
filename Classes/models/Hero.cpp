@@ -54,3 +54,11 @@ void Hero::update(float dt){
 void Hero::ChangeDirection(JoystickEnum direction){
 	m_direction = direction;
 }
+
+void Hero::onDead(){
+
+}
+
+void Hero::onHurt(){
+	
+}

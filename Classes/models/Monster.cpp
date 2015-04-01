@@ -7,3 +7,11 @@
 //
 
 #include "Monster.h"
+
+void Monster::onDead(){
+	CCASSERT(false," ");
+}
+
+void Monster::onHurt(){
+	CCASSERT(false, " ");
+}

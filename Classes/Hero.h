@@ -13,18 +13,31 @@ class ControllerMoveBase;
 enum class JoystickEnum;
 
 class Hero : public Entity{
+
 public:
 	void ChangeDirection(JoystickEnum direction);
+	
 	static Hero* create(cocos2d::Sprite* sprite);
+	
 	Hero* initFromJson();
 
+	virtual void onDead();
+	
+	virtual void onHurt();
 private:
 	Hero();
-	virtual bool init(cocos2d::Sprite* sprite);
-	ControllerMoveBase* m_moveController;
+
+	bool init(cocos2d::Sprite* sprite);
+	
 	virtual void update(float dt);
+	
+public:
+
+private:
+	ControllerMoveBase* m_moveController;
 
 	CC_SYNTHESIZE(int, m_hp, Hp);
+
 	JoystickEnum m_direction;
 };
 

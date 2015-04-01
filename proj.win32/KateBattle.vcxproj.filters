@@ -101,20 +101,20 @@
     <ClInclude Include="..\Classes\Kernal.h">
       <Filter>src\kernal</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\tools\SceneMgr.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\models\Equipment.h">
-      <Filter>src\models</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\models\Iventory.h">
-      <Filter>src\models</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ControllerMoveBase.h">
       <Filter>src\tools</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene.h">
       <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Equipment.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Iventory.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SceneMgr.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

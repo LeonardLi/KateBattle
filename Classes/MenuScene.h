@@ -9,6 +9,6 @@
 #ifndef __KateBattle__MenuScene__
 #define __KateBattle__MenuScene__
 
-#include <stdio.h>
+#include <cocos2d.h>
 
 #endif /* defined(__KateBattle__MenuScene__) */

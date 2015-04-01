@@ -1,24 +1,25 @@
-#ifndef __KateBattle__ControllerMoveBase__
-#define __KateBattle__ControllerMoveBase__
-
+#pragma once
 #include "cocos2d.h"
 
-
-
 enum class JoystickEnum;
-class Entity;
+class Hero;
 
 class ControllerMoveBase{
 public:
+
 	ControllerMoveBase();
+
 	~ControllerMoveBase();
-	CC_SYNTHESIZE(int, m_iSpeed, iSpeed);
+
 	void simpleMove(JoystickEnum direction);
-	bool init(Entity* entity);
-	static ControllerMoveBase* create(Entity* entity);
-protected:
-	Entity* m_entity;
+
+	static ControllerMoveBase* create(Hero* hero);
+
+private:
+
+	bool init(Hero* hero);
 	bool m_isMoving;
+	CC_SYNTHESIZE(int, m_iSpeed, iSpeed);
+	Hero* m_hero;
 	JoystickEnum heroDirection;
 };
-#endif

@@ -1,19 +1,18 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
-
+#pragma once
 #include "cocos2d.h"
+
 class Hero;
 enum class JoystickEnum;
 class Joystick;
 
-class HelloWorld : public cocos2d::Layer
+class GameScene : public cocos2d::Layer
 {
 public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
 
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(GameScene);
 
 
 
@@ -29,4 +28,4 @@ private:
 
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+

@@ -5,13 +5,13 @@
 #include "ControllerMoveBase.h"
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
+Scene* GameScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
 
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+    auto layer = GameScene::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -21,7 +21,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -41,7 +41,7 @@ bool HelloWorld::init()
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));
 
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
@@ -86,7 +86,7 @@ bool HelloWorld::init()
 	m_stick->setDieRadius(100);
 	m_stick->setFailRadius(30);
 
-	m_stick->onDirection = CC_CALLBACK_1(HelloWorld::onDirectionChange, this);
+	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
 
 
     m_stick->onRun();
@@ -96,14 +96,14 @@ bool HelloWorld::init()
 
 
 
-void  HelloWorld::onDirectionChange(JoystickEnum direction){
+void  GameScene::onDirectionChange(JoystickEnum direction){
 	log("%d", direction);
 	m_hero->ChangeDirection(direction);
 
 }
 
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void GameScene::menuCloseCallback(Ref* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");

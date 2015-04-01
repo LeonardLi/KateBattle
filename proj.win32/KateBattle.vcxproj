@@ -157,17 +157,17 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\ControllerMoveBase.h" />
     <ClInclude Include="..\Classes\Entity.h" />
+    <ClInclude Include="..\Classes\Equipment.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\Hero.h" />
+    <ClInclude Include="..\Classes\Iventory.h" />
     <ClInclude Include="..\Classes\JoyStick.h" />
     <ClInclude Include="..\Classes\JsonReader.h" />
     <ClInclude Include="..\Classes\Kernal.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
-    <ClInclude Include="..\Classes\models\Equipment.h" />
-    <ClInclude Include="..\Classes\models\Iventory.h" />
     <ClInclude Include="..\Classes\Monster.h" />
+    <ClInclude Include="..\Classes\SceneMgr.h" />
     <ClInclude Include="..\Classes\SoundsController.h" />
-    <ClInclude Include="..\Classes\tools\SceneMgr.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

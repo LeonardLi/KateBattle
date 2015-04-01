@@ -8,21 +8,18 @@
 
 #include "JsonReader.h"
 
-JsonReader* JsonReader::m_jsonReader =NULL;
+JsonReader* JsonReader::m_jsonReader = nullptr;
 
 JsonReader* JsonReader::getInstance(){
 
-	if (m_jsonReader==NULL)
+	if (m_jsonReader == nullptr)
 	{
 		m_jsonReader = new JsonReader();
-		if (m_jsonReader&&m_jsonReader->init()){
-			m_jsonReader->autorelease();
-			m_jsonReader->retain();
+		if (m_jsonReader && m_jsonReader->init()){
 		}
 		else
 		{
 			CC_SAFE_DELETE(m_jsonReader);
-			m_jsonReader = NULL;
 		}
 
 	}

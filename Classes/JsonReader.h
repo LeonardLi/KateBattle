@@ -9,10 +9,9 @@
 #ifndef __KateBattle__JsonReader__
 #define __KateBattle__JsonReader__
 
-#include <stdio.h>
 #include "cocos2d.h"
 
-class JsonReader : public cocos2d::Node{
+class JsonReader{
 
 public:
 	JsonReader* getInstance();

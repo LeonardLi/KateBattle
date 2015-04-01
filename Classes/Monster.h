@@ -13,7 +13,10 @@
 #include "Entity.h"
 
 class Monster : public Entity{
-    
+public:
+	virtual void onDead();
+	virtual void onHurt();
+private:
 };
 
 #endif /* defined(__KateBattle__Monster__) */
