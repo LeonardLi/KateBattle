@@ -7,9 +7,12 @@
 //
 
 #include "Hero.h"
+#include "ControllerMoveBase.h"
+#include "JoyStick.h"
 USING_NS_CC;
+
 Hero::Hero(){
-	m_moveController = nullptr;
+
 }
 
 Hero* Hero::create(Sprite* sprite){
@@ -27,15 +30,27 @@ Hero* Hero::create(Sprite* sprite){
 
 bool Hero::init(Sprite* sprite){
 	bool bRet = false;
+	m_moveController = nullptr;
+	m_direction = JoystickEnum::DEFAULT;
+
 	do 
 	{
 		CC_BREAK_IF(!sprite);
 		bindSprite(sprite);
 		m_moveController = ControllerMoveBase::create(this);
-		this->addChild(m_moveController);
 		bRet = true;
 	} while (0);
-
+	this->scheduleUpdate();
 	return bRet;
 }
 
+
+
+void Hero::update(float dt){
+	m_moveController->simpleMove(m_direction);
+}
+
+
+void Hero::ChangeDirection(JoystickEnum direction){
+	m_direction = direction;
+}

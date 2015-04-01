@@ -9,19 +9,23 @@
 #ifndef __KateBattle__Hero__
 #define __KateBattle__Hero__
 #include "Entity.h"
-#include "ControllerMoveBase.h"
+class ControllerMoveBase;
+enum class JoystickEnum;
+
 class Hero : public Entity{
 public:
-	Hero();
+	void ChangeDirection(JoystickEnum direction);
 	static Hero* create(cocos2d::Sprite* sprite);
+	Hero* initFromJson();
+
+private:
+	Hero();
 	virtual bool init(cocos2d::Sprite* sprite);
-	static Hero* initFromJson();
-private:
-	CC_SYNTHESIZE(int, m_hp, Hp);
-public:
 	ControllerMoveBase* m_moveController;
-private:
-	
+	virtual void update(float dt);
+
+	CC_SYNTHESIZE(int, m_hp, Hp);
+	JoystickEnum m_direction;
 };
 
 

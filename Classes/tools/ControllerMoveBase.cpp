@@ -1,4 +1,7 @@
 #include "ControllerMoveBase.h"
+#include "Entity.h"
+#include "JoyStick.h"
+#define SPEED 1
 USING_NS_CC;
 ControllerMoveBase::ControllerMoveBase(){
 	m_isMoving = false;
@@ -14,7 +17,6 @@ ControllerMoveBase* ControllerMoveBase::create(Entity* entity){
 	ControllerMoveBase* ctrMoveBase = new ControllerMoveBase();
 
 	if (ctrMoveBase&&ctrMoveBase->init(entity)){
-		ctrMoveBase->autorelease();
 	}
 	else{
 		CC_SAFE_DELETE(ctrMoveBase);
@@ -33,16 +35,12 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 	if (sprite != nullptr)
 	{
 		heroDirection = direction;
-		this->scheduleUpdate();
 	}
-				
-}
 
-void ControllerMoveBase::update(float dt){
 	Point pos = m_entity->getPosition();
 	switch (heroDirection)
 	{
-	
+
 	case JoystickEnum::D_UP:
 		m_entity->setPosition(pos.x, pos.y + SPEED);
 		break;
@@ -69,10 +67,9 @@ void ControllerMoveBase::update(float dt){
 		break;
 	case JoystickEnum::DEFAULT:
 		break;
-	
+
 
 
 	}
-
-
+				
 }

@@ -30,9 +30,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scenes\HelloWorldScene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\tools\JoyStick.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
     <ClCompile Include="..\Classes\scenes\MenuScene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scenes\GameScene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\tools\SceneMgr.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
@@ -71,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\tools\ControllerMoveBase.cpp">
       <Filter>src\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\GameScene.cpp">
+      <Filter>src\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,12 +85,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SoundsController.h">
       <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameScene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src\scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src\scenes</Filter>
@@ -119,8 +110,11 @@
     <ClInclude Include="..\Classes\models\Iventory.h">
       <Filter>src\models</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\tools\ControllerMoveBase.h">
+    <ClInclude Include="..\Classes\ControllerMoveBase.h">
       <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
