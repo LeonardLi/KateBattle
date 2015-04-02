@@ -5,15 +5,22 @@
 //  Created by Leonard on 15/3/20.
 //
 //
-
-#include "JoyStick.h"
 #include "cocos2d.h"
+#include "JoyStick.h"
+
 USING_NS_CC;
 
 Joystick* Joystick::create(std::string chassisPath,std::string dotPath)
 {
     auto joystick = new(std::nothrow)Joystick();
-    joystick->initWithJoystick(chassisPath,dotPath);
+	if (joystick)
+	{
+		joystick->initWithJoystick(chassisPath, dotPath);
+	}
+	else{
+		CC_SAFE_DELETE(joystick);
+	}
+    
     return joystick;
     
 }
@@ -29,6 +36,7 @@ void Joystick::initWithJoystick(std::string chassisPath,std::string dotPath)
     isAutoPosition = false;
     isMoveOut = false;
     _direction = JoystickEnum::DEFAULT;
+	_effectiveradius = 120.0f;
 
 }
 
@@ -42,15 +50,16 @@ void Joystick::onRun()
     this->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener,this);
 }
 
-bool Joystick::onTouchBegan(Touch* touch,Event* event)
+bool Joystick::onTouchBegan(Touch* touch, Event* event)
 {
     Vec2 locationInNode = this->convertToNodeSpace(touch->getLocation());
+
     if( isAutoPosition )
     {
         this->setPosition(touch->getLocation());
         return true;
     }
-    if( isAutoPosition==false && isDieRadius )
+    if( isAutoPosition == false && isDieRadius )
     {
 		 if( locationInNode.getLength() > _radius )
 		 {
@@ -65,7 +74,7 @@ bool Joystick::onTouchBegan(Touch* touch,Event* event)
     return true;
 }
 
-void Joystick::onTouchMoved(Touch* touch,Event* event)
+void Joystick::onTouchMoved(Touch* touch, Event* event)
 {
     Vec2 locationInNode = this->convertToNodeSpace(touch->getLocation());
     if( isDieRadius )
@@ -80,7 +89,7 @@ void Joystick::onTouchMoved(Touch* touch,Event* event)
 			setTouchDotPosition(locationInNode, _touchDot->getPosition() + touch->getDelta());
 			return;
 		}	
-		else if (locationInNode.getLength() > _radius+120)
+		else if (locationInNode.getLength() > _radius + _effectiveradius)
 		{
 			_touchDot->setPosition(0, 0);
 			resetState();

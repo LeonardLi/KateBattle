@@ -5,7 +5,7 @@
 //  Created by Leonard on 15/3/20.
 //
 //
-#include "cocos2d.h"
+
 #ifndef __KateBattle__JoyStick__
 #define __KateBattle__JoyStick__
 
@@ -48,8 +48,10 @@ public:
 protected:
     /** 有效区域半径 */
     float _radius;
+	/** 摇杆实际有效半径*/
+	float _effectiveradius;
     /** 失效区域半径 */
-    float _failradius;
+	float _failradius;
     /** 是否移出有效区域 */
     bool isMoveOut;
     /** 是否存在有效区域半径 */

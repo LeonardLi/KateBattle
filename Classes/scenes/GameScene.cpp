@@ -3,6 +3,7 @@
 #include "Hero.h"
 #include "cocos2d.h"
 #include "ControllerMoveBase.h"
+#include "SoundsController.h"
 USING_NS_CC;
 
 Scene* GameScene::createScene()
@@ -87,8 +88,6 @@ bool GameScene::init()
 	m_stick->setFailRadius(0);
 
 	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
-
-
     m_stick->onRun();
     return true;
 }
