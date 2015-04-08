@@ -1,7 +1,10 @@
 #ifndef __KataBattle__StateAttack__
 #define __KataBattle__StateAttack__
 
-#include "I_State.h";
+#include "I_State.h"
+
+enum class EnumMsgType;
+
 class Monster;
 class StateAttack : public I_State{
 public:

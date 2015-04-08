@@ -6,7 +6,6 @@
 #include "JsonReader.h"
 #include "Monster.h"
 #include "MonsterManager.h"
-#include "LevelOneBoss.h"
 USING_NS_CC;
 
 #define COLLIDEMARGIN 30
