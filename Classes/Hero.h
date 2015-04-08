@@ -24,6 +24,12 @@ public:
 	virtual void onDead();
 	
 	virtual void onHurt();
+
+	void changeControlType(float dt);
+
+	void heroNotControl(float time);
+
+	void attack();
 private:
 	Hero();
 
@@ -31,7 +37,13 @@ private:
 	
 	virtual void update(float dt);
 	
+	
+
+	void changeStun(float dt);
+
+	void herostun(float time);
 public:
+	bool m_canControl;
 
 private:
 	ControllerMoveBase* m_moveController;
@@ -39,6 +51,10 @@ private:
 	CC_SYNTHESIZE(int, m_hp, Hp);
 
 	JoystickEnum m_direction;
+
+	int m_heroDirection;
+
+
 };
 
 

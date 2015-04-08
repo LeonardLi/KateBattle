@@ -1,9 +1,11 @@
 #pragma once
 #include "cocos2d.h"
-
+#include "ui/CocosGUI.h" 
 class Hero;
-enum class JoystickEnum;
+class MonsterManager;
 class Joystick;
+enum class JoystickEnum;
+
 
 class GameScene : public cocos2d::Layer
 {
@@ -14,10 +16,17 @@ public:
 
     CREATE_FUNC(GameScene);
 
+	virtual void update(float dt);
 
 
 private:
 	void menuCloseCallback(cocos2d::Ref* pSender);
+
+	void attackBtnOnClick(cocos2d::Ref* pSender,cocos2d::ui::Widget::TouchEventType type);
+
+	void skillBtn1OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
+	void skillBtn2OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
+	void skillBtn3OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
 
 	void onDirectionChange(JoystickEnum);
 
@@ -25,6 +34,7 @@ private:
 
 	Joystick* m_stick;
 
+	MonsterManager* m_monsterMgr;
 
 };
 

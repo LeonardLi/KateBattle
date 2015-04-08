@@ -14,9 +14,16 @@
 
 class Monster : public Entity{
 public:
+	static Monster* create(cocos2d::Sprite* sprite);
+	bool init(cocos2d::Sprite* sprite);
+protected:
 	virtual void onDead();
 	virtual void onHurt();
 private:
+	CC_SYNTHESIZE(int, m_monsterType, monsterType);
+	CC_SYNTHESIZE(int, m_Hp, Hp);
+	CC_SYNTHESIZE(int, m_Attack, Attack);
+
 };
 
 #endif /* defined(__KateBattle__Monster__) */

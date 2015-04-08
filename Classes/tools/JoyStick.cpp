@@ -97,7 +97,9 @@ void Joystick::onTouchMoved(Touch* touch, Event* event)
 		else
 		{	
 			setTouchDotPosition(locationInNode, _touchDot->getPosition() + touch->getDelta());
-			_touchDot->setPosition(locationInNode.x / (locationInNode.getLength() / _radius), locationInNode.y / (locationInNode.getLength() / _radius));
+			Point maxRange = Point(locationInNode.x / (locationInNode.getLength() / _radius), 
+				locationInNode.y / (locationInNode.getLength() / _radius));
+			_touchDot->setPosition(maxRange);
 			return;
 		}
 

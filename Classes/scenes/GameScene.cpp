@@ -3,8 +3,13 @@
 #include "Hero.h"
 #include "cocos2d.h"
 #include "ControllerMoveBase.h"
-#include "SoundsController.h"
+#include "JsonReader.h"
+#include "Monster.h"
+#include "MonsterManager.h"
+#include "LevelOneBoss.h"
 USING_NS_CC;
+
+#define COLLIDEMARGIN 30
 
 Scene* GameScene::createScene()
 {
@@ -85,22 +90,82 @@ bool GameScene::init()
     this->addChild(m_stick);
     m_stick->setPosition(Vec2(200,200));
 	m_stick->setDieRadius(120);
-	m_stick->setFailRadius(0);
-
+	m_stick->setFailRadius(0);	
 	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
     m_stick->onRun();
+
+	m_monsterMgr = MonsterManager::createWithLevel(11);
+	this->addChild(m_monsterMgr);
+
+	this->scheduleUpdate();
+
+	//读取json文件
+	//根据传入的不同的关卡值
+	//载入背景(关卡数值对应图片)
+	//载入游戏UI
+	//载入背景动画
+	//载入英雄（英雄各种属性、装备、物品、技能）
+	//载入不同怪物
+	//auto monsterMgr = MonsterManager::createWithLevel(level,=====!!!Map!!!====);
+
+	//游戏逻辑update();
+
+
+	//关卡结束后
+	//写JSON文件
+	//弹出界面(下一关、重新玩、主菜单)
+	//删除之前界面元素（数组中）
     return true;
 }
 
 
-
-
 void  GameScene::onDirectionChange(JoystickEnum direction){
-	log("%d", direction);
 	m_hero->ChangeDirection(direction);
+}
+
+void GameScene::attackBtnOnClick(Ref* Sender, ui::Widget::TouchEventType type){
+
+	m_hero->attack();
+	//check
+	//monsterMgr 
+		
+}
+
+void GameScene::skillBtn1OnClick(Ref* Sender, ui::Widget::TouchEventType type){
 
 }
 
+void GameScene::skillBtn2OnClick(Ref* Sender, ui::Widget::TouchEventType type){
+
+}
+
+void GameScene::skillBtn3OnClick(Ref* Sender, ui::Widget::TouchEventType type){
+
+}
+
+void GameScene::update(float dt){
+	for (auto monster : m_monsterMgr->getMonsterList())
+	{
+
+
+
+
+		/*Rect monsterRect = monster->getBoundingBox();
+		Rect monsterCollideRect = Rect(monsterRect.origin.x + COLLIDEMARGIN, monsterRect.origin.y + COLLIDEMARGIN,
+			monsterRect.size.width - 2 * COLLIDEMARGIN, monsterRect.size.height - 2 * COLLIDEMARGIN);
+		
+		Rect heroRect = m_hero->getBoundingBox();
+		if (monsterCollideRect.intersectsRect(heroRect)&&m_hero->m_canControl==true)
+		{
+			m_hero->heroNotControl(0.5f);
+			
+			m_hero->runAction(MoveBy::create(0.5, Vec2((m_hero->getPositionX()-monster->getPositionX())/2, (m_hero->getPositionY()-monster->getPositionY())/2)));
+
+			log("collide");
+		}*/
+
+	}
+}
 
 void GameScene::menuCloseCallback(Ref* pSender)
 {
@@ -115,3 +180,5 @@ void GameScene::menuCloseCallback(Ref* pSender)
 	exit(0);
 #endif
 }
+
+

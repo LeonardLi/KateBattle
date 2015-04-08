@@ -22,6 +22,9 @@
     <Filter Include="src\tools">
       <UniqueIdentifier>{358c92c2-3b27-4473-95b1-4b0086d6ff0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\tools\monsterState">
+      <UniqueIdentifier>{7868b766-7f1e-4618-b803-8dc2ded0a91f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,27 @@
     <ClCompile Include="..\Classes\scenes\GameScene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\MonsterManager.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\models\LevelOneBoss.cpp">
+      <Filter>src\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\MonsterFSM.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\StateAttack.cpp">
+      <Filter>src\tools\monsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StateUseSkill.cpp">
+      <Filter>src\tools\monsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\I_State.cpp">
+      <Filter>src\tools\monsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\EnumMsgType.cpp">
+      <Filter>src\tools\monsterState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -115,6 +139,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SceneMgr.h">
       <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterManager.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelOneBoss.h">
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterFSM.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StateAttack.h">
+      <Filter>src\tools\monsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StateUseSkill.h">
+      <Filter>src\tools\monsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\I_State.h">
+      <Filter>src\tools\monsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnumMsgType.h">
+      <Filter>src\tools\monsterState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,8 @@
 #include "Hero.h"
 #include "JoyStick.h"
 #define SPEED 1
+#define LEFT 0
+#define RIGHT 1
 USING_NS_CC;
 
 ControllerMoveBase::ControllerMoveBase(){
@@ -57,21 +59,27 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		m_hero->setPosition(pos.x, pos.y - SPEED);
 		break;
 	case JoystickEnum::D_LEFT:
+		m_hero->m_heroDirection = LEFT;
 		m_hero->setPosition(pos.x - SPEED, pos.y);
 		break;
 	case JoystickEnum::D_RIGHT:
+		m_hero->m_heroDirection = RIGHT;
 		m_hero->setPosition(pos.x + SPEED, pos.y);
 		break;
 	case JoystickEnum::D_LEFT_UP:
+		m_hero->m_heroDirection = LEFT;
 		m_hero->setPosition(pos.x - SPEED, pos.y + SPEED);
 		break;
 	case JoystickEnum::D_RIGHT_UP:
+		m_hero->m_heroDirection = RIGHT;
 		m_hero->setPosition(pos.x + SPEED, pos.y + SPEED);
 		break;
 	case JoystickEnum::D_LEFT_DOWN:
+		m_hero->m_heroDirection = LEFT;
 		m_hero->setPosition(pos.x - SPEED, pos.y - SPEED);
 		break;
 	case JoystickEnum::D_RIGHT_DOWN:
+		m_hero->m_heroDirection = RIGHT;
 		m_hero->setPosition(pos.x + SPEED, pos.y - SPEED);
 		break;
 	case JoystickEnum::DEFAULT:

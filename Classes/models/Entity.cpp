@@ -12,6 +12,7 @@ USING_NS_CC;
 Entity::Entity()
 {
 	this->mViewSprite = nullptr;
+	m_isDead = false;
 }
 
 Sprite* Entity::getSprite()
@@ -29,6 +30,7 @@ void Entity::bindSprite(Sprite* sprite)
 	this->addChild(mViewSprite);
 
 	Size size = mViewSprite->getContentSize();
+	mViewSprite->setPosition(Point(size.width*0.5f, size.height*0.5f));
 	this->setContentSize(size);
 
 }

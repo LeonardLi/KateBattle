@@ -10,6 +10,10 @@
 #define __KateBattle__Entity__
 #include <cocos2d.h>
 
+#define STUN 0
+#define NOTSTUN 1
+#define NOTSTUNFOREVER 2
+
 class Entity:public cocos2d::Node
 {
 public:
@@ -34,9 +38,9 @@ public:
 protected:
     cocos2d::Sprite* mViewSprite;
 	bool m_isDead;
-
+	int m_Stun;//3types
 private:
-
+	
     
 };
 
