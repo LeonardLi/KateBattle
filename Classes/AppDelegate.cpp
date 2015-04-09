@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "GameScene.h"
+#include "Kernal.h"
 
 USING_NS_CC;
 
@@ -31,17 +32,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    // turn on display FPS
-    director->setDisplayStats(true);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+	Kernal* GameKernal = Kernal::create();
 
-    // create a scene. it's an autorelease object
-    auto scene = GameScene::createScene();
+	GameKernal->startGame();
 
-    // run
-    director->runWithScene(scene);
 
     return true;
 }

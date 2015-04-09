@@ -87,6 +87,9 @@
     <ClCompile Include="..\Classes\models\StateUseSkill.cpp">
       <Filter>src\models\monsterState</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\SoundsDef.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MonsterFSM.h">
       <Filter>src\models\monsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SoundsDef.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

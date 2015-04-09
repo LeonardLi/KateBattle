@@ -11,17 +11,6 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-enum class MusicEnum{
-	MUSIC_1,
-	MUSIC_2,
-	MUSIC_COUNTS
-};
-
-enum class EffectsEnum{
-	EFFECT_1,
-	EFFECT_2,
-	EFFECT_3,
-};
 
 class CocosDenshion::SimpleAudioEngine;
 
@@ -29,9 +18,11 @@ class SoundsController:public CocosDenshion::SimpleAudioEngine{
 public:
 
 
-	char* getMusicFileName(MusicEnum);
+	char* getMusicFileName(std::string);
 
-	char* getEffectsFileName(EffectsEnum);
+	char* getEffectsFileName(std::string);
+
+
 
 
 };

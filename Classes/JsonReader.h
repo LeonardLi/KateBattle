@@ -16,7 +16,10 @@ class JsonReader{
 public:
 	static JsonReader* getInstance();
 	virtual bool init();
+
+	/*read Json from files*/
 	std::string readJson(std::string jsonPath);
+
 	void writeJson();
 public:
 	static JsonReader* m_jsonReader;

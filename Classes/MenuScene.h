@@ -11,4 +11,13 @@
 
 #include <cocos2d.h>
 
+class MenuScene : public cocos2d::Layer{
+public:
+	CREATE_FUNC(MenuScene);
+	static cocos2d::Scene* createScene();
+
+private:
+	virtual bool init();
+};
+
 #endif /* defined(__KateBattle__MenuScene__) */

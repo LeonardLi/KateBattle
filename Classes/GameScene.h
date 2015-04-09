@@ -12,7 +12,7 @@ class GameScene : public cocos2d::Layer
 public:
     static cocos2d::Scene* createScene();
 
-    virtual bool init();
+
 
     CREATE_FUNC(GameScene);
 
@@ -20,6 +20,9 @@ public:
 
 
 private:
+
+	virtual bool init();
+
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	void attackBtnOnClick(cocos2d::Ref* pSender,cocos2d::ui::Widget::TouchEventType type);

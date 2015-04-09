@@ -39,8 +39,8 @@ bool JsonReader::init(){
 }
 std::string JsonReader::readJson(std::string jsonPath){
 	rapidjson::Document doc;
-
 	SSIZE_T size;
+
 	unsigned char* ch = nullptr;
 	ch = FileUtils::getInstance()->getFileData(jsonPath, "r", &size);
 	if (ch != nullptr)

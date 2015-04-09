@@ -14,14 +14,20 @@
 class Kernal {
     
 public:
-    Kernal();
-    ~Kernal();
+
+	static Kernal* create();
+	
+	void startGame();
+
+	bool playCG();
     
-    void startGame();
-    void initFromFile();
+
     
 private:
-    
+	Kernal();
+	~Kernal();
+	
+	bool _initFromFile();
 };
 
 class GameController{

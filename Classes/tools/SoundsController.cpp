@@ -11,51 +11,30 @@
 
 using namespace CocosDenshion;
 
-char* SoundsController::getMusicFileName(MusicEnum musicType){
+char* SoundsController::getMusicFileName(std::string FileName){
 
 	std::string suffix = NULL;
-	std::string music = NULL;
+	std::string music = FileName;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	suffix = ".mp3";
 #else  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	suffix = ".mp3";
 #endif
-	switch (musicType)
-	{
-	case MusicEnum::MUSIC_1:
-
-		break;
-	case MusicEnum::MUSIC_2:
-		break;
-	case MusicEnum::MUSIC_COUNTS:
-		break;
-	default:
-		break;
-	}	
+	music = music + suffix;
 		return  const_cast<char*>(music.c_str());
 }
 
-char* SoundsController::getEffectsFileName(EffectsEnum effectType){
+char* SoundsController::getEffectsFileName(std::string FileName){
 
 	std::string suffix = NULL;
-	std::string effect = NULL;
+	std::string effect = FileName;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	suffix = ".wav";
 #else  (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	suffix = ".ogg";
 #endif
-	switch (effectType)
-	{
-	case EffectsEnum::EFFECT_1:
-		break;
-	case EffectsEnum::EFFECT_2:
-		break;
-	case EffectsEnum::EFFECT_3:
-		break;
-	default:
-		break;
-	}
+	effect = effect + suffix;
 	return const_cast<char*>(effect.c_str());
 }
