@@ -7,6 +7,8 @@ enum class EnumMsgType{
 
 	en_Msg_WantToUseSkill,
 	en_Msg_WantToAttack,
+	en_Msg_BossWantToAttack,
+	en_Msg_BossWantToUseSkill,
 	en_Msg_Count
 };
 

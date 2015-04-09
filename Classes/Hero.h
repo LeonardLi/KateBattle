@@ -9,6 +9,7 @@
 #ifndef __KateBattle__Hero__
 #define __KateBattle__Hero__
 #include "Entity.h"
+#include "cocos2d.h"
 class ControllerMoveBase;
 enum class JoystickEnum;
 
@@ -37,8 +38,6 @@ private:
 	
 	virtual void update(float dt);
 	
-	
-
 	void changeStun(float dt);
 
 	void herostun(float time);

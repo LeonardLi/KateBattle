@@ -13,6 +13,8 @@ public:
 	void createMonsters(int iCurlevel);
 	int getNotShowMonsterNumber();
 	//virtual void update(float delta);
+
+
 private:
 	cocos2d::Vector<Monster*> m_monsterList;
 	cocos2d::Vector<Monster*> m_notShowMonsterList;

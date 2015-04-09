@@ -12,8 +12,6 @@ class GameScene : public cocos2d::Layer
 public:
     static cocos2d::Scene* createScene();
 
-
-
     CREATE_FUNC(GameScene);
 
 	virtual void update(float dt);
@@ -26,13 +24,16 @@ private:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	void attackBtnOnClick(cocos2d::Ref* pSender,cocos2d::ui::Widget::TouchEventType type);
-
 	void skillBtn1OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
 	void skillBtn2OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
 	void skillBtn3OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
 
 	void onDirectionChange(JoystickEnum);
 
+	void postAttackNotification(float dt);
+	void postUseSkillNotification(float dt);
+	void postBossAttackNotification(float dt);
+	void postBossUseSkillNotification(float dt);
 	Hero* m_hero;
 
 	Joystick* m_stick;

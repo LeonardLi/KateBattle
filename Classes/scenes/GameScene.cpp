@@ -6,7 +6,12 @@
 #include "JsonReader.h"
 #include "Monster.h"
 #include "MonsterManager.h"
+#include "StateAttack.h"
+#include "StateUseSkill.h"
+#include "MonsterFSM.h"
 USING_NS_CC;
+
+enum  class EnumMsgType;
 
 #define COLLIDEMARGIN 30
 
@@ -93,11 +98,18 @@ bool GameScene::init()
 	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
     m_stick->onRun();
 
+
+
 	m_monsterMgr = MonsterManager::createWithLevel(11);
 	this->addChild(m_monsterMgr);
 
 	this->scheduleUpdate();
 
+	
+	
+
+	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
+	
 	//读取json文件
 	//根据传入的不同的关卡值
 	//载入背景(关卡数值对应图片)
@@ -143,12 +155,12 @@ void GameScene::skillBtn3OnClick(Ref* Sender, ui::Widget::TouchEventType type){
 }
 
 void GameScene::update(float dt){
+	
+	
 	for (auto monster : m_monsterMgr->getMonsterList())
 	{
-
-
-
-
+		monster->heroLocation = m_hero->getPosition();
+		
 		/*Rect monsterRect = monster->getBoundingBox();
 		Rect monsterCollideRect = Rect(monsterRect.origin.x + COLLIDEMARGIN, monsterRect.origin.y + COLLIDEMARGIN,
 			monsterRect.size.width - 2 * COLLIDEMARGIN, monsterRect.size.height - 2 * COLLIDEMARGIN);
@@ -180,4 +192,24 @@ void GameScene::menuCloseCallback(Ref* pSender)
 #endif
 }
 
+void GameScene::postAttackNotification(float dt){
+	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToAttack)));
+	//this->schedule(schedule_selector(GameScene::postUseSkillNotification), 1.0f);
+}
 
+void GameScene::postUseSkillNotification(float dt){
+	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToUseSkill)));
+	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 5.0f);
+
+}
+
+void GameScene::postBossAttackNotification(float dt){
+	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_BossWantToAttack)));
+	//this->schedule(schedule_selector(GameScene::postUseSkillNotification), 1.0f);
+}
+
+void GameScene::postBossUseSkillNotification(float dt){
+	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_BossWantToUseSkill)));
+	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 5.0f);
+
+}

@@ -16,8 +16,13 @@ public:
 	bool initWithMonster(Monster* monster);
 
 	void changeState(I_State* state);
+
 	void OnRecvWantToUseSkill(Ref* obj);
 	void OnRecvWantToAttack(Ref* obj);
+	void OnRecvBossWantToUseSkill(Ref* obj);
+	void OnRecvBossWantToAttack(Ref* obj);
+
+
 private:
 
 	Monster* monster;

@@ -154,7 +154,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\tools\JoyStick.cpp" />
     <ClCompile Include="..\Classes\tools\JsonReader.cpp" />
     <ClCompile Include="..\Classes\tools\MonsterManager.cpp" />
-    <ClCompile Include="..\Classes\tools\SceneMgr.cpp" />
     <ClCompile Include="..\Classes\tools\SoundsController.cpp" />
     <ClCompile Include="..\Classes\tools\SoundsDef.cpp" />
     <ClCompile Include="main.cpp" />
@@ -174,7 +173,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MonsterFSM.h" />
     <ClInclude Include="..\Classes\MonsterManager.h" />
-    <ClInclude Include="..\Classes\SceneMgr.h" />
     <ClInclude Include="..\Classes\SoundsController.h" />
     <ClInclude Include="..\Classes\I_State.h" />
     <ClInclude Include="..\Classes\SoundsDef.h" />

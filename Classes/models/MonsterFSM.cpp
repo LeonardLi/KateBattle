@@ -1,5 +1,7 @@
 #include "MonsterFSM.h"
 #include "I_State.h"
+#include "StateAttack.h"
+#include "StateUseSkill.h"
 USING_NS_CC;
 #define NOTIFY NotificationCenter::getInstance()
 
@@ -29,6 +31,12 @@ bool MonsterFSM::initWithMonster(Monster* monster){
 		StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToUseSkill)), NULL);
 	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvWantToAttack),
 		StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToAttack)), NULL);
+	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvBossWantToUseSkill),
+		StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_BossWantToUseSkill)), NULL);
+	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvBossWantToAttack),
+		StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_BossWantToAttack)), NULL);
+
+
 	return true;
 }
 
@@ -46,4 +54,13 @@ void MonsterFSM::OnRecvWantToUseSkill(Ref* obj){
 void MonsterFSM::OnRecvWantToAttack(Ref* obj){
 	this->mCurState->execute(monster, EnumMsgType::en_Msg_WantToAttack);
 	
+}
+void MonsterFSM::OnRecvBossWantToUseSkill(Ref* obj){
+	this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToUseSkill);
+
+}
+
+void MonsterFSM::OnRecvBossWantToAttack(Ref* obj){
+	this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToAttack);
+
 }

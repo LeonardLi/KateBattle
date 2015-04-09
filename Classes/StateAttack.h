@@ -11,4 +11,10 @@ public:
 	virtual void execute(Monster* monster, EnumMsgType type);
 };
 
+
+class BossStateAttack :public I_State{
+public:
+	virtual void execute(Monster* monster, EnumMsgType type);
+};
+
 #endif

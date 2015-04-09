@@ -8,4 +8,8 @@ class StateUseSkill: public I_State{
 	virtual void execute(Monster* monster, EnumMsgType type);
 };
 
+class BossStateUseSkill : public I_State{
+	virtual void execute(Monster* monster, EnumMsgType type);
+};
+
 #endif
