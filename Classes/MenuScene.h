@@ -18,6 +18,7 @@ public:
 
 private:
 	virtual bool init();
+	void menuCloseCallback(Ref* pSender);
 };
 
 #endif /* defined(__KateBattle__MenuScene__) */

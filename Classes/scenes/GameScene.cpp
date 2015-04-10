@@ -213,3 +213,45 @@ void GameScene::postBossUseSkillNotification(float dt){
 	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 5.0f);
 
 }
+
+void GameScene::_popupEquitmentMenu(){
+
+}
+
+void GameScene::_popupSetupMenu(){
+
+}
+
+void GameScene::_popupInventoryMenu(){
+
+}
+
+void GameScene::_popupWinLayer(){
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void PopupLayer::onEnter(){
+	Action* popupMenu = CCSequence::create(CCScaleTo::create(0.0f, 0.0f)
+		, CCScaleTo::create(0.06f, 1.05f)
+		, CCScaleTo::create(0.08f, 0.95f)
+		, CCScaleTo::create(0.08f, 1.0f)
+		, NULL);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EquipmentLayer::EquipmentLayer(){
+}
+
+EquipmentLayer::~EquipmentLayer(){
+}
+
+void EquipmentLayer::loadPic(std::string csbfile){
+	
+}
+
+bool EquipmentLayer::init(){
+	return true;
+}

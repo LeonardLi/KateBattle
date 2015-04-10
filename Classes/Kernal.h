@@ -9,9 +9,9 @@
 #ifndef __KateBattle__Kernal__
 #define __KateBattle__Kernal__
 
-#include <stdio.h>
+#include "cocos2d.h"
 
-class Kernal {
+class Kernal :public cocos2d::Ref{
     
 public:
 
@@ -25,6 +25,7 @@ public:
     
 private:
 	Kernal();
+
 	~Kernal();
 	
 	bool _initFromFile();
