@@ -25,6 +25,9 @@
     <Filter Include="src\models\monsterState">
       <UniqueIdentifier>{7868b766-7f1e-4618-b803-8dc2ded0a91f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\models\bullet">
+      <UniqueIdentifier>{42791010-4e39-4063-b728-6033dbc44a06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,8 +90,14 @@
     <ClCompile Include="..\Classes\tools\SoundsDef.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\tools\VisibleRect.cpp">
-      <Filter>src\tools</Filter>
+    <ClCompile Include="..\Classes\models\BulletBase.cpp">
+      <Filter>src\models\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\models\BulletNormal.cpp">
+      <Filter>src\models\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\models\BulletManager.cpp">
+      <Filter>src\models\bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,8 +161,14 @@
     <ClInclude Include="..\Classes\SoundsDef.h">
       <Filter>src\tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\VisibleRect.h">
-      <Filter>src\tools</Filter>
+    <ClInclude Include="..\Classes\BulletBase.h">
+      <Filter>src\models\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BulletNormal.h">
+      <Filter>src\models\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BulletManager.h">
+      <Filter>src\models\bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,9 @@
 
 #include "Monster.h"
 #include "MonsterFSM.h"
+#include "BulletManager.h"
+#include "BulletBase.h"
+#include "Hero.h"
 #include "cocos2d.h"
 #define SKILLRUSHSPEED 200
 #define SPEEDRATE 0.5
@@ -34,8 +37,11 @@ bool Monster::init(Sprite* sprite){
 		CC_BREAK_IF(!sprite);
 		bindSprite(sprite);
 		m_FSM = MonsterFSM::createWithMonster(this);
-		setattackRange(100.0);
+		setviewRange(500.0);
+		setattackRange(400.0);
 		setattackTime(2.0f);
+		bulletMgr = BulletManager::create();
+		this->addChild(bulletMgr);
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -45,7 +51,6 @@ MonsterFSM* Monster::getFSM(){
 	return this->m_FSM;
 }
 
-
 void Monster::attackSequence(){
 	log("monster attackSequence_______");
 	this->readyForAttack(1.0f);
@@ -53,36 +58,27 @@ void Monster::attackSequence(){
 
 void Monster::readyForAttack(float dt){
 	log("ready to move!!~~");
-	if (this->isScheduled(schedule_selector(Monster::readyForAttack)))
-		this->unschedule(schedule_selector(Monster::readyForAttack));
-	this->attack(dt);
+	this->schedule(schedule_selector(Monster::isInViewRange));	
 }
 
 void Monster::attack(float dt){
 	float randomNum = CCRANDOM_0_1();
-	if (randomNum<0.6)
+	if (randomNum>0.25)
 	{
 		log("move to hero!!!!!!");
 		this->schedule(schedule_selector(Monster::monsterMoveToHero));
 	}
-	else if (randomNum >= 0.6&&randomNum <= 0.9)
+	else if (randomNum >= 0.1&&randomNum <= 0.25)
 	{
 		log("random move!!!!");
-		float randomSpeed = 0;
-		if (randomNum >= 0.75)
-			randomSpeed = 1.0;
-		else
-			randomSpeed = -1.0;
-		this->schedule(CC_CALLBACK_1(Monster::monsterRandomMove, this, randomSpeed), RANDOMMOVEKEY);
-
+		monsterRandomMove();
 	}
 	else
 	{
 		log("stand for 2s~~~~");
-		this->schedule(schedule_selector(Monster::readyForAttack), 2.0f);
+		this->scheduleOnce(schedule_selector(Monster::readyForAttack), 2.0f);
 	}
 }
-
 
 void Monster::useSkillSequence(){
 	
@@ -124,30 +120,73 @@ void Monster::monsterMoveToHero(float dt){
 		this->unschedule(schedule_selector(Monster::monsterMoveToHero));
 		this->attackafterMove(m_attackTime);
 	}
-}
 
-void Monster::monsterRandomMove(float dt,float randomSpeed){
-	static int num=0;
-	this->setPositionX(this->getPositionX() + randomSpeed);
-	num++;
-	if (num>=50)
+	if (CCRANDOM_0_1()<0.001)
 	{
-		this->unschedule(RANDOMMOVEKEY);
-		this->schedule(schedule_selector(Monster::readyForAttack), 2.0f);
-		num = 0;
+		//stop
+		this->unschedule(schedule_selector(Monster::monsterMoveToHero));
+		this->scheduleOnce(schedule_selector(Monster::readyForAttack), 2.0f);
 	}
 }
 
-void Monster::monsterStay(float dt){
-
+void Monster::monsterRandomMove(){
+	Vec2 move = Vec2(0, 0);
+	float randomNum = CCRANDOM_0_1();
+	if (randomNum <0.25)
+	{
+		move = Vec2(50, 0);
+	}
+	else if (randomNum >= 0.25&&randomNum<0.5)
+	{
+		move = Vec2(-50, 0);
+	}
+	else if (randomNum >= 0.5&&randomNum < 0.75)
+	{
+		if (this->getPositionY()>=800)
+		{
+			move = Vec2(0, -50);
+		}
+		else
+		move = Vec2(0, 50);
+	}
+	else
+	{
+		if (this->getPositionY() <= 75)
+		{
+			move = Vec2(0, 50);
+		}
+		else
+			move = Vec2(0, -50);
+	}
+	
+	this->runAction(MoveBy::create(1.0f, move));
+	this->scheduleOnce(schedule_selector(Monster::readyForAttack), 2.0f);
+	
 }
 
 void Monster::attackafterMove(float attackColdTime){
 	if (CCRANDOM_0_1() > 0.3)
+	{
 		log("monster attack!!! after move ");
+		BulletBase* bullet = bulletMgr->getAnyUnUsedBullet();
+		if (bullet!=NULL)
+		{
+			Point heroWorldPos = this->getParent()->convertToWorldSpace(getPosition());
+			bullet->setPosition(bullet->getParent()->convertToNodeSpace(heroWorldPos));
+			bullet->lockTarget(targetHero);
+		}
+	}
 	else
-		log("just stand");
-
+	log("just stand");
 	this->scheduleOnce(schedule_selector(Monster::attack), attackColdTime);
+	
+}
 
+void Monster::isInViewRange(float dt){
+	Vec2 distance = Vec2(heroLocation.x - this->getPositionX(), heroLocation.y - this->getPositionY());
+	if (distance.length() <= this->getviewRange())
+	{
+		attack(dt);
+		this->unschedule(schedule_selector(Monster::isInViewRange));
+	}
 }

@@ -13,6 +13,8 @@
 #include "Entity.h"
 #include "cocos2d.h"
 class MonsterFSM;
+class BulletManager;
+class Hero;
 class Monster : public Entity{
 public:
 	static Monster* create(cocos2d::Sprite* sprite);
@@ -21,7 +23,7 @@ public:
 	virtual void update(float delta);
 
 	void monsterMoveToHero(float dt);
-	void monsterRandomMove(float dt,float randomSpeed);
+	void monsterRandomMove();
 	void monsterStay(float dt);
 	void attackafterMove(float dt);
 	void attackSequence();
@@ -29,22 +31,26 @@ public:
 	void attack(float dt);
 	void useSkillSequence();
 	void useSkill(float dt);
+	void isInViewRange(float dt);
 	MonsterFSM* getFSM();
 
 protected:
-	virtual void onDead();
-	virtual void onHurt();
+	void onDead();
+	void onHurt();
 private:
 	CC_SYNTHESIZE(int, m_monsterType, monsterType);
 	CC_SYNTHESIZE(int, m_Hp, Hp);
 	CC_SYNTHESIZE(int, m_Attack, Attack);
 	CC_SYNTHESIZE(double, m_attackRange, attackRange);
 	CC_SYNTHESIZE(float, m_attackTime, attackTime);
+	CC_SYNTHESIZE(float, m_viewRange, viewRange);
 public:
 	cocos2d::Vec2 heroLocation;
+	Hero* targetHero;
 private:
 	MonsterFSM* m_FSM;
-
+	BulletManager* bulletMgr;
+	
 };
 
 #endif /* defined(__KateBattle__Monster__) */

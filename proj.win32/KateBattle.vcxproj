@@ -139,6 +139,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\kernal\Kernal.cpp" />
+    <ClCompile Include="..\Classes\models\BulletBase.cpp" />
+    <ClCompile Include="..\Classes\models\BulletManager.cpp" />
+    <ClCompile Include="..\Classes\models\BulletNormal.cpp" />
     <ClCompile Include="..\Classes\models\Entity.cpp" />
     <ClCompile Include="..\Classes\models\Equipment.cpp" />
     <ClCompile Include="..\Classes\models\Hero.cpp" />
@@ -161,6 +164,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\BulletBase.h" />
+    <ClInclude Include="..\Classes\BulletManager.h" />
+    <ClInclude Include="..\Classes\BulletNormal.h" />
     <ClInclude Include="..\Classes\ControllerMoveBase.h" />
     <ClInclude Include="..\Classes\Entity.h" />
     <ClInclude Include="..\Classes\Equipment.h" />

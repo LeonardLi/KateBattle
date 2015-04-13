@@ -22,9 +22,9 @@ public:
 	
 	Hero* initFromJson();
 
-	virtual void onDead();
+	void onDead();
 	
-	virtual void onHurt();
+	void onHurt();
 
 	void changeControlType(float dt);
 

@@ -13,6 +13,7 @@ Entity::Entity()
 {
 	this->mViewSprite = nullptr;
 	m_isDead = false;
+	this->setAnchorPoint(Vec2(0.5, 0.5));
 }
 
 Sprite* Entity::getSprite()

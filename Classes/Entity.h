@@ -29,9 +29,9 @@ public:
 
 protected:
 	//死亡时行为函数
-	virtual void onDead() = 0;
+	void onDead();
 	//受到攻击时行为函数
-	virtual void onHurt() = 0;
+	void onHurt();
 private: 
 
 public:
