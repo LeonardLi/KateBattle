@@ -156,6 +156,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\tools\MonsterManager.cpp" />
     <ClCompile Include="..\Classes\tools\SoundsController.cpp" />
     <ClCompile Include="..\Classes\tools\SoundsDef.cpp" />
+    <ClCompile Include="..\Classes\tools\VisibleRect.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\SoundsDef.h" />
     <ClInclude Include="..\Classes\StateAttack.h" />
     <ClInclude Include="..\Classes\StateUseSkill.h" />
+    <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

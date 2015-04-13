@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h" 
 
+
 class Hero;
 class MonsterManager;
 class Joystick;
@@ -38,11 +39,14 @@ private:
 	void skillBtn3OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
 
 
-	/*popup menu callback*/
-    void _popupEquitmentMenu(cocos2d::Ref* sender);
+	/*perform popup menu callback, show the popup menu*/
+    void _popupEquipmentMenu(cocos2d::Ref* sender);
 	void _popupSetupMenu(cocos2d::Ref* sender);
 	void _popupInventoryMenu(cocos2d::Ref* sender);
 	void _popupWinLayer(cocos2d::Ref* sender);
+
+	/*handle the message conveyed from the popup menu*/
+	void _handlePopupEquipmentMenu(cocos2d::Node* sender);
 
 	/*Joystick callback*/
 	void onDirectionChange(JoystickEnum);
@@ -51,10 +55,9 @@ private:
 	void postUseSkillNotification(float dt);
 	void postBossAttackNotification(float dt);
 	void postBossUseSkillNotification(float dt);
+
 	Hero* m_hero;
-
 	Joystick* m_stick;
-
 	MonsterManager* m_monsterMgr;
 
 };
@@ -83,7 +86,7 @@ public:
 
 	virtual void loadPicFromCSB(std::string) = 0;
 protected:
-
+	virtual bool init();
 	virtual void onEnter();
     virtual void onExit();
     
@@ -106,7 +109,7 @@ public:
     virtual void onEnter();
     virtual void onExit();
     
-    //touch时间监听，屏蔽向下触摸
+    //touch时监听，屏蔽向下触摸
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
@@ -120,9 +123,6 @@ private:
     
     cocos2d::Ref* m_callbackListener;
     cocos2d::SEL_CallFuncN m_callback;
-    
-    CC_SYNTHESIZE_RETAIN(cocos2d::Menu*, m__pMenu, MenuButton);
-
 };
 
 /************************************************************************/

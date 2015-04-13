@@ -87,6 +87,9 @@
     <ClCompile Include="..\Classes\tools\SoundsDef.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\VisibleRect.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -147,6 +150,9 @@
       <Filter>src\models\monsterState</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SoundsDef.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h">
       <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>

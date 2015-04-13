@@ -61,7 +61,7 @@ bool GameScene::init()
     auto popupItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(GameScene::_popupEquitmentMenu, this));
+                                           CC_CALLBACK_1(GameScene::_popupEquipmentMenu, this));
     
 
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
@@ -75,19 +75,9 @@ bool GameScene::init()
     this->addChild(menu, 1);
 
     /////////////////////////////
-    // 3. add your codes below...
 
-    // add a label shows "Hello World"
-    // create and initialize a label
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-
-    // add the label as a child to this layer
-    this->addChild(label, 1);
+    
 
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
@@ -122,23 +112,6 @@ bool GameScene::init()
 	
 
 	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
-	
-	//∂¡»°jsonŒƒº˛
-	//∏˘æ›¥´»Îµƒ≤ªÕ¨µƒπÿø®÷µ
-	//‘ÿ»Î±≥æ∞(πÿø® ˝÷µ∂‘”¶Õº∆¨)
-	//‘ÿ»Î”Œœ∑UI
-	//‘ÿ»Î±≥æ∞∂Øª≠
-	//‘ÿ»Î”¢–€£®”¢–€∏˜÷÷ Ù–‘°¢◊∞±∏°¢ŒÔ∆∑°¢ººƒ‹£©
-	//‘ÿ»Î≤ªÕ¨π÷ŒÔ
-	//auto monsterMgr = MonsterManager::createWithLevel(level,=====!!!Map!!!====);
-
-	//”Œœ∑¬ﬂº≠update();
-
-
-	//πÿø®Ω· ¯∫Û
-	//–¥JSONŒƒº˛
-	//µØ≥ˆΩÁ√Ê(œ¬“ªπÿ°¢÷ÿ–¬ÕÊ°¢÷˜≤Àµ•)
-	//…æ≥˝÷Æ«∞ΩÁ√Ê‘™Àÿ£® ˝◊È÷–£©
     return true;
 }
 
@@ -227,10 +200,11 @@ void GameScene::postBossUseSkillNotification(float dt){
 
 }
 
-void GameScene::_popupEquitmentMenu(cocos2d::Ref* sender){
+void GameScene::_popupEquipmentMenu(cocos2d::Ref* sender){
     Director::getInstance()->pause();
     EquipmentLayer* eqLayer = EquipmentLayer::create();
-    this->addChild(eqLayer);
+	eqLayer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupEquipmentMenu));
+    this->addChild(eqLayer,2);
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
@@ -245,6 +219,10 @@ void GameScene::_popupWinLayer(cocos2d::Ref* sender){
 
 }
 
+void GameScene::_handlePopupEquipmentMenu(cocos2d::Node* sender){
+	log("GameScene: %d",sender->getTag());
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -256,11 +234,16 @@ void PopupLayer::onExit(){
     Layer::onExit();
 }
 
+bool PopupLayer::init(){
+	if (!LayerColor::init())
+	{
+		return false;
+	}
+	return true;
+}
 //////////////////////////////////////////////////////////////////////////
 
-EquipmentLayer::EquipmentLayer():
-m__pMenu(NULL)
-{
+EquipmentLayer::EquipmentLayer(){
 }
 
 EquipmentLayer::~EquipmentLayer(){
@@ -272,40 +255,35 @@ void EquipmentLayer::loadPicFromCSB(std::string csbfile){
     rootNode->setPosition(VisibleRect::center());
     this->addChild(rootNode, 2);
     Button* button = static_cast<Button*>(rootNode->getChildByName("Button"));
-    button->addClickEventListener(CC_CALLBACK_1(EquipmentLayer::_ClickCallBack, this));
-
-    
+    button->addClickEventListener(CC_CALLBACK_1(EquipmentLayer::_ClickCallBack, this));   
 }
 
 bool EquipmentLayer::init(){
-    if (LayerColor::init()) {
+	log("========= EquipmentLayer ========== init");
+    if (!PopupLayer::init()) {
         return false;
-    }
-    
-    Menu* menu = Menu::create();
-    menu->setPosition(CCPointZero);
-    setMenuButton(menu);
-    
+    } 
+	//delegate the Touch event
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = CC_CALLBACK_2(EquipmentLayer::onTouchBegan, this);
     listener->onTouchEnded = CC_CALLBACK_2(EquipmentLayer::onTouchEnded, this);
     listener->onTouchMoved = CC_CALLBACK_2(EquipmentLayer::onTouchMoved, this);
-    auto dispatcher = Director::getInstance()->getEventDispatcher();
-    
+    auto dispatcher = Director::getInstance()->getEventDispatcher();    
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
-    
-    setColor(ccc3(0, 0, 0));
+    //cover other layer
+    setColor(Color3B::BLACK);
     setOpacity(128);
     loadPicFromCSB("Node.csb");
+	
 	return true;
 }
 
 void EquipmentLayer::onEnter(){
-    log("Equipment onEnter==================1");
+    log("========= EquipmentLayer ========== onEnter");
     PopupLayer::onEnter();
-    log("Equipment onEnter==================2");
+
     Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
                                            , ScaleTo::create(0.06f, 1.05f)
                                            , ScaleTo::create(0.08f, 0.95f)
