@@ -132,7 +132,7 @@ Author: xiaoDe
 Function: InventoryLayer
 Date: 2015/4/10
 *//************************************************************************/
-class IventoryLayer : public PopupLayer{
+class InventoryLayer : public PopupLayer{
 
 };
 
