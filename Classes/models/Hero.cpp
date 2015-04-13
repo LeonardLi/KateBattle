@@ -26,7 +26,6 @@
 USING_NS_CC;
 
 Hero::Hero(){
-
 }
 
 Hero* Hero::create(Sprite* sprite){
@@ -59,8 +58,6 @@ bool Hero::init(Sprite* sprite){
 	return bRet;
 }
 
-
-
 void Hero::update(float dt){
 	if (m_Stun!=STUN && m_isDead==false&&m_canControl==true)
 	m_moveController->simpleMove(m_direction);
@@ -73,11 +70,11 @@ void Hero::ChangeDirection(JoystickEnum direction){
 }
 
 void Hero::onDead(){
-
+	//cast the animation
 }
 
 void Hero::onHurt(){
-	
+	//cast the animation
 }
 
 void Hero::changeStun(float dt){
@@ -89,8 +86,6 @@ void Hero::herostun(float time)
 {
 	mViewSprite->stopAllActions();
 	m_Stun = STUN;
-	//mViewSprite->runAction(stun action) 
-	//stun action
 	this->scheduleOnce(schedule_selector(Hero::changeStun), time);
 }
 
@@ -111,5 +106,10 @@ void Hero::heroNotControl(float time){
 void Hero::changeControlType(float dt){
 	if (m_canControl == false)
 		m_canControl = true;
+}
 
+void Hero::getHurt(int ivalue,float stunTime){
+	this->onHurt();
+	this->hurtMe(ivalue);
+	herostun(stunTime);
 }

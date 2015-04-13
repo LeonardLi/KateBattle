@@ -15,6 +15,7 @@ public:
 	bool init(cocos2d::Sprite* sprite);
 protected:
 	void onLockAim(Hero* hero);
+	void normalShoot(Hero* hero);
 private:
 	void moveEnd();
 

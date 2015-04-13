@@ -112,6 +112,7 @@ bool GameScene::init()
 	
 
 	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
+	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 15.0f);
     return true;
 }
 
@@ -146,7 +147,7 @@ void GameScene::update(float dt){
 	for (auto monster : m_monsterMgr->getMonsterList())
 	{
 		monster->heroLocation = m_hero->getPosition();
-		
+		monster->targetHero = m_hero;
 		/*Rect monsterRect = monster->getBoundingBox();
 		Rect monsterCollideRect = Rect(monsterRect.origin.x + COLLIDEMARGIN, monsterRect.origin.y + COLLIDEMARGIN,
 			monsterRect.size.width - 2 * COLLIDEMARGIN, monsterRect.size.height - 2 * COLLIDEMARGIN);
@@ -247,7 +248,7 @@ EquipmentLayer::EquipmentLayer(){
 }
 
 EquipmentLayer::~EquipmentLayer(){
-
+ 
 }
 
 void EquipmentLayer::loadPicFromCSB(std::string csbfile){

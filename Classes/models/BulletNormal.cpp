@@ -1,7 +1,7 @@
 #include "BulletNormal.h"
 #include "Hero.h"
 USING_NS_CC;
-#define BULLETDEFAULTSPEED 100.0
+#define BULLETDEFAULTSPEED 50.0
 BulletNormal::BulletNormal(){
 	m_speed = 2;
 }
@@ -28,11 +28,8 @@ bool BulletNormal::init(Sprite* sprite){
 
 bool BulletNormal::init(){
 	bool bRet = false;
-	do 
+	do
 	{
-		Sprite* sprite = Sprite::create("CloseNormal.png");
-		CC_BREAK_IF(!sprite);
-		CC_BREAK_IF(!init(sprite));
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -40,27 +37,36 @@ bool BulletNormal::init(){
 
 void BulletNormal::onLockAim(Hero* hero){
 	m_isArrive = false;
+	normalShoot(hero);
+}
+
+void BulletNormal::moveEnd(){
+	m_isArrive = true;
+}
+
+void BulletNormal::normalShoot(Hero* hero){
 	Point aimWorldPos = hero->getParent()->convertToWorldSpace(hero->getPosition());
-	Point dstPos = this->getParent()->convertToNodeSpace(aimWorldPos);
+	Point dstPos = Vec2(aimWorldPos.x - this->getPositionX(), aimWorldPos.y - this->getPositionY());
 
-	float distance = dstPos.length();
-	
-	/*float x = heroLocation.x;
-	float y = heroLocation.y;
-	float x1 = this->getPositionX();
-	float y1 = this->getPositionY();
+	cocos2d::Size size = Director::getInstance()->getVisibleSize();
+	Vec2 screenLenght = Vec2(size.width, size.height);
+	float distance = screenLenght.length();
+	float moveDistance = dstPos.length();
 
-	float time = sqrt((x - x1)*(x - x1) + (y - y1)*(y - y1)) / SKILLRUSHSPEED;
-	this->runAction(MoveTo::create(time, heroLocation));*/
+	float thisX = this->getPositionX();
+	float thisY = this->getPositionY();
 
-	auto moveTo = MoveTo::create(distance / BULLETDEFAULTSPEED, dstPos);
+	Vec2 destinationPos;
+	if (this->getPosition() != aimWorldPos)
+	{
+		float destinationPosX = thisX + (aimWorldPos.x - thisX)*distance / moveDistance;
+		float destinationPosY = thisY + (aimWorldPos.y - thisY)*distance / moveDistance;
+		destinationPos = Vec2(destinationPosX, destinationPosY);
+	}
+	auto moveTo = MoveTo::create(distance / BULLETDEFAULTSPEED, destinationPos);
 	auto callFunc = CallFunc::create([&](){
 		moveEnd();
 	});
 	auto actions = Sequence::create(moveTo, callFunc, NULL);
 	this->runAction(actions);
-}
-
-void BulletNormal::moveEnd(){
-	m_isArrive = true;
 }

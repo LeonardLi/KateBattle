@@ -33,7 +33,6 @@ void Entity::bindSprite(Sprite* sprite)
 	Size size = mViewSprite->getContentSize();
 	mViewSprite->setPosition(Point(size.width*0.5f, size.height*0.5f));
 	this->setContentSize(size);
-
 }
 
 bool Entity::isDead()
@@ -58,7 +57,6 @@ void Entity::hurtMe(int iHurtValue){
 	{
 		return;
 	}
-
 	/*
 	if(iHurtValue<=getDefense())
 	{

@@ -31,6 +31,8 @@ public:
 	void heroNotControl(float time);
 
 	void attack();
+
+	void getHurt(int ivalue,float stunTime);
 private:
 	Hero();
 

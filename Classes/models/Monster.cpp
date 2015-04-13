@@ -8,17 +8,16 @@
 
 #include "Monster.h"
 #include "MonsterFSM.h"
-#include "BulletManager.h"
 #include "BulletBase.h"
+#include "BulletNormal.h"
 #include "Hero.h"
 #include "cocos2d.h"
 #define SKILLRUSHSPEED 200
 #define SPEEDRATE 0.5
-#define RANDOMMOVEKEY "randommove"
 USING_NS_CC;
-Monster* Monster::create(Sprite* sprite){
+Monster* Monster::create(Sprite* sprite,int type){
 	Monster* monster = new Monster();
-	if (monster&&monster->init(sprite))
+	if (monster&&monster->init(sprite,type))
 	{
 		monster->autorelease();
 	}
@@ -29,19 +28,30 @@ Monster* Monster::create(Sprite* sprite){
 	return monster;
 }
 
-bool Monster::init(Sprite* sprite){
+bool Monster::init(Sprite* sprite,int type){
 	bool bRet = false;
-	
 	do
 	{
 		CC_BREAK_IF(!sprite);
 		bindSprite(sprite);
 		m_FSM = MonsterFSM::createWithMonster(this);
-		setviewRange(500.0);
-		setattackRange(400.0);
+		setviewRange(700.0);
+		
 		setattackTime(2.0f);
-		bulletMgr = BulletManager::create();
-		this->addChild(bulletMgr);
+		switch (type)
+		{
+		case  normalType:
+			m_monsterType = normalType;
+			setattackRange(100.0);
+			break;
+		case shootType:
+			m_monsterType = shootType;
+			setattackRange(400.0);
+			break;
+		default:
+			break;
+		}
+
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -52,8 +62,19 @@ MonsterFSM* Monster::getFSM(){
 }
 
 void Monster::attackSequence(){
+	switch (m_monsterType)
+	{
+	case normalType:
+		break;
+	case shootType:
+		initBullet();
+		break;
+	default:
+		break;
+	}
 	log("monster attackSequence_______");
 	this->readyForAttack(1.0f);
+
 }
 
 void Monster::readyForAttack(float dt){
@@ -168,13 +189,17 @@ void Monster::attackafterMove(float attackColdTime){
 	if (CCRANDOM_0_1() > 0.3)
 	{
 		log("monster attack!!! after move ");
-		BulletBase* bullet = bulletMgr->getAnyUnUsedBullet();
-		if (bullet!=NULL)
+		switch (m_monsterType)
 		{
-			Point heroWorldPos = this->getParent()->convertToWorldSpace(getPosition());
-			bullet->setPosition(bullet->getParent()->convertToNodeSpace(heroWorldPos));
-			bullet->lockTarget(targetHero);
-		}
+		case normalType:
+			attackWithHand();
+			break;
+		case shootType:
+			attackWithBullet(1);
+			break;	
+		default:
+			break;
+		}	
 	}
 	else
 	log("just stand");
@@ -190,3 +215,67 @@ void Monster::isInViewRange(float dt){
 		this->unschedule(schedule_selector(Monster::isInViewRange));
 	}
 }
+
+void Monster::attackWithHand(){
+	log("attack with hand!");
+}
+
+void Monster::attackWithBullet(int bulletType){
+	BulletBase* bullet = this->getAnyUnUsedBullet();
+	if (bullet!=NULL)
+	{
+		bullet->setPosition(this->getPosition());
+		bullet->onLockAim(targetHero);
+	}
+
+}
+
+void Monster::initBullet(){
+	BulletBase* bullet = NULL;
+	for (int i = 0; i <10; i++)
+	{
+		bullet = BulletNormal::create(Sprite::create("CloseNormal.png"));
+		bullet->setUsed(false);
+		m_bulletList.pushBack(bullet);
+		this->getParent()->addChild(bullet);
+	}
+	this->schedule(schedule_selector(Monster::bulletLogicCheck));
+}
+
+void Monster::bulletLogicCheck(float dt){
+	for (auto bullet : m_bulletList)
+	{
+		if (bullet->isUsed())
+		{
+			auto aim = bullet->getTarget();
+			if (aim != NULL)
+			{
+				if (bullet->getBoundingBox().intersectsRect(targetHero->getBoundingBox()))
+				{
+					log("hero get hurt~~~~~~~");
+					targetHero->getHurt(10,1.0f);
+					bullet->stopAllActions();
+					bullet->m_isArrive = true;
+				}
+				if (bullet->isArrive())
+				{
+					log("bullet Arrive!---------- - ");
+					bullet->setUsed(false);
+				}
+			}
+		}
+	}
+}
+
+BulletBase* Monster::getAnyUnUsedBullet(){
+	for (auto bullet : m_bulletList)
+	{
+		if (bullet->isUsed() == false)
+		{
+			bullet->setUsed(true);
+			return bullet;
+		}
+	}
+	return NULL;
+}
+
