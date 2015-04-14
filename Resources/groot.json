@@ -1,1 +1,186 @@
-{"User":{"UserName":"王偲康","UserBonesNumber":1,"UserGoldsNumber":1,"UserHealth":1,"UserAttack":1,"UserDefense":1,"UserSpeed":1,"UserStrength":1,"SkillID":[1,2,3,-1,-1,-1,-1,-1,-1,-1],"ToolID":[5,6,7,-1,-1,-1,-1,-1],"EquipID":[8,9,10,-1,-1,-1,-1,-1,-1,-1],"Clear_BlockID":20},"Data":{"Monster":[{"MonsterType":"lion","MonsterHealth":100,"MonsterSpeed":1,"MonsterDefense":1,"MonsterAttack":1,"MonsterInfo":"violence"},{"MonsterType":"tiger","MonsterHealth":100,"MonsterSpeed":1,"MonsterDefense":1,"MonsterAttack":1,"MonsterInfo":"violence"}],"Skill":[{"SkillName":"xuanfeng","SkillType":"attack","SkillDamage":1,"SkillInfo":"diao","SkillColdTime":1},{"SkillName":"xuanfeng","SkillType":"attack","SkillDamage":1,"SkillInfo":"diao","SkillColdTime":1}],"Tool":[{"ToolName":"fork","ToolInfo":"sharp","ToolAttribute":"attack","ToolAttruibuteValue":1,"ToolPrice":1},{"ToolName":"fork","ToolInfo":"sharp","ToolAttribute":"attack","ToolAttruibuteValue":1,"ToolPrice":1}],"Equipment":[{"EquipName":"shenqi","EquipInfo":"from GOD","EquipAttribute":"attack","EquipAttributeValue":1,"EquipPrice":1},{"EquipName":"shenqi","EquipInfo":"from GOD","EquipAttribute":"attack","EquipAttributeValue":1,"EquipPrice":1}],"Block":[{"Monster":[{"MonsterID":1,"X":12,"Y":12},{"MonsterID":2,"X":12,"Y":12}],"BlockInfo":"niu"},{"Monster":[{"MonsterID":1,"X":12,"Y":12},{"MonsterID":2,"X":12,"Y":12}],"BlockInfo":"niu"}]}}
+{
+  "User": {
+    "UserName": "王偲康",
+    "UserBonesNumber": 1,
+    "UserGoldsNumber": 1,
+    "UserHealth": 1,
+    "UserAttack": 1,
+    "UserDefense": 1,
+    "UserSpeed": 1,
+    "UserStrength": 1,
+    "SkillID": [
+      1,
+      2,
+      3
+    ],
+    "ToolID": [
+      [
+        2,
+        3
+      ],
+      [
+        13,
+        4
+      ],
+      [
+        16,
+        2
+      ],
+      [
+        15,
+        1
+      ]
+    ],
+    "EquipID": [
+      [
+        12,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        5,
+        1
+      ]
+    ],
+    "Clear_BlockID": 20
+  },
+  "Data": {
+    "Store": [
+      {
+        "ToolID": [
+          1,
+          2,
+          3
+        ],
+        "EquipID": [
+          1,
+          2,
+          3
+        ],
+        "X": 0,
+        "Y": 0
+      },
+      {
+        "ToolID": [
+          2,
+          3,
+          4
+        ],
+        "EquipID": [
+          2,
+          3,
+          4
+        ],
+        "X": 1,
+        "Y": 1
+      }
+    ],
+    "Monster": [
+      {
+        "MonsterType": "lion",
+        "MonsterHealth": 100,
+        "MonsterSpeed": 1,
+        "MonsterDefense": 1,
+        "MonsterAttack": 1,
+        "MonsterInfo": "violence"
+      },
+      {
+        "MonsterType": "tiger",
+        "MonsterHealth": 100,
+        "MonsterSpeed": 1,
+        "MonsterDefense": 1,
+        "MonsterAttack": 1,
+        "MonsterInfo": "violence"
+      }
+    ],
+    "Skill": [
+      {
+        "SkillName": "xuanfeng",
+        "SkillType": "attack",
+        "SkillDamage": 1,
+        "SkillInfo": "diao",
+        "SkillColdTime": 1
+      },
+      {
+        "SkillName": "xuanfeng",
+        "SkillType": "attack",
+        "SkillDamage": 1,
+        "SkillInfo": "diao",
+        "SkillColdTime": 1
+      }
+    ],
+    "Tool": [
+      {
+        "ToolName": "fork",
+        "ToolInfo": "sharp",
+        "ToolAttribute": "attack",
+        "ToolAttruibuteValue": 1,
+        "ToolPrice": 1
+      },
+      {
+        "ToolName": "fork",
+        "ToolInfo": "sharp",
+        "ToolAttribute": "attack",
+        "ToolAttruibuteValue": 1,
+        "ToolPrice": 1
+      }
+    ],
+    "Equipment": [
+      {
+        "EquipName": "shenqi",
+        "EquipInfo": "from GOD",
+        "EquipAttribute": "attack",
+        "EquipAttributeValue": 1,
+        "EquipPrice": 1
+      },
+      {
+        "EquipName": "shenqi",
+        "EquipInfo": "from GOD",
+        "EquipAttribute": "attack",
+        "EquipAttributeValue": 1,
+        "EquipPrice": 1
+      }
+    ],
+    "Block": [
+      {
+        "BlockName": "港口",
+        "Monster": [
+          {
+            "MonsterID": 1,
+            "X": 12,
+            "Y": 12
+          },
+          {
+            "MonsterID": 2,
+            "X": 12,
+            "Y": 12
+          }
+        ],
+        "BlockInfo": "Caty乘着“冒险号”来到了这个陌生的城市，一段神秘而有挑战的旅程将在这个港口展开…"
+      },
+      {
+        "BlockName": "集市",
+        "Monster": [
+          {
+            "MonsterID": 1,
+            "X": 12,
+            "Y": 12
+          },
+          {
+            "MonsterID": 2,
+            "X": 12,
+            "Y": 12
+          }
+        ],
+        "BlockInfo": "港口风云之后，有什么样的危险会埋伏在这个欣欣向荣的集市里，等待着Caty的又会是什么呢..."
+      }
+    ]
+  }
+}

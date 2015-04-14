@@ -363,6 +363,10 @@ InventoryLayer::~InventoryLayer(){
 
 }
 
+void InventoryLayer::loadPicFromCSB(std::string csbfile){
+	
+}
+
 bool InventoryLayer::init(){
 	if (!PopupLayer::init())
 	{
@@ -523,6 +527,9 @@ void WinLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
 
+void WinLayer::onEnter(){
+	
+}
 //////////////////////////////////////////////////////////////////////////
 
 SetupLayer::SetupLayer(){
