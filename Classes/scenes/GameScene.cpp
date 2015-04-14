@@ -3,7 +3,7 @@
 #include "Hero.h"
 #include "cocos2d.h"
 #include "ControllerMoveBase.h"
-#include "JsonReader.h"
+#include "JsonUtility.h"
 #include "Monster.h"
 #include "MonsterManager.h"
 #include "StateAttack.h"

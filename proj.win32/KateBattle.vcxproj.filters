@@ -51,9 +51,6 @@
     <ClCompile Include="..\Classes\models\Monster.cpp">
       <Filter>src\models</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\tools\JsonReader.cpp">
-      <Filter>src\tools</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\tools\SoundsController.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
@@ -99,6 +96,12 @@
     <ClCompile Include="..\Classes\models\BulletManager.cpp">
       <Filter>src\models\bullet</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\JsonUtility.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\VisibleRect.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -108,9 +111,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\JoyStick.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\JsonReader.h">
       <Filter>src\tools</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SoundsController.h">
@@ -169,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BulletManager.h">
       <Filter>src\models\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\JsonUtility.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
