@@ -1,13 +1,13 @@
 //
-//  JsonUnity.h
+//  JsonUtility.h
 //  KateBattle
 //
 //  Created by Leonard on 15/3/20.
 //
 //
 
-#ifndef __KateBattle__JsonUnity__
-#define __KateBattle__JsonUnity__
+#ifndef __KateBattle__JsonUtility__
+#define __KateBattle__JsonUtility__
 #include "json/document.h"
 #include "json/stringbuffer.h"
 #include "json/writer.h"
@@ -77,7 +77,7 @@ struct Monster_info						   //怪物信息
 	char MonsterInfo[50];
 };
 
-class JsonUnity{
+class JsonUtility{
 public:
 	User getUser();					//获取用户信息
 	void setUser(User user);		//设置用户信息
@@ -88,16 +88,15 @@ public:
 	Tool getTool(int ID);			//获取第i个工具
 	rapidjson::Document getDocument();			// 获取m_doc
 	virtual bool init();
-	static JsonUnity* getInstance();
+	static JsonUtility* getInstance();
 	
 	
 private:
 	void read();                   //初始化时读取json文件
 	void write(User user);		   //将修改的内容写入json文件
-	void setUser_Info(rapidjson::Value& val, User user, char* str);//修改用户里的信息
 
 private:
-	static JsonUnity* m_JsonUnity;
+	static JsonUtility* m_JsonUtility;
 	rapidjson::Document m_doc;
 };
 
@@ -105,4 +104,4 @@ private:
 
 
 
-#endif /* defined(__KateBattle__JsonUnity__) */
+#endif /* defined(__KateBattle__JsonUtility__) */
