@@ -117,7 +117,7 @@ bool GameScene::init()
 }
 
 
-void  GameScene::onDirectionChange(JoystickEnum direction){
+void GameScene::onDirectionChange(JoystickEnum direction){
 	m_hero->ChangeDirection(direction);
 }
 
@@ -205,23 +205,41 @@ void GameScene::_popupEquipmentMenu(cocos2d::Ref* sender){
     Director::getInstance()->pause();
     EquipmentLayer* eqLayer = EquipmentLayer::create();
 	eqLayer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupEquipmentMenu));
-    this->addChild(eqLayer,2);
+    this->addChild(eqLayer, 2);
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
-
+	Director::getInstance()->pause();
+	SetupLayer* setupLayer = SetupLayer::create();
+	this->addChild(setupLayer, 2);
 }
 
 void GameScene::_popupInventoryMenu(cocos2d::Ref* sender){
-
+	Director::getInstance()->pause();
+	InventoryLayer* invLayer = InventoryLayer::create();
+	this->addChild(invLayer, 2);
 }
 
 void GameScene::_popupWinLayer(cocos2d::Ref* sender){
-
+	Director::getInstance()->pause();
+	WinLayer *winLayer = WinLayer::create();
+	this->addChild(winLayer, 2);
 }
 
 void GameScene::_handlePopupEquipmentMenu(cocos2d::Node* sender){
 	log("GameScene: %d",sender->getTag());
+}
+
+void GameScene::_handlePopupSetupmMenu(cocos2d::Node* sender){
+
+}
+
+void GameScene::_handlePopupInventoryMenu(cocos2d::Node* sender){
+
+}
+
+void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -236,15 +254,22 @@ void PopupLayer::onExit(){
 }
 
 bool PopupLayer::init(){
+	log("========= PopupLayer ========== init");
 	if (!LayerColor::init())
 	{
 		return false;
 	}
 	return true;
 }
+
+
+
 //////////////////////////////////////////////////////////////////////////
 
-EquipmentLayer::EquipmentLayer(){
+EquipmentLayer::EquipmentLayer():
+m_callback(nullptr),
+m_callbackListener(nullptr)
+{
 }
 
 EquipmentLayer::~EquipmentLayer(){
@@ -322,5 +347,191 @@ void EquipmentLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
 }
 
 void EquipmentLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+InventoryLayer::InventoryLayer():
+m_callback(nullptr),
+m_callbackListener(nullptr)
+{
+
+}
+
+InventoryLayer::~InventoryLayer(){
+
+}
+
+bool InventoryLayer::init(){
+	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	//delegate the Touch event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(InventoryLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(InventoryLayer::onTouchEnded, this);
+	listener->onTouchMoved = CC_CALLBACK_2(InventoryLayer::onTouchMoved, this);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	//cover other layer
+	setColor(Color3B::BLACK);
+	setOpacity(128);
+	return true;
+}
+void InventoryLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
+	m_callbackListener = target;
+	m_callback = callFun;
+}
+
+bool InventoryLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
+	return true;
+}
+
+void InventoryLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
+	
+}
+
+void InventoryLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+	
+}
+
+void InventoryLayer::onEnter(){
+	log("========= InventoryLayer ========== onEnter");
+	PopupLayer::onEnter();
+
+	Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
+		, ScaleTo::create(0.06f, 1.05f)
+		, ScaleTo::create(0.08f, 0.95f)
+		, ScaleTo::create(0.08f, 1.0f)
+		, NULL);
+	this->runAction(popupMenu);
+}
+//////////////////////////////////////////////////////////////////////////
+
+BagLayer::BagLayer():
+m_callback(nullptr),
+m_callbackListener(nullptr)
+{
+	
+}
+
+BagLayer::~BagLayer(){
+
+}
+
+bool BagLayer::init(){
+	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	//delegate the Touch event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(BagLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(BagLayer::onTouchEnded, this);
+	listener->onTouchMoved = CC_CALLBACK_2(BagLayer::onTouchMoved, this);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	//cover other layer
+	setColor(Color3B::BLACK);
+	setOpacity(128);
+	return true;
+}
+
+void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
+	m_callback = callFun;
+	m_callbackListener = target;
+}
+
+void BagLayer::loadPicFromCSB(std::string){
+	
+}
+
+bool BagLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
+	return true;
+}
+void BagLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
+}
+void BagLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+}
+
+void BagLayer::onEnter(){
+	log("========= BagLayer ========== onEnter");
+	PopupLayer::onEnter();
+
+	Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
+		, ScaleTo::create(0.06f, 1.05f)
+		, ScaleTo::create(0.08f, 0.95f)
+		, ScaleTo::create(0.08f, 1.0f)
+		, NULL);
+	this->runAction(popupMenu);
+}
+//////////////////////////////////////////////////////////////////////////
+
+WinLayer::WinLayer():
+m_callback(nullptr),
+m_callbackListener(nullptr)
+{
+	
+}
+
+WinLayer::~WinLayer(){
+
+}
+
+void WinLayer::loadPicFromCSB(std::string csbfile){
+
+}
+
+bool WinLayer::init(){
+	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	//delegate the Touch event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(WinLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(WinLayer::onTouchEnded, this);
+	listener->onTouchMoved = CC_CALLBACK_2(WinLayer::onTouchMoved, this);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	//cover other layer
+	setColor(Color3B::BLACK);
+	setOpacity(128);
+	return true;
+}
+
+void WinLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
+	m_callbackListener = target;
+	m_callback = callFun;
+}
+
+bool WinLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
+	return true;
+}
+void WinLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+void WinLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+SetupLayer::SetupLayer(){
+}
+
+SetupLayer::~SetupLayer(){
+
+}
+
+void SetupLayer::loadPicFromCSB(std::string){
 
 }
