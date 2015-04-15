@@ -5,13 +5,13 @@
 //  Created by Leonard on 15/3/20.
 //
 //
-
-#include "MenuScene.h"
 #include "cocos2d.h"
+#include "MenuScene.h"
 #include "GameScene.h"
-
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 USING_NS_CC;
-
+using namespace ui;
 
 Scene* MenuScene::createScene(){
 	Scene* scene = Scene::create();
@@ -48,12 +48,15 @@ bool MenuScene::init(){
 
 }
 
-
-
 void MenuScene::menuCloseCallback(Ref* pSender)
 {
 	auto scene = GameScene::createScene();//创建待切换的场景
 	auto transition = TransitionPageTurn::create(2.0f, scene, true);//给场景包装动画特效 
 	Director::getInstance()->replaceScene(transition);//运用导演类来进行切换场景
 
+}
+
+void MenuScene::loadCSBFromfile(std::string csbfile){
+	auto rootNode = CSLoader::createNode(csbfile);
+	this->addChild(rootNode);
 }

@@ -29,6 +29,9 @@ private:
 
 	virtual bool init();
 
+	cocos2d::Node* loadCSB(std::string csbfile);
+
+
 /////////////////////////////////////////////////////////////////////////CALLBACK
 
 	/*control callback*/

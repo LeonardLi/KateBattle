@@ -16,6 +16,7 @@
 
 USING_NS_CC;
 using namespace ui;
+using namespace cocostudio::timeline;
 
 
 #define COLLIDEMARGIN 30
@@ -76,25 +77,16 @@ bool GameScene::init()
 
     /////////////////////////////
 
-
-    
-
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
-
+	auto rootnode = loadCSB("caishichang/caishichang.csb");
+	this->addChild(rootnode, 0);
+	
 	m_hero = Hero::create(Sprite::create("wolf.png"));
 	m_hero->setPosition(200, 200);
 	this->addChild(m_hero, 0);
 
 
     m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
-    this->addChild(m_stick);
+    this->addChild(m_stick, 0);
     m_stick->setPosition(Vec2(200,200));
 	m_stick->setDieRadius(120);
 	m_stick->setFailRadius(0);	
@@ -116,6 +108,14 @@ bool GameScene::init()
     return true;
 }
 
+Node* GameScene::loadCSB(std::string csbfile){
+	Node* rootNode = CSLoader::createNode(csbfile.c_str());
+	ActionTimeline* actionTime = CSLoader::createTimeline(csbfile);
+	rootNode->runAction(actionTime);
+	actionTime->gotoFrameAndPlay(0, 60, true);
+
+	return rootNode;
+}
 
 void GameScene::onDirectionChange(JoystickEnum direction){
 	m_hero->ChangeDirection(direction);

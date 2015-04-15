@@ -20,6 +20,7 @@ public:
     Entity();
 	//绑定精灵
 	void bindSprite(cocos2d::Sprite* sprite);
+
 	//获取绑定精灵
 	cocos2d::Sprite* getSprite();
 	//是否死亡
@@ -32,6 +33,10 @@ protected:
 	void onDead();
 	//受到攻击时行为函数
 	void onHurt();
+
+	void bindSprite(std::string);
+
+
 private: 
 
 public:

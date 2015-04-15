@@ -19,7 +19,7 @@ public:
 private:
 	virtual bool init();
     void menuCloseCallback(cocos2d::Ref* pSender);
-    
+	void loadCSBFromfile(std::string);
     
 };
 

@@ -7,7 +7,10 @@
 //
 
 #include "Entity.h"
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 USING_NS_CC;
+using namespace ui;
 
 Entity::Entity()
 {
@@ -19,7 +22,6 @@ Entity::Entity()
 Sprite* Entity::getSprite()
 {
 	return mViewSprite;
-
 }
 
 void Entity::bindSprite(Sprite* sprite)
@@ -33,6 +35,11 @@ void Entity::bindSprite(Sprite* sprite)
 	Size size = mViewSprite->getContentSize();
 	mViewSprite->setPosition(Point(size.width*0.5f, size.height*0.5f));
 	this->setContentSize(size);
+}
+
+void Entity::bindSprite(std::string csbfile){
+	mViewSprite = static_cast<Sprite*>(CSLoader::createNode(csbfile));
+	this->addChild(mViewSprite);
 }
 
 bool Entity::isDead()
