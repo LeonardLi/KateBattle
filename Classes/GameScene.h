@@ -190,7 +190,7 @@ private:
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 
-	cocos2d::Vector<Equipment*> m_inventoryVec;
+	cocos2d::Vector<Equipment*> m_equipmentVec;
 };
 
 /************************************************************************/

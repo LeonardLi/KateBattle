@@ -1,5 +1,6 @@
 #include "Equipment.h"
 
+
 Equipment::Equipment() :
 m_id(0),
 m_style(EquipmentType::Default),
@@ -15,4 +16,9 @@ m_isUsed(false)
 
 Equipment::~Equipment(){
 
+}
+
+Equipment* Equipment::create(const std::string& filename){
+    Equipment* aEquipment = static_cast<Equipment*>(Sprite::create(filename));
+    return aEquipment;
 }

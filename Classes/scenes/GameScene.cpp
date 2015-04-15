@@ -432,13 +432,13 @@ void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
 	User aUser = JsonUtility::getInstance()->getUser();
 	int scene = static_cast<int>(sceneChoose);
 	
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	if (0 == aUser.Clear_BlockID[scene][i]){
-	//		lvButton[i]->setBright(false);
-	//		lvButton[i]->setEnabled(false);
-	//	}
-	//}
+	for (int i = 0; i < 3; i++)
+	{
+		if (0 == aUser.Clear_BlockID[scene][i]){
+			lvButton[i]->setBright(false);
+			lvButton[i]->setEnabled(false);
+		}
+	}
 
 	backButton->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this, sceneChoose));
 	lvButton[0]->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this, sceneChoose));
@@ -516,6 +516,7 @@ bool BagLayer::init(){
 	listener->onTouchEnded = CC_CALLBACK_2(BagLayer::onTouchEnded, this);
 	listener->onTouchMoved = CC_CALLBACK_2(BagLayer::onTouchMoved, this);
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
+    
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	__loadPicFromCSB();
@@ -529,7 +530,30 @@ bool BagLayer::init(){
 }
 
 bool BagLayer::__initFromFile(){
-
+    User aUser = JsonUtility::getInstance()->getUser();
+    for (int i = 0; i < 24; i++) {
+        
+        if(-1 != aUser.Equip[i].ID){
+            Equipment* aEquipment = Equipment::create();
+            
+            aEquipment->setBlood(aUser.Equip[i].Blood);
+            aEquipment->setIntelligence(aUser.Equip[i].Intelligence);
+            aEquipment->setEquipmentID(aUser.Equip[i].ID);
+            aEquipment->setEquipmentStyle(static_cast<EquipmentType>(aUser.Equip[i].Style));
+            aEquipment->setDenfense(aUser.Equip[i].Defense);
+            aEquipment->setMoveRate(aUser.Equip[i].MoveRate);
+            aEquipment->setAttack(aUser.Equip[i].Attack);
+            aEquipment->setAttackRate(aUser.Equip[i].AttackRate);
+            aEquipment->setUsed(aUser.Equip[i].Used);
+            m_equipmentVec.pushBack(aEquipment);
+            
+        }
+        else{
+            
+            break;
+        }
+    }
+    log("vec size ====== %zd",m_equipmentVec.size());
 	return true;
 }
 void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
@@ -538,15 +562,17 @@ void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN call
 }
 
 void BagLayer::__loadPicFromCSB(){
-	Layer* baglayer = static_cast<Layer*>(CSLoader::createNode("bag/bag.csb"));
+	Node* baglayer = static_cast<Node*>(CSLoader::createNode("bag/bag.csb"));
 	this->addChild(baglayer);
 }
 
 bool BagLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
 	return true;
 }
+
 void BagLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
 }
+
 void BagLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 }
 
@@ -554,12 +580,6 @@ void BagLayer::onEnter(){
 	log("========= BagLayer ========== onEnter");
 	PopupLayer::onEnter();
 
-	Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
-		, ScaleTo::create(0.06f, 1.05f)
-		, ScaleTo::create(0.08f, 0.95f)
-		, ScaleTo::create(0.08f, 1.0f)
-		, NULL);
-	this->runAction(popupMenu);
 }
 
 void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){

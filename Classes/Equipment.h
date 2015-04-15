@@ -17,8 +17,11 @@ enum class EquipmentType{
 };
 class Equipment :public BackupEntity{
 public:
+    CREATE_FUNC(Equipment);
+    static Equipment* create(const std::string&);
 	Equipment();
 	~Equipment();
+ 
 private:
 	CC_SYNTHESIZE(int, m_id, EquipmentID);
 	CC_SYNTHESIZE(EquipmentType, m_style, EquipmentStyle);
