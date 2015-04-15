@@ -24,8 +24,8 @@ struct User								//玩家用户信息
 	double UserSpeed;
 	double UserStrength;
 	int SkillID[10];
-	int ToolID[10];
-	int EquipID[10];
+	int ToolID[10][2];
+	int EquipID[10][2];
 	int Clear_BlockID;
 };
 
@@ -35,12 +35,21 @@ struct Monster_location{				//每关怪兽信息
 	int y;
 };
 
+struct Store              //每关商店信息
+{
+	int X;
+	int Y;
+	int ToolID[10];
+	int EquipID[10];
+};
+
 struct Block							//每关卡信息
 {
 	Monster_location monster[9];
-	char info[40];
+	char info[150];
+	char BlockName[20];
+	Store store;
 };
-
 struct Equipment{						//装备信息
 	char EquipName[20];
 	char EquipInfo[50];
@@ -86,6 +95,7 @@ public:
 	Skill getSkill(int ID);			//获取第i个技能
 	Equipment getEquipment(int ID);	//获取第i个装备
 	Tool getTool(int ID);			//获取第i个工具
+	Store getStore(int ID);			//获取第i关的商店的信息
 	rapidjson::Document getDocument();			// 获取m_doc
 	virtual bool init();
 	static JsonUtility* getInstance();
