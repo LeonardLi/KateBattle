@@ -137,7 +137,7 @@ User JsonUtility::getUser()					//获取用户信息
 	User user;
 	rapidjson::Value& val = m_doc["User"];
 	rapidjson::Value& tem = val["UserName"];
-	strcpy_s(user.UserName, tem.GetString());
+	strcpy(user.UserName, tem.GetString());
 	rapidjson::Value& bon = val["UserBonesNumber"];
 	user.UserBonesNumber = bon.GetInt();
 	rapidjson::Value& gold = val["UserGoldsNumber"];
@@ -211,7 +211,7 @@ Block JsonUtility::getBlock(int ID)			//获取第i关卡信息
 		}
 	}
 	rapidjson::Value& block_info = info["BlockInfo"];
-	strcpy_s(block.info, block_info.GetString());
+	strcpy(block.info, block_info.GetString());
 	return block;
 }
 Monster_info JsonUtility::getMonster(int ID)		// 获取第i个怪物
@@ -228,9 +228,9 @@ Monster_info JsonUtility::getMonster(int ID)		// 获取第i个怪物
 	info.MonsterAttack = mon_info["MonsterAttack"].GetDouble();
 	info.MonsterDefense = mon_info["MonsterDefense"].GetDouble();
 	info.MonsterHealth = mon_info["MonsterHealth"].GetInt();
-	strcpy_s(info.MonsterInfo, mon_info["MonsterInfo"].GetString());
+	strcpy(info.MonsterInfo, mon_info["MonsterInfo"].GetString());
 	info.MonsterSpeed = mon_info["MonsterSpeed"].GetDouble();
-	strcpy_s(info.MonsterType, mon_info["MonsterType"].GetString());
+	strcpy(info.MonsterType, mon_info["MonsterType"].GetString());
 	return info;
 }
 Skill JsonUtility::getSkill(int ID)			//获取第i个技能
@@ -246,9 +246,9 @@ Skill JsonUtility::getSkill(int ID)			//获取第i个技能
 	rapidjson::Value& skill_info = skill[ID];
 	info.SkillColdTime = skill_info["SkillColdTime"].GetDouble();
 	info.SkillDamage = skill_info["SkillDamage"].GetDouble();
-	strcpy_s(info.SkillInfo, skill_info["SkillInfo"].GetString());
-	strcpy_s(info.SkillName, skill_info["SkillName"].GetString());
-	strcpy_s(info.SkillType, skill_info["SkillType"].GetString());
+	strcpy(info.SkillInfo, skill_info["SkillInfo"].GetString());
+	strcpy(info.SkillName, skill_info["SkillName"].GetString());
+	strcpy(info.SkillType, skill_info["SkillType"].GetString());
 	return info;
 }
 Equipment JsonUtility::getEquipment(int ID)	//获取第i个装备
@@ -262,10 +262,10 @@ Equipment JsonUtility::getEquipment(int ID)	//获取第i个装备
 		return equip;
 	}
 	rapidjson::Value& equi_info = equi[ID];
-	strcpy_s(equip.EquipAttribute, equi_info["EquipAttribute"].GetString());
+	strcpy(equip.EquipAttribute, equi_info["EquipAttribute"].GetString());
 	equip.EquipAttributeValue = equi_info["EquipAttributeValue"].GetDouble();
-	strcpy_s(equip.EquipInfo, equi_info["EquipInfo"].GetString());
-	strcpy_s(equip.EquipName, equi_info["EquipName"].GetString());
+	strcpy(equip.EquipInfo, equi_info["EquipInfo"].GetString());
+	strcpy(equip.EquipName, equi_info["EquipName"].GetString());
 	equip.EquipPrice = equi_info["EquipPrice"].GetInt();
 	return equip;
 }
@@ -280,10 +280,10 @@ Tool JsonUtility::getTool(int ID)			//获取第i个工具
 		return info;
 	}
 	rapidjson::Value& tool_info = tool[ID];
-	strcpy_s(info.ToolAttribute, tool_info["ToolAttribute"].GetString());
+	strcpy(info.ToolAttribute, tool_info["ToolAttribute"].GetString());
 	info.ToolAttruibuteValue = tool_info["ToolAttruibuteValue"].GetDouble();
-	strcpy_s(info.ToolInfo, tool_info["ToolInfo"].GetString());
-	strcpy_s(info.ToolName, tool_info["ToolName"].GetString());
+	strcpy(info.ToolInfo, tool_info["ToolInfo"].GetString());
+	strcpy(info.ToolName, tool_info["ToolName"].GetString());
 	info.ToolPrice = tool_info["ToolPrice"].GetInt();
 	return info;
 }
