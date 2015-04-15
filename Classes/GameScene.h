@@ -78,6 +78,17 @@ Date:
 /************************************************************************/
 class ChooseGameScene :public cocos2d::Layer{
 
+public:
+	static cocos2d::Scene* createScene();
+
+	CREATE_FUNC(ChooseGameScene);
+
+private:
+	virtual bool init();
+
+	cocos2d::Node* loadCSB();
+
+	void onBackButtonClicked(cocos2d::Ref*);
 
 };
 

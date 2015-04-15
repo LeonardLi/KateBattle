@@ -33,7 +33,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::create("My Game");
         director->setOpenGLView(glview);
     }
-	glview->setFrameSize(1280, 720);
 	glview->setDesignResolutionSize(1280, 720, ResolutionPolicy::EXACT_FIT);
 
 	Kernal* GameKernal = Kernal::create();

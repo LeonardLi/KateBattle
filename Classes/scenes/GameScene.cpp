@@ -244,6 +244,36 @@ void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
 
 //////////////////////////////////////////////////////////////////////////
 
+Scene* ChooseGameScene::createScene(){
+	Scene* scene = Scene::create();
+	auto layer = ChooseGameScene::create();
+	scene->addChild(layer);
+	return scene;
+}
+
+bool ChooseGameScene::init(){
+	if (!Layer::init())
+	{
+		return false;
+	}
+
+	this->addChild(loadCSB());
+	return true;
+}
+
+Node* ChooseGameScene::loadCSB(){
+	auto rootNode = CSLoader::createNode("scenarioselection/scenarioselection.csb");
+	Button* backButton = static_cast<Button*>(rootNode->getChildByName("Button_1"));
+	backButton->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onBackButtonClicked, this));
+	return rootNode;
+}
+
+void ChooseGameScene::onBackButtonClicked(cocos2d::Ref* Sender){
+	log("===== click back ======");
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 
 void PopupLayer::onEnter(){
     Layer::onEnter();
