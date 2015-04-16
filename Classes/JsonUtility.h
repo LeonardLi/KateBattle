@@ -12,10 +12,9 @@
 #include "json/stringbuffer.h"
 #include "json/writer.h"
 #pragma execution_character_set("utf-8") 
-
 struct User								//玩家用户信息
 {
-	char UserName[50];
+	std::string UserName;
 	int UserBonesNumber;
 	int UserGoldsNumber;
 	double UserHealth;
@@ -31,14 +30,14 @@ struct User								//玩家用户信息
 
 struct Monster_location{				//每关怪兽信息
 	int monsterID;
-	int x;
-	int y;
+	double x;
+	double y;
 };
 
 struct Store              //每关商店信息
 {
-	int X;
-	int Y;
+	double X;
+	double Y;
 	int ToolID[10];
 	int EquipID[10];
 };
@@ -46,44 +45,44 @@ struct Store              //每关商店信息
 struct Block							//每关卡信息
 {
 	Monster_location monster[9];
-	char info[150];
-	char BlockName[20];
+	std::string info;
+	std::string BlockName;
 	Store store;
 };
 struct Equipment{						//装备信息
-	char EquipName[20];
-	char EquipInfo[50];
-	char EquipAttribute[20];
+	std::string EquipName;
+	std::string EquipInfo;
+	std::string EquipAttribute;
 	double EquipAttributeValue;
 	int EquipPrice;
 };
 
 struct Tool								//工具信息
 {
-	char ToolName[20];
-	char ToolInfo[50];
-	char ToolAttribute[20];
+	std::string ToolName;
+	std::string ToolInfo;
+	std::string ToolAttribute;
 	double ToolAttruibuteValue;
 	int ToolPrice;
 };
 
 struct Skill							//技能信息
 {
-	char SkillName[20];
-	char SkillType[20];
+	std::string SkillName;
+	std::string SkillType;
 	double SkillDamage;
-	char SkillInfo[50];
+	std::string SkillInfo;
 	double SkillColdTime;
 };
 
 struct Monster_info						   //怪物信息
 {
-	char MonsterType[20];
+	std::string MonsterType;
 	int MonsterHealth;
 	double MonsterSpeed;
 	double MonsterDefense;
 	double MonsterAttack;
-	char MonsterInfo[50];
+	std::string MonsterInfo;
 };
 
 class JsonUtility{
@@ -102,8 +101,8 @@ public:
 	
 	
 private:
-	void read();                   //初始化时读取json文件
-	void write(User user);		   //将修改的内容写入json文件
+	void _read();                   //初始化时读取json文件
+	void _write(User user);		   //将修改的内容写入json文件
 
 private:
 	static JsonUtility* m_JsonUtility;
