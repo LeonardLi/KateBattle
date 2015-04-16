@@ -263,14 +263,32 @@ bool ChooseGameScene::init(){
 
 Node* ChooseGameScene::loadCSB(){
 	auto rootNode = CSLoader::createNode("scenarioselection/scenarioselection.csb");
-	Button* backButton = static_cast<Button*>(rootNode->getChildByName("Button_1"));
+	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(27));
+	PageView* pageView = static_cast<PageView*>(rootNode->getChildByTag(18));
+
+	Button* scenarioButton1 = static_cast<Button*>(pageView->getPage(0)->getChildByTag(43));
+	Button* scenarioButton2 = static_cast<Button*>(pageView->getPage(1)->getChildByTag(44));
+	Button* scenarioButton3 = static_cast<Button*>(pageView->getPage(2)->getChildByTag(45));
+	pageView->setCustomScrollThreshold(300.0f);
+	pageView->setUsingCustomScrollThreshold(true);
 	backButton->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onBackButtonClicked, this));
+	scenarioButton1->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onScenarioChosenClicked, this));
+	scenarioButton2->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onScenarioChosenClicked, this));
+	scenarioButton3->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onScenarioChosenClicked, this));
 	return rootNode;
 }
 
 void ChooseGameScene::onBackButtonClicked(cocos2d::Ref* Sender){
 	log("===== click back ======");
 }
+
+void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
+	Button* button = static_cast<Button*>(Sender);
+
+	log("====scene====%d",button->getTag());
+
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 

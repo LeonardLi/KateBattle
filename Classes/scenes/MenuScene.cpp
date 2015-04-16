@@ -50,7 +50,7 @@ bool MenuScene::init(){
 
 void MenuScene::menuCloseCallback(Ref* pSender)
 {
-	auto scene = GameScene::createScene();//创建待切换的场景
+	auto scene = ChooseGameScene::createScene();//创建待切换的场景
 	auto transition = TransitionPageTurn::create(2.0f, scene, true);//给场景包装动画特效 
 	Director::getInstance()->replaceScene(transition);//运用导演类来进行切换场景
 

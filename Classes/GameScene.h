@@ -89,6 +89,7 @@ private:
 	cocos2d::Node* loadCSB();
 
 	void onBackButtonClicked(cocos2d::Ref*);
+	void onScenarioChosenClicked(cocos2d::Ref*);
 
 };
 
