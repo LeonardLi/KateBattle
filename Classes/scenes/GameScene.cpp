@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "MenuScene.h"
 #include "JoyStick.h"
 #include "Hero.h"
 #include "cocos2d.h"
@@ -111,9 +112,8 @@ bool GameScene::init()
 Node* GameScene::loadCSB(std::string csbfile){
 	Node* rootNode = CSLoader::createNode(csbfile.c_str());
 	ActionTimeline* actionTime = CSLoader::createTimeline(csbfile);
-	rootNode->runAction(actionTime);
 	actionTime->gotoFrameAndPlay(0, 60, true);
-
+	rootNode->runAction(actionTime);
 	return rootNode;
 }
 
@@ -269,8 +269,11 @@ Node* ChooseGameScene::loadCSB(){
 	Button* scenarioButton1 = static_cast<Button*>(pageView->getPage(0)->getChildByTag(43));
 	Button* scenarioButton2 = static_cast<Button*>(pageView->getPage(1)->getChildByTag(44));
 	Button* scenarioButton3 = static_cast<Button*>(pageView->getPage(2)->getChildByTag(45));
+
+	//change the default threshold to fit 
 	pageView->setCustomScrollThreshold(300.0f);
 	pageView->setUsingCustomScrollThreshold(true);
+
 	backButton->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onBackButtonClicked, this));
 	scenarioButton1->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onScenarioChosenClicked, this));
 	scenarioButton2->addClickEventListener(CC_CALLBACK_1(ChooseGameScene::onScenarioChosenClicked, this));
@@ -280,13 +283,29 @@ Node* ChooseGameScene::loadCSB(){
 
 void ChooseGameScene::onBackButtonClicked(cocos2d::Ref* Sender){
 	log("===== click back ======");
+	auto scene = MenuScene::createScene();
+	auto transition = TransitionShrinkGrow::create(2.0f, scene);
+	Director::getInstance()->replaceScene(transition);
+
 }
 
 void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
 	Button* button = static_cast<Button*>(Sender);
 
 	log("====scene====%d",button->getTag());
+	switch (button->getTag())
+	{
+	case 43:
+		Director::getInstance()->replaceScene(GameScene::createScene());
+		break;
 
+	case 44:
+		break;
+	case 45:
+		break;
+	default:
+		break;
+	}
 }
 
 
@@ -307,6 +326,9 @@ bool PopupLayer::init(){
 	{
 		return false;
 	}
+	//cover other layer
+	setColor(Color3B::BLACK);
+	setOpacity(128);
 	return true;
 }
 
@@ -346,9 +368,6 @@ bool EquipmentLayer::init(){
     auto dispatcher = Director::getInstance()->getEventDispatcher();    
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
-    //cover other layer
-    setColor(Color3B::BLACK);
-    setOpacity(128);
     loadPicFromCSB("Node.csb");
 	
 	return true;
@@ -429,11 +448,9 @@ bool InventoryLayer::init(){
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//cover other layer
-	setColor(Color3B::BLACK);
-	setOpacity(128);
 	return true;
 }
+
 void InventoryLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
 	m_callbackListener = target;
 	m_callback = callFun;
@@ -489,9 +506,6 @@ bool BagLayer::init(){
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//cover other layer
-	setColor(Color3B::BLACK);
-	setOpacity(128);
 	return true;
 }
 
@@ -554,9 +568,6 @@ bool WinLayer::init(){
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//cover other layer
-	setColor(Color3B::BLACK);
-	setOpacity(128);
 	return true;
 }
 
@@ -587,6 +598,41 @@ SetupLayer::~SetupLayer(){
 
 }
 
-void SetupLayer::loadPicFromCSB(std::string){
+bool SetupLayer::init(){
+	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	//delegate the Touch event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(SetupLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(SetupLayer::onTouchEnded, this);
+	listener->onTouchMoved = CC_CALLBACK_2(SetupLayer::onTouchMoved, this);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	loadPicFromCSB("Node.csb");
+	return true;
+}
+void SetupLayer::loadPicFromCSB(std::string csbfile){
+	Node* rootNode = CSLoader::createNode(csbfile);
+	rootNode->setPosition(VisibleRect::center());
+	Button* backButton = static_cast<Button*>(rootNode->getChildByName("Button"));
+	backButton->addClickEventListener(CC_CALLBACK_1(SetupLayer::onBackButtonClick, this));
+			
+	this->addChild(rootNode);
+}
 
+bool SetupLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
+	return true;
+}
+void SetupLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+void SetupLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+
+void SetupLayer::onBackButtonClick(cocos2d::Ref* sender){
+	this->removeFromParent();
 }

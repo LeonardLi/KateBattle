@@ -19,8 +19,14 @@ public:
 private:
 	virtual bool init();
     void menuCloseCallback(cocos2d::Ref* pSender);
-	void loadCSBFromfile(std::string);
+	void loadCSBFromfile();
+	void onButtonClicked(cocos2d::Ref*);
     
+	void _playCG();
+	void _ChooseScenario();
+	void _showSetup();
+	void _quit();
+
 };
 
 #endif /* defined(__KateBattle__MenuScene__) */

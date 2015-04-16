@@ -257,6 +257,14 @@ private:
 	virtual void loadPicFromCSB(std::string);
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
+	virtual bool init();
+
+	//touch时监听，屏蔽向下触摸
+	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+
+	void onBackButtonClick(cocos2d::Ref*);
 };
 
 
