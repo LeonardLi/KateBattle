@@ -237,6 +237,7 @@ void Monster::initBullet(){
 		bullet = BulletNormal::create(Sprite::create("CloseNormal.png"));
 		bullet->setUsed(false);
 		m_bulletList.pushBack(bullet);
+
 		this->getParent()->addChild(bullet);
 	}
 	this->schedule(schedule_selector(Monster::bulletLogicCheck));
