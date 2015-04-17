@@ -82,7 +82,7 @@ bool GameScene::init()
 	this->addChild(rootnode, 0);
 	
 	m_hero = Hero::create(Sprite::create("wolf.png"));
-	m_hero->setPosition(200, 200);
+	m_hero->setPosition(100, 100);
 	this->addChild(m_hero, 0);
 
 
@@ -102,10 +102,11 @@ bool GameScene::init()
 	this->scheduleUpdate();
 
 	
+	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
+	//this->scheduleOnce(schedule_selector(GameScene::postBossUseSkillNotification), 6.0f);
+	
 	
 
-	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
-	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 15.0f);
     return true;
 }
 

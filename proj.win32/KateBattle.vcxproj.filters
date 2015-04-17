@@ -90,15 +90,13 @@
     <ClCompile Include="..\Classes\models\BulletNormal.cpp">
       <Filter>src\models\bullet</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\models\BulletManager.cpp">
-      <Filter>src\models\bullet</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\tools\JsonUtility.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\tools\VisibleRect.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\VisibleRect.cpp" />
     <ClCompile Include="..\Classes\models\Inventory.cpp">
       <Filter>src\models</Filter>
     </ClCompile>
@@ -164,15 +162,13 @@
     <ClInclude Include="..\Classes\BulletNormal.h">
       <Filter>src\models\bullet</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BulletManager.h">
-      <Filter>src\models\bullet</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\JsonUtility.h">
       <Filter>src\tools</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\VisibleRect.h">
       <Filter>src\tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="..\Classes\Inventory.h">
       <Filter>src\models</Filter>
     </ClInclude>

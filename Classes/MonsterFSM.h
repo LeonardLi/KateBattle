@@ -8,6 +8,7 @@
 class Monster;
 class I_State;
 
+enum class EnumMsgType;
 class MonsterFSM : public cocos2d::Node{
 
 public:
@@ -22,11 +23,20 @@ public:
 	void OnRecvBossWantToUseSkill(Ref* obj);
 	void OnRecvBossWantToAttack(Ref* obj);
 
+	int getState();
 
+public:
+	enum stateNum{
+		toUseSkill,
+		toAttack,
+		BosstoUseSkill,
+		BossToAttack,
+	};
 private:
 
 	Monster* monster;
 	I_State* mCurState;
-
+	int state;
+	
 };
 #endif

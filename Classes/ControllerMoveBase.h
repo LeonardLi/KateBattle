@@ -13,13 +13,29 @@ public:
 
 	void simpleMove(JoystickEnum direction);
 
+	void judgeBlock();
+
+	void blockHeroDirection();
+
+	void resetHeroDirection();
+
 	static ControllerMoveBase* create(Hero* hero);
+
+public:
+	bool isAllowToLeft;
+	bool isAllowToRight;
+	bool isAllowToUp;
+	bool isAllowToDown;
+	bool isAllowToLeftUp;
+	bool isAllowToLeftDown;
+	bool isAllowToRightUp;
+	bool isAllowToRightDown;
 
 private:
 
 	bool init(Hero* hero);
 	bool m_isMoving;
-	CC_SYNTHESIZE(int, m_iSpeed, iSpeed);
+	CC_SYNTHESIZE(float, m_iSpeed, iSpeed);
 	Hero* m_hero;
 	JoystickEnum heroDirection;
 };

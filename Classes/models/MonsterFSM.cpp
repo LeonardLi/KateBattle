@@ -27,6 +27,7 @@ MonsterFSM* MonsterFSM::createWithMonster(Monster* monster){
 bool MonsterFSM::initWithMonster(Monster* monster){
 	this->mCurState = NULL;
 	this->monster = monster;
+	this->state = toUseSkill;
 	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvWantToUseSkill),
 		StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToUseSkill)), NULL);
 	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvWantToAttack),
@@ -47,20 +48,28 @@ void MonsterFSM::changeState(I_State* state){
 }
 
 void MonsterFSM::OnRecvWantToUseSkill(Ref* obj){
+	this->state = toUseSkill;
 	this->mCurState->execute(monster,EnumMsgType::en_Msg_WantToUseSkill);
 
 }
 
 void MonsterFSM::OnRecvWantToAttack(Ref* obj){
+	this->state = toAttack;
 	this->mCurState->execute(monster, EnumMsgType::en_Msg_WantToAttack);
 	
 }
 void MonsterFSM::OnRecvBossWantToUseSkill(Ref* obj){
+	this->state = BosstoUseSkill;
 	this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToUseSkill);
 
 }
 
 void MonsterFSM::OnRecvBossWantToAttack(Ref* obj){
+	this->state = BossToAttack;
 	this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToAttack);
 
+}
+
+int MonsterFSM::getState(){
+	return this->state;
 }

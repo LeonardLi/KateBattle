@@ -10,23 +10,16 @@
 #include "ControllerMoveBase.h"
 #include "JoyStick.h"
 
-#define LEFT 0
-#define RIGHT 1
-//иаож
-#define SKILLBLINKID 1
-//нч╣п
-#define SKILLUNCONQUER 2
-#define SKILL3 3
-#define SKILL4 4
-#define SKILL5 5
-#define SKILL6 6
-
 
 
 USING_NS_CC;
 
-Hero::Hero(){
-}
+Hero::Hero() :
+m_defaultSpeed(1.0),
+m_direction(JoystickEnum::DEFAULT),
+m_canControl(true),
+m_moveController(nullptr)
+{}
 
 Hero* Hero::create(Sprite* sprite){
 	Hero* hero = new Hero();
@@ -47,15 +40,12 @@ bool Hero::init(Sprite* sprite){
 	}
 
 	bool bRet = false;
-	m_moveController = nullptr;
-	m_direction = JoystickEnum::DEFAULT;
-	m_Stun = NOTSTUN;
-	m_canControl = true;
-	m_heroDirection = RIGHT;
+	
 	do 
 	{
 		CC_BREAK_IF(!sprite);
-		bindSprite(sprite);
+		_loadCSB("hero1/hero1.csb");
+		//bindSprite(sprite);
 		m_moveController = ControllerMoveBase::create(this);
 		bRet = true;
 	} while (0);
@@ -63,9 +53,20 @@ bool Hero::init(Sprite* sprite){
 	return bRet;
 }
 
+
+void Hero::_loadCSB(std::string csbfile){
+	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
+	mTimeLine = CSLoader::createTimeline(csbfile);
+
+	this->setAnchorPoint(Vec2(0.5, 0.5));
+	this->setContentSize(Size(70, 90));
+
+	this->addChild(mViewNode);
+}
 void Hero::update(float dt){
 	if (m_Stun!=STUN && m_isDead==false&&m_canControl==true)
 	m_moveController->simpleMove(m_direction);
+
 }
 
 
@@ -89,21 +90,28 @@ void Hero::changeStun(float dt){
 
 void Hero::herostun(float time)
 {
-	mViewSprite->stopAllActions();
+	//mViewSprite->stopAllActions();
 	m_Stun = STUN;
+	if (this->isScheduled(schedule_selector(Hero::changeStun)))
+	{
+		this->unschedule(schedule_selector(Hero::changeStun));
+		this->scheduleOnce(schedule_selector(Hero::changeStun), time);
+	}
+	else
 	this->scheduleOnce(schedule_selector(Hero::changeStun), time);
+	
 }
 
 void Hero::attack(){
 	log("attack!!============");
-	if (mViewSprite->getNumberOfRunningActions()==0)
-	{
+	//if (mViewSprite->getNumberOfRunningActions()==0)
+	//{
 		//run action
-	}
+	//}
 }
 
 void Hero::heroNotControl(float time){
-	mViewSprite->stopAllActions();
+	//mViewSprite->stopAllActions();
 	m_canControl = false;
 	this->scheduleOnce(schedule_selector(Hero::changeControlType), time);
 }
@@ -113,8 +121,38 @@ void Hero::changeControlType(float dt){
 		m_canControl = true;
 }
 
-void Hero::getHurt(int ivalue,float stunTime){
+void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 	this->onHurt();
 	this->hurtMe(ivalue);
-	herostun(stunTime);
+	if (slowTime>0)
+	{
+		this->herostun(stunTime);
+	}
+	if (slowValue>0.01)
+	{
+		this->changeSpeed(slowValue, slowTime);
+	}
+	
+}
+
+void Hero::changeSpeed(float slowValue, float slowTime){
+	
+	float speed = this->m_moveController->getiSpeed();
+	if (speed==this->getDefaultSpeed())
+	{
+		this->m_moveController->setiSpeed(speed*(1-slowValue));
+
+
+		if (this->isScheduled(schedule_selector(Hero::recoverSpeed)))
+		{
+			this->unschedule(schedule_selector(Hero::recoverSpeed));
+			this->scheduleOnce(schedule_selector(Hero::recoverSpeed), slowTime);
+		}
+		else
+		this->scheduleOnce(schedule_selector(Hero::recoverSpeed), slowTime);
+	}
+}
+
+void Hero::recoverSpeed(float dt){
+	this->m_moveController->setiSpeed(this->getDefaultSpeed());
 }

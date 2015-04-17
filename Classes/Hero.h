@@ -10,6 +10,7 @@
 #define __KateBattle__Hero__
 #include "Entity.h"
 #include "cocos2d.h"
+#include "Monster.h"
 class ControllerMoveBase;
 enum class JoystickEnum;
 
@@ -32,7 +33,12 @@ public:
 
 	void attack();
 
-	void getHurt(int ivalue,float stunTime);
+	void getHurt(float ivalue,float stunTime,float slowValue,float slowTime);
+
+protected:
+	virtual void _loadCSB(std::string);
+	
+
 private:
 	Hero();
 
@@ -43,13 +49,19 @@ private:
 	void changeStun(float dt);
 
 	void herostun(float time);
+
+	void changeSpeed(float slowValue, float slowTime);
+
+	void recoverSpeed(float dt);
+
 public:
 	bool m_canControl;
-
+	cocos2d::Vector <Monster*> m_blockArea;
 private:
 	ControllerMoveBase* m_moveController;
 
 	CC_SYNTHESIZE(int, m_hp, Hp);
+	CC_SYNTHESIZE(float, m_defaultSpeed, DefaultSpeed);
 
 	JoystickEnum m_direction;
 

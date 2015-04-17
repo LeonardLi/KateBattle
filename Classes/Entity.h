@@ -26,7 +26,7 @@ public:
 	//是否死亡
 	bool isDead();
 	//受到攻击时逻辑函数
-	void hurtMe(int iHurtValue);
+	void hurtMe(float iHurtValue);
 
 protected:
 	//死亡时行为函数

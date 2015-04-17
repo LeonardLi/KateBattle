@@ -32,3 +32,10 @@ void BulletBase::lockTarget(Hero* hero){
 		onLockAim(m_targetHero);
 	}
 }
+
+void BulletBase::setBulletValue(float damage, float stuntime, float slowValue, float slowTime){
+	this->bulletDamage = damage;
+	this->bulletStunTime = stuntime;
+	this->bulletSlowDown = slowValue;
+	this->bulletSlowDownTime = slowTime;
+}

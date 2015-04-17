@@ -45,7 +45,7 @@ void BulletNormal::moveEnd(){
 }
 
 void BulletNormal::normalShoot(Hero* hero){
-	Point aimWorldPos = hero->getParent()->convertToWorldSpace(hero->getPosition());
+	Point aimWorldPos = hero->getPosition();
 	Point dstPos = Vec2(aimWorldPos.x - this->getPositionX(), aimWorldPos.y - this->getPositionY());
 
 	cocos2d::Size size = Director::getInstance()->getVisibleSize();

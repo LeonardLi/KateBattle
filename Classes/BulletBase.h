@@ -14,7 +14,13 @@ public:
 	void setUsed(bool isUsed);
 	void lockTarget(Hero* hero);
 	Hero* getTarget();
+	void setBulletValue(float damage,float stuntime,float slowValue,float slowTime);
 	virtual void onLockAim(Hero* hero) = 0;
+public:
+	float bulletDamage;
+	float bulletStunTime;
+	float bulletSlowDown;
+	float bulletSlowDownTime;
 private:
 	CC_SYNTHESIZE(int, m_iAtkValue, iAtkValue);
 	CC_SYNTHESIZE(int, m_speed, speed);

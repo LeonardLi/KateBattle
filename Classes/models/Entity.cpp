@@ -17,7 +17,7 @@ Entity::Entity():
 mViewSprite(nullptr),
 mViewNode(nullptr),
 m_isDead(false),
-m_Stun(0),
+m_Stun(NOTSTUN),
 mTimeLine(nullptr)
 {	
 }
@@ -44,17 +44,25 @@ void Entity::bindSprite(Sprite* sprite)
 	mViewSprite->removeFromParentAndCleanup(true);
 
 	this->mViewSprite = sprite;
+	mViewSprite->setAnchorPoint(Vec2(0.5, 0.5));
 	this->addChild(mViewSprite);
 
+	this->setAnchorPoint(Vec2(0.5,0.5));
 	Size size = mViewSprite->getContentSize();
 	mViewSprite->setPosition(Point(size.width*0.5f, size.height*0.5f));
+	
 	this->setContentSize(size);
 }
 
 void Entity::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
 	mTimeLine = CSLoader::createTimeline(csbfile);
-	this->addChild(mViewSprite);
+	
+	this->setAnchorPoint(Vec2(0.5,0.5));
+	this->setContentSize(Size(70,90));
+	
+	this->addChild(mViewNode);
+
 }
 
 bool Entity::isDead()
@@ -74,7 +82,7 @@ void Entity::onHurt()
 
 
 
-void Entity::hurtMe(int iHurtValue){
+void Entity::hurtMe(float iHurtValue){
 	if (m_isDead)
 	{
 		return;
