@@ -67,7 +67,6 @@ void MenuScene::loadCSBFromfile(){
 	ModeButton->addClickEventListener(CC_CALLBACK_1(MenuScene::onButtonClicked, this));
 	setupButton->addClickEventListener(CC_CALLBACK_1(MenuScene::onButtonClicked, this));
 	quitButton->addClickEventListener(CC_CALLBACK_1(MenuScene::onButtonClicked, this));
-
 	this->addChild(rootNode);
 }
 

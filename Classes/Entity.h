@@ -9,7 +9,7 @@
 #ifndef __KateBattle__Entity__
 #define __KateBattle__Entity__
 #include <cocos2d.h>
-
+#include "cocostudio/CocoStudio.h"
 #define STUN 0
 #define NOTSTUN 1
 #define NOTSTUNFOREVER 2
@@ -34,14 +34,16 @@ protected:
 	//受到攻击时行为函数
 	void onHurt();
 
-	void bindSprite(std::string);
-
+	void _loadCSB(std::string);
+	virtual bool init();
 
 private: 
 
 public:
 protected:
     cocos2d::Sprite* mViewSprite;
+	cocos2d::Node* mViewNode;
+	cocostudio::timeline::ActionTimeline* mTimeLine;
 	bool m_isDead;
 	int m_Stun;//3types
 private:

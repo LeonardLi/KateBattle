@@ -41,6 +41,11 @@ Hero* Hero::create(Sprite* sprite){
 
 
 bool Hero::init(Sprite* sprite){
+	if (!Entity::init())
+	{
+		return false;
+	}
+
 	bool bRet = false;
 	m_moveController = nullptr;
 	m_direction = JoystickEnum::DEFAULT;

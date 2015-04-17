@@ -106,9 +106,9 @@ public:
 
 	virtual void loadPicFromCSB(std::string) = 0;
 protected:
-	virtual bool init();
-	virtual void onEnter();
-    virtual void onExit();
+	virtual bool init() override;
+	virtual void onEnter() override;
+	virtual void onExit() override;
 
 };
 

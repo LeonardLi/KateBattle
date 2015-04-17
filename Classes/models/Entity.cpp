@@ -11,14 +11,28 @@
 #include "ui/CocosGUI.h"
 USING_NS_CC;
 using namespace ui;
+using namespace cocostudio::timeline;
 
-Entity::Entity()
-{
-	this->mViewSprite = nullptr;
-	m_isDead = false;
-	this->setAnchorPoint(Vec2(0.5, 0.5));
+Entity::Entity():
+mViewSprite(nullptr),
+mViewNode(nullptr),
+m_isDead(false),
+m_Stun(0),
+mTimeLine(nullptr)
+{	
 }
 
+bool Entity::init(){
+	if (!Node::init())
+	{	
+		return false;
+	}
+
+	//load view from csbfile
+
+	this->setAnchorPoint(Vec2(0.5, 0.5));
+	return true;
+}
 Sprite* Entity::getSprite()
 {
 	return mViewSprite;
@@ -37,8 +51,9 @@ void Entity::bindSprite(Sprite* sprite)
 	this->setContentSize(size);
 }
 
-void Entity::bindSprite(std::string csbfile){
-	mViewSprite = static_cast<Sprite*>(CSLoader::createNode(csbfile));
+void Entity::_loadCSB(std::string csbfile){
+	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
+	mTimeLine = CSLoader::createTimeline(csbfile);
 	this->addChild(mViewSprite);
 }
 
