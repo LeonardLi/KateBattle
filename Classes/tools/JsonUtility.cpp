@@ -7,10 +7,7 @@
 //
 #include "cocos2d.h"
 #include "JsonUtility.h"
-#include <fstream>
 USING_NS_CC;
-using namespace std;
-using namespace rapidjson;
 JsonUtility* JsonUtility::m_JsonUtility = nullptr;
 
 void JsonUtility::_read()
@@ -20,28 +17,20 @@ void JsonUtility::_read()
 	m_doc.Parse<rapidjson::ParseFlag::kParseDefaultFlags>(contentStr.c_str());
 	if (m_doc.HasParseError())
 	{
+		CCAssert(false,"GetParseError");
 		CCLOG("GetParseError %s\n", m_doc.GetParseError());
-		return;
 	}
 	if (!m_doc.IsObject())
 	{
-		CCLOG("no object!");
-		return;
+		CCAssert(false, "no object!");
 	}
 	if (!m_doc.HasMember("User"))
 	{
-		CCLOG("no member!");
-		return;
-	}
-	if (!m_doc.HasMember("User"))
-	{
-		CCLOG("No User!");
-		return;
+		CCAssert(false, "No User!");
 	}
 	if (!m_doc.HasMember("Data"))
 	{
-		CCLOG("No Data!");
-		return;
+		CCAssert(false, "No Data!");
 	}
 }
 
@@ -49,8 +38,7 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 {
 	if (!m_doc.IsObject())
 	{
-		CCLOG("NO OBJECT IN WRITING!");
-		return;
+		CCAssert(false, "NO OBJECT IN WRITING!");
 	}
 	rapidjson::Value& val = m_doc["User"];
 	rapidjson::Value& tem = val["UserName"];
@@ -142,7 +130,7 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
 	m_doc.Accept(writer);
 	const char * lin = buffer.GetString();
-	CCLOG("GROOT1:%s", lin);
+	log("GROOT1:%s", lin);
 	FILE* file = fopen("groot.json", "wb");
 	if (file)
 	{
@@ -227,8 +215,7 @@ Block JsonUtility::getBlock(int ID)			//获取第i关卡信息
 	rapidjson::Value& blo = val["Block"];
 	if (ID >= blo.Capacity())
 	{
-		CCLOG("wrong :exceed the limit of monster ");
-		return block;
+		CCAssert(false, "wrong :exceed the limit of monster ");	
 	}
 	rapidjson::Value& info = blo[ID];
 	rapidjson::Value& mon_info = info["Monster"];
@@ -257,8 +244,7 @@ Monster_info JsonUtility::getMonster(int ID)		// 获取第i个怪物
 	rapidjson::Value& mon = val["Monster"];
 	if (ID >= mon.Capacity())
 	{
-		CCLOG("wrong :exceed the limit of monster ");
-		return info;
+		CCAssert(false, "wrong :exceed the limit of monster ");
 	}
 	rapidjson::Value& mon_info = mon[ID];
 	info.MonsterAttack = mon_info["MonsterAttack"].GetDouble();
@@ -277,8 +263,7 @@ Skill JsonUtility::getSkill(int ID)			//获取第i个技能
 	rapidjson::Value& skill = val["Skill"];
 	if (ID >= skill.Capacity())
 	{
-		CCLOG("wrong :exceed the limit of skill ");
-		return info;
+		CCAssert(false, "wrong :exceed the limit of skill");
 	}
 	rapidjson::Value& skill_info = skill[ID];
 	info.SkillColdTime = skill_info["SkillColdTime"].GetDouble();
@@ -296,8 +281,7 @@ Equipment JsonUtility::getEquipment(int ID)	//获取第i个装备
 	rapidjson::Value& equi = val["Equipment"];
 	if (ID >= equi.Capacity())
 	{
-		CCLOG("wrong :exceed the limit of equipment ");
-		return equip;
+		CCAssert(false, "wrong :exceed the limit of equipment");
 	}
 	rapidjson::Value& equi_info = equi[ID];
 	equip.EquipAttribute = equi_info["EquipAttribute"].GetString();
@@ -315,8 +299,7 @@ Tool JsonUtility::getTool(int ID)			//获取第i个工具
 	rapidjson::Value& tool = val["Tool"];
 	if (ID >= tool.Capacity())
 	{
-		CCLOG("wrong :exceed the limit of tool ");
-		return info;
+		CCAssert(false, "wrong :exceed the limit of tool");
 	}
 	rapidjson::Value& tool_info = tool[ID];
 	info.ToolAttribute = tool_info["ToolAttribute"].GetString();
