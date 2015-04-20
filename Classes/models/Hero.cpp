@@ -13,7 +13,7 @@
 
 
 USING_NS_CC;
-
+using namespace cocostudio;
 Hero::Hero() :
 m_defaultSpeed(1.0),
 m_direction(JoystickEnum::DEFAULT),
@@ -46,7 +46,7 @@ bool Hero::init(Sprite* sprite){
 		CC_BREAK_IF(!sprite);
 		_loadCSB("hero1/hero1.csb");
 		//bindSprite(sprite);
-		m_moveController = ControllerMoveBase::create(this);
+		//m_moveController = ControllerMoveBase::create(this);
 		bRet = true;
 	} while (0);
 	this->scheduleUpdate();
@@ -56,8 +56,8 @@ bool Hero::init(Sprite* sprite){
 
 void Hero::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
-	mTimeLine = CSLoader::createTimeline(csbfile);
-
+	Armature* arm = static_cast<Armature*>(mViewNode->getChildByTag(21));
+	arm->getAnimation()->play("walk");
 	this->setAnchorPoint(Vec2(0.5, 0.5));
 	this->setContentSize(Size(70, 90));
 

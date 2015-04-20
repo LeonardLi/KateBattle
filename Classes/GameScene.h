@@ -7,7 +7,12 @@ class Hero;
 class MonsterManager;
 class Joystick;
 enum class JoystickEnum;
-
+enum class ScenarioEnum{	
+	Port,
+	Market,
+	Sewer,
+	ScenarioCounts
+};
 /************************************************************************/
 /* 
 Name: GameScene
@@ -70,7 +75,7 @@ private:
 
 /************************************************************************/
 /* 
-Name: GameScene
+Name: ChooseGameScene
 Author: xiaoDe
 Function: Scene for choosing the Chapter
 Date:
@@ -89,6 +94,34 @@ private:
 	cocos2d::Node* loadCSB();
 
 	void onBackButtonClicked(cocos2d::Ref*);
+	void onScenarioChosenClicked(cocos2d::Ref*);
+
+};
+
+/************************************************************************/
+/*
+Name: GameScene
+Author: xiaoDe
+Function: Scene for choosing the Chapter
+Date:
+*/
+/************************************************************************/
+class SubChooseGameScene : public cocos2d::Layer{
+
+public:
+	SubChooseGameScene();
+	~SubChooseGameScene();
+	static cocos2d::Scene* createScene(ScenarioEnum);
+
+	static SubChooseGameScene* create(ScenarioEnum);
+
+private:
+	bool init(ScenarioEnum);
+
+	void __loadCSB(std::string);
+
+	void onBackButtonClicked(cocos2d::Ref*);
+
 	void onScenarioChosenClicked(cocos2d::Ref*);
 
 };

@@ -58,11 +58,10 @@ public:
 	bool m_canControl;
 	cocos2d::Vector <Monster*> m_blockArea;
 private:
-	ControllerMoveBase* m_moveController;
 
 	CC_SYNTHESIZE(int, m_hp, Hp);
 	CC_SYNTHESIZE(float, m_defaultSpeed, DefaultSpeed);
-
+	CC_SYNTHESIZE(ControllerMoveBase*, m_moveController, MoveController);
 	JoystickEnum m_direction;
 
 	int m_heroDirection;

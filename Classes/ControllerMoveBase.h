@@ -19,7 +19,7 @@ public:
 
 	void resetHeroDirection();
 
-	static ControllerMoveBase* create(Hero* hero);
+	static ControllerMoveBase* create(Hero* hero, cocos2d::Sprite* map);
 
 public:
 	bool isAllowToLeft;
@@ -33,9 +33,10 @@ public:
 
 private:
 
-	bool init(Hero* hero);
+	bool init(Hero* hero, cocos2d::Sprite* map);
 	bool m_isMoving;
 	CC_SYNTHESIZE(float, m_iSpeed, iSpeed);
 	Hero* m_hero;
+	cocos2d::Sprite* m_map;
 	JoystickEnum heroDirection;
 };

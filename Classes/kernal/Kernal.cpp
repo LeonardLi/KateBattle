@@ -36,7 +36,7 @@ Kernal* Kernal::create(){
 }
 
 void Kernal::startGame(){
-	auto firstScene = GameScene::createScene();
+	auto firstScene = MenuScene::createScene();
 
 	Director::getInstance()->runWithScene(firstScene);
 	

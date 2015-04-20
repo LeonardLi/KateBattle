@@ -21,10 +21,10 @@ ControllerMoveBase::~ControllerMoveBase(){
 
 }
 
-ControllerMoveBase* ControllerMoveBase::create(Hero* hero){
+ControllerMoveBase* ControllerMoveBase::create(Hero* hero, Sprite* map){
 	ControllerMoveBase* ctrMoveBase = new ControllerMoveBase();
 
-	if (ctrMoveBase && ctrMoveBase->init(hero)){
+	if (ctrMoveBase && ctrMoveBase->init(hero, map)){
 	}
 	else{
 		CC_SAFE_DELETE(ctrMoveBase);
@@ -33,8 +33,8 @@ ControllerMoveBase* ControllerMoveBase::create(Hero* hero){
 
 }
 
-bool ControllerMoveBase::init(Hero* hero){
-	if (hero == nullptr)
+bool ControllerMoveBase::init(Hero* hero, Sprite* map){
+	if (hero == nullptr || map == nullptr)
 	{
 		return false;
 	}
@@ -43,6 +43,7 @@ bool ControllerMoveBase::init(Hero* hero){
 	m_hero = nullptr;
 	m_iSpeed = SPEED;
 	this->m_hero = hero;
+	this->m_map = map;
 	return true;
 }
 
@@ -186,9 +187,10 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		}
 		break;
 	case JoystickEnum::D_LEFT:
-		m_hero->m_heroDirection = LEFT;
+		
 		if (isAllowToLeft)
 		{
+			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y);
 		}	
 		break;

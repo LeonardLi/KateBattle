@@ -78,13 +78,15 @@ bool GameScene::init()
 
     /////////////////////////////
 
-	auto rootnode = loadCSB("caishichang/caishichang.csb");
+	auto rootnode = loadCSB("jishi1/jishi1.csb");
 	this->addChild(rootnode, 0);
 	
 	m_hero = Hero::create(Sprite::create("wolf.png"));
 	m_hero->setPosition(100, 100);
 	this->addChild(m_hero, 0);
-
+	Sprite* map = static_cast<Sprite*>(rootnode->getChildByTag(38));
+	ControllerMoveBase *controller =ControllerMoveBase::create(m_hero, map);
+	m_hero->setMoveController(controller);
 
     m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
     this->addChild(m_stick, 0);
@@ -312,7 +314,64 @@ void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
 
 //////////////////////////////////////////////////////////////////////////
 
+SubChooseGameScene::SubChooseGameScene(){
 
+}
+
+SubChooseGameScene::~SubChooseGameScene(){
+	
+}
+
+Scene* SubChooseGameScene::createScene(ScenarioEnum sceneChoose){
+	Scene* scene = Scene::create();
+	SubChooseGameScene* scenario = SubChooseGameScene::create(sceneChoose);
+	scene->addChild(scenario);
+	return scene;
+}
+
+SubChooseGameScene* SubChooseGameScene::create(ScenarioEnum sceneChoose){
+	SubChooseGameScene* subScene = new SubChooseGameScene();
+	if (subScene && subScene->init(sceneChoose))
+	{
+		subScene->autorelease();
+	}
+	else
+	{
+		CC_SAFE_DELETE(subScene);
+	}
+	return subScene;
+}
+
+bool SubChooseGameScene::init(ScenarioEnum sceneChoose){
+	if (!Layer::init())
+	{
+		return false;
+	}
+	switch (sceneChoose)
+	{
+	case ScenarioEnum::Port:
+		__loadCSB("subscenario1/subscenario.csb");
+		break;
+	case ScenarioEnum::Market:
+		__loadCSB("subscenario2/subscenario2.csb");
+		break;
+	case ScenarioEnum::Sewer:
+		__loadCSB("subscenario3/subscenario3.csb");
+		break;
+	default:
+		break;
+	}
+	
+	return true;
+}
+
+void SubChooseGameScene::__loadCSB(std::string scbfile)	{
+	Node* rootNode = CSLoader::createNode(scbfile);
+	this->addChild(rootNode);
+}
+
+
+//////////////////////////////////////////////////////////////////////////
 void PopupLayer::onEnter(){
     Layer::onEnter();
 }
