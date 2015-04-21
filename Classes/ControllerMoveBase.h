@@ -21,6 +21,12 @@ public:
 
 	static ControllerMoveBase* create(Hero* hero, cocos2d::Sprite* map);
 
+private:
+	
+	bool init(Hero* hero, cocos2d::Sprite* map);
+
+	void __rollmapForward();
+	void __rollmapBackward();
 public:
 	bool isAllowToLeft;
 	bool isAllowToRight;
@@ -33,7 +39,7 @@ public:
 
 private:
 
-	bool init(Hero* hero, cocos2d::Sprite* map);
+
 	bool m_isMoving;
 	CC_SYNTHESIZE(float, m_iSpeed, iSpeed);
 	Hero* m_hero;

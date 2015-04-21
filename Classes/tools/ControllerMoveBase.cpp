@@ -13,7 +13,11 @@
 
 USING_NS_CC;
 
-ControllerMoveBase::ControllerMoveBase(){
+ControllerMoveBase::ControllerMoveBase() :
+m_isMoving(false),
+m_hero(nullptr),
+m_map(nullptr),
+m_iSpeed(SPEED){
 
 }
 
@@ -34,14 +38,11 @@ ControllerMoveBase* ControllerMoveBase::create(Hero* hero, Sprite* map){
 }
 
 bool ControllerMoveBase::init(Hero* hero, Sprite* map){
+
 	if (hero == nullptr || map == nullptr)
 	{
 		return false;
 	}
-
-	m_isMoving = false;
-	m_hero = nullptr;
-	m_iSpeed = SPEED;
 	this->m_hero = hero;
 	this->m_map = map;
 	return true;
@@ -65,11 +66,11 @@ void ControllerMoveBase::judgeBlock(){
 			float isDownThanBlock = (heroDownLineY - blockUpLineY)*(heroDownLineY - blockDownLineY);
 			float isLeftThanBlock = (heroLeftLineX - blockLeftLineX)*(heroLeftLineX - blockRightLineX);
 			float isRightThanBlock = (heroRightLineX - blockLeftLineX)*(heroRightLineX - blockRightLineX);
-			
-		
+
+
 			if (isUpThanBlock > 0 && isDownThanBlock > 0 || isUpThanBlock < 0 && isDownThanBlock < 0)
 			{
-				if (isLeftThanBlock>=0&&isRightThanBlock<=0)
+				if (isLeftThanBlock >= 0 && isRightThanBlock <= 0)
 				{
 					isAllowToRight = false;
 					isAllowToRightDown = false;
@@ -82,19 +83,19 @@ void ControllerMoveBase::judgeBlock(){
 					isAllowToLeftDown = false;
 					isAllowToLeftUp = false;
 					log("mid---right");
-				}		
+				}
 			}
 
 			else if (isLeftThanBlock > 0 && isRightThanBlock > 0 || isLeftThanBlock < 0 && isRightThanBlock < 0)
 			{
-				if (isUpThanBlock>=0&&isDownThanBlock<=0)
+				if (isUpThanBlock >= 0 && isDownThanBlock <= 0)
 				{
 					isAllowToDown = false;
 					isAllowToLeftDown = false;
 					isAllowToRightDown = false;
 					log("mid  up");
 				}
-				if (isUpThanBlock<=0&&isDownThanBlock>=0)
+				if (isUpThanBlock <= 0 && isDownThanBlock >= 0)
 				{
 					isAllowToUp = false;
 					isAllowToRightUp = false;
@@ -150,87 +151,114 @@ void ControllerMoveBase::blockHeroDirection(){
 }
 
 void ControllerMoveBase::resetHeroDirection(){
-	isAllowToLeft=true;
-	isAllowToRight=true;
-	isAllowToUp=true;
-	isAllowToDown=true;
-	isAllowToLeftUp=true;
-	isAllowToLeftDown=true;
-	isAllowToRightUp=true;
-	isAllowToRightDown=true;
+	isAllowToLeft = true;
+	isAllowToRight = true;
+	isAllowToUp = true;
+	isAllowToDown = true;
+	isAllowToLeftUp = true;
+	isAllowToLeftDown = true;
+	isAllowToRightUp = true;
+	isAllowToRightDown = true;
 }
 
 
 void ControllerMoveBase::simpleMove(JoystickEnum direction){
-	
+
 	heroDirection = direction;
-	
+
 
 	Point pos = m_hero->getPosition();
 	float moveSpeed = this->getiSpeed();
 	resetHeroDirection();
 	judgeBlock();
-	
+
 	switch (heroDirection)
 	{
 
 	case JoystickEnum::D_UP:
-		if (isAllowToUp)
+		
+		if (isAllowToUp && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->setPosition(pos.x, pos.y + moveSpeed);
 		}
+		
 		break;
 	case JoystickEnum::D_DOWN:
-		if (isAllowToDown)
+		
+		if (isAllowToDown && m_hero->getPositionY() >= 75.0f)
 		{
 			m_hero->setPosition(pos.x, pos.y - moveSpeed);
 		}
+		
 		break;
 	case JoystickEnum::D_LEFT:
-		
+
 		if (isAllowToLeft)
 		{
 			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y);
-		}	
+		}
 		break;
-	case JoystickEnum::D_RIGHT:	
+	case JoystickEnum::D_RIGHT:
 		if (isAllowToRight)
 		{
 			m_hero->m_heroDirection = RIGHT;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y);
-		}	
+			__rollmapForward();
+		}
 		break;
 	case JoystickEnum::D_LEFT_UP:
-		if (isAllowToLeftUp)
+		
+		if (isAllowToLeftUp && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
-		}		
+		}
+		
 		break;
 	case JoystickEnum::D_RIGHT_UP:
-		if (isAllowToRightUp)
+
+		if (isAllowToRightUp && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->m_heroDirection = RIGHT;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y + moveSpeed);
-		}	
+			__rollmapForward();
+		}
+	
 		break;
 	case JoystickEnum::D_LEFT_DOWN:
-		if (isAllowToLeftDown)
+		
+		if (isAllowToLeftDown && m_hero->getPositionY() >= 75.0f)
 		{
 			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y - moveSpeed);
-		}	
+		}
+
 		break;
 	case JoystickEnum::D_RIGHT_DOWN:
-		if (isAllowToRightDown)
+		
+		if (isAllowToRightDown && m_hero->getPositionY() > 75.0f)
 		{
 			m_hero->m_heroDirection = RIGHT;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y - moveSpeed);
+			__rollmapForward();
 		}
+		
 		break;
 	case JoystickEnum::DEFAULT:
 		break;
 	}
-				
+
+}
+
+void ControllerMoveBase::__rollmapForward(){
+	//log("hero location===%f", m_hero->getPositionX());
+	log("hero scene location===%f", m_map->convertToWorldSpace(m_hero->getPosition()).x);
+	if (m_map->convertToWorldSpace(m_hero->getPosition()).x >= 640){
+		m_map->setPosition(Vec2(m_map->getPositionX() - getiSpeed(), m_map->getPositionY()));
+	}
+}
+
+void ControllerMoveBase::__rollmapBackward(){
+
 }

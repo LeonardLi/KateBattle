@@ -29,14 +29,15 @@ public:
 
 	virtual void update(float dt);
 
-
+	GameScene();
+	~GameScene();
 private:
 
 	virtual bool init();
 
 	cocos2d::Node* loadCSB(std::string csbfile);
 
-
+	void __createStickBar();
 /////////////////////////////////////////////////////////////////////////CALLBACK
 
 	/*control callback*/

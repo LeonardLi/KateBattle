@@ -22,54 +22,42 @@ using namespace cocostudio::timeline;
 
 #define COLLIDEMARGIN 30
 
+GameScene::GameScene():
+m_hero(nullptr),
+m_stick(nullptr),
+m_monsterMgr(nullptr){
+
+}
+
+GameScene::~GameScene(){
+}
 Scene* GameScene::createScene()
 {
-    // 'scene' is an autorelease object
     auto scene = Scene::create();
-
-    // 'layer' is an autorelease object
     auto layer = GameScene::create();
-
-    // add layer as a child to scene
     scene->addChild(layer);
-
-    // return the scene
     return scene;
 }
 
-// on "init" you need to initialize your instance
+
 bool GameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
     if ( !Layer::init() )
     {
         return false;
     }
-
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));
-    
+                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));    
     auto popupItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(GameScene::_popupEquipmentMenu, this));
     
 
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-    popupItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height*2));
+	closeItem->setPosition(VisibleRect::rightBottom());
+    popupItem->setPosition(VisibleRect::rightTop());
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, popupItem, NULL);
@@ -83,32 +71,20 @@ bool GameScene::init()
 	
 	m_hero = Hero::create(Sprite::create("wolf.png"));
 	m_hero->setPosition(100, 100);
-	this->addChild(m_hero, 0);
-	Sprite* map = static_cast<Sprite*>(rootnode->getChildByTag(38));
+
+	Sprite* map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
+	map->addChild(m_hero,0);
+	
 	ControllerMoveBase *controller =ControllerMoveBase::create(m_hero, map);
 	m_hero->setMoveController(controller);
 
-    m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
-    this->addChild(m_stick, 0);
-    m_stick->setPosition(Vec2(200,200));
-	m_stick->setDieRadius(120);
-	m_stick->setFailRadius(0);	
-	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
-    m_stick->onRun();
-
-
-
+	__createStickBar();
+    
 	m_monsterMgr = MonsterManager::createWithLevel(11);
-	this->addChild(m_monsterMgr, 0);
+	map->addChild(m_monsterMgr);
 
-	this->scheduleUpdate();
-
-	
+	this->scheduleUpdate();	
 	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
-	//this->scheduleOnce(schedule_selector(GameScene::postBossUseSkillNotification), 6.0f);
-	
-	
-
     return true;
 }
 
@@ -124,6 +100,15 @@ void GameScene::onDirectionChange(JoystickEnum direction){
 	m_hero->ChangeDirection(direction);
 }
 
+void GameScene::__createStickBar(){
+	m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
+	this->addChild(m_stick, 0);
+	m_stick->setPosition(Vec2(200, 200));
+	m_stick->setDieRadius(120);
+	m_stick->setFailRadius(0);
+	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
+	m_stick->onRun();
+}
 void GameScene::attackBtnOnClick(Ref* Sender, ui::Widget::TouchEventType type){
 
 	m_hero->attack();
