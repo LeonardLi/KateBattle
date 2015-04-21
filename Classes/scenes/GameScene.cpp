@@ -19,7 +19,6 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio::timeline;
 
-
 #define COLLIDEMARGIN 30
 
 GameScene::GameScene():
@@ -31,6 +30,7 @@ m_monsterMgr(nullptr){
 
 GameScene::~GameScene(){
 }
+
 Scene* GameScene::createScene()
 {
     auto scene = Scene::create();
@@ -38,7 +38,6 @@ Scene* GameScene::createScene()
     scene->addChild(layer);
     return scene;
 }
-
 
 bool GameScene::init()
 {
@@ -109,6 +108,7 @@ void GameScene::__createStickBar(){
 	m_stick->onDirection = CC_CALLBACK_1(GameScene::onDirectionChange, this);
 	m_stick->onRun();
 }
+
 void GameScene::attackBtnOnClick(Ref* Sender, ui::Widget::TouchEventType type){
 
 	m_hero->attack();
@@ -284,12 +284,13 @@ void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
 	switch (button->getTag())
 	{
 	case 43:
-		Director::getInstance()->replaceScene(GameScene::createScene());
+		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Port));
 		break;
-
 	case 44:
+		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Market));
 		break;
 	case 45:
+		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Sewer));
 		break;
 	default:
 		break;
@@ -335,26 +336,56 @@ bool SubChooseGameScene::init(ScenarioEnum sceneChoose){
 	switch (sceneChoose)
 	{
 	case ScenarioEnum::Port:
-		__loadCSB("subscenario1/subscenario.csb");
+		__loadCSB("port/port.csb");
 		break;
 	case ScenarioEnum::Market:
-		__loadCSB("subscenario2/subscenario2.csb");
+		__loadCSB("market/market.csb");
 		break;
 	case ScenarioEnum::Sewer:
-		__loadCSB("subscenario3/subscenario3.csb");
+		__loadCSB("sewer/sewer.csb");
 		break;
 	default:
 		break;
 	}
 	
+
 	return true;
 }
 
 void SubChooseGameScene::__loadCSB(std::string scbfile)	{
 	Node* rootNode = CSLoader::createNode(scbfile);
+	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(5));
+	Button* lv1Button = static_cast<Button*>(rootNode->getChildByTag(6));
+	Button* lv2Button = static_cast<Button*>(rootNode->getChildByTag(7));
+	Button* lv3Button = static_cast<Button*>(rootNode->getChildByTag(8));
+
+	backButton->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
+	lv1Button->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
+	lv2Button->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
+	lv3Button->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
+
 	this->addChild(rootNode);
 }
 
+void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender){
+	Node* sender = static_cast<Node*>(Sender);
+		switch (sender->getTag())
+	{
+		case 5:
+			Director::getInstance()->replaceScene(ChooseGameScene::createScene());
+			break;
+		case 6:
+			Director::getInstance()->replaceScene(GameScene::createScene());
+			break;
+		case 7:
+
+			break;
+		case 8:
+			break;
+		default:
+			break;
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////
 void PopupLayer::onEnter(){

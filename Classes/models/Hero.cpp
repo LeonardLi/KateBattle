@@ -45,8 +45,7 @@ bool Hero::init(Sprite* sprite){
 	{
 		CC_BREAK_IF(!sprite);
 		_loadCSB("hero1/hero1.csb");
-		//bindSprite(sprite);
-		//m_moveController = ControllerMoveBase::create(this);
+		
 		bRet = true;
 	} while (0);
 	this->scheduleUpdate();
@@ -57,7 +56,9 @@ bool Hero::init(Sprite* sprite){
 void Hero::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
 	Armature* arm = static_cast<Armature*>(mViewNode->getChildByTag(21));
+	//arm->setScale(-0.2,0.2);
 	arm->getAnimation()->play("walk");
+	
 	this->setAnchorPoint(Vec2(0.5, 0.5));
 	this->setContentSize(Size(70, 90));
 

@@ -125,6 +125,7 @@ private:
 
 	void onScenarioChosenClicked(cocos2d::Ref*);
 
+	void onSubScenarioChooseCallback(cocos2d::Ref*);
 };
 
 /************************************************************************/
