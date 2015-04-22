@@ -72,16 +72,16 @@ void ControllerMoveBase::judgeBlock(){
 			{
 				if (isLeftThanBlock >= 0 && isRightThanBlock <= 0)
 				{
-					isAllowToRight = false;
-					isAllowToRightDown = false;
-					isAllowToRightUp = false;
+					setisAllowToRight(false);
+					setisAllowToRightDown(false);
+					setisAllowToRightUp(false);
 					log("mid--left");
 				}
 				if (isLeftThanBlock <= 0 && isRightThanBlock >= 0)
 				{
-					isAllowToLeft = false;
-					isAllowToLeftDown = false;
-					isAllowToLeftUp = false;
+					setisAllowToLeft(false);
+					setisAllowToLeftDown(false);
+					setisAllowToLeftUp(false);
 					log("mid---right");
 				}
 			}
@@ -90,16 +90,16 @@ void ControllerMoveBase::judgeBlock(){
 			{
 				if (isUpThanBlock >= 0 && isDownThanBlock <= 0)
 				{
-					isAllowToDown = false;
-					isAllowToLeftDown = false;
-					isAllowToRightDown = false;
+					setisAllowToDown(false);
+					setisAllowToLeftDown(false);
+					setisAllowToRightDown(false);
 					log("mid  up");
 				}
 				if (isUpThanBlock <= 0 && isDownThanBlock >= 0)
 				{
-					isAllowToUp = false;
-					isAllowToRightUp = false;
-					isAllowToLeftUp = false;
+					setisAllowToUp(false);
+					setisAllowToRightUp(false);
+					setisAllowToLeftUp(false);
 					log("mid down");
 				}
 			}
@@ -107,38 +107,38 @@ void ControllerMoveBase::judgeBlock(){
 
 			else if (isUpThanBlock <= 0 && isDownThanBlock >= 0 && isLeftThanBlock >= 0 && isRightThanBlock <= 0)
 			{
-				isAllowToUp = false;
-				isAllowToRightUp = false;
-				isAllowToRight = false;
-				isAllowToLeftUp = false;
-				isAllowToRightDown = false;
+				setisAllowToUp(false);
+				setisAllowToRightUp(false);
+				setisAllowToRight(false);
+				setisAllowToLeftUp(false);
+				setisAllowToRightDown(false);
 				log("zuo xia colide!!!!!!!!!!!!");
 			}
 			else if (isUpThanBlock >= 0 && isDownThanBlock <= 0 && isLeftThanBlock >= 0 && isRightThanBlock <= 0)
 			{
-				isAllowToRight = false;
-				isAllowToDown = false;
-				isAllowToRightDown = false;
-				isAllowToRightUp = false;
-				isAllowToLeftDown = false;
+				setisAllowToRight(false);
+				setisAllowToDown(false);
+				setisAllowToRightDown(false);
+				setisAllowToRightUp(false);
+				setisAllowToLeftDown(false);
 				log("zuo shang colide!!!!!!!!!!!!");
 			}
 			else if (isUpThanBlock >= 0 && isDownThanBlock <= 0 && isLeftThanBlock <= 0 && isRightThanBlock >= 0)
 			{
-				isAllowToLeftDown = false;
-				isAllowToLeft = false;
-				isAllowToDown = false;
-				isAllowToLeftUp = false;
-				isAllowToRightDown = false;
+				setisAllowToLeftDown(false);
+				setisAllowToLeft(false);
+				setisAllowToDown(false);
+				setisAllowToLeftUp(false);
+				setisAllowToRightDown(false);
 				log("you shang colide!!!!!!!!!!!!");
 			}
 			else if (isUpThanBlock <= 0 && isDownThanBlock >= 0 && isLeftThanBlock <= 0 && isRightThanBlock >= 0)
 			{
-				isAllowToUp = false;
-				isAllowToLeftUp = false;
-				isAllowToLeft = false;
-				isAllowToRightUp = false;
-				isAllowToLeftDown = false;
+				setisAllowToUp(false);
+				setisAllowToLeftUp(false);
+				setisAllowToLeft(false);
+				setisAllowToRightUp(false);
+				setisAllowToLeftDown(false);
 				log("you xia colide!!!!!!!!!!!!");
 			}
 		}
@@ -151,14 +151,15 @@ void ControllerMoveBase::blockHeroDirection(){
 }
 
 void ControllerMoveBase::resetHeroDirection(){
-	isAllowToLeft = true;
-	isAllowToRight = true;
-	isAllowToUp = true;
-	isAllowToDown = true;
-	isAllowToLeftUp = true;
-	isAllowToLeftDown = true;
-	isAllowToRightUp = true;
-	isAllowToRightDown = true;
+	setisAllowToRight(true);
+	setisAllowToLeft(true);
+	setisAllowToUp(true);
+	setisAllowToDown(true);
+	setisAllowToLeftUp(true);
+	setisAllowToLeftDown(true);
+	setisAllowToRightUp(true);
+	setisAllowToRightDown(true);
+
 }
 
 
@@ -177,30 +178,27 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 
 	case JoystickEnum::D_UP:
 		
-		if (isAllowToUp && m_hero->getPositionY() < 350.0f)
+		if (getisAllowToUp() && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->setPosition(pos.x, pos.y + moveSpeed);
 		}
 		
 		break;
 	case JoystickEnum::D_DOWN:
-		
-		if (isAllowToDown && m_hero->getPositionY() >= 75.0f)
+		if (getisAllowToDown() && m_hero->getPositionY() > 75.0f)
 		{
 			m_hero->setPosition(pos.x, pos.y - moveSpeed);
 		}
-		
 		break;
 	case JoystickEnum::D_LEFT:
-
-		if (isAllowToLeft)
+		m_hero->m_heroDirection = LEFT;
+		if (getisAllowToLeft())
 		{
-			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y);
 		}
 		break;
-	case JoystickEnum::D_RIGHT:
-		if (isAllowToRight)
+	case JoystickEnum::D_RIGHT:	
+		if (getisAllowToRight())
 		{
 			m_hero->m_heroDirection = RIGHT;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y);
@@ -209,7 +207,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		break;
 	case JoystickEnum::D_LEFT_UP:
 		
-		if (isAllowToLeftUp && m_hero->getPositionY() < 350.0f)
+		if (getisAllowToLeftUp() && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
@@ -217,8 +215,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		
 		break;
 	case JoystickEnum::D_RIGHT_UP:
-
-		if (isAllowToRightUp && m_hero->getPositionY() < 350.0f)
+		if (getisAllowToRightUp() && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->m_heroDirection = RIGHT;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y + moveSpeed);
@@ -228,7 +225,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		break;
 	case JoystickEnum::D_LEFT_DOWN:
 		
-		if (isAllowToLeftDown && m_hero->getPositionY() >= 75.0f)
+		if (getisAllowToLeftDown() && m_hero->getPositionY() >= 75.0f)
 		{
 			m_hero->m_heroDirection = LEFT;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y - moveSpeed);
@@ -237,7 +234,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		break;
 	case JoystickEnum::D_RIGHT_DOWN:
 		
-		if (isAllowToRightDown && m_hero->getPositionY() > 75.0f)
+		if (getisAllowToRightDown() && m_hero->getPositionY() > 75.0f)
 		{
 			m_hero->m_heroDirection = RIGHT;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y - moveSpeed);

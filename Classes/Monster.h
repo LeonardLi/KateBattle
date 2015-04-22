@@ -20,8 +20,10 @@ enum class MonsterType
 	normalType,
 	shootType,
 	monsterBossNum1,
-	Num1ShootType,
+	num1ShootType,
 	block,
+	monsterBossNum3,
+	num3CarType,
 };
 
 
@@ -38,7 +40,7 @@ public:
 	void useSkillSequence();
 	void skillRush(float dt);
 	void isCollide(float dt);
-
+	void skillFinish(float dt);
 protected:
 	void onDead();
 	void onHurt();
@@ -78,8 +80,7 @@ private:
 
 	
 	void __moveCloseToHero(cocos2d::Vec2 distance);
-	void __skillRushBox(float dt);
-	void __skillFinish(float dt);
+	
 
 	//post message
 	void __postBossAttackMessage(float dt);
@@ -90,6 +91,7 @@ public:
 	cocos2d::Vec2 heroLocation;
 	cocos2d::Vector<BulletBase*> m_bulletList;
 	Hero* targetHero;
+	
 	Monster* m_boxes;
 	MonsterType m_monsterType;
 	MonsterFSM* m_FSM;
@@ -113,10 +115,42 @@ public:
 	bool init(cocos2d::Sprite* sprite, cocos2d::Vector<Monster*> monsterList);
 	cocos2d::Vector<Monster*> shootMonsterList;
 	void skillRushBox(float dt);
-	Monster* box;
+	
 private:
 
+public:
+	Monster* box;
+};
 
+class MonsterBossNum3 :public Monster{
+
+public:
+	static MonsterBossNum3* create(cocos2d::Sprite* sprite, cocos2d::Vector<Monster*> monsterList);
+	bool init(cocos2d::Sprite* sprite, cocos2d::Vector<Monster*> monsterList);
+	cocos2d::Vector<Monster*> carMonsterList;
+	void showTheCar(float dt);
+	
+	void bossRunOutOfGround(float dt);
+
+private:
+	void __runTheCar(float dt);
+	void __runNumber1Car(float dt);
+	void __runNumber2Car(float dt);
+	void __runNumber3Car(float dt);
+	void __removeTheCar(float dt);
+	void __isCarCollide(float dt); 
+	void __skillDropBox(float dt);
+	void __dropBoxCollide(float dt);
+	void __findAnyVacantPlace(float dt);
+	void __dropBoxEnd(float dt);
+	void __showTheShadow(int locationNum);
+
+private:
+	int isPlaceVacant[4];
+	cocos2d::Vector<Monster*> boxList;
+	cocos2d::Vector<Monster*> notFallBoxList;
+	cocos2d::Vector<Monster*> shadowList;
+	int lastBoxNumber;
 };
 
 

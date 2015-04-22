@@ -65,7 +65,7 @@ void Hero::_loadCSB(std::string csbfile){
 	this->addChild(mViewNode);
 }
 void Hero::update(float dt){
-	if (m_Stun!=STUN && m_isDead==false&&m_canControl==true)
+	if (getStun()!=STUN && m_isDead==false&&m_canControl==true)
 	m_moveController->simpleMove(m_direction);
 
 }
@@ -85,14 +85,14 @@ void Hero::onHurt(){
 }
 
 void Hero::changeStun(float dt){
-	if (m_Stun == STUN)
-		m_Stun = NOTSTUN;
+	if (getStun() == STUN)
+		setStun(NOTSTUN);
 }
 
 void Hero::herostun(float time)
 {
 	//mViewSprite->stopAllActions();
-	m_Stun = STUN;
+	setStun(STUN);
 	if (this->isScheduled(schedule_selector(Hero::changeStun)))
 	{
 		this->unschedule(schedule_selector(Hero::changeStun));
@@ -125,7 +125,7 @@ void Hero::changeControlType(float dt){
 void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 	this->onHurt();
 	this->hurtMe(ivalue);
-	if (slowTime>0)
+	if (stunTime>0)
 	{
 		this->herostun(stunTime);
 	}

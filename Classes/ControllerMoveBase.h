@@ -28,20 +28,21 @@ private:
 	void __rollmapForward();
 	void __rollmapBackward();
 public:
-	bool isAllowToLeft;
-	bool isAllowToRight;
-	bool isAllowToUp;
-	bool isAllowToDown;
-	bool isAllowToLeftUp;
-	bool isAllowToLeftDown;
-	bool isAllowToRightUp;
-	bool isAllowToRightDown;
+	
 
 private:
 
 
 	bool m_isMoving;
-	CC_SYNTHESIZE(float, m_iSpeed, iSpeed);
+	CC_SYNTHESIZE(float, m_iSpeed, iSpeed);		
+	CC_SYNTHESIZE(bool, m_isAllowToLeft, isAllowToLeft);
+	CC_SYNTHESIZE(bool, m_isAllowToRight, isAllowToRight);
+	CC_SYNTHESIZE(bool, m_isAllowToUp, isAllowToUp);
+	CC_SYNTHESIZE(bool, m_isAllowToDown, isAllowToDown);
+	CC_SYNTHESIZE(bool, m_isAllowToLeftDown, isAllowToLeftDown);
+	CC_SYNTHESIZE(bool, m_isAllowTLeftUp, isAllowToLeftUp);
+	CC_SYNTHESIZE(bool, m_isAllowToRightUp, isAllowToRightUp);
+	CC_SYNTHESIZE(bool, m_isAllowToRightDown, isAllowToRightDown);
 	Hero* m_hero;
 	cocos2d::Sprite* m_map;
 	JoystickEnum heroDirection;

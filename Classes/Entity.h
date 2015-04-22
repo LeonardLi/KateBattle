@@ -45,9 +45,9 @@ protected:
 	cocos2d::Node* mViewNode;
 	cocostudio::timeline::ActionTimeline* mTimeLine;
 	bool m_isDead;
-	int m_Stun;//3types
+	//int m_Stun;//3types
 private:
-	
+	CC_SYNTHESIZE(int, m_Stun, Stun);
     
 };
 

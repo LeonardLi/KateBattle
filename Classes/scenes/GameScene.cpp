@@ -55,17 +55,14 @@ bool GameScene::init()
                                            CC_CALLBACK_1(GameScene::_popupEquipmentMenu, this));
     
 
-	closeItem->setPosition(VisibleRect::rightBottom());
-    popupItem->setPosition(VisibleRect::rightTop());
+
 
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, popupItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+  
 
     /////////////////////////////
 
-	auto rootnode = loadCSB("jishi1/jishi1.csb");
+	auto rootnode = loadCSB("gangkou1/gangkou1.csb");
 	this->addChild(rootnode, 0);
 	
 	m_hero = Hero::create(Sprite::create("wolf.png"));
@@ -83,7 +80,8 @@ bool GameScene::init()
 	map->addChild(m_monsterMgr);
 
 	this->scheduleUpdate();	
-	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
+	//this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
+	this->scheduleOnce(schedule_selector(GameScene::postBossUseSkillNotification), 1.0f);
     return true;
 }
 
