@@ -18,12 +18,13 @@ Hero::Hero() :
 m_defaultSpeed(1.0),
 m_direction(JoystickEnum::DEFAULT),
 m_canControl(true),
-m_moveController(nullptr)
+m_moveController(nullptr),
+m_armature(nullptr)
 {}
 
-Hero* Hero::create(Sprite* sprite){
+Hero* Hero::create(){
 	Hero* hero = new Hero();
-	if (hero&&hero->init(sprite)){
+	if (hero&&hero->init()){
 		hero->autorelease();
 	}
 	else{
@@ -33,7 +34,7 @@ Hero* Hero::create(Sprite* sprite){
 }
 
 
-bool Hero::init(Sprite* sprite){
+bool Hero::init(){
 	if (!Entity::init())
 	{
 		return false;
@@ -43,7 +44,6 @@ bool Hero::init(Sprite* sprite){
 	
 	do 
 	{
-		CC_BREAK_IF(!sprite);
 		_loadCSB("hero1/hero1.csb");
 		
 		bRet = true;
@@ -55,15 +55,16 @@ bool Hero::init(Sprite* sprite){
 
 void Hero::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
-	Armature* arm = static_cast<Armature*>(mViewNode->getChildByTag(21));
+	m_armature = static_cast<Armature*>(mViewNode->getChildByTag(21));
 	//arm->setScale(-0.2,0.2);
-	arm->getAnimation()->play("walk");
+	m_armature->getAnimation()->play("stand");
 	
 	this->setAnchorPoint(Vec2(0.5, 0.5));
 	this->setContentSize(Size(70, 90));
 
 	this->addChild(mViewNode);
 }
+
 void Hero::update(float dt){
 	if (getStun()!=STUN && m_isDead==false&&m_canControl==true)
 	m_moveController->simpleMove(m_direction);
@@ -156,4 +157,66 @@ void Hero::changeSpeed(float slowValue, float slowTime){
 
 void Hero::recoverSpeed(float dt){
 	this->m_moveController->setiSpeed(this->getDefaultSpeed());
+}
+
+void Hero::playAnimaitonAttack(Direction direction){
+	if (direction == Direction::left)
+	{
+		m_armature->setScale(-0.2f, 0.2f);
+		m_armature->getAnimation()->play("attack");
+	}
+	else
+	{
+		m_armature->setScale(0.2f, 0.2f);
+		m_armature->getAnimation()->play("attack");
+	}
+}
+void Hero::playAnimaitonStand(Direction direction){
+	if (direction == Direction::left)
+	{
+		m_armature->setScale(-0.2f, 0.2f);
+		m_armature->getAnimation()->play("stand");
+	}
+	else
+	{
+		m_armature->setScale(0.2f, 0.2f);
+		m_armature->getAnimation()->play("stand");
+	}
+
+}
+void Hero::playAnimaitonWalk(Direction direction){
+	if (direction == Direction::left)
+	{
+		m_armature->setScale(-0.2f, 0.2f);
+		m_armature->getAnimation()->play("walk");
+	}
+	else
+	{
+		m_armature->setScale(0.2f, 0.2f);
+		m_armature->getAnimation()->play("walk");
+	}
+}
+void Hero::playAnimaitonHurt(Direction direction){
+	if (direction == Direction::left)
+	{
+		m_armature->setScale(-0.2f, 0.2f);
+		m_armature->getAnimation()->play("hurt");
+	}
+	else
+	{
+		m_armature->setScale(0.2f, 0.2f);
+		m_armature->getAnimation()->play("hurt");
+	}
+}
+void Hero::playAnimaitonDead(Direction direction){
+	if (direction == Direction::left)
+	{
+		m_armature->setScale(-0.2f, 0.2f);
+		m_armature->getAnimation()->play("dead");
+	}
+	else
+	{
+		m_armature->setScale(0.2f, 0.2f);
+		m_armature->getAnimation()->play("dead");
+	}
 }

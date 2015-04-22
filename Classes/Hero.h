@@ -14,12 +14,16 @@
 class ControllerMoveBase;
 enum class JoystickEnum;
 
+enum class Direction{
+	right,
+	left
+};
 class Hero : public Entity{
 
 public:
 	void ChangeDirection(JoystickEnum direction);
 	
-	static Hero* create(cocos2d::Sprite* sprite);
+	static Hero* create();
 	
 	Hero* initFromJson();
 
@@ -35,6 +39,12 @@ public:
 
 	void getHurt(float ivalue,float stunTime,float slowValue,float slowTime);
 
+	//Animation play
+	void playAnimaitonStand(Direction);
+	void playAnimaitonWalk(Direction);
+	void playAnimaitonAttack(Direction);
+	void playAnimaitonHurt(Direction);
+	void playAnimaitonDead(Direction);
 protected:
 	virtual void _loadCSB(std::string);
 	
@@ -42,7 +52,7 @@ protected:
 private:
 	Hero();
 
-	bool init(cocos2d::Sprite* sprite);
+	virtual bool init();
 	
 	virtual void update(float dt);
 	
@@ -54,6 +64,10 @@ private:
 
 	void recoverSpeed(float dt);
 
+
+	
+
+
 public:
 	bool m_canControl;
 	cocos2d::Vector <Monster*> m_blockArea;
@@ -63,9 +77,7 @@ private:
 	CC_SYNTHESIZE(float, m_defaultSpeed, DefaultSpeed);
 	CC_SYNTHESIZE(ControllerMoveBase*, m_moveController, MoveController);
 	JoystickEnum m_direction;
-
-	int m_heroDirection;
-
+	cocostudio::Armature* m_armature;
 
 };
 

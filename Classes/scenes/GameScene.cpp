@@ -55,22 +55,16 @@ bool GameScene::init()
                                            CC_CALLBACK_1(GameScene::_popupEquipmentMenu, this));
     
 
-
-
-    // create menu, it's an autorelease object
-  
-
-    /////////////////////////////
-
 	auto rootnode = loadCSB("gangkou1/gangkou1.csb");
 	this->addChild(rootnode, 0);
 	
-	m_hero = Hero::create(Sprite::create("wolf.png"));
-	m_hero->setPosition(100, 100);
+	m_hero = Hero::create();
+	m_hero->setPosition(0, 0);
 
 	Sprite* map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
 	map->addChild(m_hero,0);
 	
+
 	ControllerMoveBase *controller =ControllerMoveBase::create(m_hero, map);
 	m_hero->setMoveController(controller);
 

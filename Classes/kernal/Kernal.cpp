@@ -45,7 +45,7 @@ void Kernal::startGame(){
 
 bool Kernal::_initFromFile(){
 
-	log("========== init from file ===========");
+	JsonUtility::getInstance();
 
 	return true;
 }

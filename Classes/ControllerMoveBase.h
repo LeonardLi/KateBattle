@@ -46,4 +46,10 @@ private:
 	Hero* m_hero;
 	cocos2d::Sprite* m_map;
 	JoystickEnum heroDirection;
+
+	bool m_isRight;
+	bool m_isLeft;
+	bool m_isStand;
+	bool m_isUp;
+	bool m_isDown;
 };

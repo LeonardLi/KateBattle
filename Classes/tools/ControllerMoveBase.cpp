@@ -17,7 +17,13 @@ ControllerMoveBase::ControllerMoveBase() :
 m_isMoving(false),
 m_hero(nullptr),
 m_map(nullptr),
-m_iSpeed(SPEED){
+m_iSpeed(SPEED),
+m_isLeft(false),
+m_isRight(false),
+m_isStand(false),
+m_isUp(false),
+m_isDown(false)
+{
 
 }
 
@@ -177,72 +183,146 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 	{
 
 	case JoystickEnum::D_UP:
-		
+		m_isStand = false;
 		if (getisAllowToUp() && m_hero->getPositionY() < 350.0f)
 		{
 			m_hero->setPosition(pos.x, pos.y + moveSpeed);
+			if (m_isRight && !m_isUp)
+			{	
+				m_isUp = true;
+				m_hero->playAnimaitonWalk(Direction::right);
+			}
+			else if (m_isLeft && !m_isUp){
+				m_isUp = true;
+				m_hero->playAnimaitonWalk(Direction::left);
+			}
 		}
 		
 		break;
 	case JoystickEnum::D_DOWN:
-		if (getisAllowToDown() && m_hero->getPositionY() > 75.0f)
+		m_isStand = false;
+		if (getisAllowToDown() && m_hero->getPositionY() > 45.0f)
 		{
 			m_hero->setPosition(pos.x, pos.y - moveSpeed);
+			if (m_isRight && !m_isDown)
+			{	
+				m_isDown = true;
+				m_hero->playAnimaitonWalk(Direction::right);
+			}
+			else if(m_isLeft && !m_isDown)
+			{
+				m_isDown = true;
+				m_hero->playAnimaitonWalk(Direction::left);
+			}
 		}
 		break;
 	case JoystickEnum::D_LEFT:
-		m_hero->m_heroDirection = LEFT;
+		m_isStand = false;
 		if (getisAllowToLeft())
 		{
 			m_hero->setPosition(pos.x - moveSpeed, pos.y);
+			if (!m_isLeft)
+			{
+				m_isLeft = true;
+				m_hero->playAnimaitonWalk(Direction::left);
+				m_isRight = false;
+			}
 		}
 		break;
 	case JoystickEnum::D_RIGHT:	
+		m_isStand = false;
 		if (getisAllowToRight())
 		{
-			m_hero->m_heroDirection = RIGHT;
+			
 			m_hero->setPosition(pos.x + moveSpeed, pos.y);
+			if (!m_isRight)
+			{
+				m_isRight = true;
+				m_hero->playAnimaitonWalk(Direction::right);
+				m_isLeft = false;
+			}
 			__rollmapForward();
 		}
 		break;
 	case JoystickEnum::D_LEFT_UP:
-		
+		m_isStand = false;		
 		if (getisAllowToLeftUp() && m_hero->getPositionY() < 350.0f)
 		{
-			m_hero->m_heroDirection = LEFT;
+			if (!m_isLeft)
+			{
+				m_isLeft = true;
+				m_hero->playAnimaitonWalk(Direction::left);
+				m_isRight = false;
+			}
 			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
 		}
 		
 		break;
 	case JoystickEnum::D_RIGHT_UP:
+		m_isStand = false;
 		if (getisAllowToRightUp() && m_hero->getPositionY() < 350.0f)
 		{
-			m_hero->m_heroDirection = RIGHT;
-			m_hero->setPosition(pos.x + moveSpeed, pos.y + moveSpeed);
+			
+			m_hero->setPosition(pos.x + moveSpeed, pos.y);
+			if (!m_isRight)
+			{
+				m_isRight = true;
+				m_hero->playAnimaitonWalk(Direction::right);
+				m_isLeft = false;
+			}
 			__rollmapForward();
 		}
 	
 		break;
 	case JoystickEnum::D_LEFT_DOWN:
-		
-		if (getisAllowToLeftDown() && m_hero->getPositionY() >= 75.0f)
+		m_isStand = false;
+		if (getisAllowToLeftDown() && m_hero->getPositionY() >= 45.0f)
 		{
-			m_hero->m_heroDirection = LEFT;
+			if (!m_isLeft)
+			{
+				m_isLeft = true;
+				m_hero->playAnimaitonWalk(Direction::left);
+				m_isRight = false;
+			}
 			m_hero->setPosition(pos.x - moveSpeed, pos.y - moveSpeed);
 		}
 
 		break;
 	case JoystickEnum::D_RIGHT_DOWN:
-		
-		if (getisAllowToRightDown() && m_hero->getPositionY() > 75.0f)
+		m_isStand = false;
+		if (getisAllowToRightDown() && m_hero->getPositionY() > 45.0f)
 		{
-			m_hero->m_heroDirection = RIGHT;
-			m_hero->setPosition(pos.x + moveSpeed, pos.y - moveSpeed);
+			
+			m_hero->setPosition(pos.x + moveSpeed, pos.y);
+			if (!m_isRight)
+			{
+				m_isRight = true;
+				m_hero->playAnimaitonWalk(Direction::right);
+				m_isLeft = false;
+			}
 			__rollmapForward();
 		}
 		
 		break;
 	case JoystickEnum::DEFAULT:
+		if (!m_isStand)
+		{
+			m_isStand = true;
+			if (m_isRight)
+			{
+				m_hero->playAnimaitonStand(Direction::right);
+			}
+			else if (m_isLeft)
+			{
+				m_hero->playAnimaitonStand(Direction::left);
+			}
+			else
+			{
+				m_hero->playAnimaitonStand(Direction::right);
+			}
+
+			
+		}
 		break;
 	}
 
