@@ -25,7 +25,7 @@ struct User								//玩家用户信息
 	int SkillID[10];
 	int ToolID[10][2];
 	int EquipID[10][2];
-	int Clear_BlockID;
+	int Clear_BlockID[3][3];
 };
 
 struct Monster_location{				//每关怪兽信息

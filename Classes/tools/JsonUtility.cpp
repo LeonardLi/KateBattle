@@ -125,7 +125,16 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 		}
 	}
 	rapidjson::Value& clear = val["Clear_BlockID"];
-	clear.SetInt(user.Clear_BlockID);
+	for (i = 0; i < 3; i++)
+	{
+		rapidjson::Value&first = clear[i];
+		for (int j = 0; j < 3; j++)
+		{
+			rapidjson::Value&secons = first[j];
+			secons.SetInt(user.Clear_BlockID[i][j]);
+		}
+	}
+	//clear.SetInt(user.Clear_BlockID);
 	rapidjson::StringBuffer buffer;
 	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
 	m_doc.Accept(writer);
@@ -198,8 +207,15 @@ User JsonUtility::getUser()					//获取用户信息
 		}
 	}
 	rapidjson::Value& clear = val["Clear_BlockID"];
-	if (clear.IsInt())
-		user.Clear_BlockID = clear.GetInt();
+	for (i = 0; i < 3; i++)
+	{
+		rapidjson::Value&first = clear[i];
+		for (int j = 0; j < 3; j++)
+		{
+			rapidjson::Value&secons = first[j];
+			user.Clear_BlockID[i][j] = secons.GetInt();
+		}
+	}
 	return user;
 }
 
