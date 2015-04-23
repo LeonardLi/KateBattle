@@ -13,6 +13,12 @@ enum class ScenarioEnum{
 	Sewer,
 	ScenarioCounts
 };
+enum class SubScenarioEnum{
+	LV1,
+	LV2,
+	LV3,
+	LVcounts
+};
 /************************************************************************/
 /* 
 Name: GameScene
@@ -23,9 +29,9 @@ Date:
 /************************************************************************/
 class GameScene : public cocos2d::Layer{
 public:
-    static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(ScenarioEnum, SubScenarioEnum);
 
-    CREATE_FUNC(GameScene);
+	static GameScene* create(ScenarioEnum, SubScenarioEnum);
 
 	virtual void update(float dt);
 
@@ -33,9 +39,9 @@ public:
 	~GameScene();
 private:
 
-	virtual bool init();
+	bool init(ScenarioEnum scenario, SubScenarioEnum subscenario);
 
-	cocos2d::Node* loadCSB(std::string csbfile);
+	cocos2d::Node* loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario);
 
 	void __createStickBar();
 /////////////////////////////////////////////////////////////////////////CALLBACK
@@ -119,13 +125,13 @@ public:
 private:
 	bool init(ScenarioEnum);
 
-	void __loadCSB(std::string);
+	void __loadCSB(ScenarioEnum);
 
 	void onBackButtonClicked(cocos2d::Ref*);
 
 	void onScenarioChosenClicked(cocos2d::Ref*);
 
-	void onSubScenarioChooseCallback(cocos2d::Ref*);
+	void onSubScenarioChooseCallback(cocos2d::Ref*, ScenarioEnum);
 };
 
 /************************************************************************/

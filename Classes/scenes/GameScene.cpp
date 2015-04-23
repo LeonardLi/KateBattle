@@ -31,31 +31,36 @@ m_monsterMgr(nullptr){
 GameScene::~GameScene(){
 }
 
-Scene* GameScene::createScene()
+Scene* GameScene::createScene(ScenarioEnum scenario,SubScenarioEnum subscenario)
 {
     auto scene = Scene::create();
-    auto layer = GameScene::create();
+	auto layer = GameScene::create(scenario, subscenario);
     scene->addChild(layer);
     return scene;
 }
 
-bool GameScene::init()
+GameScene* GameScene::create(ScenarioEnum scenario, SubScenarioEnum subscenario){
+	GameScene* gameScene = new GameScene();
+	if (gameScene && gameScene->init(scenario, subscenario))
+	{
+		gameScene->autorelease();
+	}
+	else
+	{
+		CC_SAFE_DELETE(gameScene);
+	}
+	return gameScene;
+}
+
+bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 {
     if ( !Layer::init() )
     {
         return false;
     }
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));    
-    auto popupItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(GameScene::_popupEquipmentMenu, this));
-    
 
-	auto rootnode = loadCSB("gangkou1/gangkou1.csb");
+	auto rootnode = loadCSB(scenario, subscenario);
+
 	this->addChild(rootnode, 0);
 	
 	m_hero = Hero::create();
@@ -79,9 +84,74 @@ bool GameScene::init()
     return true;
 }
 
-Node* GameScene::loadCSB(std::string csbfile){
-	Node* rootNode = CSLoader::createNode(csbfile.c_str());
-	ActionTimeline* actionTime = CSLoader::createTimeline(csbfile);
+Node* GameScene::loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario){
+	Node* rootNode = nullptr;
+	ActionTimeline* actionTime = nullptr;
+	switch (scenario)
+	{
+	case ScenarioEnum::Port:
+		switch (subscenario)
+		{
+		case SubScenarioEnum::LV1:
+			rootNode = CSLoader::createNode("gangkou1/gangkou1.csb");
+			actionTime = CSLoader::createTimeline("gangkou1/gangkou1.csb");
+			break;
+		case SubScenarioEnum::LV2:
+			rootNode = CSLoader::createNode("gangkou2/gangkou2.csb");
+			actionTime = CSLoader::createTimeline("gangkou2/gangkou2.csb");
+			break;
+		case SubScenarioEnum::LV3:
+			rootNode = CSLoader::createNode("gangkou3/gangkou3.csb");
+			actionTime = CSLoader::createTimeline("gangkou3/gangkou3.csb");
+
+			break;
+		default:
+			break;
+		}
+		break;
+	case ScenarioEnum::Market:
+		switch (subscenario)
+		{
+		case SubScenarioEnum::LV1:
+			rootNode = CSLoader::createNode("jishi1/jishi1.csb");
+			actionTime = CSLoader::createTimeline("jishi1/jishi1.csb");
+			break;
+		case SubScenarioEnum::LV2:
+			rootNode = CSLoader::createNode("jishi2/jishi2.csb");
+			actionTime = CSLoader::createTimeline("jishi2/jishi2.csb");
+			break;
+		case SubScenarioEnum::LV3:
+			rootNode = CSLoader::createNode("jishi3/jishi3.csb");
+			actionTime = CSLoader::createTimeline("jishi3/jishi3.csb");
+			break;
+		default:
+			break;
+		}
+		break;
+	case ScenarioEnum::Sewer:
+		switch (subscenario)
+		{
+		case SubScenarioEnum::LV1:
+			rootNode = CSLoader::createNode("xiashuidao1/xiashuidao1.csb");
+			actionTime = CSLoader::createTimeline("xiashuidao1/xiashuidao1.csb");
+			break;
+		case SubScenarioEnum::LV2:
+			rootNode = CSLoader::createNode("xiashuidao2/xiashuidao2.csb");
+			actionTime = CSLoader::createTimeline("xiashuidao2/xiashuidao2.csb");
+			break;
+		case SubScenarioEnum::LV3:
+			rootNode = CSLoader::createNode("xiashuidao3/xiashuidao3.csb");
+			actionTime = CSLoader::createTimeline("xiashuidao3/xiashuidao3.csb");
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+	
+	
 	actionTime->gotoFrameAndPlay(0, 60, true);
 	rootNode->runAction(actionTime);
 	return rootNode;
@@ -325,41 +395,55 @@ bool SubChooseGameScene::init(ScenarioEnum sceneChoose){
 	{
 		return false;
 	}
+
+	
+	__loadCSB(sceneChoose);
+	return true;
+}
+
+void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
+{
+	Node* rootNode = nullptr; 
 	switch (sceneChoose)
 	{
 	case ScenarioEnum::Port:
-		__loadCSB("port/port.csb");
+		rootNode = CSLoader::createNode("port/port.csb");
 		break;
 	case ScenarioEnum::Market:
-		__loadCSB("market/market.csb");
+		rootNode = CSLoader::createNode("market/market.csb");
 		break;
 	case ScenarioEnum::Sewer:
-		__loadCSB("sewer/sewer.csb");
+		rootNode = CSLoader::createNode("sewer/sewer.csb");
 		break;
 	default:
 		break;
 	}
 	
-
-	return true;
-}
-
-void SubChooseGameScene::__loadCSB(std::string scbfile)	{
-	Node* rootNode = CSLoader::createNode(scbfile);
 	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(5));
-	Button* lv1Button = static_cast<Button*>(rootNode->getChildByTag(6));
-	Button* lv2Button = static_cast<Button*>(rootNode->getChildByTag(7));
-	Button* lv3Button = static_cast<Button*>(rootNode->getChildByTag(8));
+	Button* lvButton[3] = { nullptr };
+	lvButton[0] = static_cast<Button*>(rootNode->getChildByTag(6));
+	lvButton[1] = static_cast<Button*>(rootNode->getChildByTag(7));
+	lvButton[2] = static_cast<Button*>(rootNode->getChildByTag(8));
+	User aUser = JsonUtility::getInstance()->getUser();
+	int scene = static_cast<int>(sceneChoose);
+	
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	if (0 == aUser.Clear_BlockID[scene][i]){
+	//		lvButton[i]->setBright(false);
+	//		lvButton[i]->setEnabled(false);
+	//	}
+	//}
 
-	backButton->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
-	lv1Button->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
-	lv2Button->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
-	lv3Button->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this));
+	backButton->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this, sceneChoose));
+	lvButton[0]->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this, sceneChoose));
+	lvButton[1]->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this, sceneChoose));
+	lvButton[2]->addClickEventListener(CC_CALLBACK_1(SubChooseGameScene::onSubScenarioChooseCallback, this,  sceneChoose));
 
 	this->addChild(rootNode);
 }
 
-void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender){
+void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,ScenarioEnum scenario){
 	Node* sender = static_cast<Node*>(Sender);
 		switch (sender->getTag())
 	{
@@ -367,12 +451,13 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender){
 			Director::getInstance()->replaceScene(ChooseGameScene::createScene());
 			break;
 		case 6:
-			Director::getInstance()->replaceScene(GameScene::createScene());
+			Director::getInstance()->replaceScene(GameScene::createScene(scenario, SubScenarioEnum::LV1));
 			break;
 		case 7:
-
+			Director::getInstance()->replaceScene(GameScene::createScene(scenario, SubScenarioEnum::LV2));
 			break;
 		case 8:
+			Director::getInstance()->replaceScene(GameScene::createScene(scenario, SubScenarioEnum::LV3));
 			break;
 		default:
 			break;
