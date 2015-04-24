@@ -58,9 +58,9 @@ void Entity::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
 	mTimeLine = CSLoader::createTimeline(csbfile);
 	
+	mViewNode->setPosition(Vec2(mViewNode->getPositionX(), mViewNode->getPositionY()));
 	this->setAnchorPoint(Vec2(0.5,0.5));
-	this->setContentSize(Size(70,90));
-	
+	this->setContentSize(Size(70,110));
 	this->addChild(mViewNode);
 
 }

@@ -21,9 +21,12 @@ enum class MonsterType
 	shootType,
 	monsterBossNum1,
 	num1ShootType,
-	block,
+	monsterBossNum2,
+	monsterBossNum2Assister,
 	monsterBossNum3,
 	num3CarType,
+	num3BoxType,
+	block,
 };
 
 
@@ -41,6 +44,12 @@ public:
 	void skillRush(float dt);
 	void isCollide(float dt);
 	void skillFinish(float dt);
+
+	void skillShot(float dt);
+	void skillShotQuickly(float dt);
+
+	void boss2AssistStartSkill();
+	void showFire(cocos2d::Vec2 location);
 protected:
 	void onDead();
 	void onHurt();
@@ -76,9 +85,6 @@ private:
 
 	//distance judge
 	void __isInViewRange(float dt);
-
-
-	
 	void __moveCloseToHero(cocos2d::Vec2 distance);
 	
 
@@ -86,17 +92,18 @@ private:
 	void __postBossAttackMessage(float dt);
 	void __postBossSkillMessage(float dt);
 
-
+	
 public:
 	cocos2d::Vec2 heroLocation;
 	cocos2d::Vector<BulletBase*> m_bulletList;
+	cocos2d::Vector<Monster*> dangerousAreaList;
 	Hero* targetHero;
 	
 	Monster* m_boxes;
 	MonsterType m_monsterType;
 	MonsterFSM* m_FSM;
 	bool skillOrAttack;
-
+	
 private:
 	
 	CC_SYNTHESIZE(int, m_Hp, Hp);
@@ -104,7 +111,7 @@ private:
 	CC_SYNTHESIZE(double, m_attackRange, attackRange);
 	CC_SYNTHESIZE(float, m_attackTime, attackTime);
 	CC_SYNTHESIZE(float, m_viewRange, viewRange);
-	
+	CC_SYNTHESIZE(bool, m_canAttack, canAttack);
 };
 
 
@@ -114,13 +121,43 @@ public:
 	static MonsterBossNum1* create(cocos2d::Sprite* sprite, cocos2d::Vector<Monster*> monsterList);
 	bool init(cocos2d::Sprite* sprite, cocos2d::Vector<Monster*> monsterList);
 	cocos2d::Vector<Monster*> shootMonsterList;
-	void skillRushBox(float dt);
 	
-private:
 
+	void intoBoss1SkillSequence(float dt);
+	void outBoss1SkillSequence(float dt);
+private:
+	void __skillRushBox(float dt);
+	void __skillRush(float dt);
 public:
 	Monster* box;
+private:
+
 };
+
+class MonsterBossNum2 : public Monster{
+
+public:
+	static MonsterBossNum2* create(cocos2d::Sprite* sprite, Monster* monster);
+	bool init(cocos2d::Sprite* sprite,  Monster* monster);
+	void intoBoss2SkillSequence(float dt);
+	void outBoss2SkillSequence(float dt);
+private:
+	void __dangerousAreaJudge(float dt);
+	void __rotateAreaJudge(float dt);
+	void __bossRotate();
+	void __bossRotateStop(float dt);
+	void __bossJump();
+	void __bossRushToBox(float dt);
+	void __bossRushJudge(float dt);
+
+public:
+
+	
+private:
+	Monster* monsterAssist;
+
+};
+
 
 class MonsterBossNum3 :public Monster{
 
@@ -130,9 +167,11 @@ public:
 	cocos2d::Vector<Monster*> carMonsterList;
 	void showTheCar(float dt);
 	
-	void bossRunOutOfGround(float dt);
+	void intoBoss3SkillSequence(float dt);
+	void outBoss3SkillSequence(float dt);
 
 private:
+	void __bossRunOutOfGround(float dt);
 	void __runTheCar(float dt);
 	void __runNumber1Car(float dt);
 	void __runNumber2Car(float dt);

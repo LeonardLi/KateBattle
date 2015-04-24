@@ -79,8 +79,8 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	map->addChild(m_monsterMgr);
 
 	this->scheduleUpdate();	
-	//this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
 	this->scheduleOnce(schedule_selector(GameScene::postBossUseSkillNotification), 1.0f);
+	//this->scheduleOnce(schedule_selector(GameScene::postUseSkillNotification), 1.0f);
     return true;
 }
 

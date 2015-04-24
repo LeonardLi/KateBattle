@@ -92,7 +92,6 @@ void Hero::changeStun(float dt){
 
 void Hero::herostun(float time)
 {
-	//mViewSprite->stopAllActions();
 	setStun(STUN);
 	if (this->isScheduled(schedule_selector(Hero::changeStun)))
 	{
@@ -105,15 +104,10 @@ void Hero::herostun(float time)
 }
 
 void Hero::attack(){
-	log("attack!!============");
-	//if (mViewSprite->getNumberOfRunningActions()==0)
-	//{
-		//run action
-	//}
+	log("=========hero attack!!============");
 }
 
 void Hero::heroNotControl(float time){
-	//mViewSprite->stopAllActions();
 	m_canControl = false;
 	this->scheduleOnce(schedule_selector(Hero::changeControlType), time);
 }

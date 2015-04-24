@@ -330,7 +330,6 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 
 void ControllerMoveBase::__rollmapForward(){
 	//log("hero location===%f", m_hero->getPositionX());
-	log("hero scene location===%f", m_map->convertToWorldSpace(m_hero->getPosition()).x);
 	if (m_map->convertToWorldSpace(m_hero->getPosition()).x >= 640){
 		m_map->setPosition(Vec2(m_map->getPositionX() - getiSpeed(), m_map->getPositionY()));
 	}

@@ -80,31 +80,47 @@ void MonsterManager::createMonsters(int iCurlevel){
 	////monster2->setAnchorPoint(Vec2(0.5, 0.5));
 	//this->addChild(monster2); 
 	
+	//Boss Number 2
+
+	auto monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::monsterBossNum2Assister);
+	monster1->setPosition(Vec2(800,400));
+	monster1->getFSM()->changeState(new StateAttack());
+	m_monsterList.pushBack(monster1);
+	this->addChild(monster1);
+
+	MonsterBossNum2* monster2 = MonsterBossNum2::create(Sprite::create("wolf.png"), monster1);
+	monster2->setPosition(Vec2(200,200));
+	monster2->getFSM()->changeState(new BossStateAttack());
+	monster2->setAnchorPoint(Vec2(0.5,0.5));
+	m_monsterList.pushBack(monster2);
+	this->addChild(monster2);
+
+
+
 	//Boss Number 3
-	Vector<Monster*> number3BossCar;
-	auto car1 = Monster::create(Sprite::create("wolf.png"), MonsterType::num3CarType);
-	//car1->setPosition(1000, 375);
-	car1->getFSM()->changeState(new StateAttack());
-	number3BossCar.pushBack(car1);
+
+	//Vector<Monster*> number3BossCar;
+	//auto car1 = Monster::create(Sprite::create("wolf.png"), MonsterType::num3CarType);
+	////car1->setPosition(1000, 375);
+	//car1->getFSM()->changeState(new StateAttack());
+	//number3BossCar.pushBack(car1);
+	//
+	//auto car2 = Monster::create(Sprite::create("wolf.png"), MonsterType::num3CarType);
+	////car2->setPosition(1000, 225);
+	//car2->getFSM()->changeState(new StateAttack());
+	//number3BossCar.pushBack(car2);
+
+	//auto car3 = Monster::create(Sprite::create("wolf.png"), MonsterType::num3CarType);
+	////car3->setPosition(1000,75);
+	//car3->getFSM()->changeState(new StateAttack());
+	//number3BossCar.pushBack(car3);
+
+	//Monster* monster3 = MonsterBossNum3::create(Sprite::create("wolf.png"), number3BossCar);
+	//monster3->setPosition(200, 200);
+	//monster3->getFSM()->changeState(new BossStateAttack());
+	//m_monsterList.pushBack(monster3);
+	//this->addChild(monster3);
 	
-	auto car2 = Monster::create(Sprite::create("wolf.png"), MonsterType::num3CarType);
-	//car2->setPosition(1000, 225);
-	car2->getFSM()->changeState(new StateAttack());
-	number3BossCar.pushBack(car2);
 
-	auto car3 = Monster::create(Sprite::create("wolf.png"), MonsterType::num3CarType);
-	//car3->setPosition(1000,75);
-	car3->getFSM()->changeState(new StateAttack());
-	number3BossCar.pushBack(car3);
-
-	Monster* monster3 = MonsterBossNum3::create(Sprite::create("wolf.png"), number3BossCar);
-	monster3->setPosition(200, 200);
-	monster3->getFSM()->changeState(new BossStateAttack());
-	m_monsterList.pushBack(monster3);
-	this->addChild(monster3);
-	
-
-	//based on level to read json
-	//m_monsterList.pushBack();
 
 }
