@@ -45,63 +45,47 @@ SoundsController* SoundsController::getInstance()
 
 void SoundsController::setMusicVolum(float volum) //调整所有音乐的音量，包括音乐以及音效
 {
-	this->setBackgroundMusicVolume(volum);
-	this->setEffectsVolume(volum);
+	SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(volum);
+	SimpleAudioEngine::sharedEngine()->setEffectsVolume(volum);
 	m_EffectMusicVolum = m_BackMusicVolum = volum;
 }
 
 void SoundsController::stopBackgroundMusic()//关闭背景音乐,音乐从当前音乐大小逐次减小
 {
-	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("background.mp3");
-	//CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(SoundsController::Update), this, 0.1, false);
-	//CCDirector::sharedDirector()->getScheduler()->scheduleSelector(SEL_SCHEDULE(&SoundsController::_setBackVolumLogic), this, 1, false);
 	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(SoundsController::_setBackVolumLogic), this, 1, false);
-	//this->schedule(schedule_selector(SoundsController::_setBackVolumLogic));
-	m_BackMusicVolum = this->getBackgroundMusicVolume();
+	m_BackMusicVolum = SimpleAudioEngine::sharedEngine()->getBackgroundMusicVolume();
 }
-
 
 void SoundsController::stopEffect()//关闭音效音乐,音效从当前音乐大小逐次减小
 {
-	SimpleAudioEngine::sharedEngine()->playEffect("background.mp3");
-		log("effectMusic");
 	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(SoundsController::_setEffectVolumLogic), this, 1, false);
-	m_EffectMusicVolum = this->getEffectsVolume();
+	m_EffectMusicVolum = SimpleAudioEngine::sharedEngine()->getEffectsVolume();
 }
 
 void SoundsController::_setBackVolumLogic(float dt)
 {
-	log("***********************************************");
-	log("volum:%f",m_BackMusicVolum);
-	log("***********************************************");
-	m_BackMusicVolum -= 0.1;
+	m_BackMusicVolum -= 0.15;
 	if (m_BackMusicVolum > 0)
 	{
-		this->setBackgroundMusicVolume(m_BackMusicVolum);
+		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(m_BackMusicVolum);
 	}
 	else
 	{
-		//CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
-		//CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(schedule_selector(SoundsController::_setBackVolumLogic), this);
-		//CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(SEL_SCHEDULE(&SoundsController::_setBackVolumLogic), this);
-		//this->unschedule(schedule_selector(SoundsController::_setBackVolumLogic));
 		this->unschedule(schedule_selector(SoundsController::_setBackVolumLogic));
-		SimpleAudioEngine::stopBackgroundMusic(true);
+		SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 	}
 }
+
 void SoundsController::_setEffectVolumLogic(float dt)
 {
-	log("***********************************************");
-	log("volum:%f", m_EffectMusicVolum);
-	log("***********************************************");
-	m_EffectMusicVolum -= 0.1;
+	m_EffectMusicVolum -= 0.15;
 	if (m_EffectMusicVolum > 0)
 	{
-		this->setEffectsVolume(m_EffectMusicVolum);
+		SimpleAudioEngine::sharedEngine()->setEffectsVolume(m_EffectMusicVolum);
 	}
 	else
 	{
 		this->unschedule(schedule_selector(SoundsController::_setEffectVolumLogic));
-		SimpleAudioEngine::stopAllEffects();
+		SimpleAudioEngine::sharedEngine()->stopAllEffects();
 	}
 }
