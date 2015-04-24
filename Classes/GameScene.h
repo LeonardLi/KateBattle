@@ -43,6 +43,8 @@ private:
 
 	cocos2d::Node* loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario);
 
+	cocos2d::Layer* loadControlLayer();
+
 	void __createStickBar();
 /////////////////////////////////////////////////////////////////////////CALLBACK
 

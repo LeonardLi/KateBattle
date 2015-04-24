@@ -63,6 +63,9 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 
 	this->addChild(rootnode, 0);
 	
+	auto controllayer = loadControlLayer();
+	this->addChild(controllayer, 1);
+
 	m_hero = Hero::create();
 	m_hero->setPosition(0, 0);
 
@@ -157,12 +160,18 @@ Node* GameScene::loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario){
 	return rootNode;
 }
 
+Layer* GameScene::loadControlLayer(){
+	Layer* control = static_cast<Layer*>(CSLoader::createNode("renwujiemian/renwujiemian.csb"));
+	return control;
+
+}
+
 void GameScene::onDirectionChange(JoystickEnum direction){
 	m_hero->ChangeDirection(direction);
 }
 
 void GameScene::__createStickBar(){
-	m_stick = Joystick::create("directioncontrol1.png", "directioncontrol2.png");
+	m_stick = Joystick::create("caozonggan1.png", "caozonggan2.png");
 	this->addChild(m_stick, 0);
 	m_stick->setPosition(Vec2(200, 200));
 	m_stick->setDieRadius(120);

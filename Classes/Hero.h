@@ -5,14 +5,14 @@
 //  Created by Leonard on 15/3/20.
 //
 //
-
-#ifndef __KateBattle__Hero__
-#define __KateBattle__Hero__
+#pragma once
 #include "Entity.h"
 #include "cocos2d.h"
 #include "Monster.h"
 class ControllerMoveBase;
+class Monster;
 enum class JoystickEnum;
+enum class InventoryEnum;
 
 enum class Direction{
 	right,
@@ -30,6 +30,8 @@ public:
 	void onDead();
 	
 	void onHurt();
+
+	void seInventory(InventoryEnum);
 
 	void changeControlType(float dt);
 
@@ -82,4 +84,4 @@ private:
 };
 
 
-#endif /* defined(__KateBattle__Hero__) */
+

@@ -8,5 +8,7 @@
 
 #ifndef __KateBattle__Equipment__
 #define __KateBattle__Equipment__
+class Equipment{
 
+};
 #endif	//__KateBattle__Equipment__

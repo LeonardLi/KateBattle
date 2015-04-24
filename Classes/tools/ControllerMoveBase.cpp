@@ -248,13 +248,14 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		m_isStand = false;		
 		if (getisAllowToLeftUp() && m_hero->getPositionY() < 350.0f)
 		{
+			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
 			if (!m_isLeft)
 			{
 				m_isLeft = true;
 				m_hero->playAnimaitonWalk(Direction::left);
 				m_isRight = false;
 			}
-			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
+			
 		}
 		
 		break;
@@ -263,7 +264,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		if (getisAllowToRightUp() && m_hero->getPositionY() < 350.0f)
 		{
 			
-			m_hero->setPosition(pos.x + moveSpeed, pos.y);
+			m_hero->setPosition(pos.x + moveSpeed, pos.y + moveSpeed);
 			if (!m_isRight)
 			{
 				m_isRight = true;
@@ -293,7 +294,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		if (getisAllowToRightDown() && m_hero->getPositionY() > 45.0f)
 		{
 			
-			m_hero->setPosition(pos.x + moveSpeed, pos.y);
+			m_hero->setPosition(pos.x + moveSpeed, pos.y - moveSpeed);
 			if (!m_isRight)
 			{
 				m_isRight = true;
@@ -311,16 +312,13 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			if (m_isRight)
 			{
 				m_hero->playAnimaitonStand(Direction::right);
+				m_isRight = false; 
 			}
 			else if (m_isLeft)
 			{
 				m_hero->playAnimaitonStand(Direction::left);
+				m_isLeft = false;
 			}
-			else
-			{
-				m_hero->playAnimaitonStand(Direction::right);
-			}
-
 			
 		}
 		break;

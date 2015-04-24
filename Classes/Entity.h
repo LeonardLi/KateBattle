@@ -51,4 +51,10 @@ private:
     
 };
 
+class BackupEntity :public cocos2d::Node{
+public:
+
+protected:
+	bool loadfromCSB();
+};
 #endif /* defined(__KateBattle__Entity__) */
