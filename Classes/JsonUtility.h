@@ -11,7 +11,13 @@
 #include "json/document.h"
 #include "json/stringbuffer.h"
 #include "json/writer.h"
+#include "cocos2d.h"
 #pragma execution_character_set("utf-8") 
+struct EquipID
+{
+	int ID;
+	double value[6];
+};
 struct User								//玩家用户信息
 {
 	std::string UserName;
@@ -22,12 +28,11 @@ struct User								//玩家用户信息
 	double UserDefense;
 	double UserSpeed;
 	double UserStrength;
-	int SkillID[10];
-	int ToolID[10][2];
-	int EquipID[10][2];
+	int SkillID[3];
+	int ToolID[6];               //修改
+	EquipID Equip[24];			//修改
 	int Clear_BlockID[3][3];
 };
-
 struct Monster_location{				//每关怪兽信息
 	int monsterID;
 	double x;
@@ -49,13 +54,13 @@ struct Block							//每关卡信息
 	std::string BlockName;
 	Store store;
 };
-struct Equipment{						//装备信息
-	std::string EquipName;
-	std::string EquipInfo;
-	std::string EquipAttribute;
-	double EquipAttributeValue;
-	int EquipPrice;
-};
+//struct Equipment{						//装备信息
+//	std::string EquipName;
+//	std::string EquipInfo;
+//	std::string EquipAttribute;
+//	double EquipAttributeValue;
+//	int EquipPrice;
+//};
 
 struct Tool								//工具信息
 {
@@ -88,11 +93,11 @@ struct Monster_info						   //怪物信息
 class JsonUtility{
 public:
 	User getUser();					//获取用户信息
-	void setUser(User user);		//设置用户信息
+	//void setUser(User user);		//设置用户信息
 	Block getBlock(int ID);			//获取第i关卡信息
 	Monster_info getMonster(int ID);		// 获取第i个怪物
 	Skill getSkill(int ID);			//获取第i个技能
-	Equipment getEquipment(int ID);	//获取第i个装备
+//	Equipment getEquipment(int ID);	//获取第i个装备
 	Tool getTool(int ID);			//获取第i个工具
 	Store getStore(int ID);			//获取第i关的商店的信息
 	rapidjson::Document getDocument();			// 获取m_doc

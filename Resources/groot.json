@@ -9,44 +9,62 @@
     "UserSpeed": 2,
     "UserStrength": 2,
     "SkillID": [
-      3,
-      4,
-      -1
+      1,
+      0,
+      0
     ],
     "ToolID": [
-      [
-        1,
-        2
-      ],
-      [
-        2,
-        3
-      ],
-      [
-        -1,
-        -1
-      ],
-      [
-        -1,
-        -1
-      ]
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
     ],
     "EquipID": [
       [
         1,
-        2
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
       ],
       [
         2,
-        3
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
       ],
       [
         3,
-        4
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
       ],
       [
         4,
-        5
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
       ]
     ],
     "Clear_BlockID": [
@@ -152,15 +170,11 @@
       {
         "EquipName": "shenqi",
         "EquipInfo": "from GOD",
-        "EquipAttribute": "attack",
-        "EquipAttributeValue": 1,
         "EquipPrice": 1
       },
       {
         "EquipName": "shenqi",
         "EquipInfo": "from GOD",
-        "EquipAttribute": "attack",
-        "EquipAttributeValue": 1,
         "EquipPrice": 1
       }
     ],
