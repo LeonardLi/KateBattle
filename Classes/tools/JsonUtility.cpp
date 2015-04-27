@@ -80,28 +80,27 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Value& equip = val["EquipID"];           //need to modify
 	if (equip.IsArray())
 	{
-		int i = 0;
-		for (i = 0; i < equip.Capacity(); i++)
+		for (int i = 0; i < equip.Capacity(); i++)
 		{
 			rapidjson::Value&first = equip[i];
 			rapidjson::Value&scenod = first["ID"];
-			user.Equip[i].ID = scenod.GetInt();
+			scenod.SetInt(user.Equip[i].ID);
 			rapidjson::Value&scenod1 = first["Style"];
-			user.Equip[i].Style = scenod1.GetInt();
+			scenod1.SetInt(user.Equip[i].Style);
 			rapidjson::Value&scenod2 = first["Used"];
-			user.Equip[i].Style = scenod2.GetBool();
+			scenod2.SetBool(user.Equip[i].Style);
 			rapidjson::Value&scenod3 = first["Defense"];
-			user.Equip[i].Defense = scenod3.GetDouble();
+			scenod3.SetDouble(user.Equip[i].Defense);
 			rapidjson::Value&scenod4 = first["Blood"];
-			user.Equip[i].Blood = scenod4.GetDouble();
+			scenod4.SetDouble(user.Equip[i].Blood);
 			rapidjson::Value&scenod5 = first["Attack"];
-			user.Equip[i].Attack = scenod5.GetDouble();
+			scenod5.SetDouble(user.Equip[i].Attack);
 			rapidjson::Value&scenod6 = first["Intelligence"];
-			user.Equip[i].Intelligence = scenod6.GetDouble();
+			scenod6.SetDouble(user.Equip[i].Intelligence);
 			rapidjson::Value&scenod7 = first["AttackRate"];
-			user.Equip[i].AttackRate = scenod7.GetDouble();
+			scenod7.SetDouble(user.Equip[i].AttackRate);
 			rapidjson::Value&scenod8 = first["MoveRate"];
-			user.Equip[i].MoveRate = scenod8.GetDouble();
+			scenod8.SetDouble(user.Equip[i].MoveRate);
 			if (user.Equip[i].ID < 0)
 			{
 				break;
@@ -218,10 +217,10 @@ User JsonUtility::getUser()					//获取用户信息
 	return user;
 }
 
-//void JsonUtility::setUser(User user)		//设置用户信息
-//{
-//	_write(user);
-//}
+void JsonUtility::setUser(User user)		//设置用户信息
+{
+	_write(user);
+}
 
 Block JsonUtility::getBlock(int ID)			//获取第i关卡信息
 {

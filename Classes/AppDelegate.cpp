@@ -38,10 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	Kernal* GameKernal = Kernal::create();
 
 	GameKernal->startGame();
-
-	auto jsonutility = JsonUtility::getInstance();
-	User user = jsonutility->getUser();
-
+	
     return true;
 }
 
