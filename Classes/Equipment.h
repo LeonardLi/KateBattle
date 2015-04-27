@@ -6,9 +6,27 @@
 //
 //
 
-#ifndef __KateBattle__Equipment__
-#define __KateBattle__Equipment__
-class Equipment{
-
+#pragma once
+#include "Entity.h"
+enum class EquipmentType{
+	Hat,
+	Aniversary,
+	Cloth,
+	Shoes,
+	Default
 };
-#endif	//__KateBattle__Equipment__
+class Equipment :public BackupEntity{
+public:
+	Equipment();
+	~Equipment();
+private:
+	CC_SYNTHESIZE(int, m_id, EquipmentID);
+	CC_SYNTHESIZE(EquipmentType, m_style, EquipmentStyle);
+	CC_SYNTHESIZE(double, m_defense, Denfense);
+	CC_SYNTHESIZE(double, m_blood, Blood);
+	CC_SYNTHESIZE(double, m_attack, Attack);
+	CC_SYNTHESIZE(double, m_intelligence, Intelligence);
+	CC_SYNTHESIZE(double, m_attackRate, AttackRate);
+	CC_SYNTHESIZE(double, m_moveRate, MoveRate);
+	CC_SYNTHESIZE(bool, m_isUsed, Used);
+};

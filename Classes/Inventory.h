@@ -21,21 +21,14 @@ enum class InventoryEnum{
 	InventoryAmount
 };
 
-class Inventory :public BackupEntity{
-
+class Inventory :public cocos2d::ui::Button{
 public:
 	Inventory();
 	~Inventory();
-	static Inventory* create(InventoryEnum, int amount);
-	void useInventory();
 
 private:
-	bool init(InventoryEnum, int amount);
 	CC_SYNTHESIZE(InventoryEnum, m_type, InventoryType );
 	CC_SYNTHESIZE(int, m_amount, Amount);
-	CC_SYNTHESIZE(cocos2d::ui::Button*, m_button, InventoryButton);
 	std::string m_IntroMsg;
-
-
 };
 

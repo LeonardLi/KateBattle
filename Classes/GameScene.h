@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/CocosGUI.h" 
-
+#include "Equipment.h"
 
 class Hero;
 class MonsterManager;
@@ -19,6 +19,7 @@ enum class SubScenarioEnum{
 	LV3,
 	LVcounts
 };
+
 /************************************************************************/
 /* 
 Name: GameScene
@@ -57,15 +58,14 @@ private:
 
 
 	/*perform popup menu callback, show the popup menu*/
-    void _popupEquipmentMenu(cocos2d::Ref* sender);
+
 	void _popupSetupMenu(cocos2d::Ref* sender);
-	void _popupInventoryMenu(cocos2d::Ref* sender);
+	void _popupBagLayer(cocos2d::Ref* sender);
 	void _popupWinLayer(cocos2d::Ref* sender);
 
 	/*handle the message conveyed from the popup menu*/
-	void _handlePopupEquipmentMenu(cocos2d::Node* sender);
 	void _handlePopupSetupmMenu(cocos2d::Node* sender);
-	void _handlePopupInventoryMenu(cocos2d::Node* sender);
+	void _handlePopupBagLayer(cocos2d::Node* sender);
 	void _handlePopupWinLayer(cocos2d::Node* sender);
 
 	/*Joystick callback*/
@@ -147,79 +147,13 @@ Date: 2015/4/10
 class PopupLayer :public cocos2d::LayerColor{
 public: 	
 
-	virtual void loadPicFromCSB(std::string) = 0;
+	
 protected:
 	virtual bool init() override;
 	virtual void onEnter() override;
 	virtual void onExit() override;
+	virtual void __loadPicFromCSB() = 0;
 
-};
-
-/************************************************************************/
-/*
-Name: EquipmentLayer
-Author: xiaoDe
-Function: EquipmentLayer
-Date: 2015/4/10
-*/
-/************************************************************************/
-class EquipmentLayer : public PopupLayer{
-public:
-
-	EquipmentLayer();
-	~EquipmentLayer();
-
-	CREATE_FUNC(EquipmentLayer);    
-
-    void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
-    
-private:
-	//touch时监听，屏蔽向下触摸
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-
-	void _ClickCallBack(cocos2d::Ref* sender);
-	
-	virtual bool init();
-	virtual void onEnter();
-	virtual void onExit();
-
-	virtual void loadPicFromCSB(std::string csbfile);
-
-    
-    cocos2d::Ref* m_callbackListener;
-    cocos2d::SEL_CallFuncN m_callback;
-};
-
-/************************************************************************/
-/*
-Name: InventoryLayer
-Author: xiaoDe
-Function: InventoryLayer
-Date: 2015/4/10
-*/
-/************************************************************************/
-class InventoryLayer : public PopupLayer{
-public:
-	InventoryLayer();
-	~InventoryLayer();
-	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
-	CREATE_FUNC(InventoryLayer);
-
-private:
-	virtual bool init();
-	virtual void onEnter();
-
-	virtual void loadPicFromCSB(std::string);
-
-	//touch时监听，屏蔽向下触摸
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-	
-	cocos2d::Ref* m_callbackListener;
-	cocos2d::SEL_CallFuncN m_callback;
 };
 
 /************************************************************************/
@@ -230,7 +164,6 @@ Function: show bag
 Date: 2015/4/14
 */
 /************************************************************************/
-
 class BagLayer : public PopupLayer{
 public:
 	BagLayer();
@@ -239,7 +172,44 @@ public:
 	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
 
 private:
-	virtual void loadPicFromCSB(std::string);
+	void __loadPicFromCSB();
+	virtual bool init();
+	virtual void onEnter();
+
+	//touch时监听，屏蔽向下触摸
+	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+
+	
+	void onInventoryClickedListener(cocos2d::Ref*);
+	void onEquipmentClickedListener(cocos2d::Ref*);
+
+	bool __initFromFile();
+
+	cocos2d::Ref* m_callbackListener;
+	cocos2d::SEL_CallFuncN m_callback;
+
+	cocos2d::Vector<Equipment*> m_inventoryVec;
+};
+
+/************************************************************************/
+/*
+Name: DetailLayer
+Author: xiaoDe
+Function: show detail information for the entity that clicked
+Date: 2015/4/27
+*/
+/************************************************************************/
+class DetailLayer : public PopupLayer{
+public:
+	DetailLayer();
+	~DetailLayer();
+	CREATE_FUNC(DetailLayer);
+	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
+
+private:
+	virtual void __loadPicFromCSB();
 	virtual bool init();
 	virtual void onEnter();
 
@@ -276,7 +246,7 @@ private:
 	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
 	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
-	virtual void loadPicFromCSB(std::string);
+	virtual void __loadPicFromCSB();
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 };
@@ -297,7 +267,7 @@ public:
 	
 
 private:
-	virtual void loadPicFromCSB(std::string);
+	virtual void __loadPicFromCSB();
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 	virtual bool init();

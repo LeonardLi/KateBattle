@@ -162,6 +162,8 @@ Node* GameScene::loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario){
 
 Layer* GameScene::loadControlLayer(){
 	Layer* control = static_cast<Layer*>(CSLoader::createNode("renwujiemian/renwujiemian.csb"));
+	Button* setupButton = static_cast<Button*>(control->getChildByTag(9));
+	setupButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupSetupMenu, this));
 	return control;
 
 }
@@ -260,11 +262,11 @@ void GameScene::postBossUseSkillNotification(float dt){
 
 }
 
-void GameScene::_popupEquipmentMenu(cocos2d::Ref* sender){
+void GameScene::_popupBagLayer(cocos2d::Ref* sender){
     Director::getInstance()->pause();
-    EquipmentLayer* eqLayer = EquipmentLayer::create();
-	eqLayer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupEquipmentMenu));
-    this->addChild(eqLayer, 2);
+    BagLayer* bagLayer = BagLayer::create();
+	bagLayer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
+    this->addChild(bagLayer, 2);
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
@@ -273,27 +275,18 @@ void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
 	this->addChild(setupLayer, 2);
 }
 
-void GameScene::_popupInventoryMenu(cocos2d::Ref* sender){
-	Director::getInstance()->pause();
-	InventoryLayer* invLayer = InventoryLayer::create();
-	this->addChild(invLayer, 2);
-}
-
 void GameScene::_popupWinLayer(cocos2d::Ref* sender){
 	Director::getInstance()->pause();
 	WinLayer *winLayer = WinLayer::create();
 	this->addChild(winLayer, 2);
 }
 
-void GameScene::_handlePopupEquipmentMenu(cocos2d::Node* sender){
-	log("GameScene: %d",sender->getTag());
-}
-
+////
 void GameScene::_handlePopupSetupmMenu(cocos2d::Node* sender){
 
 }
 
-void GameScene::_handlePopupInventoryMenu(cocos2d::Node* sender){
+void GameScene::_handlePopupBagLayer(cocos2d::Node* sender){
 
 }
 
@@ -497,152 +490,6 @@ bool PopupLayer::init(){
 
 
 //////////////////////////////////////////////////////////////////////////
-
-EquipmentLayer::EquipmentLayer():
-m_callback(nullptr),
-m_callbackListener(nullptr)
-{
-}
-
-EquipmentLayer::~EquipmentLayer(){
- 
-}
-
-void EquipmentLayer::loadPicFromCSB(std::string csbfile){
-    auto rootNode = CSLoader::createNode(csbfile);
-    rootNode->setPosition(VisibleRect::center());
-    this->addChild(rootNode, 2);
-    Button* button = static_cast<Button*>(rootNode->getChildByName("Button"));
-    button->addClickEventListener(CC_CALLBACK_1(EquipmentLayer::_ClickCallBack, this));   
-}
-
-bool EquipmentLayer::init(){
-	log("========= EquipmentLayer ========== init");
-    if (!PopupLayer::init()) {
-        return false;
-    } 
-	//delegate the Touch event
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    listener->onTouchBegan = CC_CALLBACK_2(EquipmentLayer::onTouchBegan, this);
-    listener->onTouchEnded = CC_CALLBACK_2(EquipmentLayer::onTouchEnded, this);
-    listener->onTouchMoved = CC_CALLBACK_2(EquipmentLayer::onTouchMoved, this);
-    auto dispatcher = Director::getInstance()->getEventDispatcher();    
-    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
-    loadPicFromCSB("Node.csb");
-	
-	return true;
-}
-
-void EquipmentLayer::onEnter(){
-    log("========= EquipmentLayer ========== onEnter");
-    PopupLayer::onEnter();
-
-    Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
-                                           , ScaleTo::create(0.06f, 1.05f)
-                                           , ScaleTo::create(0.08f, 0.95f)
-                                           , ScaleTo::create(0.08f, 1.0f)
-                                           , NULL);
-    this->runAction(popupMenu);
-}
-
-void EquipmentLayer::onExit(){
-    PopupLayer::onExit();
-}
-
-void EquipmentLayer::_ClickCallBack(cocos2d::Ref* sender){
-    
-    Node* node = dynamic_cast<Node*>(sender);
-    
-    log("click the button %d",node->getTag());
-    
-    if(m_callbackListener && m_callback){
-        (m_callbackListener->*m_callback)(node);
-    }
-}
-
-void EquipmentLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
-    m_callbackListener = target;
-    m_callback = callFun;
-}
-
-bool EquipmentLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
-    return true;
-}
-
-void EquipmentLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
-
-}
-
-void EquipmentLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
-
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-InventoryLayer::InventoryLayer():
-m_callback(nullptr),
-m_callbackListener(nullptr)
-{
-
-}
-
-InventoryLayer::~InventoryLayer(){
-
-}
-
-void InventoryLayer::loadPicFromCSB(std::string csbfile){
-	
-}
-
-bool InventoryLayer::init(){
-	if (!PopupLayer::init())
-	{
-		return false;
-	}
-	//delegate the Touch event
-	auto listener = EventListenerTouchOneByOne::create();
-	listener->setSwallowTouches(true);
-	listener->onTouchBegan = CC_CALLBACK_2(InventoryLayer::onTouchBegan, this);
-	listener->onTouchEnded = CC_CALLBACK_2(InventoryLayer::onTouchEnded, this);
-	listener->onTouchMoved = CC_CALLBACK_2(InventoryLayer::onTouchMoved, this);
-	auto dispatcher = Director::getInstance()->getEventDispatcher();
-	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-	return true;
-}
-
-void InventoryLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
-	m_callbackListener = target;
-	m_callback = callFun;
-}
-
-bool InventoryLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
-	return true;
-}
-
-void InventoryLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
-	
-}
-
-void InventoryLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
-	
-}
-
-void InventoryLayer::onEnter(){
-	log("========= InventoryLayer ========== onEnter");
-	PopupLayer::onEnter();
-
-	Action* popupMenu = Sequence::create(ScaleTo::create(0.0f, 0.0f)
-		, ScaleTo::create(0.06f, 1.05f)
-		, ScaleTo::create(0.08f, 0.95f)
-		, ScaleTo::create(0.08f, 1.0f)
-		, NULL);
-	this->runAction(popupMenu);
-}
-//////////////////////////////////////////////////////////////////////////
-
 BagLayer::BagLayer():
 m_callback(nullptr),
 m_callbackListener(nullptr)
@@ -668,15 +515,26 @@ bool BagLayer::init(){
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	__loadPicFromCSB();
+	if (!__initFromFile())
+	{
+		return false;
+	}
+	
+
 	return true;
 }
 
+bool BagLayer::__initFromFile(){
+
+	return true;
+}
 void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
 	m_callback = callFun;
 	m_callbackListener = target;
 }
 
-void BagLayer::loadPicFromCSB(std::string){
+void BagLayer::__loadPicFromCSB(){
 	
 }
 
@@ -699,6 +557,77 @@ void BagLayer::onEnter(){
 		, NULL);
 	this->runAction(popupMenu);
 }
+
+void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){
+	Node* node = static_cast<Node*>(sender);
+
+	if (m_callback && m_callbackListener)
+	{
+		(m_callbackListener->*m_callback)(node);
+	}
+}
+
+void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
+	Node* node = static_cast<Node*>(sender);
+
+	if (m_callback && m_callbackListener)
+	{
+		(m_callbackListener->*m_callback)(node);
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+DetailLayer::DetailLayer():
+m_callback(nullptr),
+m_callbackListener(nullptr)
+{
+
+}
+
+DetailLayer::~DetailLayer(){
+
+}
+
+void DetailLayer::__loadPicFromCSB(){
+
+}
+
+bool DetailLayer::init(){
+	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	//delegate the Touch event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(DetailLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(DetailLayer::onTouchEnded, this);
+	listener->onTouchMoved = CC_CALLBACK_2(DetailLayer::onTouchMoved, this);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	return true;
+}
+
+void DetailLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
+	m_callbackListener = target;
+	m_callback = callFun;
+}
+
+bool DetailLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
+	return true;
+}
+void DetailLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
+
+}
+
+void DetailLayer::onEnter(){
+
+}
 //////////////////////////////////////////////////////////////////////////
 
 WinLayer::WinLayer():
@@ -712,7 +641,7 @@ WinLayer::~WinLayer(){
 
 }
 
-void WinLayer::loadPicFromCSB(std::string csbfile){
+void WinLayer::__loadPicFromCSB(){
 
 }
 
@@ -741,6 +670,7 @@ void WinLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN call
 bool WinLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
 	return true;
 }
+
 void WinLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
@@ -773,11 +703,12 @@ bool SetupLayer::init(){
 	listener->onTouchMoved = CC_CALLBACK_2(SetupLayer::onTouchMoved, this);
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-	loadPicFromCSB("Node.csb");
+	__loadPicFromCSB();
 	return true;
 }
-void SetupLayer::loadPicFromCSB(std::string csbfile){
-	Node* rootNode = CSLoader::createNode(csbfile);
+
+void SetupLayer::__loadPicFromCSB(){
+	Node* rootNode = CSLoader::createNode("Node.csb");
 	rootNode->setPosition(VisibleRect::center());
 	Button* backButton = static_cast<Button*>(rootNode->getChildByName("Button"));
 	backButton->addClickEventListener(CC_CALLBACK_1(SetupLayer::onBackButtonClick, this));
@@ -788,13 +719,16 @@ void SetupLayer::loadPicFromCSB(std::string csbfile){
 bool SetupLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
 	return true;
 }
+
 void SetupLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
+
 void SetupLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
 
 void SetupLayer::onBackButtonClick(cocos2d::Ref* sender){
 	this->removeFromParent();
+	Director::getInstance()->resume();
 }

@@ -33,6 +33,7 @@ bool Entity::init(){
 	this->setAnchorPoint(Vec2(0.5, 0.5));
 	return true;
 }
+
 Sprite* Entity::getSprite()
 {
 	return mViewSprite;
@@ -109,4 +110,21 @@ void Entity::hurtMe(float iHurtValue){
 	onDead();
 	}
 	*/
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+BackupEntity* BackupEntity::create(const std::string& filename){
+	BackupEntity *sprite = new (std::nothrow) BackupEntity();
+	if (sprite && sprite->initWithFile(filename) && sprite->init())
+	{
+		sprite->autorelease();
+		return sprite;
+	}
+	CC_SAFE_DELETE(sprite);
+	return nullptr;
+}
+
+bool BackupEntity::init(){
+	return true;
 }

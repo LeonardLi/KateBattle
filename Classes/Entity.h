@@ -51,10 +51,13 @@ private:
     
 };
 
-class BackupEntity :public cocos2d::Node{
+class BackupEntity :public cocos2d::Sprite{
 public:
-
+	CREATE_FUNC(BackupEntity);
+	static BackupEntity* create(const std::string& filename);
 protected:
-	bool loadfromCSB();
+	virtual bool init();
+
+
 };
 #endif /* defined(__KateBattle__Entity__) */
