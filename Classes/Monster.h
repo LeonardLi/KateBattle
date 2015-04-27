@@ -149,6 +149,7 @@ private:
 	void __bossJump();
 	void __bossRushToBox(float dt);
 	void __bossRushJudge(float dt);
+	void __bossRushMoveEnd(float dt);
 
 public:
 

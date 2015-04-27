@@ -722,8 +722,8 @@ void MonsterBossNum2::__bossRushToBox(float dt){
 	{
 		this->runAction(MoveTo::create(2.0f, this->targetHero->getPosition()));
 	}
-
-	this->scheduleOnce(schedule_selector(MonsterBossNum2::outBoss2SkillSequence),5.0f);
+	this->scheduleOnce(schedule_selector(MonsterBossNum2::outBoss2SkillSequence), 2.0f);
+	
 }
 
 void MonsterBossNum2::__bossRushJudge(float dt){
@@ -733,6 +733,11 @@ void MonsterBossNum2::__bossRushJudge(float dt){
 		this->targetHero->getHurt(10.0f, 2.0f, 0.0, 0.0);
 		this->unschedule(schedule_selector(MonsterBossNum2::__bossRushJudge));
 	}
+}
+
+void MonsterBossNum2::__bossRushMoveEnd(float dt){
+	float stunTime = 5.0f;
+	this->scheduleOnce(schedule_selector(MonsterBossNum2::outBoss2SkillSequence), stunTime);
 }
 
 void MonsterBossNum2::outBoss2SkillSequence(float dt){
