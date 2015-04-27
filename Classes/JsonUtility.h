@@ -13,10 +13,18 @@
 #include "json/writer.h"
 #include "cocos2d.h"
 #pragma execution_character_set("utf-8") 
+class Equipment;
 struct EquipID
 {
 	int ID;
-	double value[6];
+	int Style;
+	double Defense;
+	double Blood;
+	double Attack;
+	double Intelligence;
+	double AttackRate;
+	double MoveRate;
+	bool Used;
 };
 struct User								//玩家用户信息
 {
@@ -54,13 +62,11 @@ struct Block							//每关卡信息
 	std::string BlockName;
 	Store store;
 };
-//struct Equipment{						//装备信息
-//	std::string EquipName;
-//	std::string EquipInfo;
-//	std::string EquipAttribute;
-//	double EquipAttributeValue;
-//	int EquipPrice;
-//};
+struct EquipmentInfo{						//装备信息
+	std::string EquipName;
+	std::string EquipInfo;
+	int EquipPrice;
+};
 
 struct Tool								//工具信息
 {
@@ -93,11 +99,11 @@ struct Monster_info						   //怪物信息
 class JsonUtility{
 public:
 	User getUser();					//获取用户信息
-	//void setUser(User user);		//设置用户信息
+	void setUser(User user);		//设置用户信息
 	Block getBlock(int ID);			//获取第i关卡信息
 	Monster_info getMonster(int ID);		// 获取第i个怪物
 	Skill getSkill(int ID);			//获取第i个技能
-//	Equipment getEquipment(int ID);	//获取第i个装备
+	EquipmentInfo getEquipment(int ID);	//获取第i个装备
 	Tool getTool(int ID);			//获取第i个工具
 	Store getStore(int ID);			//获取第i关的商店的信息
 	rapidjson::Document getDocument();			// 获取m_doc

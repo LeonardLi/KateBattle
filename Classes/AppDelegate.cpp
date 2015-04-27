@@ -2,7 +2,7 @@
 #include "GameScene.h"
 #include "Kernal.h"
 #include "SimpleAudioEngine.h"
-
+#include "JsonUtility.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -39,6 +39,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	GameKernal->startGame();
 
+	auto jsonutility = JsonUtility::getInstance();
+	User user = jsonutility->getUser();
 
     return true;
 }

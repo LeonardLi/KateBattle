@@ -22,50 +22,50 @@
       0
     ],
     "EquipID": [
-      [
-        1,
-        [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ]
-      ],
-      [
-        2,
-        [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ]
-      ],
-      [
-        3,
-        [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ]
-      ],
-      [
-        4,
-        [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ]
-      ]
+      {
+        "ID": 2,
+        "Style": 3,
+        "Defense": 3,
+        "Blood": 3,
+        "Attack": 3,
+        "Intelligence": 3,
+        "AttackRate": 1,
+        "MoveRate": 1,
+        "Used": false
+      },
+      {
+        "ID": 1,
+        "Style": 3,
+        "Defense": 3,
+        "Blood": 3,
+        "Attack": 3,
+        "Intelligence": 3,
+        "AttackRate": 1,
+        "MoveRate": 1,
+        "Used": true
+      },
+      {
+        "ID": 4,
+        "Style": 3,
+        "Defense": 3,
+        "Blood": 3,
+        "Attack": 3,
+        "Intelligence": 3,
+        "AttackRate": 1,
+        "MoveRate": 1,
+        "Used": false
+      },
+      {
+        "ID": 5,
+        "Style": 3,
+        "Defense": 3,
+        "Blood": 3,
+        "Attack": 3,
+        "Intelligence": 3,
+        "AttackRate": 1,
+        "MoveRate": 1,
+        "Used": true
+      }
     ],
     "Clear_BlockID": [
       [

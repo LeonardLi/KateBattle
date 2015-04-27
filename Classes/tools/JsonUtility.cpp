@@ -34,118 +34,106 @@ void JsonUtility::_read()
 	}
 }
 
-//void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
-//{
-//	if (!m_doc.IsObject())
-//	{
-//		CCAssert(false, "NO OBJECT IN WRITING!");
-//	}
-//	rapidjson::Value& val = m_doc["User"];
-//	rapidjson::Value& tem = val["UserName"];
-//	tem.SetString(user.UserName.c_str());
-//
-//	rapidjson::Value& bon = val["UserBonesNumber"];
-//	bon.SetInt(user.UserBonesNumber);
-//	rapidjson::Value& gold = val["UserGoldsNumber"];
-//	gold.SetInt(user.UserGoldsNumber);
-//	rapidjson::Value& health = val["UserHealth"];
-//	health.SetDouble(user.UserHealth);
-//	rapidjson::Value& attack = val["UserAttack"];
-//	attack.SetDouble(user.UserAttack);
-//	rapidjson::Value& defense = val["UserDefense"];
-//	defense.SetDouble(user.UserDefense);
-//	rapidjson::Value& speed = val["UserSpeed"];
-//	speed.SetDouble(user.UserSpeed);
-//	rapidjson::Value& strength = val["UserStrength"];
-//	strength.SetDouble(user.UserStrength);
-//	rapidjson::Value& skill = val["SkillID"];
-//	if (skill.IsArray())
-//	{
-//		for (int i = 0; i < skill.Capacity(); i++)
-//		{
-//			
-//			rapidjson::Value&first = skill[i];
-//			first.SetInt(user.SkillID[i]);
-//		}
-//	}
-//	rapidjson::Value& tool = val["ToolID"];
-//	if (tool.IsArray())
-//	{
-//		for (int i = 0; i < tool.Capacity(); i++)
-//		{
-//			rapidjson::Value&first = tool[i];
-//			first.SetInt(user.ToolID[i]);
-//		}
-//	}
-//	rapidjson::Value& equ = val["EquipID"];           //need to modify
-//	int lenJson = equ.Capacity(), lenUser = user.Equip.capacity();
-//	if (equ.IsArray())
-//	{
-//		int i = 0;
-//		for ( i = 0; i < lenJson && i < lenUser; i++)
-//		{
-//
-//			rapidjson::Value&first = equ[i];
-//			for (int k = 0; k < 2; k++)
-//			{
-//				if (k == 0)
-//				{
-//					rapidjson::Value&second = first[k];
-//					second.SetInt(user.Equip.at(i).ID);
-//				}
-//				else
-//				{
-//					rapidjson::Value&second = first[k];
-//					for (int j = 0; j < second.Capacity(); j++)      // need to modify
-//					{
-//						rapidjson::Value&third = second[j];
-//						third.SetDouble(user.Equip.at(i).value[j]);
-//					}
-//				}
-//			}
-//		}
-//		if (lenJson < lenUser)
-//		{
-//			rapidjson::Document::AllocatorType&allocator = m_doc.GetAllocator();
-//			for (; i < lenUser;i++)
-//			{
-//				equ.PushBack(user.Equip.at(i), allocator);      // notice 
-//			}
-//		}
-//		else
-//		if (lenJson > lenUser)
-//		{
-//			for (; i < lenJson;i++)
-//			{
-//				equ.PopBack();
-//			}
-//		}
-//	}
-//	rapidjson::Value& clear = val["Clear_BlockID"];
-//	for (int i = 0; i < 3; i++)
-//	{
-//		rapidjson::Value&first = clear[i];
-//		for (int j = 0; j < 3; j++)
-//		{
-//			rapidjson::Value&secons = first[j];
-//			secons.SetInt(user.Clear_BlockID[i][j]);
-//		}
-//	}
-//	//clear.SetInt(user.Clear_BlockID);
-//	rapidjson::StringBuffer buffer;
-//	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
-//	m_doc.Accept(writer);
-//	const char * lin = buffer.GetString();
-//	log("GROOT1:%s", lin);
-//	FILE* file = fopen("groot.json", "wb");
-//	if (file)
-//	{
-//		fputs(buffer.GetString(), file);
-//		fclose(file);
-//	}
-//	
-//	_read();
-//}    
+void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
+{
+	if (!m_doc.IsObject())
+	{
+		CCAssert(false, "NO OBJECT IN WRITING!");
+	}
+	rapidjson::Value& val = m_doc["User"];
+	rapidjson::Value& tem = val["UserName"];
+	tem.SetString(user.UserName.c_str());
+
+	rapidjson::Value& bon = val["UserBonesNumber"];
+	bon.SetInt(user.UserBonesNumber);
+	rapidjson::Value& gold = val["UserGoldsNumber"];
+	gold.SetInt(user.UserGoldsNumber);
+	rapidjson::Value& health = val["UserHealth"];
+	health.SetDouble(user.UserHealth);
+	rapidjson::Value& attack = val["UserAttack"];
+	attack.SetDouble(user.UserAttack);
+	rapidjson::Value& defense = val["UserDefense"];
+	defense.SetDouble(user.UserDefense);
+	rapidjson::Value& speed = val["UserSpeed"];
+	speed.SetDouble(user.UserSpeed);
+	rapidjson::Value& strength = val["UserStrength"];
+	strength.SetDouble(user.UserStrength);
+	rapidjson::Value& skill = val["SkillID"];
+	if (skill.IsArray())
+	{
+		for (int i = 0; i < skill.Capacity(); i++)
+		{
+			
+			rapidjson::Value&first = skill[i];
+			first.SetInt(user.SkillID[i]);
+		}
+	}
+	rapidjson::Value& tool = val["ToolID"];
+	if (tool.IsArray())
+	{
+		for (int i = 0; i < tool.Capacity(); i++)
+		{
+			rapidjson::Value&first = tool[i];
+			first.SetInt(user.ToolID[i]);
+		}
+	}
+	rapidjson::Value& equip = val["EquipID"];           //need to modify
+	if (equip.IsArray())
+	{
+		int i = 0;
+		for (i = 0; i < equip.Capacity(); i++)
+		{
+			rapidjson::Value&first = equip[i];
+			rapidjson::Value&scenod = first["ID"];
+			user.Equip[i].ID = scenod.GetInt();
+			rapidjson::Value&scenod1 = first["Style"];
+			user.Equip[i].Style = scenod1.GetInt();
+			rapidjson::Value&scenod2 = first["Used"];
+			user.Equip[i].Style = scenod2.GetBool();
+			rapidjson::Value&scenod3 = first["Defense"];
+			user.Equip[i].Defense = scenod3.GetDouble();
+			rapidjson::Value&scenod4 = first["Blood"];
+			user.Equip[i].Blood = scenod4.GetDouble();
+			rapidjson::Value&scenod5 = first["Attack"];
+			user.Equip[i].Attack = scenod5.GetDouble();
+			rapidjson::Value&scenod6 = first["Intelligence"];
+			user.Equip[i].Intelligence = scenod6.GetDouble();
+			rapidjson::Value&scenod7 = first["AttackRate"];
+			user.Equip[i].AttackRate = scenod7.GetDouble();
+			rapidjson::Value&scenod8 = first["MoveRate"];
+			user.Equip[i].MoveRate = scenod8.GetDouble();
+			if (user.Equip[i].ID < 0)
+			{
+				break;
+			}
+
+		}
+	}
+	rapidjson::Value& clear = val["Clear_BlockID"];
+	for (int i = 0; i < 3; i++)
+	{
+		rapidjson::Value&first = clear[i];
+		for (int j = 0; j < 3; j++)
+		{
+			rapidjson::Value&secons = first[j];
+			secons.SetInt(user.Clear_BlockID[i][j]);
+		}
+	}
+	//clear.SetInt(user.Clear_BlockID);
+	rapidjson::StringBuffer buffer;
+	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
+	m_doc.Accept(writer);
+	const char * lin = buffer.GetString();
+	log("GROOT1:%s", lin);
+	FILE* file = fopen("groot.json", "wb");
+	if (file)
+	{
+		fputs(buffer.GetString(), file);
+		fclose(file);
+	}
+	
+	_read();
+}    
 
 User JsonUtility::getUser()					//获取用户信息
 {
@@ -186,19 +174,37 @@ User JsonUtility::getUser()					//获取用户信息
 			user.ToolID[i] = first.GetInt();
 		}
 	}
-//	rapidjson::Value& equip = val["EquipID"];                      //need to modify
-//	if (equip.IsArray())
-//	{
-//		for (i = 0; i < equip.Capacity(); i++)
-//		{
-//			rapidjson::Value&first = equip[i];
-//			for (int j = 0; j < 2; j++)
-//			{
-//				rapidjson::Value&secons = first[j];
-//				user.EquipID[i][j] = secons.GetInt();
-//			}
-//		}
-//	}
+	rapidjson::Value& equip = val["EquipID"];                      //need to modify
+	if (equip.IsArray())
+	{
+		for (i = 0; i < equip.Capacity(); i++)
+		{
+			rapidjson::Value&first = equip[i];
+			rapidjson::Value&scenod = first["ID"];
+			user.Equip[i].ID = scenod.GetInt();
+			rapidjson::Value&scenod1 = first["Style"];
+			user.Equip[i].Style = scenod1.GetInt();
+			rapidjson::Value&scenod2 = first["Used"];
+			user.Equip[i].Style = scenod2.GetBool();
+			rapidjson::Value&scenod3 = first["Defense"];
+			user.Equip[i].Defense = scenod3.GetDouble();
+			rapidjson::Value&scenod4 = first["Blood"];
+			user.Equip[i].Blood = scenod4.GetDouble();
+			rapidjson::Value&scenod5 = first["Attack"];
+			user.Equip[i].Attack = scenod5.GetDouble();
+			rapidjson::Value&scenod6 = first["Intelligence"];
+			user.Equip[i].Intelligence = scenod6.GetDouble();
+			rapidjson::Value&scenod7 = first["AttackRate"];
+			user.Equip[i].AttackRate = scenod7.GetDouble();
+			rapidjson::Value&scenod8 = first["MoveRate"];
+			user.Equip[i].MoveRate = scenod8.GetDouble();
+			if (user.Equip[i].ID < 0)
+			{
+				break;
+			}
+
+		}
+	}
 	rapidjson::Value& clear = val["Clear_BlockID"];
 	for (i = 0; i < 3; i++)
 	{
@@ -283,21 +289,21 @@ Skill JsonUtility::getSkill(int ID)			//获取第i个技能
 	return info;
 }
 
-//Equipment JsonUtility::getEquipment(int ID)	//获取第i个装备
-//{
-//	Equipment equip = {};
-//	rapidjson::Value& val = m_doc["Data"];
-//	rapidjson::Value& equi = val["Equipment"];
-//	if (ID >= equi.Capacity())
-//	{
-//		CCAssert(false, "wrong :exceed the limit of equipment");
-//	}
-//	rapidjson::Value& equi_info = equi[ID];
-//	equip.EquipInfo = equi_info["EquipInfo"].GetString();
-//	equip.EquipName = equi_info["EquipName"].GetString();
-//	equip.EquipPrice = equi_info["EquipPrice"].GetInt();
-//	return equip;
-//}
+EquipmentInfo JsonUtility::getEquipment(int ID)	//获取第i个装备
+{
+	EquipmentInfo equip = {};
+	rapidjson::Value& val = m_doc["Data"];
+	rapidjson::Value& equi = val["Equipment"];
+	if (ID >= equi.Capacity())
+	{
+		CCAssert(false, "wrong :exceed the limit of equipment");
+	}
+	rapidjson::Value& equi_info = equi[ID];
+	equip.EquipInfo = equi_info["EquipInfo"].GetString();
+	equip.EquipName = equi_info["EquipName"].GetString();
+	equip.EquipPrice = equi_info["EquipPrice"].GetInt();
+	return equip;
+}
 
 Tool JsonUtility::getTool(int ID)			//获取第i个工具
 {
