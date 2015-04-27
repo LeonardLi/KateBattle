@@ -163,7 +163,10 @@ Node* GameScene::loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario){
 Layer* GameScene::loadControlLayer(){
 	Layer* control = static_cast<Layer*>(CSLoader::createNode("renwujiemian/renwujiemian.csb"));
 	Button* setupButton = static_cast<Button*>(control->getChildByTag(9));
+	Button* bagButton = static_cast<Button*>(control->getChildByTag(8));
+
 	setupButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupSetupMenu, this));
+	bagButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupBagLayer, this));
 	return control;
 
 }
@@ -287,7 +290,7 @@ void GameScene::_handlePopupSetupmMenu(cocos2d::Node* sender){
 }
 
 void GameScene::_handlePopupBagLayer(cocos2d::Node* sender){
-
+	
 }
 
 void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
@@ -535,7 +538,8 @@ void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN call
 }
 
 void BagLayer::__loadPicFromCSB(){
-	
+	Layer* baglayer = static_cast<Layer*>(CSLoader::createNode("bag/bag.csb"));
+	this->addChild(baglayer);
 }
 
 bool BagLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
