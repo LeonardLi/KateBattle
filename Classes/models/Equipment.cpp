@@ -1,5 +1,9 @@
 #include "Equipment.h"
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
+USING_NS_CC;
+using namespace ui;
 
 Equipment::Equipment() :
 m_id(0),
@@ -14,18 +18,19 @@ m_isUsed(false)
 {
 }
 
-Equipment::~Equipment(){
-
-}
-
-Equipment* Equipment::create(const std::string& filename){
-	Equipment* instance = new Equipment();
-	if (instance && instance->initWithFile(filename))
+Equipment* Equipment::create(const std::string& normalImage, 
+							 const std::string& selectedImage /* = "" */, 
+							 const std::string& disableImage /* = "" */, 
+							 TextureResType texType /* = TextureResType::LOCAL */)
+{
+	Equipment* btn = new (std::nothrow) Equipment;
+	if (btn && btn->init(normalImage, selectedImage, disableImage,texType))
 	{
-		instance->autorelease();
-		return instance;
+		btn->autorelease();
+		return btn;
 	}
-	CC_SAFE_DELETE(instance);
-	return instance;
+	CC_SAFE_DELETE(btn);
+	return btn;
 }
+
 

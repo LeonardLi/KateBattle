@@ -583,8 +583,7 @@ bool BagLayer::__initFromFile(){
 	m_user = JsonUtility::getInstance()->getUser();
     for (int i = 0; i < 24; i++) {        
         if(-1 != m_user.Equip[i].ID){
-			Equipment* aEquipment = Equipment::create("wolf.png");
-			//Sprite* test = Sprite::create("wolf.png");
+			Equipment* aEquipment = __matchPic(m_user.Equip[i].ID);
 			aEquipment->setBlood(m_user.Equip[i].Blood);
 			aEquipment->setIntelligence(m_user.Equip[i].Intelligence);
 			aEquipment->setEquipmentID(m_user.Equip[i].ID);
@@ -606,6 +605,55 @@ bool BagLayer::__initFromFile(){
 	return true;
 }
 
+Equipment* BagLayer::__matchPic(int ID){
+	std::string filename;
+	switch (ID)
+	{
+	case 0:
+		filename = "bag/equ_11.png";
+		break;
+	case 1:
+		filename = "bag/equ_11.png";
+		break;
+	case 2:
+		filename = "bag/equ_11.png";
+		break;
+	case 3:
+		filename = "bag/equ_11.png";
+		break;
+	case 4:
+		filename = "bag/equ_11.png";
+		break;
+	case 5:
+		filename = "bag/equ_11.png";
+		break;
+	case 6:
+		filename = "bag/equ_11.png";
+		break;
+	case 7:
+		filename = "bag/equ_11.png";
+		break;
+	case 8:
+		filename = "bag/equ_11.png";
+		break;
+	case 9:
+		filename = "bag/equ_11.png";
+		break;
+	case 10:
+		filename = "bag/equ_11.png";
+		break;
+	case 11:
+		filename = "bag/equ_11.png";
+		break;
+
+		break;
+	default:
+		break;
+	}
+	Equipment* eq = Equipment::create(filename,filename,filename);
+	return eq;
+}
+
 void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
 	m_callback = callFun;
 	m_callbackListener = target;
@@ -616,11 +664,11 @@ void BagLayer::__loadPicFromCSB(){
 	//Button* backButton = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(166));	
 	//backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
 	
-	Button* equip[24] = { nullptr };
+	ImageView* equip[24] = { nullptr };
 	int i = 142;
 	for (Equipment* eq : m_equipmentVec){
-		equip[i - 142] =static_cast<Button*>(baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(i));
-		eq->setPosition(VisibleRect::center());
+		equip[i - 142] = static_cast<ImageView*>(baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(i));
+		equip[i - 142]->setAnchorPoint(Vec2(0.5,0.5));
 		equip[i - 142]->addChild(eq);
 		i++;
 	}

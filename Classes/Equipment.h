@@ -15,12 +15,13 @@ enum class EquipmentType{
 	Shoes,
 	Default
 };
-class Equipment :public BackupEntity{
+class Equipment :public cocos2d::ui::Button{
 public:
-    CREATE_FUNC(Equipment);
-    static Equipment* create(const std::string&);
 	Equipment();
-	~Equipment();
+	static Equipment* create(const std::string& normalImage,
+							const std::string& selectedImage = "",
+							const std::string& disableImage = "",
+							TextureResType texType = TextureResType::LOCAL);
 	
 private:
 	CC_SYNTHESIZE(int, m_id, EquipmentID);

@@ -10,6 +10,7 @@
 #define __KateBattle__Entity__
 #include <cocos2d.h>
 #include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 #define STUN 0
 #define NOTSTUN 1
 #define NOTSTUNFOREVER 2
@@ -51,10 +52,8 @@ private:
     
 };
 
-class BackupEntity :public cocos2d::Sprite{
+class BackupEntity :public cocos2d::ui::Button{
 public:
-	CREATE_FUNC(BackupEntity);
-	static BackupEntity* create(const std::string& filename);
 protected:
 	virtual bool init();
 

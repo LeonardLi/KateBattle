@@ -193,6 +193,8 @@ private:
 
 	bool __initFromFile();
 
+	Equipment* __matchPic(int);
+
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 
