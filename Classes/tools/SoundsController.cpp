@@ -64,7 +64,7 @@ void SoundsController::stopEffect()//关闭音效音乐,音效从当前音乐大小逐次减小
 
 void SoundsController::_setBackVolumLogic(float dt)
 {
-	m_BackMusicVolum -= 0.15;
+	m_BackMusicVolum -= 0.25;
 	if (m_BackMusicVolum > 0)
 	{
 		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(m_BackMusicVolum);
@@ -72,7 +72,7 @@ void SoundsController::_setBackVolumLogic(float dt)
 	else
 	{
 		this->unschedule(schedule_selector(SoundsController::_setBackVolumLogic));
-		SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	}
 }
 

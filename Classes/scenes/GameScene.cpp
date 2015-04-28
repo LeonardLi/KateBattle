@@ -15,7 +15,7 @@
 #include "VisibleRect.h"
 #include "SoundsController.h"
 #include "SoundsDef.h"
-
+#include <stdio.h>
 
 USING_NS_CC;
 using namespace ui;
@@ -469,8 +469,8 @@ void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
 
 void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,ScenarioEnum scenario){
 	Node* sender = static_cast<Node*>(Sender);
-	SoundsController::getInstance()->stopBackgroundMusic();
-	Scene* scene;
+    SoundsController::getInstance()->stopBackgroundMusic();
+    Scene* scene;
 		switch (sender->getTag())
 	{
 		case 5:
@@ -534,7 +534,7 @@ Scene* BagLayer::createScene(cocos2d::RenderTexture* sqr){
 
 	Sprite* fakeSprite = Sprite::createWithTexture(sqr->getSprite()->getTexture());
 	fakeSprite->setPosition(VisibleRect::center());
-	fakeSprite->setFlipY(true);
+	fakeSprite->setFlippedY(true);
 	fakeSprite->setColor(Color3B::GRAY);
 	scene->addChild(fakeSprite,0);
 	return scene;
@@ -601,7 +601,7 @@ bool BagLayer::__initFromFile(){
             break;
         }
     }
-    log("vec size ============================ %d",m_equipmentVec.size());
+    //log("vec size ============================ %zd",m_equipmentVec.size());
 	return true;
 }
 
@@ -613,37 +613,37 @@ Equipment* BagLayer::__matchPic(int ID){
 		filename = "bag/equ_11.png";
 		break;
 	case 1:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_12.png";
 		break;
 	case 2:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_13.png";
 		break;
 	case 3:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_21.png";
 		break;
 	case 4:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_22.png";
 		break;
 	case 5:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_23.png";
 		break;
 	case 6:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_31.png";
 		break;
 	case 7:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_32.png";
 		break;
 	case 8:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_33.png";
 		break;
 	case 9:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_41.png";
 		break;
 	case 10:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_42.png";
 		break;
 	case 11:
-		filename = "bag/equ_11.png";
+		filename = "bag/equ_43.png";
 		break;
 
 		break;
@@ -661,22 +661,38 @@ void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN call
 
 void BagLayer::__loadPicFromCSB(){
 	Node* baglayer = static_cast<Node*>(CSLoader::createNode("bag/bag.csb"));
-	//Button* backButton = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(166));	
-	//backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
+	Button* backButton = static_cast<Button*>(baglayer->getChildByTag(76));
+	backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
 	
 	ImageView* equip[24] = { nullptr };
 	int i = 142;
 	for (Equipment* eq : m_equipmentVec){
 		equip[i - 142] = static_cast<ImageView*>(baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(i));
-		equip[i - 142]->setAnchorPoint(Vec2(0.5,0.5));
+        eq->addClickEventListener(CC_CALLBACK_1(BagLayer::onEquipmentClickedListener, this));
+        eq->setScale(1.2f);
+        eq->setPosition(Vec2(91.5f,81.5f));
 		equip[i - 142]->addChild(eq);
 		i++;
 	}
 
 	Button* inventory[6] = { nullptr };
-	for (int j = 0; j < 6; j+=2){
-		inventory[j] = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(166 + j));
-		inventory[j]->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
+	for (int j = 0; j < 6; j++){
+		inventory[j] = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(301 + j));
+        if(m_user.ToolID[j] != 0){
+            inventory[j]->setBright(true);
+            Text* text = inventory[j]->getChildByName<Text*>("text");
+            char number[2];
+            std::sprintf(number,"%d",m_user.ToolID[j]);
+            text->setText(number);
+            inventory[j]->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
+        }
+        else
+        {
+            Text* text = inventory[j]->getChildByName<Text*>("text");
+            text->setText(" ");
+            
+        }
+		
 	}
 
 
@@ -710,16 +726,23 @@ void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){
 }
 
 void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
-	Node* node = static_cast<Node*>(sender);
+	Equipment* node = static_cast<Equipment*>(sender);
 
 	if (m_callback && m_callbackListener)
 	{
 		(m_callbackListener->*m_callback)(node);
 	}
+    log("Equitment id====== %d",node->getEquipmentID());
+    
 }
 
 void BagLayer::onBackButtonClickListener(Ref* sender){
 	Director::getInstance()->popScene();
+}
+
+void BagLayer::__popupDetailLayer(Equipment* eq){
+    DetailLayer* detail = DetailLayer::create(eq);
+    this->addChild(detail,2);
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -734,11 +757,22 @@ DetailLayer::~DetailLayer(){
 
 }
 
+DetailLayer* DetailLayer::create(Equipment* equipment)
+{
+    DetailLayer* instance = new (std::nothrow)DetailLayer;
+    if (instance && instance->init(equipment)) {
+        instance->autorelease();
+        return instance;
+    }
+    CC_SAFE_DELETE(instance);
+    return instance;
+}
+
 void DetailLayer::__loadPicFromCSB(){
 
 }
 
-bool DetailLayer::init(){
+bool DetailLayer::init(Equipment* eq){
 	if (!PopupLayer::init())
 	{
 		return false;

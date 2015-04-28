@@ -111,6 +111,8 @@
 		D72677611AEE4F8D0051B814 /* groot.json in Resources */ = {isa = PBXBuildFile; fileRef = D72677601AEE4F8D0051B814 /* groot.json */; };
 		D72677621AEE4F8D0051B814 /* groot.json in Resources */ = {isa = PBXBuildFile; fileRef = D72677601AEE4F8D0051B814 /* groot.json */; };
 		D72677631AEE60290051B814 /* Equipment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D75DE6181ACD3D3C00A15E6D /* Equipment.cpp */; };
+		D72677661AEF6E080051B814 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = D72677651AEF6E080051B814 /* sounds */; };
+		D72677671AEF6E080051B814 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = D72677651AEF6E080051B814 /* sounds */; };
 		D72F22291AE2825700CA03C8 /* hero in Resources */ = {isa = PBXBuildFile; fileRef = D72F22281AE2825700CA03C8 /* hero */; };
 		D72F222A1AE2825700CA03C8 /* hero in Resources */ = {isa = PBXBuildFile; fileRef = D72F22281AE2825700CA03C8 /* hero */; };
 		D72F222F1AE2827300CA03C8 /* mainmenu in Resources */ = {isa = PBXBuildFile; fileRef = D72F222E1AE2827300CA03C8 /* mainmenu */; };
@@ -277,6 +279,7 @@
 		D72677421AEE4F4C0051B814 /* xiashuidao2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xiashuidao2; sourceTree = "<group>"; };
 		D72677431AEE4F4C0051B814 /* xiashuidao3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xiashuidao3; sourceTree = "<group>"; };
 		D72677601AEE4F8D0051B814 /* groot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = groot.json; sourceTree = "<group>"; };
+		D72677651AEF6E080051B814 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		D72F22281AE2825700CA03C8 /* hero */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hero; sourceTree = "<group>"; };
 		D72F222E1AE2827300CA03C8 /* mainmenu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mainmenu; sourceTree = "<group>"; };
 		D73D57EE1AD8000F003D6A7C /* SoundsDef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundsDef.cpp; path = tools/SoundsDef.cpp; sourceTree = "<group>"; };
@@ -431,6 +434,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D72677651AEF6E080051B814 /* sounds */,
 				D72677601AEE4F8D0051B814 /* groot.json */,
 				D72677361AEE4F4C0051B814 /* gangkou1 */,
 				D72677371AEE4F4C0051B814 /* gangkou2 */,
@@ -715,6 +719,7 @@
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				D726775C1AEE4F4C0051B814 /* xiashuidao2 in Resources */,
 				D7F244451ADB56F400D121FB /* Default in Resources */,
+				D72677661AEF6E080051B814 /* sounds in Resources */,
 				D726775E1AEE4F4C0051B814 /* xiashuidao3 in Resources */,
 				D72677461AEE4F4C0051B814 /* gangkou2 in Resources */,
 				D7E1FD031ACACAFF00AA36EC /* wolf.png in Resources */,
@@ -756,6 +761,7 @@
 			files = (
 				D72F222A1AE2825700CA03C8 /* hero in Resources */,
 				D726772F1AEE4ECA0051B814 /* bag in Resources */,
+				D72677671AEF6E080051B814 /* sounds in Resources */,
 				D7F244461ADB56F400D121FB /* Default in Resources */,
 				D72F22301AE2827300CA03C8 /* mainmenu in Resources */,
 				D72677471AEE4F4C0051B814 /* gangkou2 in Resources */,

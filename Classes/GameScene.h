@@ -179,6 +179,7 @@ public:
 private:
 	void __loadPicFromCSB();
 	bool init();
+    void __popupDetailLayer(Equipment*);
 	virtual void onEnter();
 
 	//touch时监听，屏蔽向下触摸
@@ -214,12 +215,12 @@ class DetailLayer : public PopupLayer{
 public:
 	DetailLayer();
 	~DetailLayer();
-	CREATE_FUNC(DetailLayer);
+    static DetailLayer* create(Equipment*);
 	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
-
+    
 private:
 	virtual void __loadPicFromCSB();
-	virtual bool init();
+    bool init(Equipment*);
 	virtual void onEnter();
 
 	//touch时监听，屏蔽向下触摸

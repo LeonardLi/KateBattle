@@ -12,6 +12,7 @@
 #include "ui/CocosGUI.h"
 #include "SoundsDef.h"
 #include "SoundsController.h"
+#include "SimpleAudioEngine.h"
 
 #define INTRODUCTION 14
 #define SCENARIO     35
@@ -21,7 +22,7 @@
 USING_NS_CC;
 using namespace ui;
 using namespace cocostudio::timeline;
-
+using namespace CocosDenshion;
 Scene* MenuScene::createScene(){
 	Scene* scene = Scene::create();
 
@@ -38,7 +39,7 @@ bool MenuScene::init(){
 		return false;
 	}
 
-	SoundsController::getInstance()->playBackgroundMusic(MUSIC_1.c_str());
+	SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str());
 	loadCSBFromfile();
 
 	return true;
@@ -106,7 +107,7 @@ void MenuScene::_playCG(){
 void MenuScene::_ChooseScenario(){
 	auto scene = ChooseGameScene::createScene();
 	auto transition = TransitionCrossFade::create(3.0f, scene);
-	Director::getInstance()->replaceScene(scene);
+	Director::getInstance()->replaceScene(transition);
 }
 
 void MenuScene::_showSetup(){
