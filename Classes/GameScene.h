@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h" 
 #include "Equipment.h"
-
+#include "JsonUtility.h"
 class Hero;
 class MonsterManager;
 class Joystick;
@@ -38,6 +38,12 @@ public:
 
 	GameScene();
 	~GameScene();
+
+
+	/*handle the message conveyed from the popup menu*/
+	void _handlePopupSetupmMenu(cocos2d::Node* sender);
+	void _handlePopupBagLayer(cocos2d::Node* sender);
+	void _handlePopupWinLayer(cocos2d::Node* sender);
 private:
 
 	bool init(ScenarioEnum scenario, SubScenarioEnum subscenario);
@@ -63,10 +69,6 @@ private:
 	void _popupBagLayer(cocos2d::Ref* sender);
 	void _popupWinLayer(cocos2d::Ref* sender);
 
-	/*handle the message conveyed from the popup menu*/
-	void _handlePopupSetupmMenu(cocos2d::Node* sender);
-	void _handlePopupBagLayer(cocos2d::Node* sender);
-	void _handlePopupWinLayer(cocos2d::Node* sender);
 
 	/*Joystick callback*/
 	void onDirectionChange(JoystickEnum);
@@ -79,6 +81,7 @@ private:
 	Hero* m_hero;
 	Joystick* m_stick;
 	MonsterManager* m_monsterMgr;
+	cocos2d::Sprite* m_map;
 
 };
 
@@ -147,7 +150,7 @@ Date: 2015/4/10
 class PopupLayer :public cocos2d::LayerColor{
 public: 	
 
-	
+
 protected:
 	virtual bool init() override;
 	virtual void onEnter() override;
@@ -166,14 +169,16 @@ Date: 2015/4/14
 /************************************************************************/
 class BagLayer : public PopupLayer{
 public:
+	static cocos2d::Scene* createScene(cocos2d::RenderTexture* sqr);
+	static BagLayer* create();
 	BagLayer();
 	~BagLayer();
-	CREATE_FUNC(BagLayer);
+	
 	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
 
 private:
 	void __loadPicFromCSB();
-	virtual bool init();
+	bool init();
 	virtual void onEnter();
 
 	//touch时监听，屏蔽向下触摸
@@ -184,6 +189,7 @@ private:
 	
 	void onInventoryClickedListener(cocos2d::Ref*);
 	void onEquipmentClickedListener(cocos2d::Ref*);
+	void onBackButtonClickListener(cocos2d::Ref*);
 
 	bool __initFromFile();
 
@@ -191,6 +197,7 @@ private:
 	cocos2d::SEL_CallFuncN m_callback;
 
 	cocos2d::Vector<Equipment*> m_equipmentVec;
+	User m_user;
 };
 
 /************************************************************************/

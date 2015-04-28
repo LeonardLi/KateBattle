@@ -3,6 +3,8 @@
 #include "Kernal.h"
 #include "SimpleAudioEngine.h"
 #include "JsonUtility.h"
+#include "SoundsController.h"
+#include "SoundsDef.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -34,7 +36,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 	glview->setDesignResolutionSize(1280, 720, ResolutionPolicy::EXACT_FIT);
-
+	preLoadMusic();
 	Kernal* GameKernal = Kernal::create();
 
 	GameKernal->startGame();
@@ -58,4 +60,11 @@ void AppDelegate::applicationWillEnterForeground() {
 
     // if you use SimpleAudioEngine, it must resume here
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+}
+
+void AppDelegate::preLoadMusic(){
+	SoundsController::getInstance()->preloadBackgroundMusic(MUSIC_1.c_str());
+	SoundsController::getInstance()->preloadBackgroundMusic(MUSIC_2.c_str());
+	SoundsController::getInstance()->preloadBackgroundMusic(MUSIC_3.c_str());
+	SoundsController::getInstance()->preloadBackgroundMusic(MUSIC_4.c_str());
 }

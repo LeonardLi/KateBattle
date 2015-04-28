@@ -19,6 +19,13 @@ Equipment::~Equipment(){
 }
 
 Equipment* Equipment::create(const std::string& filename){
-    Equipment* aEquipment = static_cast<Equipment*>(Sprite::create(filename));
-    return aEquipment;
+	Equipment* instance = new Equipment();
+	if (instance && instance->initWithFile(filename))
+	{
+		instance->autorelease();
+		return instance;
+	}
+	CC_SAFE_DELETE(instance);
+	return instance;
 }
+

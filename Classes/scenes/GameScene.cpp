@@ -13,6 +13,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "VisibleRect.h"
+#include "SoundsController.h"
+#include "SoundsDef.h"
 
 
 USING_NS_CC;
@@ -24,7 +26,9 @@ using namespace cocostudio::timeline;
 GameScene::GameScene():
 m_hero(nullptr),
 m_stick(nullptr),
-m_monsterMgr(nullptr){
+m_monsterMgr(nullptr),
+m_map(nullptr)
+{
 
 }
 
@@ -59,6 +63,20 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
         return false;
     }
 
+	switch (scenario)
+	{
+	case ScenarioEnum::Port:
+		SoundsController::getInstance()->playBackgroundMusic(MUSIC_3.c_str());
+		break;
+	case ScenarioEnum::Market:
+		SoundsController::getInstance()->playBackgroundMusic(MUSIC_2.c_str());
+		break;
+	case ScenarioEnum::Sewer:
+		SoundsController::getInstance()->playBackgroundMusic(MUSIC_4.c_str());
+		break;
+	default:
+		break;
+	}
 	auto rootnode = loadCSB(scenario, subscenario);
 
 	this->addChild(rootnode, 0);
@@ -69,17 +87,17 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_hero = Hero::create();
 	m_hero->setPosition(0, 0);
 
-	Sprite* map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
-	map->addChild(m_hero,0);
+	m_map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
+	m_map->addChild(m_hero, 0);
 	
 
-	ControllerMoveBase *controller =ControllerMoveBase::create(m_hero, map);
+	ControllerMoveBase *controller = ControllerMoveBase::create(m_hero, m_map);
 	m_hero->setMoveController(controller);
 
 	__createStickBar();
     
 	m_monsterMgr = MonsterManager::createWithLevel(11);
-	map->addChild(m_monsterMgr);
+	m_map->addChild(m_monsterMgr);
 
 	this->scheduleUpdate();	
 	this->scheduleOnce(schedule_selector(GameScene::postBossUseSkillNotification), 1.0f);
@@ -266,10 +284,11 @@ void GameScene::postBossUseSkillNotification(float dt){
 }
 
 void GameScene::_popupBagLayer(cocos2d::Ref* sender){
-    Director::getInstance()->pause();
-    BagLayer* bagLayer = BagLayer::create();
-	bagLayer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
-    this->addChild(bagLayer, 2);
+	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
+	fakeBackground->begin();
+	this->getParent()->visit();
+	fakeBackground->end();	
+	Director::getInstance()->pushScene(BagLayer::createScene(fakeBackground));
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
@@ -290,7 +309,7 @@ void GameScene::_handlePopupSetupmMenu(cocos2d::Node* sender){
 }
 
 void GameScene::_handlePopupBagLayer(cocos2d::Node* sender){
-	
+	log("outside handle=== %d",sender->getTag());
 }
 
 void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
@@ -450,23 +469,27 @@ void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
 
 void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,ScenarioEnum scenario){
 	Node* sender = static_cast<Node*>(Sender);
+	SoundsController::getInstance()->stopBackgroundMusic();
+	Scene* scene;
 		switch (sender->getTag())
 	{
 		case 5:
-			Director::getInstance()->replaceScene(ChooseGameScene::createScene());
+			scene = ChooseGameScene::createScene();
 			break;
 		case 6:
-			Director::getInstance()->replaceScene(GameScene::createScene(scenario, SubScenarioEnum::LV1));
+			scene = GameScene::createScene(scenario, SubScenarioEnum::LV1);
 			break;
 		case 7:
-			Director::getInstance()->replaceScene(GameScene::createScene(scenario, SubScenarioEnum::LV2));
+			scene = GameScene::createScene(scenario, SubScenarioEnum::LV2);
 			break;
 		case 8:
-			Director::getInstance()->replaceScene(GameScene::createScene(scenario, SubScenarioEnum::LV3));
+			scene = GameScene::createScene(scenario, SubScenarioEnum::LV3);
 			break;
 		default:
 			break;
 	}
+		auto transition = TransitionCrossFade::create(3.0f, scene);
+		Director::getInstance()->replaceScene(transition);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -485,7 +508,7 @@ bool PopupLayer::init(){
 		return false;
 	}
 	//cover other layer
-	setColor(Color3B::BLACK);
+	//setColor(Color3B::BLACK);
 	setOpacity(128);
 	return true;
 }
@@ -504,8 +527,36 @@ BagLayer::~BagLayer(){
 
 }
 
+Scene* BagLayer::createScene(cocos2d::RenderTexture* sqr){
+	Scene* scene = Scene::create();
+	BagLayer* baglayer = BagLayer::create();
+	scene->addChild(baglayer,1);
+
+	Sprite* fakeSprite = Sprite::createWithTexture(sqr->getSprite()->getTexture());
+	fakeSprite->setPosition(VisibleRect::center());
+	fakeSprite->setFlipY(true);
+	fakeSprite->setColor(Color3B::GRAY);
+	scene->addChild(fakeSprite,0);
+	return scene;
+}
+
+BagLayer* BagLayer::create(){
+	BagLayer* instance = new BagLayer();
+	if (instance && instance->init())
+	{
+		instance->autorelease();
+		return instance;
+	}
+	CC_SAFE_DELETE(instance);
+	return instance;
+}
+
 bool BagLayer::init(){
 	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	if (!__initFromFile())
 	{
 		return false;
 	}
@@ -517,34 +568,32 @@ bool BagLayer::init(){
 	listener->onTouchMoved = CC_CALLBACK_2(BagLayer::onTouchMoved, this);
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
     
+	this->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
+	
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	__loadPicFromCSB();
-	if (!__initFromFile())
-	{
-		return false;
-	}
+
 	
 
 	return true;
 }
 
 bool BagLayer::__initFromFile(){
-    User aUser = JsonUtility::getInstance()->getUser();
-    for (int i = 0; i < 24; i++) {
-        
-        if(-1 != aUser.Equip[i].ID){
-            Equipment* aEquipment = Equipment::create();
-            
-            aEquipment->setBlood(aUser.Equip[i].Blood);
-            aEquipment->setIntelligence(aUser.Equip[i].Intelligence);
-            aEquipment->setEquipmentID(aUser.Equip[i].ID);
-            aEquipment->setEquipmentStyle(static_cast<EquipmentType>(aUser.Equip[i].Style));
-            aEquipment->setDenfense(aUser.Equip[i].Defense);
-            aEquipment->setMoveRate(aUser.Equip[i].MoveRate);
-            aEquipment->setAttack(aUser.Equip[i].Attack);
-            aEquipment->setAttackRate(aUser.Equip[i].AttackRate);
-            aEquipment->setUsed(aUser.Equip[i].Used);
+	m_user = JsonUtility::getInstance()->getUser();
+    for (int i = 0; i < 24; i++) {        
+        if(-1 != m_user.Equip[i].ID){
+			Equipment* aEquipment = Equipment::create("wolf.png");
+			//Sprite* test = Sprite::create("wolf.png");
+			aEquipment->setBlood(m_user.Equip[i].Blood);
+			aEquipment->setIntelligence(m_user.Equip[i].Intelligence);
+			aEquipment->setEquipmentID(m_user.Equip[i].ID);
+			aEquipment->setEquipmentStyle(static_cast<EquipmentType>(m_user.Equip[i].Style));
+			aEquipment->setDenfense(m_user.Equip[i].Defense);
+			aEquipment->setMoveRate(m_user.Equip[i].MoveRate);
+			aEquipment->setAttack(m_user.Equip[i].Attack);
+			aEquipment->setAttackRate(m_user.Equip[i].AttackRate);
+			aEquipment->setUsed(m_user.Equip[i].Used);
             m_equipmentVec.pushBack(aEquipment);
             
         }
@@ -553,9 +602,10 @@ bool BagLayer::__initFromFile(){
             break;
         }
     }
-    log("vec size ====== %zd",m_equipmentVec.size());
+    log("vec size ============================ %d",m_equipmentVec.size());
 	return true;
 }
+
 void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
 	m_callback = callFun;
 	m_callbackListener = target;
@@ -563,6 +613,25 @@ void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN call
 
 void BagLayer::__loadPicFromCSB(){
 	Node* baglayer = static_cast<Node*>(CSLoader::createNode("bag/bag.csb"));
+	//Button* backButton = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(166));	
+	//backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
+	
+	Button* equip[24] = { nullptr };
+	int i = 142;
+	for (Equipment* eq : m_equipmentVec){
+		equip[i - 142] =static_cast<Button*>(baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(i));
+		eq->setPosition(VisibleRect::center());
+		equip[i - 142]->addChild(eq);
+		i++;
+	}
+
+	Button* inventory[6] = { nullptr };
+	for (int j = 0; j < 6; j+=2){
+		inventory[j] = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(166 + j));
+		inventory[j]->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
+	}
+
+
 	this->addChild(baglayer);
 }
 
@@ -589,6 +658,7 @@ void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){
 	{
 		(m_callbackListener->*m_callback)(node);
 	}
+	log("inside========= %d",node->getTag());
 }
 
 void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
@@ -600,6 +670,9 @@ void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
 	}
 }
 
+void BagLayer::onBackButtonClickListener(Ref* sender){
+	Director::getInstance()->popScene();
+}
 //////////////////////////////////////////////////////////////////////////
 
 DetailLayer::DetailLayer():

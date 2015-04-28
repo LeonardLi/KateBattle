@@ -15,7 +15,7 @@
 
 
 
-class SoundsController : public cocos2d::Node{
+class SoundsController : public cocos2d::Node,public CocosDenshion::SimpleAudioEngine{
 public:
 
 	char* getMusicFileName(std::string);
