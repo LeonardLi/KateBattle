@@ -14,10 +14,11 @@
 #include "cocos2d.h"
 #pragma execution_character_set("utf-8") 
 class Equipment;
+enum class EquipmentType;
 struct EquipID
 {
 	int ID;
-	int Style;
+	EquipmentType Style;
 	double Defense;
 	double Blood;
 	double Attack;
@@ -31,6 +32,7 @@ struct User								//玩家用户信息
 	std::string UserName;
 	int UserBonesNumber;
 	int UserGoldsNumber;
+	int EquipmentNumber;      //change 
 	double UserHealth;
 	double UserAttack;
 	double UserDefense;
@@ -65,7 +67,15 @@ struct Block							//每关卡信息
 struct EquipmentInfo{						//装备信息
 	std::string EquipName;
 	std::string EquipInfo;
+	double Defense;								//增加了八个元素
+	double Blood;
+	double Attack;
+	double Intelligence;
+	double AttackRate;
+	double MoveRate;
+	std::string EquipAdress;
 	int EquipPrice;
+	EquipmentType EquipType;
 };
 
 struct Tool								//工具信息

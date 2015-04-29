@@ -7,6 +7,8 @@
 //
 #include "cocos2d.h"
 #include "JsonUtility.h"
+#include "Equipment.h"
+#include "Inventory.h"
 USING_NS_CC;
 JsonUtility* JsonUtility::m_JsonUtility = nullptr;
 
@@ -58,6 +60,8 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 	speed.SetDouble(user.UserSpeed);
 	rapidjson::Value& strength = val["UserStrength"];
 	strength.SetDouble(user.UserStrength);
+	rapidjson::Value& EquiNumber = val["EquipmentNumber"];
+	EquiNumber.SetInt(user.EquipmentNumber);
 	rapidjson::Value& skill = val["SkillID"];
 	if (skill.IsArray())
 	{
@@ -80,15 +84,16 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Value& equip = val["EquipID"];           //need to modify
 	if (equip.IsArray())
 	{
-		for (int i = 0; i < equip.Capacity(); i++)
+		int length = user.EquipmentNumber;
+		for (int i = 0; i < length; i++)
 		{
 			rapidjson::Value&first = equip[i];
 			rapidjson::Value&scenod = first["ID"];
 			scenod.SetInt(user.Equip[i].ID);
 			rapidjson::Value&scenod1 = first["Style"];
-			scenod1.SetInt(user.Equip[i].Style);
+			scenod1.SetInt(static_cast<int>(user.Equip[i].Style));               //类型的转换
 			rapidjson::Value&scenod2 = first["Used"];
-			scenod2.SetBool(user.Equip[i].Style);
+			scenod2.SetBool(user.Equip[i].Used);
 			rapidjson::Value&scenod3 = first["Defense"];
 			scenod3.SetDouble(user.Equip[i].Defense);
 			rapidjson::Value&scenod4 = first["Blood"];
@@ -101,11 +106,6 @@ void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
 			scenod7.SetDouble(user.Equip[i].AttackRate);
 			rapidjson::Value&scenod8 = first["MoveRate"];
 			scenod8.SetDouble(user.Equip[i].MoveRate);
-			if (user.Equip[i].ID < 0)
-			{
-				break;
-			}
-
 		}
 	}
 	rapidjson::Value& clear = val["Clear_BlockID"];
@@ -154,6 +154,8 @@ User JsonUtility::getUser()					//获取用户信息
 	user.UserSpeed = speed.GetDouble();
 	rapidjson::Value& strength = val["UserStrength"];
 	user.UserStrength = strength.GetDouble();
+	rapidjson::Value& EquipmentNum = val["EquipmentNumber"];
+	user.EquipmentNumber = EquipmentNum.GetInt();
 	rapidjson::Value& skill = val["SkillID"];
 	if (skill.IsArray())
 	{
@@ -176,15 +178,16 @@ User JsonUtility::getUser()					//获取用户信息
 	rapidjson::Value& equip = val["EquipID"];                      //need to modify
 	if (equip.IsArray())
 	{
-		for (i = 0; i < equip.Capacity(); i++)
+		int length = user.EquipmentNumber;
+		for (i = 0; i < length; i++)
 		{
 			rapidjson::Value&first = equip[i];
 			rapidjson::Value&scenod = first["ID"];
 			user.Equip[i].ID = scenod.GetInt();
 			rapidjson::Value&scenod1 = first["Style"];
-			user.Equip[i].Style = scenod1.GetInt();
+			user.Equip[i].Style = static_cast<EquipmentType>(scenod1.GetInt());
 			rapidjson::Value&scenod2 = first["Used"];
-			user.Equip[i].Style = scenod2.GetBool();
+			user.Equip[i].Used = scenod2.GetBool();
 			rapidjson::Value&scenod3 = first["Defense"];
 			user.Equip[i].Defense = scenod3.GetDouble();
 			rapidjson::Value&scenod4 = first["Blood"];
@@ -197,11 +200,6 @@ User JsonUtility::getUser()					//获取用户信息
 			user.Equip[i].AttackRate = scenod7.GetDouble();
 			rapidjson::Value&scenod8 = first["MoveRate"];
 			user.Equip[i].MoveRate = scenod8.GetDouble();
-			if (user.Equip[i].ID < 0)
-			{
-				break;
-			}
-
 		}
 	}
 	rapidjson::Value& clear = val["Clear_BlockID"];
@@ -301,6 +299,12 @@ EquipmentInfo JsonUtility::getEquipment(int ID)	//获取第i个装备
 	equip.EquipInfo = equi_info["EquipInfo"].GetString();
 	equip.EquipName = equi_info["EquipName"].GetString();
 	equip.EquipPrice = equi_info["EquipPrice"].GetInt();
+	equip.Attack = equi_info["Attack"].GetDouble();
+	equip.AttackRate = equi_info["AttackRate"].GetDouble();
+	equip.Blood = equi_info["Blood"].GetDouble();
+	equip.Defense = equi_info["Defense"].GetDouble();
+	equip.EquipAdress = equi_info["EquipAdress"].GetString();
+	equip.EquipType = static_cast<EquipmentType>(equi_info["EquipType"].GetInt());
 	return equip;
 }
 
