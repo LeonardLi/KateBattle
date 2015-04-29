@@ -6,6 +6,8 @@
 //
 //
 #include "SoundsController.h"
+#include "GameScene.h"
+#include "SoundsDef.h"
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -56,6 +58,12 @@ void SoundsController::stopBackgroundMusic()//¹Ø±Õ±³¾°ÒôÀÖ,ÒôÀÖ´Óµ±Ç°ÒôÀÖ´óÐ¡Öð´
 	m_BackMusicVolum = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
 }
 
+void SoundsController::stopBackgroundMusic(ScenarioEnum scen)
+{
+	Director::getInstance()->getScheduler()->Scheduler::schedule(schedule_selector(SoundsController::_setBackSceneVolumLogic), this, 1, false);
+	m_BackMusicVolum = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
+	scenario = scen;
+}
 void SoundsController::stopEffect()//¹Ø±ÕÒôÐ§ÒôÀÖ,ÒôÐ§´Óµ±Ç°ÒôÀÖ´óÐ¡Öð´Î¼õÐ¡
 {
 	Director::getInstance()->getScheduler()->Scheduler::schedule(schedule_selector(SoundsController::_setEffectVolumLogic), this, 1, false);
@@ -73,6 +81,34 @@ void SoundsController::_setBackVolumLogic(float dt)
 	{
 		this->unschedule(schedule_selector(SoundsController::_setBackVolumLogic));
 		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+	}
+}
+
+void SoundsController::_setBackSceneVolumLogic(float dt)
+{
+	m_BackMusicVolum -= 0.25;
+	if (m_BackMusicVolum > 0)
+	{
+		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(m_BackMusicVolum);
+	}
+	else
+	{
+		this->unschedule(schedule_selector(SoundsController::_setBackSceneVolumLogic));
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
+		switch (scenario)
+		{
+		case ScenarioEnum::Port:
+			SoundsController::getInstance()->playBackgroundMusic(MUSIC_3.c_str());
+			break;
+		case ScenarioEnum::Market:
+			SoundsController::getInstance()->playBackgroundMusic(MUSIC_2.c_str());
+			break;
+		case ScenarioEnum::Sewer:
+			SoundsController::getInstance()->playBackgroundMusic(MUSIC_4.c_str());
+			break;
+		default:
+			break;
+		}
 	}
 }
 

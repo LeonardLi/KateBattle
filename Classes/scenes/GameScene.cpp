@@ -63,20 +63,6 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
         return false;
     }
 
-	switch (scenario)
-	{
-	case ScenarioEnum::Port:
-		SoundsController::getInstance()->playBackgroundMusic(MUSIC_3.c_str());
-		break;
-	case ScenarioEnum::Market:
-		SoundsController::getInstance()->playBackgroundMusic(MUSIC_2.c_str());
-		break;
-	case ScenarioEnum::Sewer:
-		SoundsController::getInstance()->playBackgroundMusic(MUSIC_4.c_str());
-		break;
-	default:
-		break;
-	}
 	auto rootnode = loadCSB(scenario, subscenario);
 
 	this->addChild(rootnode, 0);
@@ -469,8 +455,8 @@ void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
 
 void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,ScenarioEnum scenario){
 	Node* sender = static_cast<Node*>(Sender);
-    SoundsController::getInstance()->stopBackgroundMusic();
-    Scene* scene;
+	SoundsController::getInstance()->stopBackgroundMusic(scenario);
+	Scene* scene;
 		switch (sender->getTag())
 	{
 		case 5:
@@ -488,7 +474,7 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 		default:
 			break;
 	}
-		auto transition = TransitionCrossFade::create(3.0f, scene);
+		auto transition = TransitionCrossFade::create(4.f, scene);
 		Director::getInstance()->replaceScene(transition);
 }
 
