@@ -1,4 +1,5 @@
 #include "MonsterFSM.h"
+#include "Monster.h"
 #include "I_State.h"
 #include "StateAttack.h"
 #include "StateUseSkill.h"
@@ -27,7 +28,12 @@ MonsterFSM* MonsterFSM::createWithMonster(Monster* monster){
 bool MonsterFSM::initWithMonster(Monster* monster){
 	this->mCurState = NULL;
 	this->monster = monster;
-	this->state = toUseSkill;
+	if (monster->bossOrNot==true)
+	{
+		this->state = BossBlank;
+	}
+	else
+		this->state = blank;
 	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvWantToUseSkill),
 		StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToUseSkill)), NULL);
 	NOTIFY->addObserver(this, callfuncO_selector(MonsterFSM::OnRecvWantToAttack),
@@ -48,26 +54,34 @@ void MonsterFSM::changeState(I_State* state){
 }
 
 void MonsterFSM::OnRecvWantToUseSkill(Ref* obj){
-	this->state = toUseSkill;
-	this->mCurState->execute(monster,EnumMsgType::en_Msg_WantToUseSkill);
-
+	if (state==toAttack||state==blank)
+	{
+		this->state = toUseSkill;
+		this->mCurState->execute(monster, EnumMsgType::en_Msg_WantToUseSkill);
+	}
 }
 
 void MonsterFSM::OnRecvWantToAttack(Ref* obj){
-	this->state = toAttack;
-	this->mCurState->execute(monster, EnumMsgType::en_Msg_WantToAttack);
-	
+	if (state == toUseSkill||state ==blank)
+	{
+		this->state = toAttack;
+		this->mCurState->execute(monster, EnumMsgType::en_Msg_WantToAttack);
+	}
 }
 void MonsterFSM::OnRecvBossWantToUseSkill(Ref* obj){
-	this->state = BosstoUseSkill;
-	this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToUseSkill);
-
+	if (state == BossToAttack || state == BossBlank)
+	{
+		this->state = BosstoUseSkill;
+		this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToUseSkill);
+	}
 }
 
 void MonsterFSM::OnRecvBossWantToAttack(Ref* obj){
-	this->state = BossToAttack;
-	this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToAttack);
-
+	if (state == BosstoUseSkill || state == BossBlank)
+	{
+		this->state = BossToAttack;
+		this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToAttack);
+	}
 }
 
 int MonsterFSM::getState(){

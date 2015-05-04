@@ -16,7 +16,6 @@ using namespace cocostudio::timeline;
 Entity::Entity():
 mViewSprite(nullptr),
 mViewNode(nullptr),
-m_isDead(false),
 m_Stun(NOTSTUN),
 mTimeLine(nullptr)
 {	
@@ -68,7 +67,7 @@ void Entity::_loadCSB(std::string csbfile){
 
 bool Entity::isDead()
 {
-	return m_isDead;
+	return false;
 }
 
 void Entity::onDead()
@@ -84,32 +83,7 @@ void Entity::onHurt()
 
 
 void Entity::hurtMe(float iHurtValue){
-	if (m_isDead)
-	{
-		return;
-	}
-	/*
-	if(iHurtValue<=getDefense())
-	{
-	iHurtValue=1;
-	}
-	//…Ë÷√—™¡ø
-	int iCurHp = getiHp();
-	int iAfterHp = iCurHp - iHurtValue; 
-
-	onHurt(iHurtValue);
-
-	if(iAfterHp>0)
-	{
-	setHp(iAfterHp);
-	}
-	//À¿Õˆ
-	else
-	{
-	m_isDead=true;
-	onDead();
-	}
-	*/
+	
 }
 
 //////////////////////////////////////////////////////////////////////////

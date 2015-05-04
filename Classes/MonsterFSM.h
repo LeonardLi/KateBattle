@@ -31,6 +31,8 @@ public:
 		toAttack,
 		BosstoUseSkill,
 		BossToAttack,
+		blank,
+		BossBlank
 	};
 private:
 

@@ -15,9 +15,16 @@
 USING_NS_CC;
 using namespace cocostudio;
 Hero::Hero() :
-m_defaultSpeed(1.0),
+m_defaultSpeed(1.0f),
+m_attackValue(10.0f),
+m_attackSpeed(2.0f),
+m_attackRange(100.0f),
+m_defaultHp(100.0f),
+m_curHp(2000.0f),
+m_finnalHp(100.0f),
 m_direction(JoystickEnum::DEFAULT),
 m_canControl(true),
+m_isDead(false),
 m_moveController(nullptr),
 m_armature(nullptr)
 {}
@@ -60,7 +67,7 @@ void Hero::_loadCSB(std::string csbfile){
 	m_armature->getAnimation()->play("stand");
 	
 	this->setAnchorPoint(Vec2(0.5, 0.5));
-	this->setContentSize(Size(70, 90));
+	this->setContentSize(Size(70, 120));
 
 	this->addChild(mViewNode);
 }
@@ -78,6 +85,8 @@ void Hero::ChangeDirection(JoystickEnum direction){
 }
 
 void Hero::onDead(){
+	this->m_armature->getAnimation()->play("dead");
+
 	//cast the animation
 }
 
@@ -88,10 +97,12 @@ void Hero::onHurt(){
 void Hero::changeStun(float dt){
 	if (getStun() == STUN)
 		setStun(NOTSTUN);
+	this->m_armature->getAnimation()->play("stand");
 }
 
 void Hero::herostun(float time)
 {
+	this->m_armature->getAnimation()->play("hurt", -1, 0);
 	setStun(STUN);
 	if (this->isScheduled(schedule_selector(Hero::changeStun)))
 	{
@@ -105,6 +116,24 @@ void Hero::herostun(float time)
 
 void Hero::attack(){
 	log("=========hero attack!!============");
+	this->m_armature->getAnimation()->play("attack", -1, 0);
+	Rect rect;
+	if (this->m_moveController->leftOrRight == false)
+	{
+		rect = Rect(this->getPositionX() - this->getattackRange(), this->getPositionY()-30, this->getattackRange()-30, this->getattackRange() / 2+20);
+	}
+	else
+	{
+		rect = Rect(this->getPositionX() + this->getContentSize().width-20, this->getPositionY()-30, this->getattackRange() - 20.0f, this->getattackRange() / 2+20);
+	}
+	for (auto monster : m_heroMonsterList)
+	{
+		if (rect.intersectsRect(monster->getBoundingBox())&&monster->getisDead()==false&&monster->getcanAttack()==true)
+		{
+			monster->monsterGetHurt(this->getattackValue(), 0.0f);
+			return;
+		}
+	}	
 }
 
 void Hero::heroNotControl(float time){
@@ -117,9 +146,55 @@ void Hero::changeControlType(float dt){
 		m_canControl = true;
 }
 
+void Hero::blink(){
+	Vec2 desPoint;
+	int direction;
+	if (this->m_moveController->leftOrRight == false)
+	{
+		direction = 0;
+		desPoint = Vec2(this->getPositionX() - 200, this->getPositionY());		
+	}
+	else
+	{
+		direction = 1;
+		desPoint = Vec2(this->getPositionX() + 200, this->getPositionY());
+	}
+	for (auto monster : m_blockArea){
+		Rect rect = monster->getBoundingBox();
+		if (rect.containsPoint(desPoint))
+		{
+			if (direction==0)
+			{
+				desPoint = Vec2(rect.origin.x + rect.size.width, this->getPositionY());
+			}
+			else
+				desPoint = Vec2(rect.origin.x, this->getPositionY());
+		}
+	}
+
+	this->setPosition(desPoint);
+}
+
 void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 	this->onHurt();
 	this->hurtMe(ivalue);
+
+	float iCurHp = getcurHp();
+	float iAfterHp = iCurHp - ivalue;
+
+	if (iAfterHp > 0)
+	{
+		this->onHurt();
+		setcurHp(iAfterHp);
+	}
+	//ËÀÍö
+	else
+	{
+		this->setisDead(true);
+		onDead();
+		return;
+	}
+
 	if (stunTime>0)
 	{
 		this->herostun(stunTime);
@@ -132,13 +207,10 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 }
 
 void Hero::changeSpeed(float slowValue, float slowTime){
-	
 	float speed = this->m_moveController->getiSpeed();
 	if (speed==this->getDefaultSpeed())
 	{
 		this->m_moveController->setiSpeed(speed*(1-slowValue));
-
-
 		if (this->isScheduled(schedule_selector(Hero::recoverSpeed)))
 		{
 			this->unschedule(schedule_selector(Hero::recoverSpeed));

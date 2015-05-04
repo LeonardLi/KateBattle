@@ -18,9 +18,17 @@ enum class JoystickEnum;
 enum class MonsterType
 {
 	normalType,
+	normalAttackFastType,
+	normalMoveFastType,
+	normalFatType,
+	normalIronType,
+	normalAggressiveType,
 	shootType,
+	shootAggressiveType,
+	shootSlowType,
 	monsterBossNum1,
 	num1ShootType,
+	num1BoxType,
 	monsterBossNum2,
 	monsterBossNum2Assister,
 	monsterBossNum3,
@@ -37,12 +45,14 @@ public:
 
 	virtual void update(float delta);
 	
-	void monsterGetHurt(int iValue, int time);
+	
+
+	void monsterGetHurt(float iValue, float time);
 	MonsterFSM* getFSM();
 	void attackSequence();
 	void useSkillSequence();
 	void skillRush(float dt);
-	void isCollide(float dt);
+	
 	void skillFinish(float dt);
 
 	void skillShot(float dt);
@@ -50,10 +60,15 @@ public:
 
 	void boss2AssistStartSkill();
 	void showFire(cocos2d::Vec2 location);
+
+	void choiceDirectionToAction(std::string action);
 protected:
 	void onDead();
 	void onHurt();
+	void _loadCSB(std::string csbfile,int tag);
 private:
+
+	
 	//move
 	void __monsterMoveToHero(float dt);
 	void __monsterRandomMove();
@@ -93,6 +108,9 @@ private:
 	void __postBossSkillMessage(float dt);
 
 	
+	void __judgeAttackHero();
+
+	void __changeStun(float dt);
 public:
 	cocos2d::Vec2 heroLocation;
 	cocos2d::Vector<BulletBase*> m_bulletList;
@@ -103,15 +121,20 @@ public:
 	MonsterType m_monsterType;
 	MonsterFSM* m_FSM;
 	bool skillOrAttack;
-	
+	bool bossOrNot;
 private:
-	
-	CC_SYNTHESIZE(int, m_Hp, Hp);
-	CC_SYNTHESIZE(int, m_Attack, Attack);
+	CC_SYNTHESIZE(int, m_boxTag, boxTag);
 	CC_SYNTHESIZE(double, m_attackRange, attackRange);
+	CC_SYNTHESIZE(float, m_AttackValue, AttackValue);
 	CC_SYNTHESIZE(float, m_attackTime, attackTime);
 	CC_SYNTHESIZE(float, m_viewRange, viewRange);
+	cocostudio::Armature* m_armature;
+	CC_SYNTHESIZE(bool, m_direction, direction);
 	CC_SYNTHESIZE(bool, m_canAttack, canAttack);
+	CC_SYNTHESIZE(bool, m_isMoving,isMoving);
+	CC_SYNTHESIZE(bool,m_isStanding,isStanding);
+	//CC_SYNTHESIZE(bool, m_isAttacked, isAttacked);
+	CC_SYNTHESIZE(bool, m_isDead, isDead);
 };
 
 
@@ -128,6 +151,7 @@ public:
 private:
 	void __skillRushBox(float dt);
 	void __skillRush(float dt);
+	void __isCollide(float dt);
 public:
 	Monster* box;
 private:
@@ -184,11 +208,13 @@ private:
 	void __findAnyVacantPlace(float dt);
 	void __dropBoxEnd(float dt);
 	void __showTheShadow(int locationNum);
+	void __isBoxNeedRemove(float dt);
 
 private:
 	int isPlaceVacant[4];
 	cocos2d::Vector<Monster*> boxList;
 	cocos2d::Vector<Monster*> notFallBoxList;
+	cocos2d::Vector<Monster*> fallingBoxList;
 	cocos2d::Vector<Monster*> shadowList;
 	int lastBoxNumber;
 };

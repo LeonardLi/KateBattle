@@ -70,8 +70,20 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	auto controllayer = loadControlLayer();
 	this->addChild(controllayer, 1);
 
+	auto attackButton = static_cast<Button*>(controllayer->getChildByTag(10));
+	attackButton->addClickEventListener(CC_CALLBACK_1(GameScene::attackBtnOnClick,this));
+	
+	auto SkillButton1 = static_cast<Button*>(controllayer->getChildByTag(12));
+	SkillButton1->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn1OnClick, this));
+
+	auto SkillButton2 = static_cast<Button*>(controllayer->getChildByTag(13));
+	SkillButton2->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn2OnClick, this));
+
+	auto SkillButton3 = static_cast<Button*>(controllayer->getChildByTag(14));
+	SkillButton3->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn3OnClick, this));
+
 	m_hero = Hero::create();
-	m_hero->setPosition(0, 0);
+	m_hero->setPosition(100, 100);
 
 	m_map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
 	m_map->addChild(m_hero, 0);
@@ -83,11 +95,12 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	__createStickBar();
     
 	m_monsterMgr = MonsterManager::createWithLevel(11);
+	m_hero->m_heroMonsterList = m_monsterMgr->m_showedMonsterList;
 	m_map->addChild(m_monsterMgr);
 
 	this->scheduleUpdate();	
-	this->scheduleOnce(schedule_selector(GameScene::postBossUseSkillNotification), 1.0f);
-	//this->scheduleOnce(schedule_selector(GameScene::postUseSkillNotification), 1.0f);
+	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
+	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
     return true;
 }
 
@@ -189,23 +202,38 @@ void GameScene::__createStickBar(){
 	m_stick->onRun();
 }
 
-void GameScene::attackBtnOnClick(Ref* Sender, ui::Widget::TouchEventType type){
-
-	m_hero->attack();
-	//check
-	//monsterMgr 
+void GameScene::attackBtnOnClick(Ref* Sender){
+	if (m_hero->getisDead() == false&&m_hero->getStun()==NOTSTUN)
+	{
+		Button* button = static_cast<Button*>(Sender);
+		button->setTouchEnabled(false);
+		m_hero->attack();
+		auto callfunc = CallFunc::create([=](){
+			button->setTouchEnabled(true);
+		});
+		button->runAction(Sequence::create(DelayTime::create(1.0f), callfunc, NULL));
+	}
 		
 }
 
-void GameScene::skillBtn1OnClick(Ref* Sender, ui::Widget::TouchEventType type){
+void GameScene::skillBtn1OnClick(Ref* Sender){
 
 }
 
-void GameScene::skillBtn2OnClick(Ref* Sender, ui::Widget::TouchEventType type){
-
+void GameScene::skillBtn2OnClick(Ref* Sender){
+	if (m_hero->getisDead() == false && m_hero->getStun() == NOTSTUN)
+	{
+		Button* button = static_cast<Button*>(Sender);
+		button->setTouchEnabled(false);
+		m_hero->blink();
+		auto callfunc = CallFunc::create([=](){
+			button->setTouchEnabled(true);
+		});
+		button->runAction(Sequence::create(DelayTime::create(2.0f), callfunc, NULL));
+	}
 }
 
-void GameScene::skillBtn3OnClick(Ref* Sender, ui::Widget::TouchEventType type){
+void GameScene::skillBtn3OnClick(Ref* Sender){
 
 }
 
@@ -216,6 +244,7 @@ void GameScene::update(float dt){
 	{
 		monster->heroLocation = m_hero->getPosition();
 		monster->targetHero = m_hero;
+		
 		/*Rect monsterRect = monster->getBoundingBox();
 		Rect monsterCollideRect = Rect(monsterRect.origin.x + COLLIDEMARGIN, monsterRect.origin.y + COLLIDEMARGIN,
 			monsterRect.size.width - 2 * COLLIDEMARGIN, monsterRect.size.height - 2 * COLLIDEMARGIN);

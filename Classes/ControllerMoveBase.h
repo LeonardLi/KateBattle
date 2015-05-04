@@ -29,7 +29,7 @@ private:
 	void __rollmapBackward();
 public:
 	
-
+	bool leftOrRight;
 private:
 
 

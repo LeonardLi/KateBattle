@@ -14,7 +14,7 @@
 #define STUN 0
 #define NOTSTUN 1
 #define NOTSTUNFOREVER 2
-
+#define BOSSSTUN 3
 class Entity:public cocos2d::Node
 {
 public:
@@ -27,7 +27,7 @@ public:
 	//是否死亡
 	bool isDead();
 	//受到攻击时逻辑函数
-	void hurtMe(float iHurtValue);
+	virtual void hurtMe(float iHurtValue);
 
 protected:
 	//死亡时行为函数
@@ -41,15 +41,15 @@ protected:
 private: 
 
 public:
+	cocos2d::Sprite* mViewSprite;
 protected:
-    cocos2d::Sprite* mViewSprite;
+    
 	cocos2d::Node* mViewNode;
 	cocostudio::timeline::ActionTimeline* mTimeLine;
-	bool m_isDead;
 	//int m_Stun;//3types
 private:
 	CC_SYNTHESIZE(int, m_Stun, Stun);
-    
+	CC_SYNTHESIZE(float, m_Hp, Hp);
 };
 
 class BackupEntity :public cocos2d::ui::Button{

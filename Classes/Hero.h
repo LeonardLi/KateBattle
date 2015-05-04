@@ -39,6 +39,8 @@ public:
 
 	void attack();
 
+	void blink();
+
 	void getHurt(float ivalue,float stunTime,float slowValue,float slowTime);
 
 	//Animation play
@@ -73,10 +75,18 @@ private:
 public:
 	bool m_canControl;
 	cocos2d::Vector <Monster*> m_blockArea;
+	cocos2d::Vector <Monster*> m_heroMonsterList;
 private:
+	CC_SYNTHESIZE(float, m_attackSpeed, attackSpeed);
+	CC_SYNTHESIZE(float, m_attackValue, attackValue);
+	CC_SYNTHESIZE(float, m_attackRange, attackRange);
+	CC_SYNTHESIZE(float, m_curHp, curHp);
+	CC_SYNTHESIZE(float, m_finnalHp, finnalHp);
 
-	CC_SYNTHESIZE(int, m_hp, Hp);
 	CC_SYNTHESIZE(float, m_defaultSpeed, DefaultSpeed);
+	CC_SYNTHESIZE(float, m_defaultAttackValue, defaultAttackValue);
+	CC_SYNTHESIZE(float, m_defaultHp, defaultHp);
+	CC_SYNTHESIZE(bool, m_isDead, isDead);
 	CC_SYNTHESIZE(ControllerMoveBase*, m_moveController, MoveController);
 	JoystickEnum m_direction;
 	cocostudio::Armature* m_armature;

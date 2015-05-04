@@ -57,10 +57,10 @@ private:
 
 	/*control callback*/
 	void menuCloseCallback(cocos2d::Ref* pSender);
-	void attackBtnOnClick(cocos2d::Ref* pSender,cocos2d::ui::Widget::TouchEventType type);
-	void skillBtn1OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
-	void skillBtn2OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
-	void skillBtn3OnClick(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
+	void attackBtnOnClick(cocos2d::Ref* pSender);
+	void skillBtn1OnClick(cocos2d::Ref* pSender);
+	void skillBtn2OnClick(cocos2d::Ref* pSender);
+	void skillBtn3OnClick(cocos2d::Ref* pSender);
 
 
 	/*perform popup menu callback, show the popup menu*/

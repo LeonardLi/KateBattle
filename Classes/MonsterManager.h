@@ -18,9 +18,9 @@ public:
 private:
 	cocos2d::Vector<Monster*> m_monsterList;
 	cocos2d::Vector<Monster*> m_notShowMonsterList;
-
-public:
 	
+public:
+	cocos2d::Vector<Monster*> m_showedMonsterList;
 
 };
 
