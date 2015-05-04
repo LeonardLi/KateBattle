@@ -98,13 +98,13 @@ void SoundsController::_setBackSceneVolumLogic(float dt)
 		switch (scenario)
 		{
 		case ScenarioEnum::Port:
-			SoundsController::getInstance()->playBackgroundMusic(MUSIC_3.c_str());
+			SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_3.c_str());
 			break;
 		case ScenarioEnum::Market:
-			SoundsController::getInstance()->playBackgroundMusic(MUSIC_2.c_str());
+			SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_2.c_str());
 			break;
 		case ScenarioEnum::Sewer:
-			SoundsController::getInstance()->playBackgroundMusic(MUSIC_4.c_str());
+			SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_4.c_str());
 			break;
 		default:
 			break;
