@@ -344,7 +344,7 @@ Node* ChooseGameScene::loadCSB(){
 void ChooseGameScene::onBackButtonClicked(cocos2d::Ref* Sender){
 	log("===== click back ======");
 	auto scene = MenuScene::createScene();
-	auto transition = TransitionShrinkGrow::create(2.0f, scene);
+	auto transition = TransitionPageTurn::create(2.0f, scene, true);
 	Director::getInstance()->replaceScene(transition);
 
 }
@@ -474,7 +474,7 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 		default:
 			break;
 	}
-		auto transition = TransitionCrossFade::create(4.f, scene);
+		auto transition = TransitionFadeBL::create(2.f, scene);
 		Director::getInstance()->replaceScene(transition);
 }
 

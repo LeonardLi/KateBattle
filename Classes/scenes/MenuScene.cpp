@@ -49,7 +49,7 @@ bool MenuScene::init(){
 void MenuScene::menuCloseCallback(Ref* pSender)
 {
 	auto scene = ChooseGameScene::createScene();//创建待切换的场景
-	auto transition = TransitionCrossFade::create(0.5f, scene);//给场景包装动画特效 
+	auto transition = TransitionFadeBL::create(2.f, scene);//给场景包装动画特效 
 	Director::getInstance()->replaceScene(transition);//运用导演类来进行切换场景
 
 }
@@ -106,7 +106,7 @@ void MenuScene::_playCG(){
 
 void MenuScene::_ChooseScenario(){
 	auto scene = ChooseGameScene::createScene();
-	auto transition = TransitionCrossFade::create(3.0f, scene);
+	auto transition = TransitionPageTurn::create(2.0f, scene, false);
 	Director::getInstance()->replaceScene(transition);
 }
 
