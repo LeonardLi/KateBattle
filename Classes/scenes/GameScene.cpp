@@ -16,6 +16,7 @@
 #include "SoundsController.h"
 #include "SoundsDef.h"
 #include <stdio.h>
+#include "Inventory.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -303,7 +304,10 @@ void GameScene::_popupBagLayer(cocos2d::Ref* sender){
 	fakeBackground->begin();
 	this->getParent()->visit();
 	fakeBackground->end();	
-	Director::getInstance()->pushScene(BagLayer::createScene(fakeBackground));
+	auto bag = BagLayer::createScene(fakeBackground);
+	BagLayer* layer = static_cast<BagLayer*>(bag->getChildByTag(99));
+	layer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
+	Director::getInstance()->pushScene(bag);
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
@@ -484,7 +488,7 @@ void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
 
 void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,ScenarioEnum scenario){
 	Node* sender = static_cast<Node*>(Sender);
-	SoundsController::getInstance()->stopBackgroundMusic(scenario);
+	
 	Scene* scene;
 		switch (sender->getTag())
 	{
@@ -493,12 +497,15 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 			break;
 		case 6:
 			scene = GameScene::createScene(scenario, SubScenarioEnum::LV1);
+			SoundsController::getInstance()->stopBackgroundMusic(scenario);
 			break;
 		case 7:
 			scene = GameScene::createScene(scenario, SubScenarioEnum::LV2);
+			SoundsController::getInstance()->stopBackgroundMusic(scenario);
 			break;
 		case 8:
 			scene = GameScene::createScene(scenario, SubScenarioEnum::LV3);
+			SoundsController::getInstance()->stopBackgroundMusic(scenario);
 			break;
 		default:
 			break;
@@ -524,11 +531,12 @@ bool PopupLayer::init(){
 	}
 	//cover other layer
 	//setColor(Color3B::BLACK);
-	setOpacity(128);
+	//setOpacity(128);
 	return true;
 }
 
-
+void PopupLayer::__loadPicFromCSB(){
+}
 
 //////////////////////////////////////////////////////////////////////////
 BagLayer::BagLayer():
@@ -545,6 +553,7 @@ BagLayer::~BagLayer(){
 Scene* BagLayer::createScene(cocos2d::RenderTexture* sqr){
 	Scene* scene = Scene::create();
 	BagLayer* baglayer = BagLayer::create();
+	baglayer->setTag(99);
 	scene->addChild(baglayer,1);
 
 	Sprite* fakeSprite = Sprite::createWithTexture(sqr->getSprite()->getTexture());
@@ -576,16 +585,14 @@ bool BagLayer::init(){
 		return false;
 	}
 	//delegate the Touch event
-	auto listener = EventListenerTouchOneByOne::create();
-	listener->setSwallowTouches(true);
-	listener->onTouchBegan = CC_CALLBACK_2(BagLayer::onTouchBegan, this);
-	listener->onTouchEnded = CC_CALLBACK_2(BagLayer::onTouchEnded, this);
-	listener->onTouchMoved = CC_CALLBACK_2(BagLayer::onTouchMoved, this);
-	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	m_listener = EventListenerTouchOneByOne::create();
+	m_listener->setSwallowTouches(true);
+	m_listener->onTouchBegan = CC_CALLBACK_2(BagLayer::onTouchBegan, this);
+	m_listener->onTouchEnded = CC_CALLBACK_2(BagLayer::onTouchEnded, this);
+	m_listener->onTouchMoved = CC_CALLBACK_2(BagLayer::onTouchMoved, this);
+	m_dispatcher = Director::getInstance()->getEventDispatcher();
     
-	this->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
-	
-	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	m_dispatcher->addEventListenerWithSceneGraphPriority(m_listener, this);
 
 	__loadPicFromCSB();
 
@@ -686,6 +693,7 @@ void BagLayer::__loadPicFromCSB(){
         eq->addClickEventListener(CC_CALLBACK_1(BagLayer::onEquipmentClickedListener, this));
         eq->setScale(1.2f);
         eq->setPosition(Vec2(91.5f,81.5f));
+		eq->setTag(i);
 		equip[i - 142]->addChild(eq);
 		i++;
 	}
@@ -695,16 +703,18 @@ void BagLayer::__loadPicFromCSB(){
 		inventory[j] = static_cast<Button*>(baglayer->getChildByTag(139)->getChildByTag(301 + j));
         if(m_user.ToolID[j] != 0){
             inventory[j]->setBright(true);
+			inventory[j]->setEnabled(true);
             Text* text = inventory[j]->getChildByName<Text*>("text");
             char number[2];
             std::sprintf(number,"%d",m_user.ToolID[j]);
-            text->setText(number);
+            text->setString(number);
             inventory[j]->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
         }
         else
         {
+			inventory[j]->setBright(false);
             Text* text = inventory[j]->getChildByName<Text*>("text");
-            text->setText(" ");
+            text->setString(" ");
             
         }
 		
@@ -738,6 +748,10 @@ void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){
 		(m_callbackListener->*m_callback)(node);
 	}
 	log("inside========= %d",node->getTag());
+	//DetailLayer* detail = DetailLayer::create(InventoryEnum::bBlood);
+	//detail->setCallbackFunc(this, callfuncN_selector(BagLayer::__handleInventoryDetailLayer));
+	//this->getParent()->addChild(detail, 3);
+
 }
 
 void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
@@ -748,19 +762,36 @@ void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
 		(m_callbackListener->*m_callback)(node);
 	}
     log("Equitment id====== %d",node->getEquipmentID());
-    
+
+	//DetailLayer* detail = DetailLayer::create(node);
+	//this->addChild(detail);
 }
 
 void BagLayer::onBackButtonClickListener(Ref* sender){
 	Director::getInstance()->popScene();
 }
 
-void BagLayer::__popupDetailLayer(Equipment* eq){
-    DetailLayer* detail = DetailLayer::create(eq);
-    this->addChild(detail,2);
+
+void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
+
+}
+
+void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
+	__playAnimation();
+}
+
+void BagLayer::__playAnimation(){
+	Label* label = Label::create();
+	label->setString("Hello");
+	label->setPosition(Vec2(640,360));
+	FadeIn* action1 = FadeIn::create(1.0f);
+	MoveTo* action2 = MoveTo::create(1.0f,Vec2(640,365));
+	FadeOut* action3 = FadeOut::create(1.0f);
+	Sequence* seq1 = Sequence::create(action2, action3, NULL);
+	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+	label->runAction(seq2);
 }
 //////////////////////////////////////////////////////////////////////////
-
 DetailLayer::DetailLayer():
 m_callback(nullptr),
 m_callbackListener(nullptr)
@@ -783,8 +814,48 @@ DetailLayer* DetailLayer::create(Equipment* equipment)
     return instance;
 }
 
-void DetailLayer::__loadPicFromCSB(){
+DetailLayer* DetailLayer::create(InventoryEnum type){
+	DetailLayer* instance = new (std::nothrow)DetailLayer;
+	if (instance && instance->init(type))
+	{
+		instance->autorelease();
+		return instance;
+	}
+	CC_SAFE_DELETE(instance);
+	return instance;
+}
 
+void DetailLayer::__loadPicFromCSB(Equipment* eq){
+	Node* rootNode = CSLoader::createNode("equ/equ_on.csb");
+	this->addChild(rootNode);
+}
+
+void DetailLayer::__loadPicFromCSB(InventoryEnum type){
+	Node* rootNode = CSLoader::createNode("inventory/inventory.csb");
+	this->addChild(rootNode);
+
+	Button* Use = static_cast<Button*>(rootNode->getChildByTag(6));
+	Use->setEnabled(true);
+	Use->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
+
+
+	switch (type)
+	{
+	case InventoryEnum::sBlood:
+		break;
+	case InventoryEnum::bBlood:
+		break;
+	case InventoryEnum::jifengyaoshui:
+		break;
+	case InventoryEnum::fengkuangyaoshui:
+		break;
+	case InventoryEnum::mianyiyaoshui:
+		break;
+	case InventoryEnum::xianlingyaoshui:
+		break;
+	default:
+		break;
+	}
 }
 
 bool DetailLayer::init(Equipment* eq){
@@ -801,7 +872,26 @@ bool DetailLayer::init(Equipment* eq){
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	__loadPicFromCSB(eq);
 	return true;
+}
+
+bool DetailLayer::init(InventoryEnum type){
+	if (!PopupLayer::init())
+	{
+		return false;
+	}
+	//delegate the Touch event
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(DetailLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(DetailLayer::onTouchEnded, this);
+	listener->onTouchMoved = CC_CALLBACK_2(DetailLayer::onTouchMoved, this);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	__loadPicFromCSB(type);
+	return true;
+
 }
 
 void DetailLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
@@ -812,15 +902,21 @@ void DetailLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN c
 bool DetailLayer::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){
 	return true;
 }
+
 void DetailLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
+
 void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
 
 void DetailLayer::onEnter(){
 
+}
+
+void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
+	log("====================== use ===============");
 }
 //////////////////////////////////////////////////////////////////////////
 

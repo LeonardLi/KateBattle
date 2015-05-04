@@ -7,6 +7,7 @@ class Hero;
 class MonsterManager;
 class Joystick;
 enum class JoystickEnum;
+enum class InventoryEnum;
 enum class ScenarioEnum{	
 	Port,
 	Market,
@@ -155,7 +156,7 @@ protected:
 	virtual bool init() override;
 	virtual void onEnter() override;
 	virtual void onExit() override;
-	virtual void __loadPicFromCSB() = 0;
+	virtual void __loadPicFromCSB();
 
 };
 
@@ -179,7 +180,9 @@ public:
 private:
 	void __loadPicFromCSB();
 	bool init();
-    void __popupDetailLayer(Equipment*);
+
+	void __handleEquipmentDetailLayer(cocos2d::Node*);
+	void __handleInventoryDetailLayer(cocos2d::Node*);
 	virtual void onEnter();
 
 	//touch时监听，屏蔽向下触摸
@@ -193,14 +196,17 @@ private:
 	void onBackButtonClickListener(cocos2d::Ref*);
 
 	bool __initFromFile();
-
 	Equipment* __matchPic(int);
+
+	void __playAnimation();
 
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 
 	cocos2d::Vector<Equipment*> m_equipmentVec;
 	User m_user;
+	cocos2d::EventListenerTouchOneByOne* m_listener;
+	cocos2d::EventDispatcher* m_dispatcher;
 };
 
 /************************************************************************/
@@ -216,11 +222,16 @@ public:
 	DetailLayer();
 	~DetailLayer();
     static DetailLayer* create(Equipment*);
+	static DetailLayer* create(InventoryEnum);
 	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
     
 private:
-	virtual void __loadPicFromCSB();
+    void __loadPicFromCSB(Equipment*);
+	void __loadPicFromCSB(InventoryEnum type);
+	
+
     bool init(Equipment*);
+	bool init(InventoryEnum);
 	virtual void onEnter();
 
 	//touch时监听，屏蔽向下触摸
@@ -228,6 +239,8 @@ private:
 	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
 	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
+
+	void onUseButtonClicked(cocos2d::Ref*);
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 };

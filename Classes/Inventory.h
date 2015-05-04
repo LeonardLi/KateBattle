@@ -18,10 +18,10 @@ enum class InventoryEnum{
 	fengkuangyaoshui,
 	mianyiyaoshui,
 	xianlingyaoshui,
-	InventoryAmount
+	Default
 };
 
-class Inventory :public cocos2d::ui::Button{
+class Inventory :public BackupEntity{
 public:
 	Inventory();
 	~Inventory();
