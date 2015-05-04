@@ -303,7 +303,7 @@ EquipmentInfo JsonUtility::getEquipment(int ID)	//获取第i个装备
 	equip.AttackRate = equi_info["AttackRate"].GetDouble();
 	equip.Blood = equi_info["Blood"].GetDouble();
 	equip.Defense = equi_info["Defense"].GetDouble();
-	equip.EquipAdress = equi_info["EquipAdress"].GetString();
+	equip.EquipAddress = equi_info["EquipAddress"].GetString();
 	equip.EquipType = static_cast<EquipmentType>(equi_info["EquipType"].GetInt());
 	return equip;
 }
@@ -318,8 +318,7 @@ Tool JsonUtility::getTool(int ID)			//获取第i个工具
 		CCAssert(false, "wrong :exceed the limit of tool");
 	}
 	rapidjson::Value& tool_info = tool[ID];
-	info.ToolAttribute = tool_info["ToolAttribute"].GetString();
-	info.ToolAttruibuteValue = tool_info["ToolAttruibuteValue"].GetDouble();
+	info.ToolAddress = tool_info["ToolAddress"].GetString();
 	info.ToolInfo = tool_info["ToolInfo"].GetString();
 	info.ToolName = tool_info["ToolName"].GetString();
 	info.ToolPrice = tool_info["ToolPrice"].GetInt();

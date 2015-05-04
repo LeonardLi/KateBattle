@@ -73,7 +73,7 @@ struct EquipmentInfo{						//装备信息
 	double Intelligence;
 	double AttackRate;
 	double MoveRate;
-	std::string EquipAdress;
+	std::string EquipAddress;
 	int EquipPrice;
 	EquipmentType EquipType;
 };
@@ -81,9 +81,8 @@ struct EquipmentInfo{						//装备信息
 struct Tool								//工具信息
 {
 	std::string ToolName;
+	std::string ToolAddress;
 	std::string ToolInfo;
-	std::string ToolAttribute;
-	double ToolAttruibuteValue;
 	int ToolPrice;
 };
 
