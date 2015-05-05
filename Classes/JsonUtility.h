@@ -64,6 +64,7 @@ struct Block							//每关卡信息
 	std::string BlockName;
 	Store store;
 };
+
 struct EquipmentInfo{						//装备信息
 	std::string EquipName;
 	std::string EquipInfo;
@@ -107,8 +108,8 @@ struct Monster_info						   //怪物信息
 
 class JsonUtility{
 public:
-	User getUser();					//获取用户信息
-	void setUser(User user);		//设置用户信息
+	User getUser();					//获取用户信息 
+	void setUser();		//设置用户信息
 	Block getBlock(int ID);			//获取第i关卡信息
 	Monster_info getMonster(int ID);		// 获取第i个怪物
 	Skill getSkill(int ID);			//获取第i个技能
@@ -118,11 +119,12 @@ public:
 	rapidjson::Document getDocument();			// 获取m_doc
 	virtual bool init();
 	static JsonUtility* getInstance();
-	
-	
+public:
+	User user;
 private:
 	void _read();                   //初始化时读取json文件
-	void _write(User user);		   //将修改的内容写入json文件
+	void _write();		   //将修改的内容写入json文件
+	
 
 private:
 	static JsonUtility* m_JsonUtility;

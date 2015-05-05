@@ -36,7 +36,7 @@ void JsonUtility::_read()
 	}
 }
 
-void JsonUtility::_write(User user)    //写是数组类型的元素，只写json数组的大小
+void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 {
 	if (!m_doc.IsObject())
 	{
@@ -215,9 +215,9 @@ User JsonUtility::getUser()					//获取用户信息
 	return user;
 }
 
-void JsonUtility::setUser(User user)		//设置用户信息
+void JsonUtility::setUser()		//设置用户信息
 {
-	_write(user);
+	_write();
 }
 
 Block JsonUtility::getBlock(int ID)			//获取第i关卡信息
@@ -371,5 +371,6 @@ JsonUtility* JsonUtility::getInstance(){
 bool JsonUtility::init()
 {
 	_read();
+	user = getUser();
 	return true;
 }
