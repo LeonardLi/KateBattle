@@ -42,7 +42,7 @@ public:
 
 
 	/*handle the message conveyed from the popup menu*/
-	void _handlePopupSetupmMenu(cocos2d::Node* sender);
+	void _handlePopupSetupMenu(cocos2d::Node* sender);
 	void _handlePopupBagLayer(cocos2d::Node* sender);
 	void _handlePopupWinLayer(cocos2d::Node* sender);
 private:
@@ -140,167 +140,11 @@ private:
 	void onSubScenarioChooseCallback(cocos2d::Ref*, ScenarioEnum);
 };
 
-/************************************************************************/
-/*
-Name: PopupLayer
-Author: xiaoDe
-Function: basic class for popuplayer
-Date: 2015/4/10
-*/
-/************************************************************************/
-class PopupLayer :public cocos2d::LayerColor{
-public: 	
 
 
-protected:
-	virtual bool init() override;
-	virtual void onEnter() override;
-	virtual void onExit() override;
-	virtual void __loadPicFromCSB();
-
-};
-
-/************************************************************************/
-/*
-Name: BagLayer
-Author: xiaoDe
-Function: show bag
-Date: 2015/4/14
-*/
-/************************************************************************/
-class BagLayer : public PopupLayer{
-public:
-	static cocos2d::Scene* createScene(cocos2d::RenderTexture* sqr);
-	static BagLayer* create();
-	BagLayer();
-	~BagLayer();
-	
-	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
-
-private:
-	void __loadPicFromCSB();
-	bool init();
-
-	void __handleEquipmentDetailLayer(cocos2d::Node*);
-	void __handleInventoryDetailLayer(cocos2d::Node*);
-	virtual void onEnter();
-
-	//touch时监听，屏蔽向下触摸
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-
-	
-	void onInventoryClickedListener(cocos2d::Ref*);
-	void onEquipmentClickedListener(cocos2d::Ref*);
-	void onBackButtonClickListener(cocos2d::Ref*);
-
-	bool __initFromFile();
-	Equipment* __matchPic(int);
-
-	void __playAnimation();
-
-	cocos2d::Ref* m_callbackListener;
-	cocos2d::SEL_CallFuncN m_callback;
-
-	cocos2d::Vector<Equipment*> m_equipmentVec;
-	User m_user;
-	cocos2d::EventListenerTouchOneByOne* m_listener;
-	cocos2d::EventDispatcher* m_dispatcher;
-};
-
-/************************************************************************/
-/*
-Name: DetailLayer
-Author: xiaoDe
-Function: show detail information for the entity that clicked
-Date: 2015/4/27
-*/
-/************************************************************************/
-class DetailLayer : public PopupLayer{
-public:
-	DetailLayer();
-	~DetailLayer();
-    static DetailLayer* create(Equipment*);
-	static DetailLayer* create(InventoryEnum);
-	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
-    
-private:
-    void __loadPicFromCSB(Equipment*);
-	void __loadPicFromCSB(InventoryEnum type);
-	
-
-    bool init(Equipment*);
-	bool init(InventoryEnum);
-	virtual void onEnter();
-
-	//touch时监听，屏蔽向下触摸
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
 
-	void onUseButtonClicked(cocos2d::Ref*);
-	cocos2d::Ref* m_callbackListener;
-	cocos2d::SEL_CallFuncN m_callback;
-};
 
-/************************************************************************/
-/*
-Name: WinLayer
-Author: xiaoDe
-Function: show something when you win
-Date: 2015/4/10
-*/
-/************************************************************************/
-class WinLayer : public PopupLayer{
-public:
-	WinLayer();
-	~WinLayer();
-	CREATE_FUNC(WinLayer);
-	void setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun);
 
-private:
-	virtual bool init();
-	virtual void onEnter();
-
-	//touch时监听，屏蔽向下触摸
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-
-	virtual void __loadPicFromCSB();
-	cocos2d::Ref* m_callbackListener;
-	cocos2d::SEL_CallFuncN m_callback;
-};
-
-/************************************************************************/
-/*
-Name: SetupLayer
-Author: xiaoDe
-Function: show something when you win
-Date: 2015/4/14
-*/
-/************************************************************************/
-class SetupLayer : public PopupLayer{
-public:
-	SetupLayer();
-	~SetupLayer();
-	CREATE_FUNC(SetupLayer);
-	
-
-private:
-	virtual void __loadPicFromCSB();
-	cocos2d::Ref* m_callbackListener;
-	cocos2d::SEL_CallFuncN m_callback;
-	virtual bool init();
-
-	//touch时监听，屏蔽向下触摸
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-
-	void onBackButtonClick(cocos2d::Ref*);
-};
 
 

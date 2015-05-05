@@ -100,6 +100,21 @@
     <ClCompile Include="..\Classes\models\Inventory.cpp">
       <Filter>src\models</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\DetailLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\PopupLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\BagLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\SetupLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\WinLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -171,6 +186,21 @@
     <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="..\Classes\Inventory.h">
       <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DetailLayer.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PopupLayer.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BagLayer.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SetupLayer.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WinLayer.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
