@@ -748,9 +748,11 @@ void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){
 		(m_callbackListener->*m_callback)(node);
 	}
 	log("inside========= %d",node->getTag());
-	//DetailLayer* detail = DetailLayer::create(InventoryEnum::bBlood);
+    SetupLayer* layer = SetupLayer::create();
+    //this->addChild(layer, 2);
+	DetailLayer* detail = DetailLayer::create(InventoryEnum::bBlood);
 	//detail->setCallbackFunc(this, callfuncN_selector(BagLayer::__handleInventoryDetailLayer));
-	//this->getParent()->addChild(detail, 3);
+	this->addChild(detail, 2);
 
 }
 
@@ -831,11 +833,12 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 }
 
 void DetailLayer::__loadPicFromCSB(InventoryEnum type){
-	Node* rootNode = CSLoader::createNode("inventory/inventory.csb");
+	Node* rootNode = CSLoader::createNode("inventory/Node.csb");
+    rootNode->setPosition(VisibleRect::center());
 	this->addChild(rootNode);
 
-	Button* Use = static_cast<Button*>(rootNode->getChildByTag(6));
-	Use->setEnabled(true);
+	Button* Use = static_cast<Button*>(rootNode->getChildByTag(12));
+	//Use->setEnabled(true);
 	Use->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
 
 
@@ -889,6 +892,7 @@ bool DetailLayer::init(InventoryEnum type){
 	listener->onTouchMoved = CC_CALLBACK_2(DetailLayer::onTouchMoved, this);
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    
 	__loadPicFromCSB(type);
 	return true;
 
