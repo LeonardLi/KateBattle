@@ -41,4 +41,5 @@ private:
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 	Equipment* m_equipment;
+    InventoryEnum m_type;
 };

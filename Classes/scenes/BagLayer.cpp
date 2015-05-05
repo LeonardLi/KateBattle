@@ -9,7 +9,7 @@
 
 USING_NS_CC;
 using namespace ui;
-BagLayer::BagLayer() :
+BagLayer::BagLayer():
 m_callback(nullptr),
 m_callbackListener(nullptr)
 {
@@ -72,18 +72,18 @@ bool BagLayer::init(){
 }
 
 bool BagLayer::__initFromFile(){
-	m_user = JsonUtility::getInstance()->getUser();
-	for (int i = 0; i < m_user.EquipmentNumber; i++) {		
-			Equipment* aEquipment = __matchPic(m_user.Equip[i].ID);
-			aEquipment->setBlood(m_user.Equip[i].Blood);
-			aEquipment->setIntelligence(m_user.Equip[i].Intelligence);
-			aEquipment->setEquipmentID(m_user.Equip[i].ID);
-			aEquipment->setEquipmentStyle(static_cast<EquipmentType>(m_user.Equip[i].Style));
-			aEquipment->setDenfense(m_user.Equip[i].Defense);
-			aEquipment->setMoveRate(m_user.Equip[i].MoveRate);
-			aEquipment->setAttack(m_user.Equip[i].Attack);
-			aEquipment->setAttackRate(m_user.Equip[i].AttackRate);
-			aEquipment->setUsed(m_user.Equip[i].Used);
+	User& user = JsonUtility::getInstance()->user;
+	for (int i = 0; i < user.EquipmentNumber; i++) {
+			Equipment* aEquipment = __matchPic(user.Equip[i].ID);
+			aEquipment->setBlood(user.Equip[i].Blood);
+			aEquipment->setIntelligence(user.Equip[i].Intelligence);
+			aEquipment->setEquipmentID(user.Equip[i].ID);
+			aEquipment->setEquipmentStyle(static_cast<EquipmentType>(user.Equip[i].Style));
+			aEquipment->setDenfense(user.Equip[i].Defense);
+			aEquipment->setMoveRate(user.Equip[i].MoveRate);
+			aEquipment->setAttack(user.Equip[i].Attack);
+			aEquipment->setAttackRate(user.Equip[i].AttackRate);
+			aEquipment->setUsed(user.Equip[i].Used);
 			m_equipmentVec.pushBack(aEquipment);
 	}
 	//log("vec size ============================ %zd",m_equipmentVec.size());
@@ -184,30 +184,8 @@ void BagLayer::__loadPicFromCSB(){
 			}
 		}
 	}
-
-	Button* inventory[6] = { nullptr };
-	for (int j = 0; j < 6; j++){
-		inventory[j] = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(301 + j));
-		if (m_user.ToolID[j] != 0){
-			inventory[j]->setBright(true);
-			inventory[j]->setEnabled(true);
-			Text* text = inventory[j]->getChildByName<Text*>("text");
-			char number[2];
-			std::sprintf(number, "%d", m_user.ToolID[j]);
-			text->setString(number);
-			inventory[j]->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
-		}
-		else
-		{
-			inventory[j]->setBright(false);
-			Text* text = inventory[j]->getChildByName<Text*>("text");
-			text->setString(" ");
-
-		}
-
-	}
-
-
+    
+    __flushInventory();
 	this->addChild(m_baglayer);
 }
 
@@ -257,6 +235,7 @@ void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 }
 
 void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
+    __flushInventory();
 	__playAnimation();
 }
 
@@ -378,4 +357,33 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 	default:
 		break;
 	}
+}
+
+void BagLayer::__flushInventory(){
+    User& m_user = JsonUtility::getInstance()->user;
+    Inventory* inventory[6] = { nullptr };
+    for (int j = 0; j < 6; j++){
+        Button* button = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(301 + j));
+        inventory[j] = Inventory::create();
+        inventory[j]->setInventoryButton(button);
+        if (m_user.ToolID[j] != 0){
+            inventory[j]->getInventoryButton()->setBright(true);
+            inventory[j]->getInventoryButton()->setEnabled(true);
+            inventory[j]->setAmount(m_user.ToolID[j]);
+            Text* text = inventory[j]->getInventoryButton()->getChildByName<Text*>("text");
+            char number[2];
+            std::sprintf(number, "%d", m_user.ToolID[j]);
+            text->setString(number);
+            inventory[j]->getInventoryButton()->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
+        }
+        else
+        {
+            inventory[j]->getInventoryButton()->setBright(false);
+            Text* text = inventory[j]->getInventoryButton()->getChildByName<Text*>("text");
+            text->setString(" ");
+            
+        }
+        
+    }
+
 }

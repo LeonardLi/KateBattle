@@ -108,7 +108,7 @@ struct Monster_info						   //怪物信息
 
 class JsonUtility{
 public:
-	User getUser();					//获取用户信息 
+
 	void setUser();		//设置用户信息
 	Block getBlock(int ID);			//获取第i关卡信息
 	Monster_info getMonster(int ID);		// 获取第i个怪物
@@ -122,6 +122,7 @@ public:
 public:
 	User user;
 private:
+    User getUser();					//获取用户信息 
 	void _read();                   //初始化时读取json文件
 	void _write();		   //将修改的内容写入json文件
 	

@@ -461,7 +461,7 @@ void SubChooseGameScene::__loadCSB(ScenarioEnum sceneChoose)
 	lvButton[0] = static_cast<Button*>(rootNode->getChildByTag(6));
 	lvButton[1] = static_cast<Button*>(rootNode->getChildByTag(7));
 	lvButton[2] = static_cast<Button*>(rootNode->getChildByTag(8));
-	User aUser = JsonUtility::getInstance()->getUser();
+    User& aUser = JsonUtility::getInstance()->user;
 	int scene = static_cast<int>(sceneChoose);
 	
 	for (int i = 0; i < 3; i++)

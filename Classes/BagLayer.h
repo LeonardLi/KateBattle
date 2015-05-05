@@ -43,12 +43,12 @@ private:
 
 	void __playAnimation();
 	void __replaceEquipment(Equipment*);
+    void __flushInventory();
 
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
 
 	cocos2d::Vector<Equipment*> m_equipmentVec;
-	User m_user;
 	cocos2d::EventListenerTouchOneByOne* m_listener;
 	cocos2d::EventDispatcher* m_dispatcher;
 	cocos2d::Node* m_baglayer;

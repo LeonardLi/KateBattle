@@ -97,7 +97,7 @@ bool DetailLayer::init(InventoryEnum type){
 	listener->onTouchMoved = CC_CALLBACK_2(DetailLayer::onTouchMoved, this);
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
+    m_type = type;
 	__loadPicFromCSB(type);
 	return true;
 
@@ -136,13 +136,15 @@ void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 
 void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
-	log("====================== use ===============");
+	//log("====================== use ===============");
+    
 	Node* node = static_cast<Node*>(sender);
 	if (m_callback && m_callbackListener)
 	{
 		(m_callbackListener->*m_callback)(node);
 	}
-	
+    int i = JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)];
+    JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)] = i - 1;
 	this->removeFromParent();
 
 }
