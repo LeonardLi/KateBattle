@@ -6,6 +6,7 @@
 #include "SetupLayer.h"
 #include "DetailLayer.h"
 #include "Inventory.h"
+#include <string>
 
 USING_NS_CC;
 using namespace ui;

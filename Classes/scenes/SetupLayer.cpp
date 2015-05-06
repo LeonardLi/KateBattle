@@ -4,7 +4,9 @@
 #include "ui/CocosGUI.h"
 #include "VisibleRect.h"
 #include "SoundsController.h"
+#include "MenuScene.h"
 USING_NS_CC;
+using namespace CocosDenshion;
 using namespace ui;
 SetupLayer::SetupLayer(){
 }
@@ -58,14 +60,14 @@ bool SetupLayer::init(bool isSilence){
 
 void SetupLayer::__loadPicFromCSB(){
 	Node* rootNode = CSLoader::createNode("gamemenu/gamemenu.csb");
-	ImageView* image = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(5));
+	//ImageView* image = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(5));
 	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
 	Button* backMenu = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(3));
 	m_soundControl = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
 	m_slider = static_cast<Slider*>(rootNode->getChildByTag(2)->getChildByTag(4));
 	
 	__flushSlider();
-	float origin = SoundsController::getInstance()->getBackgroundMusicVolume();
+    float origin = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
 	m_slider->setPercent((int)(origin * 100));
 
 	m_slider->addEventListener(CC_CALLBACK_2(SetupLayer::onSlider, this));
@@ -112,19 +114,22 @@ void SetupLayer::onSoundControlButtonClicked(cocos2d::Ref* sender){
 	if (m_isSilence){
 		m_isSilence = false;
 		m_slider->setPercent(50);
-		SoundsController::getInstance()->resume();
-		SoundsController::getInstance()->setBackgroundMusicVolume(0.5f);
+        SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+        SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5f);
 	}
 	else{
 		m_isSilence = true;
 		m_slider->setPercent(0.0f);
-		SoundsController::getInstance()->pause();
+		//SoundsController::getInstance()->pauseBackgroundMusic();
+        SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 	}
 	__flushSlider();
 
 }
 
 void SetupLayer::onBackMenuButtonClicked(cocos2d::Ref*){
+    auto scene = MenuScene::createScene();
+    Director::getInstance()->replaceScene(scene);
 
 }
 

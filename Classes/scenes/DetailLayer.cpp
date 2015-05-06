@@ -42,11 +42,19 @@ DetailLayer* DetailLayer::create(InventoryEnum type){
 
 void DetailLayer::__loadPicFromCSB(Equipment* eq){
 	Node* rootNode = CSLoader::createNode("equ/equ_on.csb");
-	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));;
-	Button* Equip = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
-	Equip->addClickEventListener(CC_CALLBACK_1(DetailLayer::onEquipBuntonClicked, this));
+	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));
+    Button* Equip = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
+    ImageView* image = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
+    Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(6));
+    Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
+    
+    Equip->addClickEventListener(CC_CALLBACK_1(DetailLayer::onEquipBuntonClicked, this));
 	backButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
-	this->addChild(rootNode);
+	
+    image->loadTexture(JsonUtility::getInstance()->getEquipment(eq->getEquipmentID()).EquipAddress);
+    name->setString(JsonUtility::getInstance()->getEquipment(eq->getEquipmentID()).EquipName);
+    intro->setString(JsonUtility::getInstance()->getEquipment(eq->getEquipmentID()).EquipInfo);
+    this->addChild(rootNode);
 }
 
 void DetailLayer::__loadPicFromCSB(InventoryEnum type){
