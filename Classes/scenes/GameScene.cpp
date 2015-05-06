@@ -10,10 +10,12 @@
 #include "WinLayer.h"
 #include "MenuScene.h"
 #include "SoundsController.h"
+#include "SoundsDef.h"
 
 USING_NS_CC;
 using namespace ui;
 using namespace cocostudio::timeline;
+using namespace CocosDenshion;
 
 #define SKILL1COLDTIME 20
 #define SKILL2COLDTIME 30
@@ -410,6 +412,7 @@ Node* ChooseGameScene::loadCSB(){
 
 void ChooseGameScene::onBackButtonClicked(cocos2d::Ref* Sender){
 	log("===== click back ======");
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 	auto scene = MenuScene::createScene();
 	auto transition = TransitionPageTurn::create(2.0f, scene, true);
 	Director::getInstance()->replaceScene(transition);
@@ -423,12 +426,15 @@ void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
 	switch (button->getTag())
 	{
 	case 43:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
 		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Port));
 		break;
 	case 44:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
 		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Market));
 		break;
 	case 45:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
 		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Sewer));
 		break;
 	default:
@@ -527,23 +533,28 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 		switch (sender->getTag())
 	{
 		case 5:
+			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 			scene = ChooseGameScene::createScene();
 			break;
 		case 6:
+			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
 			scene = GameScene::createScene(scenario, SubScenarioEnum::LV1);
 			SoundsController::getInstance()->stopBackgroundMusic(scenario);
 			break;
 		case 7:
+			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
 			scene = GameScene::createScene(scenario, SubScenarioEnum::LV2);
 			SoundsController::getInstance()->stopBackgroundMusic(scenario);
 			break;
 		case 8:
+			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
 			scene = GameScene::createScene(scenario, SubScenarioEnum::LV3);
 			SoundsController::getInstance()->stopBackgroundMusic(scenario);
 			break;
 		default:
 			break;
 	}
+	
 		auto transition = TransitionFadeBL::create(2.f, scene);
 		Director::getInstance()->replaceScene(transition);
 }

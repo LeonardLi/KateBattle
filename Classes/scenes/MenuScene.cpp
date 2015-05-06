@@ -40,6 +40,7 @@ bool MenuScene::init(){
 		return false;
 	}
 
+	if (!SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
 	SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str());
 	loadCSBFromfile();
 
@@ -83,18 +84,22 @@ void MenuScene::onButtonClicked(Ref* ButtonClicked){
 	switch (button->getTag())
 	{
 	case INTRODUCTION:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
 		 _playCG();
 		break;
 	case SCENARIO:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
 		_ChooseScenario();
 		break;
 	case MODE:
-
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
 		break;
 	case SETUP:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
 		_showSetup();
 		break;
 	case QUIT:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 		_quit();
 		break;
 	default:
