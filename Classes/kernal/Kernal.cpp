@@ -11,6 +11,7 @@
 #include "GameScene.h"
 #include "MenuScene.h"
 #include "cocos2d.h"
+#include "LoadingScene.h"
 
 USING_NS_CC;
 
