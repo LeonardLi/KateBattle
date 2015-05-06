@@ -67,7 +67,7 @@ void DetailLayer::__loadPicFromCSB(InventoryEnum type){
 }
 
 bool DetailLayer::init(Equipment* eq){
-	if (!PopupLayer::init())
+	if (!LayerColor::init())
 	{
 		return false;
 	}
@@ -85,7 +85,7 @@ bool DetailLayer::init(Equipment* eq){
 }
 
 bool DetailLayer::init(InventoryEnum type){
-	if (!PopupLayer::init())
+	if (!LayerColor::init())
 	{
 		return false;
 	}
@@ -104,7 +104,7 @@ bool DetailLayer::init(InventoryEnum type){
 }
 
 bool DetailLayer::init(){
-	if (!PopupLayer::init())
+	if (!LayerColor::init())
 	{
 		return false;
 	}
@@ -133,7 +133,6 @@ void DetailLayer::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){
 void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 }
-
 
 void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
 	//log("====================== use ===============");

@@ -83,6 +83,7 @@ private:
 	Joystick* m_stick;
 	MonsterManager* m_monsterMgr;
 	cocos2d::Sprite* m_map;
+	bool m_isSilence;
 
 };
 

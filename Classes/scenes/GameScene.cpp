@@ -25,7 +25,8 @@ GameScene::GameScene():
 m_hero(nullptr),
 m_stick(nullptr),
 m_monsterMgr(nullptr),
-m_map(nullptr)
+m_map(nullptr),
+m_isSilence(false)
 {
 
 }
@@ -346,9 +347,14 @@ void GameScene::_popupBagLayer(cocos2d::Ref* sender){
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
-	Director::getInstance()->pause();
-	SetupLayer* setupLayer = SetupLayer::create();
-	this->addChild(setupLayer, 2);
+	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
+	fakeBackground->begin();
+	this->getParent()->visit();
+	fakeBackground->end();
+	Scene* setupLayer = SetupLayer::createScene(fakeBackground, m_isSilence);
+	SetupLayer* setup = static_cast<SetupLayer*>(setupLayer->getChildByTag(99));
+	setup->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupSetupMenu));
+	Director::getInstance()->pushScene(setupLayer);
 }
 
 void GameScene::_popupWinLayer(cocos2d::Ref* sender){
@@ -359,6 +365,12 @@ void GameScene::_popupWinLayer(cocos2d::Ref* sender){
 
 
 void GameScene::_handlePopupSetupMenu(cocos2d::Node* sender){
+	if (m_isSilence){
+		m_isSilence = false;
+	}
+	else{
+		m_isSilence = true;
+	}
 
 }
 

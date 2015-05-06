@@ -117,7 +117,7 @@ void MenuScene::_ChooseScenario(){
 }
 
 void MenuScene::_showSetup(){
-	SetupLayer* setup = SetupLayer::create();
+	SetupLayer* setup = SetupLayer::create(false);
 	this->addChild(setup, 2);
 }
 

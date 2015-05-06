@@ -16,8 +16,8 @@ bool PopupLayer::init(){
 		return false;
 	}
 	//cover other layer
-	//setColor(Color3B::BLACK);
-	//setOpacity(128);
+	setColor(Color3B::BLACK);
+	setOpacity(128);
 	return true;
 }
 

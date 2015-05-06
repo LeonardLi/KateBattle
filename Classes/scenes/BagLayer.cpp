@@ -46,7 +46,7 @@ BagLayer* BagLayer::create(){
 }
 
 bool BagLayer::init(){
-	if (!PopupLayer::init())
+	if (!LayerColor::init())
 	{
 		return false;
 	}
@@ -305,9 +305,7 @@ void BagLayer::__flushInventory(){
             inventory[j]->getInventoryButton()->setEnabled(true);
             inventory[j]->setAmount(m_user.ToolID[j]);
             Text* text = inventory[j]->getInventoryButton()->getChildByName<Text*>("text");
-            char number[2];
-            std::sprintf(number, "%d", m_user.ToolID[j]);
-            text->setString(number);
+			text->setString(std::to_string(m_user.ToolID[j]));
             inventory[j]->getInventoryButton()->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
         }
         else
