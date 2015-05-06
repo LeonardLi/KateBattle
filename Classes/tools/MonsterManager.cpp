@@ -30,13 +30,38 @@ Vector<Monster*> MonsterManager::getMonsterList(){
 }
 
 void MonsterManager::createMonsters(int iCurlevel){
-	/*Monster* monster1 = Monster::create(Sprite::create("wolf.png"),MonsterType::normalType);
-	monster1->setPosition(0, 0);
+	Monster* monster1 = Monster::create(Sprite::create("wolf.png"),MonsterType::normalAggressiveTypeLv1);
+	monster1->setPosition(800, 400);
 	monster1->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster1);
-	this->addChild(monster1);*/
+	m_showedMonsterList.pushBack(monster1);
+	this->addChild(monster1);
+
+	Monster* monster2 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv1);
+	monster2->setPosition(400, 200);
+	monster2->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster2);
+	m_showedMonsterList.pushBack(monster2);
+	this->addChild(monster2);
+
+	Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv1);
+	monster3->setPosition(800, 200);
+	monster3->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster3);
+	m_showedMonsterList.pushBack(monster3);
+	this->addChild(monster3);
+
+	//Rect rect = monster2->getBoundingBox();
+	//auto s = Director::getInstance()->getWinSize();
+	//auto draw = DrawNode::create();
+	//this->addChild(draw, 10);
+	////Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
+	//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
+	//draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
+
+
 	/*
-	Monster* monster2 = Monster::create(Sprite::create("wolf.png"),1);
+	Monster* monster2 = Monster::create(Sprite::create("wolf.png"),MonsterType::shootTypeLv1);
 	monster2->setPosition(600, 200);
 	monster2->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster2);
@@ -51,25 +76,21 @@ void MonsterManager::createMonsters(int iCurlevel){
 	//shoot->getFSM()->changeState(new StateUseSkill());
 	//number1BossShoot.pushBack(shoot);
 	//m_monsterList.pushBack(shoot);
+	//m_showedMonsterList.pushBack(shoot);
 
 	//auto shoot2 = Monster::create(Sprite::create("CloseNormal.png"), MonsterType::num1ShootType);
 	//shoot2->setPosition(100, 150);
 	//shoot2->getFSM()->changeState(new StateUseSkill());
 	//number1BossShoot.pushBack(shoot2);
 	//m_monsterList.pushBack(shoot2);
+	//m_showedMonsterList.pushBack(shoot2);
 
 	//auto shoot3 = Monster::create(Sprite::create("CloseNormal.png"), MonsterType::num1ShootType);
 	//shoot3->setPosition(1000, 160);
 	//shoot3->getFSM()->changeState(new StateUseSkill());
 	//number1BossShoot.pushBack(shoot3);
 	//m_monsterList.pushBack(shoot3);
-
-	//auto shoot4 = Monster::create(Sprite::create("CloseNormal.png"), MonsterType::num1ShootType);
-	//shoot4->setPosition(1000, 240);
-	//shoot4->getFSM()->changeState(new StateUseSkill());
-	//number1BossShoot.pushBack(shoot4);
-	//m_monsterList.pushBack(shoot4);
-	//
+	//m_showedMonsterList.pushBack(shoot3);
 
 	//Monster* monster2 = MonsterBossNum1::create(Sprite::create("wolf.png"), number1BossShoot);
 	//monster2->setPosition(400, 200);
@@ -79,7 +100,7 @@ void MonsterManager::createMonsters(int iCurlevel){
 	////monster2->setAnchorPoint(Vec2(0.5, 0.5));
 	//this->addChild(monster2); 
 	//
-	
+	//
 
 	//Boss Number 2
 

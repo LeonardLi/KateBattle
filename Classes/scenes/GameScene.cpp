@@ -15,7 +15,9 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio::timeline;
 
-#define COLLIDEMARGIN 30
+#define SKILL1COLDTIME 20
+#define SKILL2COLDTIME 30
+#define SKILL3COLDTIME 10
 
 GameScene::GameScene():
 m_hero(nullptr),
@@ -69,6 +71,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	
 	auto SkillButton1 = static_cast<Button*>(controllayer->getChildByTag(12));
 	SkillButton1->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn1OnClick, this));
+	
 
 	auto SkillButton2 = static_cast<Button*>(controllayer->getChildByTag(13));
 	SkillButton2->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn2OnClick, this));
@@ -80,7 +83,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_hero->setPosition(100, 100);
 
 	m_map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
-	m_map->addChild(m_hero, 0);
+	m_map->addChild(m_hero, 3);
 	
 
 	ControllerMoveBase *controller = ControllerMoveBase::create(m_hero, m_map);
@@ -93,7 +96,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_map->addChild(m_monsterMgr);
 
 	this->scheduleUpdate();	
-	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
+	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
 	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
     return true;
 }
@@ -197,37 +200,94 @@ void GameScene::__createStickBar(){
 }
 
 void GameScene::attackBtnOnClick(Ref* Sender){
-	if (m_hero->getisDead() == false&&m_hero->getStun()==NOTSTUN)
+	Button* button = static_cast<Button*>(Sender);
+	if (m_hero->getisDead() == false&&m_hero->getStun()==NOTSTUN&&m_hero->m_canControl==true)
 	{
-		Button* button = static_cast<Button*>(Sender);
 		button->setTouchEnabled(false);
 		m_hero->attack();
 		auto callfunc = CallFunc::create([=](){
 			button->setTouchEnabled(true);
 		});
-		button->runAction(Sequence::create(DelayTime::create(1.0f), callfunc, NULL));
+		button->runAction(Sequence::create(DelayTime::create(0.8f), callfunc, NULL));
 	}
-		
 }
 
 void GameScene::skillBtn1OnClick(Ref* Sender){
+	Button* button = static_cast<Button*>(Sender);
+	if (m_hero->getisDead() == false && m_hero->getStun() == NOTSTUN&&m_hero->m_canControl == true)
+	{
+		button->setTouchEnabled(false);
+		m_hero->hitGroundSkill();
+		auto callfunc = CallFunc::create([=](){
+			button->setTouchEnabled(true);
+		});
+		button->runAction(Sequence::create(DelayTime::create(SKILL1COLDTIME), callfunc, NULL));
+		auto to1 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(SKILL1COLDTIME,0));
 
+		auto shadow = ProgressTimer::create(Sprite::create("skillshadow.png"));
+		shadow->setPosition(button->getBoundingBox().size.width / 2, button->getBoundingBox().size.height / 2);
+		button->addChild(shadow, 99, 1);
+		shadow->setType(ProgressTimer::Type::RADIAL);
+		shadow->setReverseProgress(true);
+		shadow->runAction(to1);
+	}
+	
 }
 
 void GameScene::skillBtn2OnClick(Ref* Sender){
-	if (m_hero->getisDead() == false && m_hero->getStun() == NOTSTUN)
+	Button* button = static_cast<Button*>(Sender);
+	if (m_hero->getisDead() == false && m_hero->getStun() == NOTSTUN&&m_hero->m_canControl == true)
 	{
-		Button* button = static_cast<Button*>(Sender);
 		button->setTouchEnabled(false);
 		m_hero->blink();
 		auto callfunc = CallFunc::create([=](){
 			button->setTouchEnabled(true);
 		});
-		button->runAction(Sequence::create(DelayTime::create(2.0f), callfunc, NULL));
+		button->runAction(Sequence::create(DelayTime::create(SKILL2COLDTIME), callfunc, NULL));
+		auto to1 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(SKILL2COLDTIME, 0));
+
+		auto shadow = ProgressTimer::create(Sprite::create("skillshadow.png"));
+		shadow->setPosition(button->getBoundingBox().size.width / 2, button->getBoundingBox().size.height / 2);
+		button->addChild(shadow, 3, 1);
+		shadow->setType(ProgressTimer::Type::RADIAL);
+		shadow->setReverseProgress(true);
+		shadow->runAction(to1);
 	}
+
+	
 }
 
 void GameScene::skillBtn3OnClick(Ref* Sender){
+	Button* button = static_cast<Button*>(Sender);
+	if (m_hero->getisDead() == false && m_hero->getStun() == NOTSTUN&&m_hero->m_canControl == true)
+	{
+		button->setTouchEnabled(false);
+		m_hero->addDefenceValue();
+		auto callfunc = CallFunc::create([=](){
+			button->setTouchEnabled(true);
+		});
+		button->runAction(Sequence::create(DelayTime::create(SKILL3COLDTIME), callfunc, NULL));
+		auto to1 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(SKILL3COLDTIME, 0));
+
+		auto shadow = ProgressTimer::create(Sprite::create("skillshadow.png"));
+		shadow->setPosition(button->getBoundingBox().size.width / 2, button->getBoundingBox().size.height / 2);
+		button->addChild(shadow, 3, 1);
+		shadow->setType(ProgressTimer::Type::RADIAL);
+		shadow->setReverseProgress(true);
+		shadow->runAction(to1);
+
+		auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(5.0f, 0));
+		auto shadow1 = ProgressTimer::create(Sprite::create("skillshadow.png"));
+		shadow1->setPosition(250,600);
+		this->addChild(shadow1, 3, 1);
+		shadow1->setType(ProgressTimer::Type::BAR);
+		shadow1->setMidpoint(Vec2(1,0.5));
+		shadow1->setBarChangeRate(Vec2(1, 0));
+		shadow1->runAction(to2);
+
+
+	}
+
 
 }
 
@@ -238,21 +298,6 @@ void GameScene::update(float dt){
 	{
 		monster->heroLocation = m_hero->getPosition();
 		monster->targetHero = m_hero;
-		
-		/*Rect monsterRect = monster->getBoundingBox();
-		Rect monsterCollideRect = Rect(monsterRect.origin.x + COLLIDEMARGIN, monsterRect.origin.y + COLLIDEMARGIN,
-			monsterRect.size.width - 2 * COLLIDEMARGIN, monsterRect.size.height - 2 * COLLIDEMARGIN);
-		
-		Rect heroRect = m_hero->getBoundingBox();
-		if (monsterCollideRect.intersectsRect(heroRect)&&m_hero->m_canControl==true)
-		{
-			m_hero->heroNotControl(0.5f);
-			
-			m_hero->runAction(MoveBy::create(0.5, Vec2((m_hero->getPositionX()-monster->getPositionX())/2, (m_hero->getPositionY()-monster->getPositionY())/2)));
-
-			log("collide");
-		}*/
-
 	}
 }
 
@@ -272,23 +317,18 @@ void GameScene::menuCloseCallback(Ref* pSender)
 
 void GameScene::postAttackNotification(float dt){
 	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToAttack)));
-	//this->schedule(schedule_selector(GameScene::postUseSkillNotification), 1.0f);
 }
 
 void GameScene::postUseSkillNotification(float dt){
 	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_WantToUseSkill)));
-	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 5.0f);
-
 }
 
 void GameScene::postBossAttackNotification(float dt){
 	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_BossWantToAttack)));
-	//this->schedule(schedule_selector(GameScene::postUseSkillNotification), 1.0f);
 }
 
 void GameScene::postBossUseSkillNotification(float dt){
 	NotificationCenter::getInstance()->postNotification(StringUtils::toString(static_cast<int>(EnumMsgType::en_Msg_BossWantToUseSkill)));
-	//this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 5.0f);
 
 }
 

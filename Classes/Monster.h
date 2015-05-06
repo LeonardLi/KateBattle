@@ -17,15 +17,15 @@ class BulletBase;
 enum class JoystickEnum;
 enum class MonsterType
 {
-	normalType,
-	normalAttackFastType,
-	normalMoveFastType,
-	normalFatType,
-	normalIronType,
-	normalAggressiveType,
-	shootType,
-	shootAggressiveType,
-	shootSlowType,
+	normalTypeLv1,
+	normalAttackFastTypeLv1,
+	normalMoveFastTypeLv1,
+	normalFatTypeLv1,
+	normalIronTypeLv1,
+	normalAggressiveTypeLv1,
+	shootTypeLv1,
+	shootAggressiveTypeLv1,
+	shootSlowTypeLv1,
 	monsterBossNum1,
 	num1ShootType,
 	num1BoxType,
@@ -126,6 +126,10 @@ private:
 	CC_SYNTHESIZE(int, m_boxTag, boxTag);
 	CC_SYNTHESIZE(double, m_attackRange, attackRange);
 	CC_SYNTHESIZE(float, m_AttackValue, AttackValue);
+	CC_SYNTHESIZE(float, m_DefenceValue, DefenceValue);
+	CC_SYNTHESIZE(float, m_SpeedRate, SpeedRate);
+
+
 	CC_SYNTHESIZE(float, m_attackTime, attackTime);
 	CC_SYNTHESIZE(float, m_viewRange, viewRange);
 	cocostudio::Armature* m_armature;
@@ -133,8 +137,10 @@ private:
 	CC_SYNTHESIZE(bool, m_canAttack, canAttack);
 	CC_SYNTHESIZE(bool, m_isMoving,isMoving);
 	CC_SYNTHESIZE(bool,m_isStanding,isStanding);
-	//CC_SYNTHESIZE(bool, m_isAttacked, isAttacked);
 	CC_SYNTHESIZE(bool, m_isDead, isDead);
+	CC_SYNTHESIZE(bool, m_Attacked, Attacked);
+	//be attacked just now
+
 };
 
 

@@ -41,7 +41,15 @@ public:
 
 	void blink();
 
+	void addDefenceValue();
+
+	void recoverDefenceValue(float dt);
+
+	void hitGroundSkill();
+
 	void getHurt(float ivalue,float stunTime,float slowValue,float slowTime);
+
+	void recoverAttackPosture(float dt);
 
 	//Animation play
 	void playAnimaitonStand(Direction);
@@ -62,6 +70,8 @@ private:
 	
 	void changeStun(float dt);
 
+	void changeCanControl(float dt);
+
 	void herostun(float time);
 
 	void changeSpeed(float slowValue, float slowTime);
@@ -77,17 +87,29 @@ public:
 	cocos2d::Vector <Monster*> m_blockArea;
 	cocos2d::Vector <Monster*> m_heroMonsterList;
 private:
-	CC_SYNTHESIZE(float, m_attackSpeed, attackSpeed);
-	CC_SYNTHESIZE(float, m_attackValue, attackValue);
+	CC_SYNTHESIZE(int, m_AttackPos, AttackPos);
 	CC_SYNTHESIZE(float, m_attackRange, attackRange);
-	CC_SYNTHESIZE(float, m_curHp, curHp);
-	CC_SYNTHESIZE(float, m_finnalHp, finnalHp);
-
-	CC_SYNTHESIZE(float, m_defaultSpeed, DefaultSpeed);
-	CC_SYNTHESIZE(float, m_defaultAttackValue, defaultAttackValue);
-	CC_SYNTHESIZE(float, m_defaultHp, defaultHp);
 	CC_SYNTHESIZE(bool, m_isDead, isDead);
 	CC_SYNTHESIZE(ControllerMoveBase*, m_moveController, MoveController);
+
+
+	CC_SYNTHESIZE(float, m_curSpeed, CurSpeed);
+	CC_SYNTHESIZE(float, m_moveSpeed, MoveSpeed);
+
+	CC_SYNTHESIZE(float, m_curAttackValue, curAttackValue);
+	
+	CC_SYNTHESIZE(float, m_curHp, curHp);
+	CC_SYNTHESIZE(float, m_upperHp, upperHp);
+
+	CC_SYNTHESIZE(float, m_EffectfenceValue, EffectDefenceValue);
+	CC_SYNTHESIZE(float, m_curDefenceValue, curDefenceValue);
+
+	CC_SYNTHESIZE(float, m_intelligenceValue, intelligenceValue);
+	
+	CC_SYNTHESIZE(float, m_curAttackSpeed, curAttackSpeed);
+
+
+
 	JoystickEnum m_direction;
 	cocostudio::Armature* m_armature;
 

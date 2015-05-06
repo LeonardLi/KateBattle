@@ -4,25 +4,6 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>herohead.png</key>
-			<dict>
-				<key>width</key>
-				<integer>518</integer>
-				<key>height</key>
-				<integer>447</integer>
-				<key>originalWidth</key>
-				<integer>518</integer>
-				<key>originalHeight</key>
-				<integer>447</integer>
-				<key>x</key>
-				<integer>0</integer>
-				<key>y</key>
-				<integer>0</integer>
-				<key>offsetX</key>
-				<real>0</real>
-				<key>offsetY</key>
-				<real>0</real>
-			</dict>
 			<key>heroleg1.png</key>
 			<dict>
 				<key>width</key>
@@ -34,7 +15,26 @@
 				<key>originalHeight</key>
 				<integer>236</integer>
 				<key>x</key>
-				<integer>520</integer>
+				<integer>0</integer>
+				<key>y</key>
+				<integer>0</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>herohead.png</key>
+			<dict>
+				<key>width</key>
+				<integer>518</integer>
+				<key>height</key>
+				<integer>447</integer>
+				<key>originalWidth</key>
+				<integer>518</integer>
+				<key>originalHeight</key>
+				<integer>447</integer>
+				<key>x</key>
+				<integer>114</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>

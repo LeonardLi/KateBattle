@@ -33,8 +33,7 @@ public:
 private:
 
 
-	bool m_isMoving;
-	CC_SYNTHESIZE(float, m_iSpeed, iSpeed);		
+	bool m_isMoving;	
 	CC_SYNTHESIZE(bool, m_isAllowToLeft, isAllowToLeft);
 	CC_SYNTHESIZE(bool, m_isAllowToRight, isAllowToRight);
 	CC_SYNTHESIZE(bool, m_isAllowToUp, isAllowToUp);

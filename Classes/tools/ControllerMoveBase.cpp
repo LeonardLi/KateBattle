@@ -17,7 +17,6 @@ ControllerMoveBase::ControllerMoveBase() :
 m_isMoving(false),
 m_hero(nullptr),
 m_map(nullptr),
-m_iSpeed(SPEED),
 m_isLeft(false),
 m_isRight(false),
 m_isStand(false),
@@ -82,14 +81,12 @@ void ControllerMoveBase::judgeBlock(){
 					setisAllowToRight(false);
 					setisAllowToRightDown(false);
 					setisAllowToRightUp(false);
-					log("mid--left");
 				}
 				if (isLeftThanBlock <= 0 && isRightThanBlock >= 0)
 				{
 					setisAllowToLeft(false);
 					setisAllowToLeftDown(false);
 					setisAllowToLeftUp(false);
-					log("mid---right");
 				}
 			}
 
@@ -100,14 +97,12 @@ void ControllerMoveBase::judgeBlock(){
 					setisAllowToDown(false);
 					setisAllowToLeftDown(false);
 					setisAllowToRightDown(false);
-					log("mid  up");
 				}
 				if (isUpThanBlock <= 0 && isDownThanBlock >= 0)
 				{
 					setisAllowToUp(false);
 					setisAllowToRightUp(false);
 					setisAllowToLeftUp(false);
-					log("mid down");
 				}
 			}
 
@@ -119,7 +114,6 @@ void ControllerMoveBase::judgeBlock(){
 				setisAllowToRight(false);
 				setisAllowToLeftUp(false);
 				setisAllowToRightDown(false);
-				log("zuo xia colide!!!!!!!!!!!!");
 			}
 			else if (isUpThanBlock >= 0 && isDownThanBlock <= 0 && isLeftThanBlock >= 0 && isRightThanBlock <= 0)
 			{
@@ -128,7 +122,6 @@ void ControllerMoveBase::judgeBlock(){
 				setisAllowToRightDown(false);
 				setisAllowToRightUp(false);
 				setisAllowToLeftDown(false);
-				log("zuo shang colide!!!!!!!!!!!!");
 			}
 			else if (isUpThanBlock >= 0 && isDownThanBlock <= 0 && isLeftThanBlock <= 0 && isRightThanBlock >= 0)
 			{
@@ -137,7 +130,6 @@ void ControllerMoveBase::judgeBlock(){
 				setisAllowToDown(false);
 				setisAllowToLeftUp(false);
 				setisAllowToRightDown(false);
-				log("you shang colide!!!!!!!!!!!!");
 			}
 			else if (isUpThanBlock <= 0 && isDownThanBlock >= 0 && isLeftThanBlock <= 0 && isRightThanBlock >= 0)
 			{
@@ -146,7 +138,6 @@ void ControllerMoveBase::judgeBlock(){
 				setisAllowToLeft(false);
 				setisAllowToRightUp(false);
 				setisAllowToLeftDown(false);
-				log("you xia colide!!!!!!!!!!!!");
 			}
 		}
 	}
@@ -176,7 +167,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 
 
 	Point pos = m_hero->getPosition();
-	float moveSpeed = this->getiSpeed();
+	float moveSpeed = this->m_hero->getMoveSpeed();
 	resetHeroDirection();
 	judgeBlock();
 
@@ -331,9 +322,8 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 }
 
 void ControllerMoveBase::__rollmapForward(){
-	//log("hero location===%f", m_hero->getPositionX());
 	if (m_map->convertToWorldSpace(m_hero->getPosition()).x >= 640){
-		m_map->setPosition(Vec2(m_map->getPositionX() - getiSpeed(), m_map->getPositionY()));
+		m_map->setPosition(Vec2(m_map->getPositionX() - m_hero->getMoveSpeed(), m_map->getPositionY()));
 	}
 }
 
