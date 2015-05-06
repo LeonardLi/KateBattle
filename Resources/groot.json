@@ -1,605 +1,605 @@
 {
-  "User": {
-    "UserName": "高歌",
-    "UserBonesNumber": 2,
-    "UserGoldsNumber": 2,
-    "UserHealth": 2,
-    "UserAttack": 2,
-    "UserDefense": 2,
-    "UserSpeed": 2,
-    "UserStrength": 2,
-    "EquipmentNumber": 3,
-    "SkillID": [
-      1,
-      0,
-      0
-    ],
-    "ToolID": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "EquipID": [
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 3,
-        "Blood": 3,
-        "Attack": 3,
-        "Intelligence": 3,
-        "AttackRate": 1,
-        "MoveRate": 1,
-        "Used": false
-      },
-      {
-        "ID": 3,
-        "Style": 1,
-        "Defense": 3,
-        "Blood": 3,
-        "Attack": 3,
-        "Intelligence": 3,
-        "AttackRate": 1,
-        "MoveRate": 1,
-        "Used": true
-      },
-      {
-        "ID": 6,
-        "Style": 2,
-        "Defense": 3,
-        "Blood": 3,
-        "Attack": 3,
-        "Intelligence": 3,
-        "AttackRate": 1,
-        "MoveRate": 1,
-        "Used": true
-      },
-      {
-        "ID": 9,
-        "Style": 3,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": true
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      },
-      {
-        "ID": 0,
-        "Style": 0,
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "Used": false
-      }
-    ],
-    "Clear_BlockID": [
-      [
-        1,
-        0,
-        0
-      ],
-      [
-        0,
-        0,
-        0
-      ],
-      [
-        0,
-        0,
-        0
-      ]
-    ]
-  },
-  "Data": {
-    "Store": [
-      {
+    "User": {
+        "UserName": "高歌",
+        "UserBonesNumber": 2,
+        "UserGoldsNumber": 2,
+        "UserHealth": 2,
+        "UserAttack": 2,
+        "UserDefense": 2,
+        "UserSpeed": 2,
+        "UserStrength": 2,
+        "EquipmentNumber": 5,
+        "SkillID": [
+            1,
+            0,
+            0
+        ],
         "ToolID": [
-          1,
-          2,
-          3
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
         ],
         "EquipID": [
-          1,
-          2,
-          3
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 3,
+                "Blood": 3,
+                "Attack": 3,
+                "Intelligence": 3,
+                "AttackRate": 1,
+                "MoveRate": 1,
+                "Used": false
+            },
+            {
+                "ID": 3,
+                "Style": 1,
+                "Defense": 3,
+                "Blood": 3,
+                "Attack": 3,
+                "Intelligence": 3,
+                "AttackRate": 1,
+                "MoveRate": 1,
+                "Used": true
+            },
+            {
+                "ID": 6,
+                "Style": 2,
+                "Defense": 3,
+                "Blood": 3,
+                "Attack": 3,
+                "Intelligence": 3,
+                "AttackRate": 1,
+                "MoveRate": 1,
+                "Used": true
+            },
+            {
+                "ID": 9,
+                "Style": 3,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": true
+            },
+            {
+                "ID": 2,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            },
+            {
+                "ID": 0,
+                "Style": 0,
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "Used": false
+            }
         ],
-        "X": 0,
-        "Y": 0
-      },
-      {
-        "ToolID": [
-          2,
-          3,
-          4
+        "Clear_BlockID": [
+            [
+                1,
+                0,
+                0
+            ],
+            [
+                0,
+                0,
+                0
+            ],
+            [
+                0,
+                0,
+                0
+            ]
+        ]
+    },
+    "Data": {
+        "Store": [
+            {
+                "ToolID": [
+                    1,
+                    2,
+                    3
+                ],
+                "EquipID": [
+                    1,
+                    2,
+                    3
+                ],
+                "X": 0,
+                "Y": 0
+            },
+            {
+                "ToolID": [
+                    2,
+                    3,
+                    4
+                ],
+                "EquipID": [
+                    2,
+                    3,
+                    4
+                ],
+                "X": 1,
+                "Y": 1
+            }
         ],
-        "EquipID": [
-          2,
-          3,
-          4
-        ],
-        "X": 1,
-        "Y": 1
-      }
-    ],
-    "Monster": [
-      {
-        "MonsterType": "lion",
-        "MonsterHealth": 100,
-        "MonsterSpeed": 1,
-        "MonsterDefense": 1,
-        "MonsterAttack": 1,
-        "MonsterInfo": "violence"
-      },
-      {
-        "MonsterType": "tiger",
-        "MonsterHealth": 100,
-        "MonsterSpeed": 1,
-        "MonsterDefense": 1,
-        "MonsterAttack": 1,
-        "MonsterInfo": "violence"
-      }
-    ],
-    "Skill": [
-      {
-        "SkillName": "xuanfeng",
-        "SkillType": "attack",
-        "SkillDamage": 1,
-        "SkillInfo": "diao",
-        "SkillColdTime": 1
-      },
-      {
-        "SkillName": "xuanfeng",
-        "SkillType": "attack",
-        "SkillDamage": 1,
-        "SkillInfo": "diao",
-        "SkillColdTime": 1
-      }
-    ],
-    "Tool": [
-      {
-        "ToolName": "小血瓶",
-        "ToolInfo": "恢复人物500点生命值",
-        "ToolPrice": 1,
-        "ToolAddress": "bag/inv_1.png"
-      },
-      {
-        "ToolName": "大血瓶",
-        "ToolInfo": "恢复人物1000点生命值",
-        "ToolPrice": 1,
-        "ToolAddress": "bag/inv_2.png"
-      },
-      {
-        "ToolName": "免疫药水",
-        "ToolInfo": "使用药水后遭受的前三次攻击不会损失生命值",
-        "ToolPrice": 1,
-        "ToolAddress": "bag/inv_3.png"
-      },
-      {
-        "ToolName": "疾风药水",
-        "ToolInfo": "15秒内提升50点攻击速度和移动速度，但损失200点防御",
-        "ToolPrice": 1,
-        "ToolAddress": "bag/inv_4.png"
-      },
-      {
-        "ToolName": "疯狂药水",
-        "ToolInfo": "减少500点当前生命值（若当前生命值小于500点则降为1），15秒内增加人物攻击强度60点",
-        "ToolPrice": 1,
-        "ToolAddress": "bag/inv_5.png"
-      },
-      {
-        "ToolName": "仙灵药水",
-        "ToolInfo": "15秒内提升40点智力，但损失60点攻击强度",
-        "ToolPrice": 1,
-        "ToolAddress": "bag/inv_6.png"
-      }
-    ],
-    "Equipment": [
-      {
-        "EquipName": "草帽",
-        "EquipInfo": "一订神奇的小草帽",
-        "EquipAddress": "bag/equ_11.png",
-        "Defense": 40,
-        "Blood": 120,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 0
-      },
-      {
-        "EquipName": "嘻哈头巾",
-        "EquipInfo": "嘿!哈!在哪里摔倒就在哪里躺下下",
-        "EquipAddress": "bag/equ_12.png",
-        "Defense": 100,
-        "Blood": 300,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 0
-      },
-      {
-        "EquipName": "牛仔帽",
-        "EquipInfo": "我虽然是个牛仔，在酒吧只点牛奶",
-        "EquipAddress": "bag/equ_13.png",
-        "Defense": 280,
-        "Blood": 600,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 0
-      },
-      {
-        "EquipName": "七色石",
-        "EquipInfo": "彩虹与我相伴",
-        "EquipAddress": "bag/equ_21.png",
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 20,
-        "Intelligence": 20,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 1
-      },
-      {
-        "EquipName": "金项链",
-        "EquipInfo": "东北大汉特别喜欢戴我",
-        "EquipAddress": "bag/equ_22.png",
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 50,
-        "Intelligence": 40,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 1
-      },
-      {
-        "EquipName": "十字架吊坠",
-        "EquipInfo": "不要害怕死亡，死亡永远在我身旁",
-        "EquipAddress": "bag/equ_23.png",
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 80,
-        "Intelligence": 70,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 1
-      },
-      {
-        "EquipName": "布衣",
-        "EquipInfo": "一件麻布编织的外衣",
-        "EquipAddress": "bag/equ_31.png",
-        "Defense": 50,
-        "Blood": 150,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 2
-      },
-      {
-        "EquipName": "貂皮大衣",
-        "EquipInfo": "这可不是一般的貂皮额!",
-        "EquipAddress": "bag/equ_32.png",
-        "Defense": 140,
-        "Blood": 380,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 2
-      },
-      {
-        "EquipName": "牛仔衣",
-        "EquipInfo": "正义呼唤我,美女需要我,牛仔很忙的",
-        "EquipAddress": "bag/equ_33.png",
-        "Defense": 300,
-        "Blood": 750,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 0,
-        "MoveRate": 0,
-        "EquipPrice": 1,
-        "EquipType": 2
-      },
-      {
-        "EquipName": "草鞋",
-        "EquipInfo": "我可不怕路滑",
-        "EquipAddress": "bag/equ_41.png",
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 10,
-        "MoveRate": 15,
-        "EquipPrice": 1,
-        "EquipType": 3
-      },
-      {
-        "EquipName": "滑板鞋",
-        "EquipInfo": "我的滑板鞋,时尚时尚最时尚",
-        "EquipAddress": "bag/equ_42.png",
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 30,
-        "MoveRate": 40,
-        "EquipPrice": 1,
-        "EquipType": 3
-      },
-      {
-        "EquipName": "长筒靴",
-        "EquipInfo": "猫穿的靴子,怕不怕",
-        "EquipAddress": "bag/equ_43.png",
-        "Defense": 0,
-        "Blood": 0,
-        "Attack": 0,
-        "Intelligence": 0,
-        "AttackRate": 60,
-        "MoveRate": 75,
-        "EquipPrice": 1,
-        "EquipType": 3
-      }
-    ],
-    "Block": [
-      {
-        "BlockName": "港口",
         "Monster": [
-          {
-            "MonsterID": 1,
-            "X": 12,
-            "Y": 12
-          },
-          {
-            "MonsterID": 2,
-            "X": 12,
-            "Y": 12
-          }
+            {
+                "MonsterType": "lion",
+                "MonsterHealth": 100,
+                "MonsterSpeed": 1,
+                "MonsterDefense": 1,
+                "MonsterAttack": 1,
+                "MonsterInfo": "violence"
+            },
+            {
+                "MonsterType": "tiger",
+                "MonsterHealth": 100,
+                "MonsterSpeed": 1,
+                "MonsterDefense": 1,
+                "MonsterAttack": 1,
+                "MonsterInfo": "violence"
+            }
         ],
-        "BlockInfo": "Caty乘着“冒险号”来到了这个陌生的城市，一段神秘而有挑战的旅程将在这个港口展开…"
-      },
-      {
-        "BlockName": "集市",
-        "Monster": [
-          {
-            "MonsterID": 1,
-            "X": 12,
-            "Y": 12
-          },
-          {
-            "MonsterID": 2,
-            "X": 12,
-            "Y": 12
-          }
+        "Skill": [
+            {
+                "SkillName": "xuanfeng",
+                "SkillType": "attack",
+                "SkillDamage": 1,
+                "SkillInfo": "diao",
+                "SkillColdTime": 1
+            },
+            {
+                "SkillName": "xuanfeng",
+                "SkillType": "attack",
+                "SkillDamage": 1,
+                "SkillInfo": "diao",
+                "SkillColdTime": 1
+            }
         ],
-        "BlockInfo": "港口风云之后，有什么样的危险会埋伏在这个欣欣向荣的集市里，等待着Caty的又会是什么呢..."
-      }
-    ]
-  }
+        "Tool": [
+            {
+                "ToolName": "小血瓶",
+                "ToolInfo": "恢复人物500点生命值",
+                "ToolPrice": 1,
+                "ToolAddress": "bag/inv_1.png"
+            },
+            {
+                "ToolName": "大血瓶",
+                "ToolInfo": "恢复人物1000点生命值",
+                "ToolPrice": 1,
+                "ToolAddress": "bag/inv_2.png"
+            },
+            {
+                "ToolName": "免疫药水",
+                "ToolInfo": "使用药水后遭受的前三次攻击不会损失生命值",
+                "ToolPrice": 1,
+                "ToolAddress": "bag/inv_3.png"
+            },
+            {
+                "ToolName": "疾风药水",
+                "ToolInfo": "15秒内提升50点攻击速度和移动速度，但损失200点防御",
+                "ToolPrice": 1,
+                "ToolAddress": "bag/inv_4.png"
+            },
+            {
+                "ToolName": "疯狂药水",
+                "ToolInfo": "减少500点当前生命值（若当前生命值小于500点则降为1），15秒内增加人物攻击强度60点",
+                "ToolPrice": 1,
+                "ToolAddress": "bag/inv_5.png"
+            },
+            {
+                "ToolName": "仙灵药水",
+                "ToolInfo": "15秒内提升40点智力，但损失60点攻击强度",
+                "ToolPrice": 1,
+                "ToolAddress": "bag/inv_6.png"
+            }
+        ],
+        "Equipment": [
+            {
+                "EquipName": "草帽",
+                "EquipInfo": "一订神奇的小草帽",
+                "EquipAddress": "bag/equ_11.png",
+                "Defense": 40,
+                "Blood": 120,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 0
+            },
+            {
+                "EquipName": "嘻哈头巾",
+                "EquipInfo": "嘿!哈!在哪里摔倒就在哪里躺下下",
+                "EquipAddress": "bag/equ_12.png",
+                "Defense": 100,
+                "Blood": 300,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 0
+            },
+            {
+                "EquipName": "牛仔帽",
+                "EquipInfo": "我虽然是个牛仔，在酒吧只点牛奶",
+                "EquipAddress": "bag/equ_13.png",
+                "Defense": 280,
+                "Blood": 600,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 0
+            },
+            {
+                "EquipName": "七色石",
+                "EquipInfo": "彩虹与我相伴",
+                "EquipAddress": "bag/equ_21.png",
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 20,
+                "Intelligence": 20,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 1
+            },
+            {
+                "EquipName": "金项链",
+                "EquipInfo": "东北大汉特别喜欢戴我",
+                "EquipAddress": "bag/equ_22.png",
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 50,
+                "Intelligence": 40,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 1
+            },
+            {
+                "EquipName": "十字架吊坠",
+                "EquipInfo": "不要害怕死亡，死亡永远在我身旁",
+                "EquipAddress": "bag/equ_23.png",
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 80,
+                "Intelligence": 70,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 1
+            },
+            {
+                "EquipName": "布衣",
+                "EquipInfo": "一件麻布编织的外衣",
+                "EquipAddress": "bag/equ_31.png",
+                "Defense": 50,
+                "Blood": 150,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 2
+            },
+            {
+                "EquipName": "貂皮大衣",
+                "EquipInfo": "这可不是一般的貂皮额!",
+                "EquipAddress": "bag/equ_32.png",
+                "Defense": 140,
+                "Blood": 380,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 2
+            },
+            {
+                "EquipName": "牛仔衣",
+                "EquipInfo": "正义呼唤我,美女需要我,牛仔很忙的",
+                "EquipAddress": "bag/equ_33.png",
+                "Defense": 300,
+                "Blood": 750,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 0,
+                "MoveRate": 0,
+                "EquipPrice": 1,
+                "EquipType": 2
+            },
+            {
+                "EquipName": "草鞋",
+                "EquipInfo": "我可不怕路滑",
+                "EquipAddress": "bag/equ_41.png",
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 10,
+                "MoveRate": 15,
+                "EquipPrice": 1,
+                "EquipType": 3
+            },
+            {
+                "EquipName": "滑板鞋",
+                "EquipInfo": "我的滑板鞋,时尚时尚最时尚",
+                "EquipAddress": "bag/equ_42.png",
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 30,
+                "MoveRate": 40,
+                "EquipPrice": 1,
+                "EquipType": 3
+            },
+            {
+                "EquipName": "长筒靴",
+                "EquipInfo": "猫穿的靴子,怕不怕",
+                "EquipAddress": "bag/equ_43.png",
+                "Defense": 0,
+                "Blood": 0,
+                "Attack": 0,
+                "Intelligence": 0,
+                "AttackRate": 60,
+                "MoveRate": 75,
+                "EquipPrice": 1,
+                "EquipType": 3
+            }
+        ],
+        "Block": [
+            {
+                "BlockName": "港口",
+                "Monster": [
+                    {
+                        "MonsterID": 1,
+                        "X": 12,
+                        "Y": 12
+                    },
+                    {
+                        "MonsterID": 2,
+                        "X": 12,
+                        "Y": 12
+                    }
+                ],
+                "BlockInfo": "Caty乘着“冒险号”来到了这个陌生的城市，一段神秘而有挑战的旅程将在这个港口展开…"
+            },
+            {
+                "BlockName": "集市",
+                "Monster": [
+                    {
+                        "MonsterID": 1,
+                        "X": 12,
+                        "Y": 12
+                    },
+                    {
+                        "MonsterID": 2,
+                        "X": 12,
+                        "Y": 12
+                    }
+                ],
+                "BlockInfo": "港口风云之后，有什么样的危险会埋伏在这个欣欣向荣的集市里，等待着Caty的又会是什么呢..."
+            }
+        ]
+    }
 }

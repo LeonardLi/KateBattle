@@ -11,6 +11,7 @@ Date: 2015/4/14
 #include "PopupLayer.h"
 #include "JsonUtility.h"
 class Equipment;
+enum class InventoryEnum;
 class BagLayer : public PopupLayer{
 public:
 	static cocos2d::Scene* createScene(cocos2d::RenderTexture* sqr);
@@ -41,9 +42,10 @@ private:
 	bool __initFromFile();
 	Equipment* __matchPic(int);
 
-	void __playAnimation();
+	void __playAnimation(InventoryEnum);
 	void __replaceEquipment(Equipment*);
     void __flushInventory();
+	void __flushEquipment();
 
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;

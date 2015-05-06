@@ -84,7 +84,9 @@ bool BagLayer::__initFromFile(){
 			aEquipment->setAttack(user.Equip[i].Attack);
 			aEquipment->setAttackRate(user.Equip[i].AttackRate);
 			aEquipment->setUsed(user.Equip[i].Used);
+			aEquipment->setIndex(i);
 			m_equipmentVec.pushBack(aEquipment);
+			
 	}
 	//log("vec size ============================ %zd",m_equipmentVec.size());
 	return true;
@@ -146,45 +148,11 @@ void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN call
 
 void BagLayer::__loadPicFromCSB(){
 	m_baglayer = static_cast<Node*>(CSLoader::createNode("bag/bag.csb"));
-	Button* backButton = static_cast<Button*>(m_baglayer->getChildByTag(76));
+	Button* backButton = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(76));
 	backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
 
-	ImageView* equip[24] = { nullptr };
-	int i = 142;
-	for (Equipment* eq : m_equipmentVec){
-		if (!eq->getUsed()){
-			equip[i - 142] = static_cast<ImageView*>(m_baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(i));
-			eq->addClickEventListener(CC_CALLBACK_1(BagLayer::onEquipmentClickedListener, this));
-			eq->setScale(1.2f);
-			eq->setPosition(Vec2(91.5f, 81.5f));
-			eq->setTag(i);
-			equip[i - 142]->addChild(eq);
-			i++;
-		}
-		else{
 
-			eq->setPosition(Vec2(64.5f, 64.5f));
-			eq->addClickEventListener(CC_CALLBACK_1(BagLayer::onEquipmentClickedListener, this));
-			switch (eq->getEquipmentStyle())
-			{
-			case EquipmentType::Hat:
-				m_baglayer->getChildByTag(139)->getChildByTag(178)->addChild(eq);					
-				break;
-			case EquipmentType::Aniversary:
-				m_baglayer->getChildByTag(139)->getChildByTag(179)->addChild(eq);
-				break;
-			case EquipmentType::Cloth:
-				m_baglayer->getChildByTag(139)->getChildByTag(180)->addChild(eq);
-				break;
-			case EquipmentType::Shoes:
-				m_baglayer->getChildByTag(139)->getChildByTag(181)->addChild(eq);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-    
+	__flushEquipment();
     __flushInventory();
 	this->addChild(m_baglayer);
 }
@@ -230,16 +198,22 @@ void BagLayer::onBackButtonClickListener(Ref* sender){
 
 void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 	Equipment* equ = static_cast<Equipment*>(sender);
-	__replaceEquipment(equ);
-	
+	if (equ->getUsed()){
+		//equip else unequip
+		__replaceEquipment(equ);
+	}
+	__flushEquipment();
 }
 
 void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
+	InventoryEnum type = static_cast<InventoryEnum>(sender->getTag());
     __flushInventory();
-	__playAnimation();
+	__playAnimation(type);
 }
 
-void BagLayer::__playAnimation(){
+void BagLayer::__playAnimation(InventoryEnum type){
+	//show different thing according to the type
+
 	Label* label = Label::create("Hello","fonts/arial.ttf", 20);
 	label->setPosition(Vec2(640, 360));
 	this->addChild(label);
@@ -254,104 +228,64 @@ void BagLayer::__playAnimation(){
 void BagLayer::__replaceEquipment(Equipment* equ){
 	EquipmentType type = equ->getEquipmentStyle();
 	Node* bg = m_baglayer->getChildByTag(139);
-	equ->setScale(1);
-	equ->setPosition(Vec2(64.5f, 64.5f));
+	User& user = JsonUtility::getInstance()->user;
 	switch (type)
 	{
 	case EquipmentType::Hat:
 		if (0 == bg->getChildByTag(178)->getChildrenCount())
 		{	
-			equ->retain();
-			equ->removeFromParent();
-			bg->getChildByTag(178)->addChild(equ);
-			equ->setUsed(true);
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		else
 		{
 			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
-			Node* tempParent = equ->getParent();
-			temp->retain();
-			equ->retain();
-			equ->removeFromParent();
-			temp->removeFromParent();
-			temp->setScale(1.2f);
-			temp->setPosition(Vec2(91.5f, 81.5f));
-			tempParent->addChild(temp);
-			bg->getChildByTag(178)->addChild(equ);
-			equ->setUsed(true);
 			temp->setUsed(false);
+			equ->setUsed(true);
+			user.Equip[temp->getIndex()].Used = false;
+			user.Equip[equ->getIndex()].Used = true;
+
 		}
 		break;
 	case EquipmentType::Aniversary:
 		if (0 == bg->getChildByTag(179)->getChildrenCount())
 		{
-			equ->retain();
-			equ->removeFromParent();
-			bg->getChildByTag(179)->addChild(equ);
-			equ->setUsed(true);
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		else
 		{
-			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(179)->getChildren().at(0));
-			Node* tempParent = equ->getParent();
-			temp->retain();
-			equ->retain();
-			equ->removeFromParent();
-			temp->removeFromParent();
-			temp->setScale(1.2f);
-			temp->setPosition(Vec2(91.5f, 81.5f));
-			tempParent->addChild(temp);
-			bg->getChildByTag(179)->addChild(equ);
-			equ->setUsed(true);
+			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
 			temp->setUsed(false);
+			equ->setUsed(true);
+			user.Equip[temp->getIndex()].Used = false;
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		break;
 	case EquipmentType::Cloth:
 		if (0 == bg->getChildByTag(180)->getChildrenCount())
 		{
-			equ->retain();
-			equ->removeFromParent();
-			bg->getChildByTag(180)->addChild(equ);
-			equ->setUsed(true);
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		else
 		{
-			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(180)->getChildren().at(0));
-			Node* tempParent = equ->getParent();
-			temp->retain();
-			equ->retain();
-			equ->removeFromParent();
-			temp->removeFromParent();
-			temp->setScale(1.2f);
-			temp->setPosition(Vec2(91.5f, 81.5f));
-			tempParent->addChild(temp);
-			bg->getChildByTag(180)->addChild(equ);
-			equ->setUsed(true);
+			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
 			temp->setUsed(false);
+			equ->setUsed(true);
+			user.Equip[temp->getIndex()].Used = false;
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		break;
 	case EquipmentType::Shoes:
 		if (0 == bg->getChildByTag(181)->getChildrenCount())
 		{
-			equ->retain();
-			equ->removeFromParent();
-			bg->getChildByTag(181)->addChild(equ);
-			equ->setUsed(true);
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		else
 		{
-			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(181)->getChildren().at(0));
-			Node* tempParent = equ->getParent();
-			temp->retain();
-			equ->retain();
-			equ->removeFromParent();
-			temp->removeFromParent();
-			temp->setScale(1.2f);
-			temp->setPosition(Vec2(91.5f, 81.5f));
-			tempParent->addChild(temp);
-			bg->getChildByTag(181)->addChild(equ);
-			equ->setUsed(true);
+			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
 			temp->setUsed(false);
+			equ->setUsed(true);
+			user.Equip[temp->getIndex()].Used = false;
+			user.Equip[equ->getIndex()].Used = true;
 		}
 		break;
 	default:
@@ -386,4 +320,56 @@ void BagLayer::__flushInventory(){
         
     }
 
+}
+
+void BagLayer::__flushEquipment(){
+
+	ImageView* equip[24] = { nullptr };
+	int i = 142;
+	for (int k = 142; k < 164; k++)
+	{
+		equip[k - 142] = static_cast<ImageView*>(m_baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(k));
+		equip[k - 142]->removeAllChildrenWithCleanup(true);
+	}
+	for (int k = 178; k < 182; k++){
+		if (0 != m_baglayer->getChildByTag(139)->getChildByTag(k)->getChildrenCount()){
+			m_baglayer->getChildByTag(139)->getChildByTag(k)->removeAllChildrenWithCleanup(true);
+		}
+
+	}
+
+	for (Equipment* eq : m_equipmentVec){
+		if (!eq->getUsed()){
+			equip[i - 142] = static_cast<ImageView*>(m_baglayer->getChildByTag(140)->getChildByTag(141)->getChildByTag(i));
+			eq->addClickEventListener(CC_CALLBACK_1(BagLayer::onEquipmentClickedListener, this));
+			eq->setScale(1.2f);
+			eq->setPosition(Vec2(91.5f, 81.5f));
+			eq->setTag(i);
+			equip[i - 142]->addChild(eq);
+			i++;
+		}
+		else{
+
+			eq->setPosition(Vec2(64.5f, 64.5f));
+			eq->setScale(1);
+			eq->addClickEventListener(CC_CALLBACK_1(BagLayer::onEquipmentClickedListener, this));
+			switch (eq->getEquipmentStyle())
+			{
+			case EquipmentType::Hat:
+				m_baglayer->getChildByTag(139)->getChildByTag(178)->addChild(eq);
+				break;
+			case EquipmentType::Aniversary:
+				m_baglayer->getChildByTag(139)->getChildByTag(179)->addChild(eq);
+				break;
+			case EquipmentType::Cloth:
+				m_baglayer->getChildByTag(139)->getChildByTag(180)->addChild(eq);
+				break;
+			case EquipmentType::Shoes:
+				m_baglayer->getChildByTag(139)->getChildByTag(181)->addChild(eq);
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }

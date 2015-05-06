@@ -42,8 +42,8 @@ DetailLayer* DetailLayer::create(InventoryEnum type){
 
 void DetailLayer::__loadPicFromCSB(Equipment* eq){
 	Node* rootNode = CSLoader::createNode("equ/equ_on.csb");
-	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(61)->getChildByTag(66));;
-	Button* Equip = static_cast<Button*>(rootNode->getChildByTag(61)->getChildByTag(65));
+	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));;
+	Button* Equip = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
 	Equip->addClickEventListener(CC_CALLBACK_1(DetailLayer::onEquipBuntonClicked, this));
 	backButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
 	this->addChild(rootNode);
@@ -51,9 +51,9 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 
 void DetailLayer::__loadPicFromCSB(InventoryEnum type){
 	Node* rootNode = CSLoader::createNode("inventorytest/inventorytest.csb");
-	Button* Use = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
+	Button* UseButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
 	Button* BackupButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
-	Use->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
+	UseButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
 	BackupButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
 	Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
 	Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(5));
@@ -137,20 +137,31 @@ void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
 	//log("====================== use ===============");
-    
+	int i = JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)];
+	JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)] = i - 1;
 	Node* node = static_cast<Node*>(sender);
+	node->setTag(static_cast<int>(m_type));
 	if (m_callback && m_callbackListener)
 	{
 		(m_callbackListener->*m_callback)(node);
 	}
-    int i = JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)];
-    JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)] = i - 1;
 	this->removeFromParent();
 
 }
 
 void DetailLayer::onEquipBuntonClicked(Ref* sender){
-	
+	User& user = JsonUtility::getInstance()->user;
+	if (user.Equip[m_equipment->getIndex()].Used){
+		user.Equip[m_equipment->getIndex()].Used = false;
+		m_equipment->setUsed(false);
+	}
+	else
+	{
+		user.Equip[m_equipment->getIndex()].Used = true;
+		m_equipment->setUsed(true);
+	}
+
+
 	if (m_callback && m_callbackListener)
 	{
 		(m_callbackListener->*m_callback)(dynamic_cast<Node*>(m_equipment));

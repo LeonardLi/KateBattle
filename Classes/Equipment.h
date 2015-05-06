@@ -33,4 +33,5 @@ private:
 	CC_SYNTHESIZE(double, m_attackRate, AttackRate);
 	CC_SYNTHESIZE(double, m_moveRate, MoveRate);
 	CC_SYNTHESIZE(bool, m_isUsed, Used);
+	CC_SYNTHESIZE(int, m_index, Index);
 };
