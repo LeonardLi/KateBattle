@@ -52,7 +52,7 @@ void SoundsController::setMusicVolum(float volum) //调整所有音乐的音量，包括音乐
 	m_EffectMusicVolum = m_BackMusicVolum = volum;
 }
 
-void SoundsController::stopBackgroundMusic()//关闭背景音乐,音乐从当前音乐大小逐次减小
+void SoundsController::pauseBackgroundMusic()//关闭背景音乐,音乐从当前音乐大小逐次减小
 {
 	Director::getInstance()->getScheduler()->Scheduler::schedule(schedule_selector(SoundsController::_setBackVolumLogic), this, 1, false);
 	m_BackMusicVolum = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
@@ -64,7 +64,7 @@ void SoundsController::stopBackgroundMusic(ScenarioEnum scen)
 	m_BackMusicVolum = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
 	scenario = scen;
 }
-void SoundsController::stopEffect()//关闭音效音乐,音效从当前音乐大小逐次减小
+void SoundsController::pauseEffect()//关闭音效音乐,音效从当前音乐大小逐次减小
 {
 	Director::getInstance()->getScheduler()->Scheduler::schedule(schedule_selector(SoundsController::_setEffectVolumLogic), this, 1, false);
 	m_EffectMusicVolum = SimpleAudioEngine::getInstance()->getEffectsVolume();
@@ -80,7 +80,7 @@ void SoundsController::_setBackVolumLogic(float dt)
 	else
 	{
 		this->unschedule(schedule_selector(SoundsController::_setBackVolumLogic));
-		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 	}
 }
 
@@ -122,6 +122,6 @@ void SoundsController::_setEffectVolumLogic(float dt)
 	else
 	{
 		this->unschedule(schedule_selector(SoundsController::_setEffectVolumLogic));
-		SimpleAudioEngine::getInstance()->stopAllEffects();
+		SimpleAudioEngine::getInstance()->pauseAllEffects();
 	}
 }

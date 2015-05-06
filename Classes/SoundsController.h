@@ -24,11 +24,11 @@ public:
 
 	void setMusicVolum(float volum);   //调整所有音乐的音量，包括音乐以及音效
 	
-	void stopBackgroundMusic();//关闭背景音乐,音乐从当前音乐大小逐次减小
+	void pauseBackgroundMusic();//关闭背景音乐,音乐从当前音乐大小逐次减小
 
 	void stopBackgroundMusic(ScenarioEnum scen);//场景切换时，背景音乐的播放
 
-	void stopEffect();//关闭音效音乐,音效从当前音乐大小逐次减小
+	void pauseEffect();//关闭音效音乐,音效从当前音乐大小逐次减小
 	
 	static SoundsController* getInstance();
 private:
