@@ -73,8 +73,7 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 	Hp->setString(std::to_string((int)eq->getBlood()));
 	defence->setString(std::to_string((int)eq->getDenfense()));
 	intelligence->setString(std::to_string((int)eq->getIntelligence()));
-	attackRate->setString(std::to_string((int)eq->getAttackRate()));
-	
+	attackValue->setString(std::to_string((int)eq->getAttack()));
 
 
     this->addChild(rootNode);
