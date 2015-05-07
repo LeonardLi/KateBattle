@@ -137,6 +137,25 @@
 				<key>offsetY</key>
 				<real>0</real>
 			</dict>
+			<key>monster4part7.png</key>
+			<dict>
+				<key>width</key>
+				<integer>204</integer>
+				<key>height</key>
+				<integer>56</integer>
+				<key>originalWidth</key>
+				<integer>204</integer>
+				<key>originalHeight</key>
+				<integer>56</integer>
+				<key>x</key>
+				<integer>0</integer>
+				<key>y</key>
+				<integer>683</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
 		</dict>
 		<key>metadata</key>
 		<dict>

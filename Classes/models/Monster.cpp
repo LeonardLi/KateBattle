@@ -187,12 +187,18 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 		}
 		if (getcanAttack()==true)
 		{
-			bloodBar = ProgressTimer::create(Sprite::create("bloodBar.png"));
-			bloodBar->setType(ProgressTimer::Type::BAR);
-			bloodBar->setMidpoint(Vec2(0, 0));
-			bloodBar->setBarChangeRate(Vec2(1, 0));
-			bloodBar->setPercentage(100.0f);
+
+			blood = ProgressTimer::create(Sprite::create("blood.png"));
+			blood->setType(ProgressTimer::Type::BAR);
+			blood->setMidpoint(Vec2(0, 0));
+			blood->setBarChangeRate(Vec2(1, 0));
+			blood->setPercentage(100.0f);
+			blood->setPosition(Vec2(getBoundingBox().size.width / 2+11, getBoundingBox().size.height + 60));
+			blood->setScale(0.6);
+			this->addChild(blood, 2, 1);
+			bloodBar = Sprite::create("bloodBar.png");
 			bloodBar->setPosition(Vec2(getBoundingBox().size.width / 2, getBoundingBox().size.height + 60));
+			bloodBar->setScale(0.6);
 			this->addChild(bloodBar, 1, 1);
 		}
 		
@@ -811,8 +817,8 @@ void Monster::monsterGetHurt(float iValue, float time,bool isCrit){
 	auto value = std::to_string(valueInt);
 		
 	Label* label = Label::create(value, "fonts/Marker Felt.ttf", 30);
-	label->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 20));
-	this->addChild(label,2);
+	label->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 40));
+	this->addChild(label,4);
 	FadeIn* action1 = FadeIn::create(0.5f);
 	MoveBy* action2 = MoveBy::create(1.0f, Vec2(0, 40));
 	FadeOut* action3 = FadeOut::create(0.5f);
@@ -824,8 +830,8 @@ void Monster::monsterGetHurt(float iValue, float time,bool isCrit){
 	{
 		label->setColor(Color3B::RED);
 		auto sprite = Sprite::create("crit.png");
-		sprite->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 20));
-		this->addChild(sprite,1);
+		sprite->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 40));
+		this->addChild(sprite,3);
 		sprite->runAction(seq3);	
 	}
 	else
@@ -842,7 +848,7 @@ void Monster::monsterGetHurt(float iValue, float time,bool isCrit){
 		setHp(iAfterHp);
 		if (getcanAttack()==true)
 		{
-			this->bloodBar->setPercentage(iAfterHp / getupperHp()*100.0f);
+			this->blood->setPercentage(iAfterHp / getupperHp()*100.0f);
 		}
 	}
 
@@ -851,11 +857,12 @@ void Monster::monsterGetHurt(float iValue, float time,bool isCrit){
 	else
 	{
 		setHp(0.0);
+		bloodBar->setVisible(false);
 		this->setisDead(true);
 		onDead();
 		if (getcanAttack() == true)
 		{
-			this->bloodBar->setPercentage(0.0f);
+			this->blood->setPercentage(0.0f);
 		}
 	}
 
@@ -1005,13 +1012,20 @@ bool MonsterBossNum1::init(Sprite* sprite, Vector<Monster*> monsterList){
 		this->setContentSize(Size(85, 160));
 		m_monsterType = MonsterType::monsterBossNum1;
 
-		bloodBar = ProgressTimer::create(Sprite::create("bloodBar.png"));
-		bloodBar->setType(ProgressTimer::Type::BAR);
-		bloodBar->setMidpoint(Vec2(0, 0));
-		bloodBar->setBarChangeRate(Vec2(1, 0));
-		bloodBar->setPercentage(100.0f);
+		blood = ProgressTimer::create(Sprite::create("blood.png"));
+		blood->setType(ProgressTimer::Type::BAR);
+		blood->setMidpoint(Vec2(0, 0));
+		blood->setBarChangeRate(Vec2(1, 0));
+		blood->setPercentage(100.0f);
+		blood->setPosition(Vec2(getBoundingBox().size.width / 2+19, getBoundingBox().size.height + 80));
+		blood->setScale(0.8f);
+		this->addChild(blood, 2, 1);
+		bloodBar = Sprite::create("bossBloodBar.png");
 		bloodBar->setPosition(Vec2(getBoundingBox().size.width / 2, getBoundingBox().size.height + 80));
+		bloodBar->setScale(0.8f);
 		this->addChild(bloodBar, 1, 1);
+
+
 		m_FSM = MonsterFSM::createWithMonster(this);
 
 		bRet = true;
@@ -1071,7 +1085,8 @@ void MonsterBossNum1::__isCollide(float dt){
 	if (this->getBoundingBox().intersectsRect(m_boxes->getBoundingBox()))
 	{
 		this->unschedule(schedule_selector(MonsterBossNum1::__isCollide));
-		this->monsterGetHurt(50, 0.0f,false);
+		this->monsterGetHurt(80, 0.0f,false);
+		this->m_armature->getAnimation()->play("dizzy");
 		this->targetHero->m_blockArea.eraseObject(m_boxes);
 		this->getParent()->removeChild(m_boxes);
 		if (this->getHp()>0)
@@ -1102,7 +1117,7 @@ void MonsterBossNum1::__skillRush(float dt){
 	}
 	if (this->m_Stun == BOSSSTUN)
 	{
-		this->m_armature->getAnimation()->play("stand");
+		this->m_armature->getAnimation()->play("dizzy");
 		this->unschedule(schedule_selector(MonsterBossNum1::__skillRush));
 		setStun(NOTSTUNFOREVER);
 		this->outBoss1SkillSequence(5.0f);
@@ -1165,12 +1180,17 @@ bool MonsterBossNum2::init(Sprite* sprite, Monster* monster){
 		setcanAttack(true);
 		setContentSize(Size(90, 110));
 		
-		bloodBar = ProgressTimer::create(Sprite::create("bloodBar.png"));
-		bloodBar->setType(ProgressTimer::Type::BAR);
-		bloodBar->setMidpoint(Vec2(0, 0));
-		bloodBar->setBarChangeRate(Vec2(1, 0));
-		bloodBar->setPercentage(100.0f);
+		blood = ProgressTimer::create(Sprite::create("blood.png"));
+		blood->setType(ProgressTimer::Type::BAR);
+		blood->setMidpoint(Vec2(0, 0));
+		blood->setBarChangeRate(Vec2(1, 0));
+		blood->setPercentage(100.0f);
+		blood->setPosition(Vec2(getBoundingBox().size.width / 2 + 19, getBoundingBox().size.height + 80));
+		blood->setScale(0.8f);
+		this->addChild(blood, 2, 1);
+		bloodBar = Sprite::create("bossBloodBar.png");
 		bloodBar->setPosition(Vec2(getBoundingBox().size.width / 2, getBoundingBox().size.height + 80));
+		bloodBar->setScale(0.8f);
 		this->addChild(bloodBar, 1, 1);
 
 		m_FSM = MonsterFSM::createWithMonster(this);
@@ -1354,14 +1374,19 @@ bool MonsterBossNum3::init(Sprite* sprite, Vector<Monster*> monsterList){
 		//attackrange+100 = move range
 		carMonsterList = monsterList;
 		m_monsterType = MonsterType::monsterBossNum3;
-
-		bloodBar = ProgressTimer::create(Sprite::create("bloodBar.png"));
-		bloodBar->setType(ProgressTimer::Type::BAR);
-		bloodBar->setMidpoint(Vec2(0, 0));
-		bloodBar->setBarChangeRate(Vec2(1, 0));
-		bloodBar->setPercentage(100.0f);
-		bloodBar->setPosition(Vec2(getBoundingBox().size.width / 2, getBoundingBox().size.height + 60));
+		blood = ProgressTimer::create(Sprite::create("blood.png"));
+		blood->setType(ProgressTimer::Type::BAR);
+		blood->setMidpoint(Vec2(0, 0));
+		blood->setBarChangeRate(Vec2(1, 0));
+		blood->setPercentage(100.0f);
+		blood->setPosition(Vec2(getBoundingBox().size.width / 2 + 19, getBoundingBox().size.height + 80));
+		blood->setScale(0.8f);
+		this->addChild(blood, 2, 1);
+		bloodBar = Sprite::create("bossBloodBar.png");
+		bloodBar->setPosition(Vec2(getBoundingBox().size.width / 2, getBoundingBox().size.height + 80));
+		bloodBar->setScale(0.8f);
 		this->addChild(bloodBar, 1, 1);
+
 		m_FSM = MonsterFSM::createWithMonster(this);
 		bRet = true;
 	} while (0);
@@ -1517,7 +1542,7 @@ void MonsterBossNum3::__skillDropBox(float dt){
 		this->boxList.pushBack(box);
 		this->notFallBoxList.pushBack(box);
 		this->getParent()->addChild(box,1);
-
+		this->bloodBar->setVisible(true);
 		auto shadow = Monster::create(Sprite::create("shadow.png"), MonsterType::block);
 		shadowList.pushBack(shadow);
 	}
@@ -1547,7 +1572,7 @@ void MonsterBossNum3::__isBoxNeedRemove(float dt){
 				monster->setPosition(locationX, 1000);
 				monster->setHp(monster->getHp() + 20);
 				monster->setisDead(false);
-				monster->bloodBar->setPercentage(100.0f);
+				monster->blood->setPercentage(100.0f);
 				isPlaceVacant[num] = 0;
 			});		
 			this->schedule(schedule_selector(MonsterBossNum3::__isBoxNeedRemove),0.0,kRepeatForever,1.0f);
@@ -1571,7 +1596,7 @@ void MonsterBossNum3::__dropBoxCollide(float dt){
 			auto callFunc = CallFunc::create([=](){
 				monster->setPosition((monster->getboxTag() + 1) * 320, 1000);
 				monster->setHp(monster->getHp() + 20); 
-				monster->bloodBar->setPercentage(100.0f); });
+				monster->blood->setPercentage(100.0f); });
 			this->runAction(Sequence::create(DelayTime::create(1.0f) , callFunc, NULL));
 		}
 	}

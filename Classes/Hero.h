@@ -95,6 +95,7 @@ private:
 
 public:
 	bool m_canControl;
+	cocos2d::ui::LoadingBar* bloodBar;
 	cocos2d::Vector <Monster*> m_blockArea;
 	cocos2d::Vector <Monster*> m_heroMonsterList;
 private:

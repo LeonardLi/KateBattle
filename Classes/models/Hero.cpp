@@ -109,6 +109,12 @@ void Hero::_loadCSB(std::string csbfile){
 }
 
 void Hero::update(float dt){
+	if (getisDead()==true)
+	{
+		bloodBar->setPercent(0.0f);
+	}
+	bloodBar->setPercent(getcurHp() / getupperHp()*100.0f);
+	
 	if (getStun()!=STUN && m_isDead==false&&m_canControl==true)
 	m_moveController->simpleMove(m_direction);
 
@@ -343,10 +349,13 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		float attackRate = randomNum2 / 2 + 0.75;
 		float afterValue = ivalue*attackRate;
 
+		
+
 		if (afterValue<getcurDefenceValue())
 		{
 			return;
 		}
+
 		int hurtValue = afterValue;
 		auto string = std::to_string(hurtValue);
 		Label* label = Label::create(string, "fonts/Marker Felt.ttf", 30);
@@ -360,6 +369,8 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 		label->runAction(seq2);
 		float iAfterHp = iCurHp - ivalue;
+
+		
 		if (iAfterHp > 0)
 		{
 			setcurHp(iAfterHp);

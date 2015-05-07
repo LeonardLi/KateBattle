@@ -72,21 +72,15 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	auto controllayer = loadControlLayer();
 	this->addChild(controllayer, 1);
 
-	auto attackButton = static_cast<Button*>(controllayer->getChildByTag(10));
-	attackButton->addClickEventListener(CC_CALLBACK_1(GameScene::attackBtnOnClick,this));
-	
-	auto SkillButton1 = static_cast<Button*>(controllayer->getChildByTag(12));
-	SkillButton1->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn1OnClick, this));
 	
 
-	auto SkillButton2 = static_cast<Button*>(controllayer->getChildByTag(13));
-	SkillButton2->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn2OnClick, this));
-
-	auto SkillButton3 = static_cast<Button*>(controllayer->getChildByTag(14));
-	SkillButton3->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn3OnClick, this));
+	
 
 	m_hero = Hero::create();
 	m_hero->setPosition(100, 100);
+
+	auto bar = static_cast<LoadingBar*>(controllayer->getChildByTag(7));
+	m_hero->bloodBar = bar;
 
 	m_map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
 	m_map->addChild(m_hero, 3);
@@ -188,6 +182,19 @@ Layer* GameScene::loadControlLayer(){
 
 	setupButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupSetupMenu, this));
 	bagButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupBagLayer, this));
+
+	auto attackButton = static_cast<Button*>(control->getChildByTag(10));
+	attackButton->addClickEventListener(CC_CALLBACK_1(GameScene::attackBtnOnClick, this));
+
+	auto SkillButton1 = static_cast<Button*>(control->getChildByTag(12));
+	SkillButton1->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn1OnClick, this));
+
+
+	auto SkillButton2 = static_cast<Button*>(control->getChildByTag(13));
+	SkillButton2->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn2OnClick, this));
+
+	auto SkillButton3 = static_cast<Button*>(control->getChildByTag(14));
+	SkillButton3->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn3OnClick, this));
 	return control;
 
 }

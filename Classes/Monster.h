@@ -127,7 +127,8 @@ public:
 	bool skillOrAttack;
 	bool bossOrNot;
 
-	cocos2d::ProgressTimer* bloodBar;
+	cocos2d::Sprite* bloodBar;
+	cocos2d::ProgressTimer* blood;
 private:
 	CC_SYNTHESIZE(int, m_boxTag, boxTag);
 	CC_SYNTHESIZE(double, m_attackRange, attackRange);
