@@ -336,6 +336,7 @@ void GameScene::postBossUseSkillNotification(float dt){
 }
 
 void GameScene::_popupBagLayer(cocos2d::Ref* sender){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_13.c_str());
 	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
 	fakeBackground->begin();
 	this->getParent()->visit();

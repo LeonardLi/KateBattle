@@ -9,5 +9,20 @@ std::string EFFECTS_1 = "sounds/button_click.WAV";
 std::string EFFECTS_2 = "sounds/quit.WAV";
 std::string EFFECTS_3 = "sounds/start.WAV";
 std::string EFFECTS_4 = "sounds/choose.WAV";
-extern std::string EFFECTS_5;
-extern std::string EFFECTS_6;
+std::string EFFECTS_5 = "sounds/attack1.WAV";
+std::string EFFECTS_6 = "sounds/attack2.WAV";
+std::string EFFECTS_7 = "sounds/attack3.WAV";
+std::string EFFECTS_8 = "sounds/blink.WAV";
+std::string EFFECTS_9 = "sounds/aoe.WAV";
+std::string EFFECTS_10 = "sounds/buff.WAV";
+std::string EFFECTS_11 = "sounds/hpuse.WAV";
+std::string EFFECTS_12 = "sounds/spuse.WAV";
+std::string EFFECTS_13 = "sounds/openbag.WAV";
+std::string EFFECTS_14 = "sounds/clear.WAV";
+std::string EFFECTS_15 = "sounds/herohurt.WAV";
+std::string EFFECTS_16 = "sounds/herodead.WAV";
+std::string EFFECTS_17 = "sounds/levelup.WAV";
+std::string EFFECTS_18 = "sounds/sysattention.WAV";
+std::string EFFECTS_19 = "sounds/backmenu.WAV";
+
+

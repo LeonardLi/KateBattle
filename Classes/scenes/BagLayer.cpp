@@ -6,10 +6,13 @@
 #include "SetupLayer.h"
 #include "DetailLayer.h"
 #include "Inventory.h"
+#include "SoundsDef.h"
+#include "SoundsController.h"
 #include <string>
 
 USING_NS_CC;
 using namespace ui;
+using namespace CocosDenshion;
 BagLayer::BagLayer():
 m_callback(nullptr),
 m_callbackListener(nullptr)
@@ -193,6 +196,7 @@ void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
 }
 
 void BagLayer::onBackButtonClickListener(Ref* sender){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 	Director::getInstance()->popScene();
 }
 

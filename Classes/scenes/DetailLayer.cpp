@@ -6,9 +6,12 @@
 #include "Inventory.h"
 #include "Equipment.h"
 #include "JsonUtility.h"
+#include "SoundsDef.h"
+#include "SoundsController.h"
 
 USING_NS_CC;
 using namespace ui;
+using namespace CocosDenshion;
 DetailLayer::DetailLayer()
 {
 
@@ -144,6 +147,7 @@ void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 
 void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
 	//log("====================== use ===============");
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_11.c_str());
 	int i = JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)];
 	JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)] = i - 1;
 	Node* node = static_cast<Node*>(sender);
@@ -157,6 +161,7 @@ void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
 }
 
 void DetailLayer::onEquipBuntonClicked(Ref* sender){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_12.c_str());
 	User& user = JsonUtility::getInstance()->user;
 	if (user.Equip[m_equipment->getIndex()].Used){
 		user.Equip[m_equipment->getIndex()].Used = false;
@@ -177,6 +182,7 @@ void DetailLayer::onEquipBuntonClicked(Ref* sender){
 }
 
 void DetailLayer::onBackupButtonClicked(Ref* sender){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 	this->removeFromParent();
 }
 

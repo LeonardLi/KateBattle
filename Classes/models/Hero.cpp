@@ -9,6 +9,8 @@
 #include "Hero.h"
 #include "ControllerMoveBase.h"
 #include "JoyStick.h"
+#include "SoundsDef.h"
+#include "SoundsController.h"
 
 //default speed
 #define DEFAULTSPEED 1.0f
@@ -26,6 +28,7 @@
 
 USING_NS_CC;
 using namespace cocostudio;
+using namespace CocosDenshion;
 Hero::Hero() :
 m_curSpeed(1.0f),
 m_moveSpeed(1.0f),
@@ -107,6 +110,7 @@ void Hero::ChangeDirection(JoystickEnum direction){
 }
 
 void Hero::onDead(){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_16.c_str());
 	this->m_armature->getAnimation()->play("dead");
 
 	//cast the animation
@@ -128,6 +132,7 @@ void Hero::changeCanControl(float time){
 
 void Hero::herostun(float time)
 {
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_15.c_str());
 	this->m_armature->getAnimation()->play("hurt", -1, 0);
 	setStun(STUN);
 	if (this->isScheduled(schedule_selector(Hero::changeStun)))
@@ -147,15 +152,18 @@ void Hero::attack(){
 	switch (pos)
 	{
 	case 1:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_5.c_str());
 		this->m_armature->getAnimation()->play("attack1", -1, 0);
 		setAttackPos(2);
 		break;
 	case 2:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_6.c_str());
 		this->m_armature->getAnimation()->play("attack2", -1, 0);
 		damageAddition = this->getcurAttackValue() / 5;
 		setAttackPos(3);
 		break;
 	case 3:
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_7.c_str());
 		this->m_armature->getAnimation()->play("attack3", -1, 0);
 		damageAddition = this->getcurAttackValue() / 3;
 		if (this->isScheduled(schedule_selector(Hero::recoverAttackPosture)))
@@ -218,6 +226,7 @@ void Hero::changeControlType(float dt){
 
 void Hero::hitGroundSkill()
 {
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_9.c_str());
 	this->m_armature->getAnimation()->play("aoe",-1,0);
 	heroNotControl(1.7f);
 	
@@ -238,7 +247,7 @@ void Hero::hitGroundSkill()
 }
 
 void Hero::addDefenceValue(){
-
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_10.c_str());
 	this->setcurDefenceValue(getEffectDefenceValue() + 50);
 	this->scheduleOnce(schedule_selector(Hero::recoverDefenceValue),5.0f);
 }
@@ -252,6 +261,7 @@ void Hero::blink(){
 	heroNotControl(0.8f);
 	Vec2 desPoint;
 	int direction;
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_8.c_str());
 	this->m_armature->getAnimation()->play("blink", -1, 0);
 	if (this->m_moveController->leftOrRight == false)
 	{

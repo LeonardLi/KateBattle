@@ -12,7 +12,6 @@
 #include "ui/CocosGUI.h"
 #include "SoundsDef.h"
 #include "SoundsController.h"
-#include "SimpleAudioEngine.h"
 #include "SetupLayer.h"
 
 #define INTRODUCTION 14

@@ -3,6 +3,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "VisibleRect.h"
+#include "SoundsDef.h"
 #include "SoundsController.h"
 #include "MenuScene.h"
 USING_NS_CC;
@@ -91,6 +92,7 @@ void SetupLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 }
 
 void SetupLayer::onBackButtonClick(cocos2d::Ref* sender){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 	Director::getInstance()->popScene();
 }
 
@@ -106,6 +108,7 @@ void SetupLayer::onSlider(cocos2d::Ref* sender, Slider::EventType type){
 }
 
 void SetupLayer::onSoundControlButtonClicked(cocos2d::Ref* sender){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_18.c_str());
 	Node* node = static_cast<Node*>(sender);
 	if (m_callback && m_callbackListener)
 	{
@@ -128,6 +131,7 @@ void SetupLayer::onSoundControlButtonClicked(cocos2d::Ref* sender){
 }
 
 void SetupLayer::onBackMenuButtonClicked(cocos2d::Ref*){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_19.c_str());
     auto scene = MenuScene::createScene();
     Director::getInstance()->replaceScene(scene);
 
