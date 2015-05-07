@@ -34,10 +34,12 @@ struct User								//玩家用户信息
 	int UserGoldsNumber;
 	int EquipmentNumber;      //change 
 	double UserHealth;
+	double UserCulHealth;
 	double UserAttack;
 	double UserDefense;
-	double UserSpeed;
-	double UserStrength;
+	double UserIntelligence;
+	double UserAttackRate;
+	double UserMoveRate;
 	int SkillID[3];
 	int ToolID[6];               //修改
 	EquipID Equip[24];			//修改

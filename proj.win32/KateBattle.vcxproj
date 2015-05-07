@@ -139,7 +139,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\kernal\Kernal.cpp" />
-    <ClCompile Include="..\Classes\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\models\BulletBase.cpp" />
     <ClCompile Include="..\Classes\models\BulletNormal.cpp" />
     <ClCompile Include="..\Classes\models\Entity.cpp" />
@@ -154,7 +153,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\scenes\BagLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\DetailLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
-    <ClCompile Include="..\Classes\scenes\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\scenes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\scenes\PopupLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\SetupLayer.cpp" />
