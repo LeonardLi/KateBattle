@@ -12,7 +12,8 @@ enum class ScenarioEnum{
 	Port,
 	Market,
 	Sewer,
-	ScenarioCounts
+	ScenarioCounts,
+	Default
 };
 enum class SubScenarioEnum{
 	LV1,
@@ -71,7 +72,6 @@ private:
 
 	void _popupSetupMenu(cocos2d::Ref* sender);
 	void _popupBagLayer(cocos2d::Ref* sender);
-	void _popupWinLayer(cocos2d::Ref* sender);
 
 
 	/*Joystick callback*/
@@ -90,6 +90,8 @@ private:
 	MonsterManager* m_monsterMgr;
 	cocos2d::Sprite* m_map;
 	bool m_isSilence;
+	ScenarioEnum m_scenario;
+	SubScenarioEnum m_subscenario;
 
 };
 

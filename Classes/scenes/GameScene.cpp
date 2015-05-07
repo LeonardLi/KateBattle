@@ -63,6 +63,8 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
         return false;
     }
 
+	m_scenario = scenario;
+	m_subscenario = subscenario;
 	auto rootnode = loadCSB(scenario, subscenario);
 
 	this->addChild(rootnode, 0);
@@ -324,6 +326,13 @@ void GameScene::update(float dt){
 
 void GameScene::postWinMessage(float dt){
 	log("=============win!==============");
+	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
+	fakeBackground->begin();
+	this->getParent()->visit();
+	fakeBackground->end();
+	auto win = WinLayer::createScene(fakeBackground, m_scenario, m_subscenario);
+	Director::getInstance()->pushScene(win);
+	
 }
 
 void GameScene::postLoseMessage(float dt){
@@ -382,12 +391,6 @@ void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
 	SetupLayer* setup = static_cast<SetupLayer*>(setupLayer->getChildByTag(99));
 	setup->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupSetupMenu));
 	Director::getInstance()->pushScene(setupLayer);
-}
-
-void GameScene::_popupWinLayer(cocos2d::Ref* sender){
-	Director::getInstance()->pause();
-	WinLayer *winLayer = WinLayer::create();
-	this->addChild(winLayer, 2);
 }
 
 

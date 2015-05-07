@@ -63,4 +63,3 @@ void LoadingScene::__jumpToGame(){
     
 }
 
-
