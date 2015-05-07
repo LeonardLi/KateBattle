@@ -19,7 +19,7 @@ using namespace CocosDenshion;
 
 #define SKILL1COLDTIME 20
 #define SKILL2COLDTIME 30
-#define SKILL3COLDTIME 10
+#define SKILL3COLDTIME 60
 
 GameScene::GameScene():
 m_hero(nullptr),
@@ -95,6 +95,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	__createStickBar();
     
 	m_monsterMgr = MonsterManager::createWithLevel(11);
+	m_hero->m_heroMonsterList.clear();
 	m_hero->m_heroMonsterList = m_monsterMgr->m_showedMonsterList;
 	m_map->addChild(m_monsterMgr);
 
@@ -211,7 +212,7 @@ void GameScene::attackBtnOnClick(Ref* Sender){
 		auto callfunc = CallFunc::create([=](){
 			button->setTouchEnabled(true);
 		});
-		button->runAction(Sequence::create(DelayTime::create(0.8f), callfunc, NULL));
+		button->runAction(Sequence::create(DelayTime::create(m_hero->getcurAttackSpeed()), callfunc, NULL));
 	}
 }
 
@@ -280,12 +281,10 @@ void GameScene::skillBtn3OnClick(Ref* Sender){
 		shadow->runAction(to1);
 
 		auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(5.0f, 0));
-		auto shadow1 = ProgressTimer::create(Sprite::create("skillshadow.png"));
+		auto shadow1 = ProgressTimer::create(Sprite::create("sheld.png"));
 		shadow1->setPosition(250,600);
 		this->addChild(shadow1, 3, 1);
-		shadow1->setType(ProgressTimer::Type::BAR);
-		shadow1->setMidpoint(Vec2(1,0.5));
-		shadow1->setBarChangeRate(Vec2(1, 0));
+		shadow1->setType(ProgressTimer::Type::RADIAL);
 		shadow1->runAction(to2);
 
 
@@ -295,13 +294,39 @@ void GameScene::skillBtn3OnClick(Ref* Sender){
 }
 
 void GameScene::update(float dt){
-	
-	
 	for (auto monster : m_monsterMgr->getMonsterList())
 	{
 		monster->heroLocation = m_hero->getPosition();
 		monster->targetHero = m_hero;
 	}
+	if (m_hero->getisDead()==true)
+	{
+		this->unscheduleUpdate();
+		this->scheduleOnce(schedule_selector(GameScene::postLoseMessage), 3.0f);
+	}
+
+	for (auto monster1 : m_hero->m_heroMonsterList)
+	{
+		if (monster1->bossOrNot == true&&monster1->getisDead()==true){
+			this->unscheduleUpdate();
+			this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
+			return;
+		}
+		if (monster1->getisDead()==false)
+		{
+			return;
+		}
+	}
+	this->unscheduleUpdate();
+	this->scheduleOnce(schedule_selector(GameScene::postWinMessage),3.0f);
+}
+
+void GameScene::postWinMessage(float dt){
+	log("=============win!==============");
+}
+
+void GameScene::postLoseMessage(float dt){
+	log("=============lose!==============");
 }
 
 void GameScene::menuCloseCallback(Ref* pSender)

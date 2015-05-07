@@ -167,10 +167,9 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 
 
 	Point pos = m_hero->getPosition();
-	float moveSpeed = this->m_hero->getMoveSpeed();
+	float moveSpeed = this->m_hero->getCurSpeed();
 	resetHeroDirection();
 	judgeBlock();
-
 	switch (heroDirection)
 	{
 
@@ -188,8 +187,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 				m_isUp = true;
 				m_hero->playAnimaitonWalk(Direction::left);
 			}
-		}
-		
+		}	
 		break;
 	case JoystickEnum::D_DOWN:
 		m_isStand = false;

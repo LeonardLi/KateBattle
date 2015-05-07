@@ -18,6 +18,14 @@ enum class Direction{
 	right,
 	left
 };
+extern float defaultSpeed;
+extern float defaultAttackValue;
+extern float defaultHp;
+extern float defaultIntelligenceValue;
+extern float defautlAttackSpeed;
+extern float defaultDefenceValue;
+
+
 class Hero : public Entity{
 
 public:
@@ -57,6 +65,9 @@ public:
 	void playAnimaitonAttack(Direction);
 	void playAnimaitonHurt(Direction);
 	void playAnimaitonDead(Direction);
+
+	
+
 protected:
 	virtual void _loadCSB(std::string);
 	
@@ -97,17 +108,19 @@ private:
 	CC_SYNTHESIZE(float, m_moveSpeed, MoveSpeed);
 
 	CC_SYNTHESIZE(float, m_curAttackValue, curAttackValue);
-	
+	CC_SYNTHESIZE(float, m_equipAttackValue, equipCurAttackValue);
+
 	CC_SYNTHESIZE(float, m_curHp, curHp);
 	CC_SYNTHESIZE(float, m_upperHp, upperHp);
 
-	CC_SYNTHESIZE(float, m_EffectfenceValue, EffectDefenceValue);
+	CC_SYNTHESIZE(float, m_equipDefenceValue, equipDefenceValue);
 	CC_SYNTHESIZE(float, m_curDefenceValue, curDefenceValue);
 
 	CC_SYNTHESIZE(float, m_intelligenceValue, intelligenceValue);
-	
-	CC_SYNTHESIZE(float, m_curAttackSpeed, curAttackSpeed);
+	CC_SYNTHESIZE(float, m_curIntelligenceValue, curIntelligenceValue)
 
+	CC_SYNTHESIZE(float, m_curAttackSpeed, curAttackSpeed);
+	CC_SYNTHESIZE(float, m_equipAttackSpeed, equipAttackSpeed);
 
 
 	JoystickEnum m_direction;

@@ -32,7 +32,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("katty battle");
         director->setOpenGLView(glview);
     }
 	glview->setDesignResolutionSize(1280, 720, ResolutionPolicy::EXACT_FIT);

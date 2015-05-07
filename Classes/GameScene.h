@@ -74,6 +74,9 @@ private:
 	/*Joystick callback*/
 	void onDirectionChange(JoystickEnum);
 
+	void postWinMessage(float dt);
+	void postLoseMessage(float dt);
+
 	void postAttackNotification(float dt);
 	void postUseSkillNotification(float dt);
 	void postBossAttackNotification(float dt);

@@ -25,6 +25,13 @@
 //default attack speed
 #define DEFAULTATTACKSPEED 1.0f
 
+float defaultHp = 100.0f;
+float defaultAttackValue = 10.0f;
+float defaultDefenceValue = 0.0f;
+float defaultSpeed = 1.0f;
+float defaultIntelligenceValue = 5.0f;
+float defautlAttackSpeed = 1.5f;
+
 
 USING_NS_CC;
 using namespace cocostudio;
@@ -36,15 +43,19 @@ m_moveSpeed(1.0f),
 m_attackRange(100.0f),
 
 m_curAttackValue(10.0f),
+m_equipAttackValue(10.0f),
+
 m_curHp(100.0f),
 m_upperHp(100.0f),
 
-m_EffectfenceValue(0.0f),
+m_equipDefenceValue(0.0f),
 m_curDefenceValue(0.0f),
 
 m_intelligenceValue(5.0f),
+m_curIntelligenceValue(5.0f),
 
-m_curAttackSpeed(1.0f),
+m_curAttackSpeed(1.5f),
+m_equipAttackSpeed(1.5f),
 
 m_AttackPos(1),
 m_direction(JoystickEnum::DEFAULT),
@@ -199,12 +210,12 @@ void Hero::attack(){
 			float randomNum = CCRANDOM_0_1();
 			float randomNum2 = CCRANDOM_0_1();
 			float attackRate = randomNum2 / 2 + 0.75;
-			if (randomNum>0.9)
+			if (randomNum>0.8)
 			{
-				monster->monsterGetHurt((this->getcurAttackValue()+damageAddition) * 2 * attackRate, 0.0f);
+				monster->monsterGetHurt((this->getcurAttackValue()+damageAddition) * 2 * attackRate, 0.0f,true);
 			}
 			else
-				monster->monsterGetHurt((this->getcurAttackValue() + damageAddition) * attackRate, 0.0f);
+				monster->monsterGetHurt((this->getcurAttackValue() + damageAddition) * attackRate, 0.0f,false);
 			return;
 		}
 	}	
@@ -229,7 +240,16 @@ void Hero::hitGroundSkill()
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_9.c_str());
 	this->m_armature->getAnimation()->play("aoe",-1,0);
 	heroNotControl(1.7f);
-	
+	Label* label = Label::create("Tear the ground!", "fonts/Marker Felt.ttf", 30);
+	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
+	label->setColor(Color3B::BLACK);
+	this->addChild(label);
+	FadeIn* action1 = FadeIn::create(1.0f);
+	MoveBy* action2 = MoveBy::create(3.0f, Vec2(0, 30));
+	FadeOut* action3 = FadeOut::create(1.0f);
+	Sequence* seq1 = Sequence::create(action2, action3, NULL);
+	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+	label->runAction(seq2);
 	auto callFunc = CallFunc::create([=](){
 		for (auto monster : m_heroMonsterList)
 		{
@@ -238,7 +258,7 @@ void Hero::hitGroundSkill()
 				Vec2 distance = Vec2(this->getPositionX() - monster->getPositionX(), this->getPositionY() - monster->getPositionY());
 				if (distance.length() <= 400)
 				{
-					monster->monsterGetHurt(10+this->getintelligenceValue()*2, 1.0f);
+					monster->monsterGetHurt(10+this->getcurIntelligenceValue()*2, 1.0f,false);
 				}
 			}
 		}
@@ -248,13 +268,23 @@ void Hero::hitGroundSkill()
 
 void Hero::addDefenceValue(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_10.c_str());
-	this->setcurDefenceValue(getEffectDefenceValue() + 50);
+	Label* label = Label::create("Add defence value!", "fonts/Marker Felt.ttf", 30);
+	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
+	label->setColor(Color3B::BLACK);
+	this->addChild(label);
+	FadeIn* action1 = FadeIn::create(1.0f);
+	MoveBy* action2 = MoveBy::create(3.0f, Vec2(0, 30));
+	FadeOut* action3 = FadeOut::create(1.0f);
+	Sequence* seq1 = Sequence::create(action2, action3, NULL);
+	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+	label->runAction(seq2);
+	this->setcurDefenceValue(getequipDefenceValue() + 50);
 	this->scheduleOnce(schedule_selector(Hero::recoverDefenceValue),5.0f);
 }
 
 void Hero::recoverDefenceValue(float dt){
 
-	this->setcurDefenceValue(getEffectDefenceValue());
+	this->setcurDefenceValue(getequipDefenceValue());
 }
 
 void Hero::blink(){
@@ -262,6 +292,16 @@ void Hero::blink(){
 	Vec2 desPoint;
 	int direction;
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_8.c_str());
+	Label* label = Label::create("Blink!", "fonts/Marker Felt.ttf", 30);
+	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
+	label->setColor(Color3B::BLACK);
+	this->addChild(label);
+	FadeIn* action1 = FadeIn::create(1.0f);
+	MoveBy* action2 = MoveBy::create(3.0f, Vec2(0, 30));
+	FadeOut* action3 = FadeOut::create(1.0f);
+	Sequence* seq1 = Sequence::create(action2, action3, NULL);
+	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+	label->runAction(seq2);
 	this->m_armature->getAnimation()->play("blink", -1, 0);
 	if (this->m_moveController->leftOrRight == false)
 	{
@@ -299,10 +339,26 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 	if (this->getisDead() == false)
 	{
 		float iCurHp = getcurHp();
-		if (ivalue<getcurDefenceValue())
+		float randomNum2 = CCRANDOM_0_1();
+		float attackRate = randomNum2 / 2 + 0.75;
+		float afterValue = ivalue*attackRate;
+
+		if (afterValue<getcurDefenceValue())
 		{
 			return;
 		}
+		int hurtValue = afterValue;
+		auto string = std::to_string(hurtValue);
+		Label* label = Label::create(string, "fonts/Marker Felt.ttf", 30);
+		label->setPosition(this->getBoundingBox().size.width/2,this->getBoundingBox().size.height+40);
+		label->setColor(Color3B::BLACK);
+		this->addChild(label);
+		FadeIn* action1 = FadeIn::create(1.0f);
+		MoveBy* action2 = MoveBy::create(1.0f, Vec2(0, 30));
+		FadeOut* action3 = FadeOut::create(1.0f);
+		Sequence* seq1 = Sequence::create(action2, action3, NULL);
+		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+		label->runAction(seq2);
 		float iAfterHp = iCurHp - ivalue;
 		if (iAfterHp > 0)
 		{
@@ -329,9 +385,9 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 
 void Hero::changeSpeed(float slowValue, float slowTime){
 	float speed = this->getMoveSpeed();
-	if (speed==this->getCurSpeed())
+	if (speed==this->getMoveSpeed())
 	{
-		this->setMoveSpeed(speed*(1 - slowValue));
+		this->setCurSpeed(speed*(1 - slowValue));
 		if (this->isScheduled(schedule_selector(Hero::recoverSpeed)))
 		{
 			this->unschedule(schedule_selector(Hero::recoverSpeed));
@@ -343,7 +399,7 @@ void Hero::changeSpeed(float slowValue, float slowTime){
 }
 
 void Hero::recoverSpeed(float dt){
-	this->setMoveSpeed(this->getCurSpeed());
+	this->setCurSpeed(this->getMoveSpeed());
 }
 
 void Hero::playAnimaitonAttack(Direction direction){

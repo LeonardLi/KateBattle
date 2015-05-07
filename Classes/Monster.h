@@ -47,7 +47,7 @@ public:
 	
 	
 
-	void monsterGetHurt(float iValue, float time);
+	void monsterGetHurt(float iValue, float time,bool isCrit);
 	MonsterFSM* getFSM();
 	void attackSequence();
 	void useSkillSequence();
@@ -62,6 +62,10 @@ public:
 	void showFire(cocos2d::Vec2 location);
 
 	void choiceDirectionToAction(std::string action);
+
+	void castMessage(std::string message
+		);
+
 protected:
 	void onDead();
 	void onHurt();
@@ -122,14 +126,16 @@ public:
 	MonsterFSM* m_FSM;
 	bool skillOrAttack;
 	bool bossOrNot;
+
+	cocos2d::ProgressTimer* bloodBar;
 private:
 	CC_SYNTHESIZE(int, m_boxTag, boxTag);
 	CC_SYNTHESIZE(double, m_attackRange, attackRange);
 	CC_SYNTHESIZE(float, m_AttackValue, AttackValue);
 	CC_SYNTHESIZE(float, m_DefenceValue, DefenceValue);
 	CC_SYNTHESIZE(float, m_SpeedRate, SpeedRate);
-
-
+	CC_SYNTHESIZE(float, m_Hp, Hp);
+	CC_SYNTHESIZE(float, m_upperHp, upperHp);
 	CC_SYNTHESIZE(float, m_attackTime, attackTime);
 	CC_SYNTHESIZE(float, m_viewRange, viewRange);
 	cocostudio::Armature* m_armature;
@@ -186,7 +192,7 @@ public:
 	
 private:
 	Monster* monsterAssist;
-
+	
 };
 
 

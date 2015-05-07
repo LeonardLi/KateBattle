@@ -49,7 +49,7 @@ protected:
 	//int m_Stun;//3types
 private:
 	CC_SYNTHESIZE(int, m_Stun, Stun);
-	CC_SYNTHESIZE(float, m_Hp, Hp);
+
 };
 
 class BackupEntity :public cocos2d::ui::Button{
