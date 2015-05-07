@@ -42,7 +42,7 @@ bool MenuScene::init(){
 	if (!SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
 	SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str());
 	loadCSBFromfile();
-
+	m_isSilence = false;
 	return true;
 
 }
@@ -116,8 +116,14 @@ void MenuScene::_ChooseScenario(){
 }
 
 void MenuScene::_showSetup(){
-	SetupLayer* setup = SetupLayer::create(false);
-	this->addChild(setup, 2);
+	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
+	fakeBackground->begin();
+	this->getParent()->visit();
+	fakeBackground->end();
+	Scene* setupLayer = SetupLayer::createScene(fakeBackground, m_isSilence);
+	SetupLayer* setup = static_cast<SetupLayer*>(setupLayer->getChildByTag(99));
+	setup->setCallbackFunc(this, callfuncN_selector(MenuScene::__handlePopupSetupMenu));
+	Director::getInstance()->pushScene(setupLayer);
 }
 
 void MenuScene::_quit(){
@@ -131,4 +137,13 @@ void MenuScene::_quit(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
+}
+
+void MenuScene::__handlePopupSetupMenu(Node* sender){
+	if (m_isSilence){
+		m_isSilence = false;
+	}
+	else{
+		m_isSilence = true;
+	}
 }

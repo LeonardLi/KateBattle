@@ -50,13 +50,33 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
     ImageView* image = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
     Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(6));
     Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
-    
+
+	Text* speed = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(194));
+	Text* attackValue = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(192));
+	Text* Hp = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(189));
+	Text* defence = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(190));
+	Text* intelligence = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(191));
+	Text* attackRate = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(193));
+	
+
     Equip->addClickEventListener(CC_CALLBACK_1(DetailLayer::onEquipBuntonClicked, this));
 	backButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
+	EquipmentInfo info = JsonUtility::getInstance()->getEquipment(eq->getEquipmentID());
+    image->loadTexture(info.EquipAddress);
+    name->setString(info.EquipName);
+    intro->setString(info.EquipInfo);
+	intro->ignoreContentAdaptWithSize(false);
+	intro->setContentSize(Size(110.0f, 130.0f));
+	intro->setPosition(Vec2(218,280));
+	speed->setString(std::to_string((int)eq->getMoveRate()));
+	attackRate->setString(std::to_string((int)eq->getAttackRate()));
+	Hp->setString(std::to_string((int)eq->getBlood()));
+	defence->setString(std::to_string((int)eq->getDenfense()));
+	intelligence->setString(std::to_string((int)eq->getIntelligence()));
+	attackRate->setString(std::to_string((int)eq->getAttackRate()));
 	
-    image->loadTexture(JsonUtility::getInstance()->getEquipment(eq->getEquipmentID()).EquipAddress);
-    name->setString(JsonUtility::getInstance()->getEquipment(eq->getEquipmentID()).EquipName);
-    intro->setString(JsonUtility::getInstance()->getEquipment(eq->getEquipmentID()).EquipInfo);
+
+
     this->addChild(rootNode);
 }
 
@@ -70,7 +90,12 @@ void DetailLayer::__loadPicFromCSB(InventoryEnum type){
 	Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(5));
 	ImageView* avatar = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
 
+
+
 	Tool inventory = JsonUtility::getInstance()->getTool(static_cast<int>(type));
+	intro->ignoreContentAdaptWithSize(false);
+	intro->setContentSize(Size(200.0f,115.0f));
+	intro->setPosition(Vec2(225.0f,105.0f));
 	name->setString(inventory.ToolName);
 	intro->setString(inventory.ToolInfo);
 	avatar->loadTexture(inventory.ToolAddress);
@@ -152,10 +177,13 @@ void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
 	JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)] = i - 1;
 	Node* node = static_cast<Node*>(sender);
 	node->setTag(static_cast<int>(m_type));
+
 	if (m_callback && m_callbackListener)
 	{
 		(m_callbackListener->*m_callback)(node);
 	}
+
+
 	this->removeFromParent();
 
 }

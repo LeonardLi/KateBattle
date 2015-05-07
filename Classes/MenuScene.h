@@ -26,7 +26,10 @@ private:
 	void _ChooseScenario();
 	void _showSetup();
 	void _quit();
+	void __handlePopupSetupMenu(cocos2d::Node*);
 
+	bool m_isSilence;
 };
+
 
 #endif /* defined(__KateBattle__MenuScene__) */

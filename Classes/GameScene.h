@@ -54,6 +54,9 @@ private:
 	cocos2d::Layer* loadControlLayer();
 
 	void __createStickBar();
+	void __updateHero();
+
+	void __useInventory(InventoryEnum);
 /////////////////////////////////////////////////////////////////////////CALLBACK
 
 	/*control callback*/

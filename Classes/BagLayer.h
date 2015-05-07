@@ -40,16 +40,17 @@ private:
 	void onBackButtonClickListener(cocos2d::Ref*);
 
 	bool __initFromFile();
-	Equipment* __matchPic(int);
-
 	void __playAnimation(InventoryEnum);
 	void __replaceEquipment(Equipment*);
     void __flushInventory();
 	void __flushEquipment();
+	void __flushHeroStatus();
+	void __updateHeroData(Equipment* , bool);
+	void __updateHeroData(Equipment* newEqu, Equipment* oldEqu);
+	void __updateHeroData(InventoryEnum);
 
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;
-
 	cocos2d::Vector<Equipment*> m_equipmentVec;
 	cocos2d::EventListenerTouchOneByOne* m_listener;
 	cocos2d::EventDispatcher* m_dispatcher;

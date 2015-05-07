@@ -9,6 +9,7 @@
 #include "SoundsDef.h"
 #include "SoundsController.h"
 #include <string>
+#include "Hero.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -78,7 +79,8 @@ bool BagLayer::init(){
 bool BagLayer::__initFromFile(){
 	User& user = JsonUtility::getInstance()->user;
 	for (int i = 0; i < user.EquipmentNumber; i++) {
-			Equipment* aEquipment = __matchPic(user.Equip[i].ID);
+			std::string file = JsonUtility::getInstance()->getEquipment(user.Equip[i].ID).EquipAddress;
+			Equipment* aEquipment = Equipment::create(file, file, file);
 			aEquipment->setBlood(user.Equip[i].Blood);
 			aEquipment->setIntelligence(user.Equip[i].Intelligence);
 			aEquipment->setEquipmentID(user.Equip[i].ID);
@@ -96,55 +98,6 @@ bool BagLayer::__initFromFile(){
 	return true;
 }
 
-Equipment* BagLayer::__matchPic(int ID){
-	std::string filename;
-	switch (ID)
-	{
-	case 0:
-		filename = "bag/equ_11.png";
-		break;
-	case 1:
-		filename = "bag/equ_12.png";
-		break;
-	case 2:
-		filename = "bag/equ_13.png";
-		break;
-	case 3:
-		filename = "bag/equ_21.png";
-		break;
-	case 4:
-		filename = "bag/equ_22.png";
-		break;
-	case 5:
-		filename = "bag/equ_23.png";
-		break;
-	case 6:
-		filename = "bag/equ_31.png";
-		break;
-	case 7:
-		filename = "bag/equ_32.png";
-		break;
-	case 8:
-		filename = "bag/equ_33.png";
-		break;
-	case 9:
-		filename = "bag/equ_41.png";
-		break;
-	case 10:
-		filename = "bag/equ_42.png";
-		break;
-	case 11:
-		filename = "bag/equ_43.png";
-		break;
-
-		break;
-	default:
-		break;
-	}
-	Equipment* eq = Equipment::create(filename, filename, filename);
-	return eq;
-}
-
 void BagLayer::setCallbackFunc(cocos2d::Ref* target, cocos2d::SEL_CallFuncN callFun){
 	m_callback = callFun;
 	m_callbackListener = target;
@@ -154,8 +107,8 @@ void BagLayer::__loadPicFromCSB(){
 	m_baglayer = static_cast<Node*>(CSLoader::createNode("bag/bag.csb"));
 	Button* backButton = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(76));
 	backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
-
-
+		
+	__flushHeroStatus();
 	__flushEquipment();
     __flushInventory();
 	this->addChild(m_baglayer);
@@ -196,7 +149,12 @@ void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
 }
 
 void BagLayer::onBackButtonClickListener(Ref* sender){
-	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
+	Node* node = static_cast<Node*>(sender);
+	node->setTag(101); 
+	if (m_callbackListener && m_callback)
+	{
+		(m_callbackListener->*m_callback)(node);
+	}
 	Director::getInstance()->popScene();
 }
 
@@ -204,22 +162,34 @@ void BagLayer::onBackButtonClickListener(Ref* sender){
 void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 	Equipment* equ = static_cast<Equipment*>(sender);
 	if (equ->getUsed()){
-		//equip else unequip
+		//equip 
 		__replaceEquipment(equ);
+	
 	}
+	else{
+		//unequip
+		__updateHeroData(equ, true);
+	}
+
 	__flushEquipment();
+	__flushHeroStatus();
 }
 
 void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
 	InventoryEnum type = static_cast<InventoryEnum>(sender->getTag());
-    __flushInventory();
+	__flushInventory();
+	__flushHeroStatus();
 	__playAnimation(type);
+	if (m_callback && m_callbackListener)
+	{
+		(m_callbackListener->*m_callback)(sender);
+	}
 }
 
 void BagLayer::__playAnimation(InventoryEnum type){
 	//show different thing according to the type
-
-	Label* label = Label::create("Hello","fonts/arial.ttf", 20);
+	Tool inventory = JsonUtility::getInstance()->getTool(static_cast<int>(type));
+	Label* label = Label::create(inventory.ToolInfo,"fonts/arial.ttf", 20);
 	label->setPosition(Vec2(640, 360));
 	this->addChild(label);
 	FadeIn* action1 = FadeIn::create(1.0f);
@@ -240,6 +210,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 		if (0 == bg->getChildByTag(178)->getChildrenCount())
 		{	
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, false);
 		}
 		else
 		{
@@ -248,6 +219,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, temp);
 
 		}
 		break;
@@ -255,6 +227,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 		if (0 == bg->getChildByTag(179)->getChildrenCount())
 		{
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, false);
 		}
 		else
 		{
@@ -263,12 +236,14 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, temp);
 		}
 		break;
 	case EquipmentType::Cloth:
 		if (0 == bg->getChildByTag(180)->getChildrenCount())
 		{
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, false);
 		}
 		else
 		{
@@ -277,12 +252,14 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, temp);
 		}
 		break;
 	case EquipmentType::Shoes:
 		if (0 == bg->getChildByTag(181)->getChildrenCount())
 		{
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, false);
 		}
 		else
 		{
@@ -291,6 +268,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;
 			user.Equip[equ->getIndex()].Used = true;
+			__updateHeroData(equ, temp);
 		}
 		break;
 	default:
@@ -375,4 +353,63 @@ void BagLayer::__flushEquipment(){
 			}
 		}
 	}
+}
+
+void BagLayer::__flushHeroStatus(){
+	Text* speed = static_cast<Text*>(m_baglayer->getChildByTag(139)->getChildByTag(167));
+	Text* attackValue = static_cast<Text*>(m_baglayer->getChildByTag(139)->getChildByTag(165));
+	Text* Hp = static_cast<Text*>(m_baglayer->getChildByTag(139)->getChildByTag(163));
+	Text* defence = static_cast<Text*>(m_baglayer->getChildByTag(139)->getChildByTag(157));
+	Text* intelligence = static_cast<Text*>(m_baglayer->getChildByTag(139)->getChildByTag(164));
+	Text* attackRate = static_cast<Text*>(m_baglayer->getChildByTag(139)->getChildByTag(166));
+
+	User user = JsonUtility::getInstance()->user;
+
+	speed->setString(std::to_string((int)user.UserMoveRate));
+	attackValue->setString(std::to_string((int)user.UserAttack));
+	Hp->setString(std::to_string((int)user.UserHealth));
+	defence->setString(std::to_string((int)user.UserDefense));
+	intelligence->setString(std::to_string((int)user.UserIntelligence));
+	attackRate->setString(std::to_string((int)user.UserAttackRate));
+}
+
+void BagLayer::__updateHeroData(InventoryEnum type){
+	
+}
+
+void BagLayer::__updateHeroData(Equipment* equ, bool type){
+	User& user = JsonUtility::getInstance()->user;
+	//update the value
+	if (type){
+		float healthRate = user.UserCulHealth / user.UserHealth;
+		user.UserAttack = user.UserAttack - equ->getAttack();
+		user.UserMoveRate = user.UserMoveRate - equ->getMoveRate();
+		user.UserAttackRate = user.UserAttackRate - equ->getAttackRate();
+		user.UserHealth = user.UserHealth - equ->getBlood();
+		user.UserCulHealth = user.UserCulHealth * healthRate;
+		user.UserDefense = user.UserDefense - equ->getDenfense();
+		user.UserIntelligence = user.UserIntelligence - equ->getIntelligence();
+	}
+	else{
+		float healthRate = user.UserCulHealth / user.UserHealth;
+		user.UserAttack = user.UserAttack + equ->getAttack();
+		user.UserMoveRate = user.UserMoveRate + equ->getMoveRate();
+		user.UserAttackRate = user.UserAttackRate + equ->getAttackRate();
+		user.UserHealth = user.UserHealth + equ->getBlood();
+		user.UserCulHealth = user.UserCulHealth * healthRate;
+		user.UserDefense = user.UserDefense + equ->getDenfense();
+		user.UserIntelligence = user.UserIntelligence + equ->getIntelligence();
+	}
+}
+
+void BagLayer::__updateHeroData(Equipment* newEqu, Equipment* oldEqu){
+	User& user = JsonUtility::getInstance()->user;
+	float healthRate = user.UserCulHealth / user.UserHealth;
+	user.UserAttack = user.UserAttack - oldEqu->getAttack() + newEqu->getAttack();
+	user.UserMoveRate = user.UserMoveRate - oldEqu->getMoveRate() + newEqu->getAttack();
+	user.UserAttackRate = user.UserAttackRate - oldEqu->getAttackRate() + newEqu->getAttackRate();
+	user.UserHealth = user.UserHealth - oldEqu->getBlood() + newEqu->getBlood();
+	user.UserCulHealth = user.UserCulHealth * healthRate;
+	user.UserDefense = user.UserDefense - oldEqu->getDenfense() + newEqu->getDenfense() ;
+	user.UserIntelligence = user.UserIntelligence - oldEqu->getIntelligence() + newEqu->getIntelligence();
 }

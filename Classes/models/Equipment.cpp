@@ -18,6 +18,8 @@ m_isUsed(false)
 {
 }
 
+Equipment::~Equipment(){
+}
 Equipment* Equipment::create(const std::string& normalImage, 
 							 const std::string& selectedImage /* = "" */, 
 							 const std::string& disableImage /* = "" */, 

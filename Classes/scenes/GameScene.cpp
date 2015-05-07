@@ -11,6 +11,7 @@
 #include "MenuScene.h"
 #include "SoundsController.h"
 #include "SoundsDef.h"
+#include "Inventory.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -402,12 +403,53 @@ void GameScene::_handlePopupSetupMenu(cocos2d::Node* sender){
 
 void GameScene::_handlePopupBagLayer(cocos2d::Node* sender){
 	log("outside handle=== %d",sender->getTag());
+	if (101 == sender->getTag()){
+		__updateHero();
+	}
+	else{
+		__useInventory(static_cast<InventoryEnum>(sender->getTag()));
+	}
+	
 }
 
 void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
 	
 }
 
+void GameScene::__updateHero(){
+	User user = JsonUtility::getInstance()->user;
+	m_hero->setcurHp(user.UserCulHealth);
+	m_hero->setMoveSpeed(user.UserMoveRate);
+	m_hero->setupperHp(user.UserHealth);
+	m_hero->setequipDefenceValue(user.UserDefense);
+	m_hero->setcurAttackSpeed(user.UserAttackRate);
+	m_hero->setintelligenceValue(user.UserIntelligence);
+	m_hero->setcurAttackValue(user.UserAttack);
+	
+	//update Control layer
+	
+}
+
+void GameScene::__useInventory(InventoryEnum type){
+	switch (type)
+	{
+	case InventoryEnum::sBlood:
+
+		break;
+	case InventoryEnum::bBlood:
+		break;
+	case InventoryEnum::jifengyaoshui:
+		break;
+	case InventoryEnum::fengkuangyaoshui:
+		break;
+	case InventoryEnum::mianyiyaoshui:
+		break;
+	case InventoryEnum::xianlingyaoshui:
+		break;
+	default:
+		break;
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////
 

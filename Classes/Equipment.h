@@ -18,6 +18,7 @@ enum class EquipmentType{
 class Equipment :public cocos2d::ui::Button{
 public:
 	Equipment();
+	~Equipment();
 	static Equipment* create(const std::string& normalImage,
 							const std::string& selectedImage = "",
 							const std::string& disableImage = "",

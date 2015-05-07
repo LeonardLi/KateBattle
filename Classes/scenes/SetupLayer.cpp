@@ -116,9 +116,9 @@ void SetupLayer::onSoundControlButtonClicked(cocos2d::Ref* sender){
 	}
 	if (m_isSilence){
 		m_isSilence = false;
-		m_slider->setPercent(50);
+		m_slider->setPercent(25);
         SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-        SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5f);
+        SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 	}
 	else{
 		m_isSilence = true;
