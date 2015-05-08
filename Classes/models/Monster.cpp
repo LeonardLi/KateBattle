@@ -1176,7 +1176,7 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 	}
 
 
-	//ËÀÍö
+	//ï¿½ï¿½ï¿½ï¿½
 	else
 	{
 		setHp(0.0);

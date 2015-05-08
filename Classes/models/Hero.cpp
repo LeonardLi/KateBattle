@@ -430,7 +430,7 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		{
 			setcurHp(iAfterHp);
 		}
-		//ËÀÍö
+		//ï¿½ï¿½ï¿½ï¿½
 		else
 		{
 			setcurHp(0);
