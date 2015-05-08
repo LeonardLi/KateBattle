@@ -33,6 +33,7 @@ struct User								//玩家用户信息
 	int UserBonesNumber;
 	int UserGoldsNumber;
 	int EquipmentNumber;      //change 
+	int LogNumber;
 	double UserHealth;
 	double UserCulHealth;
 	double UserAttack;

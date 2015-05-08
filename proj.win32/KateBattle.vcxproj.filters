@@ -118,6 +118,9 @@
     <ClCompile Include="..\Classes\scenes\LoadingScene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\VideoPlay.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LoadingScene.h">
       <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VideoPlay.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
