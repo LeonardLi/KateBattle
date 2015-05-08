@@ -7,10 +7,10 @@
     "LogNumber": 0,
     "UserHealth": 180,
     "UserDefense": 22,
-    "UserAttack": 56,
+    "UserAttack": 36,
     "UserIntelligence": 10,
     "UserAttackRate": 12,
-    "UserMoveRate": 50  ,
+    "UserMoveRate": 35  ,
     "EquipmentNumber": 1,
     "SkillID": [
       1,

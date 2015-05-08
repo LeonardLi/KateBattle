@@ -102,8 +102,8 @@ bool Hero::init(){
 
 void Hero::flashHero(){
 	User user = JsonUtility::getInstance()->user;
-	setMoveSpeed(1.1 + user.UserMoveRate*0.014);
-	setCurSpeed(1.1 + user.UserMoveRate*0.014);
+	setMoveSpeed(0.9 + user.UserMoveRate*0.011);
+	setCurSpeed(0.9 + user.UserMoveRate*0.011);
 	setequipAttackValue(user.UserAttack);
 	setcurAttackValue(user.UserAttack);
 	setupperHp(user.UserHealth);
@@ -435,6 +435,15 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		if (stunTime > 0)
 		{
 			this->herostun(stunTime);
+			if (isScheduled(schedule_selector(Hero::changeToStand)))
+			{
+				this->unschedule(schedule_selector(Hero::changeToStand));
+				this->scheduleOnce(schedule_selector(Hero::changeToStand), stunTime);
+			}
+			else
+			{
+				this->scheduleOnce(schedule_selector(Hero::changeToStand), stunTime);
+			}
 		}
 
 		if (slowValue > 0.01)

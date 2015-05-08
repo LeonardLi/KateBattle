@@ -232,7 +232,7 @@ void GameScene::attackBtnOnClick(Ref* Sender){
 		auto callfunc = CallFunc::create([=](){
 			button->setTouchEnabled(true);
 		});
-		button->runAction(Sequence::create(DelayTime::create(2.0-m_hero->getcurAttackSpeed()/80), callfunc, NULL));
+		button->runAction(Sequence::create(DelayTime::create(2.0-m_hero->getcurAttackSpeed()*3/260), callfunc, NULL));
 	}
 }
 
@@ -374,13 +374,13 @@ void GameScene::postLoseMessage(float dt){
 	User& user = JsonUtility::getInstance()->user;
 	user.UserCulHealth = user.UserHealth;
 	int money = user.UserGoldsNumber;
-	if (money-100*user.UserLevel<0)
+	if (money-100*(user.UserLevel+1)<0)
 	{
 		user.UserGoldsNumber = 0;
 	}
 	else
 	{
-		user.UserGoldsNumber = money - 100 * user.UserLevel;
+		user.UserGoldsNumber = money - 100 * (user.UserLevel + 1);
 	}
 
 	auto lose = LoseLayer::createScene(fakeBackground, m_scenario, m_subscenario);

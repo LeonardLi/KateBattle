@@ -83,7 +83,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setHp(150);
 			setupperHp(150);
 			setAttackValue(60.0f);
-			setDefenceValue(18.0f);
+			setDefenceValue(24.0f);
 			setattackRange(100.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			createName("Brown Hyde Lv1", 90);
@@ -96,7 +96,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setupperHp(180);
 			setattackRange(100.0f);
 			setAttackValue(100.0f);
-			setDefenceValue(22.0f);
+			setDefenceValue(26.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			createName("Cruel Manu Lv1", 90);
 			break;
@@ -144,10 +144,10 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			_loadCSB("monster2/monster2.csb", 19);
 			m_monsterType = MonsterType::normalFatTypeLv1;
 			monsterLevel = 1;
-			setHp(80);
-			setupperHp(80);
+			setHp(60);
+			setupperHp(60);
 			setattackRange(100.0f);
-			setDefenceValue(40.0f);
+			setDefenceValue(45.0f);
 			setAttackValue(40.0f);
 			setContentSize(Size(85, 105));
 			createName("Stone Johnson Lv1", 90);
@@ -254,11 +254,11 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 		case MonsterType::normalIronTypeLv2:
 			_loadCSB("monster2/monster2.csb", 19);
 			m_monsterType = MonsterType::normalFatTypeLv2;
-			setHp(180);
-			setupperHp(180);
+			setHp(140);
+			setupperHp(140);
 			setattackRange(100.0f);
 			setAttackValue(200.0f);
-			setDefenceValue(105.0f);
+			setDefenceValue(95.0f);
 			monsterLevel = 2;
 			setContentSize(Size(85, 105));
 			createName("Stone Johnson Lv2", 90);
@@ -904,10 +904,18 @@ void Monster::__judgeAttackHero(){
 	
 	if (m_direction==false)
 	{
-		rect = Rect(this->getPositionX() - this->getattackRange(), this->getPositionY(), this->getattackRange()*0.75, this->getattackRange()/2);
+		rect = Rect(this->getPositionX() - this->getattackRange(), this->getPositionY(), this->getattackRange()+30, this->getattackRange()/2);
 	}
 	else
-		rect = Rect(this->getPositionX() + this->getContentSize().width-10 , this->getPositionY(), this->getattackRange()*0.75, this->getattackRange() / 2);
+		rect = Rect(this->getPositionX(), this->getPositionY(), this->getattackRange()*0.85 + this->getContentSize().width / 2, this->getattackRange() / 2);
+
+	//Rect rect1 = rect->getBoundingBox();
+	auto s = Director::getInstance()->getWinSize();
+	auto draw = DrawNode::create();
+	this->getParent()->addChild(draw, 10);
+	//Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
+	Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
+	draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
 
 	if (this->targetHero->getBoundingBox().intersectsRect(rect)&&this->targetHero->getisDead()==false)
 	{
@@ -1109,7 +1117,7 @@ void Monster::onDead(){
 		else
 		{
 			float randomNum = RandomHelper::random_real(0.0f, 1.0f);
-			if (randomNum>0.1)
+			if (randomNum>0.8)
 			{
 				auto box = TreasureBox::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
 				box->setPosition(this->getPositionX(), this->getPositionY() - 40);
