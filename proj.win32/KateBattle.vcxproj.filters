@@ -121,6 +121,9 @@
     <ClCompile Include="..\Classes\tools\VideoPlay.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\models\TreasureBox.cpp">
+      <Filter>src\models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -213,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\VideoPlay.h">
       <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TreasureBox.h">
+      <Filter>src\models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

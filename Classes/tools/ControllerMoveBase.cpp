@@ -51,6 +51,9 @@ bool ControllerMoveBase::init(Hero* hero, Sprite* map){
 	}
 	this->m_hero = hero;
 	this->m_map = map;
+
+	m_rightBoundary = -1 * (m_map->getContentSize().width - 1280.0f);
+	m_leftBoundary = 0.0f;
 	return true;
 }
 
@@ -160,11 +163,13 @@ void ControllerMoveBase::resetHeroDirection(){
 
 }
 
-
+void ControllerMoveBase::setBoundary(){
+	m_rightBoundary = -1 * (m_map->getContentSize().width * 2 - 1280.0f);
+	m_leftBoundary = -1 * (m_map->getContentSize().width);
+}
 void ControllerMoveBase::simpleMove(JoystickEnum direction){
 
 	heroDirection = direction;
-
 
 	Point pos = m_hero->getPosition();
 	float moveSpeed = this->m_hero->getCurSpeed();
@@ -208,7 +213,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		break;
 	case JoystickEnum::D_LEFT:
 		m_isStand = false;
-		if (getisAllowToLeft())
+		if (getisAllowToLeft() && m_map->convertToWorldSpace(m_hero->getPosition()).x >= 50)
 		{
 			leftOrRight = false;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y);
@@ -218,11 +223,12 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 				m_hero->playAnimaitonWalk(Direction::left);
 				m_isRight = false;
 			}
+			__rollmapBackward();
 		}
 		break;
 	case JoystickEnum::D_RIGHT:	
 		m_isStand = false;
-		if (getisAllowToRight())
+		if (getisAllowToRight() && m_map->convertToWorldSpace(m_hero->getPosition()).x <= 1230.0f)
 		{
 			leftOrRight = true;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y);
@@ -237,7 +243,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		break;
 	case JoystickEnum::D_LEFT_UP:
 		m_isStand = false;		
-		if (getisAllowToLeftUp() && m_hero->getPositionY() < 350.0f)
+		if (getisAllowToLeftUp() && m_hero->getPositionY() < 350.0f && m_map->convertToWorldSpace(m_hero->getPosition()).x >= 50)
 		{
 			leftOrRight = false;
 			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
@@ -247,13 +253,13 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 				m_hero->playAnimaitonWalk(Direction::left);
 				m_isRight = false;
 			}
-			
+			__rollmapBackward();
 		}
 		
 		break;
 	case JoystickEnum::D_RIGHT_UP:
 		m_isStand = false;
-		if (getisAllowToRightUp() && m_hero->getPositionY() < 350.0f)
+		if (getisAllowToRightUp() && m_hero->getPositionY() < 350.0f && m_map->convertToWorldSpace(m_hero->getPosition()).x < 1230.0f)
 		{
 			leftOrRight = true;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y + moveSpeed);
@@ -269,22 +275,23 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		break;
 	case JoystickEnum::D_LEFT_DOWN:
 		m_isStand = false;
-		if (getisAllowToLeftDown() && m_hero->getPositionY() >= 45.0f)
+		if (getisAllowToLeftDown() && m_hero->getPositionY() >= 45.0f && m_map->convertToWorldSpace(m_hero->getPosition()).x >= 50)
 		{
 			leftOrRight = false;
+			m_hero->setPosition(pos.x - moveSpeed, pos.y - moveSpeed);
 			if (!m_isLeft)
 			{
 				m_isLeft = true;
 				m_hero->playAnimaitonWalk(Direction::left);
 				m_isRight = false;
-			}
-			m_hero->setPosition(pos.x - moveSpeed, pos.y - moveSpeed);
+			}			
+			__rollmapBackward();
 		}
 
 		break;
 	case JoystickEnum::D_RIGHT_DOWN:
 		m_isStand = false;
-		if (getisAllowToRightDown() && m_hero->getPositionY() > 45.0f)
+		if (getisAllowToRightDown() && m_hero->getPositionY() > 45.0f && m_map->convertToWorldSpace(m_hero->getPosition()).x < 1230.0f)
 		{
 			leftOrRight = true;
 			m_hero->setPosition(pos.x + moveSpeed, pos.y - moveSpeed);
@@ -320,11 +327,17 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 }
 
 void ControllerMoveBase::__rollmapForward(){
-	if (m_map->convertToWorldSpace(m_hero->getPosition()).x >= 640){
+	if (m_map->convertToWorldSpace(m_hero->getPosition()).x >= 640 && m_map->getPosition().x >= m_rightBoundary){
 		m_map->setPosition(Vec2(m_map->getPositionX() - m_hero->getMoveSpeed(), m_map->getPositionY()));
+		//log("map: %f ,%f", m_map->getPosition().x, m_map->getPosition().y);
+		//log("hero: %f", m_map->convertToWorldSpace(m_hero->getPosition()).x);
+		
 	}
 }
 
 void ControllerMoveBase::__rollmapBackward(){
-
+	if (m_map->convertToWorldSpace(m_hero->getPosition()).x <= 50 && m_map->getPosition().x <= m_leftBoundary)
+	{
+		m_map->setPosition(Vec2(m_map->getPositionX() + m_hero->getMoveSpeed(), m_map->getPositionY()));
+	}
 }

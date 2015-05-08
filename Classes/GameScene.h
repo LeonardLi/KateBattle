@@ -6,8 +6,10 @@
 class Hero;
 class MonsterManager;
 class Joystick;
+class ControllerMoveBase;
 enum class JoystickEnum;
 enum class InventoryEnum;
+
 enum class ScenarioEnum{	
 	Port,
 	Market,
@@ -94,7 +96,7 @@ private:
 	bool m_isSilence;
 	ScenarioEnum m_scenario;
 	SubScenarioEnum m_subscenario;
-
+	ControllerMoveBase* m_controller;
 };
 
 /************************************************************************/

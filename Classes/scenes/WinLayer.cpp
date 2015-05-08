@@ -59,7 +59,7 @@ void WinLayer::__loadPicFromCSB(){
 	reloadButton->addClickEventListener(CC_CALLBACK_1(WinLayer::onReloadButtonClicked, this));
 	nextButton->addClickEventListener(CC_CALLBACK_1(WinLayer::onNextButtonClicked, this));
 	backButton->addClickEventListener(CC_CALLBACK_1(WinLayer::onBackButtonClicked, this));
-
+	this->addChild(rootNode);
 }
 
 bool WinLayer::init(ScenarioEnum scenario, SubScenarioEnum subscenario){
@@ -120,13 +120,16 @@ void WinLayer::onNextButtonClicked(cocos2d::Ref*){
 		m_subScenario = static_cast<SubScenarioEnum>(i);
 		scene = GameScene::createScene(m_scenario, m_subScenario);
 	}
-	if (m_scenario != ScenarioEnum::Sewer){
+	else if (m_scenario != ScenarioEnum::Sewer){
 		int k = static_cast<int>(m_scenario);
 		k++;
 		m_scenario = static_cast<ScenarioEnum>(k);
 		m_subScenario = SubScenarioEnum::LV1;
 		scene = GameScene::createScene(m_scenario, m_subScenario);
 		
+	}
+	else{
+		//Over game
 	}
 	Director::getInstance()->replaceScene(scene);
 }

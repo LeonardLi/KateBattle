@@ -19,6 +19,8 @@ public:
 
 	void resetHeroDirection();
 
+	void setBoundary();
+
 	static ControllerMoveBase* create(Hero* hero, cocos2d::Sprite* map);
 
 private:
@@ -51,4 +53,6 @@ private:
 	bool m_isStand;
 	bool m_isUp;
 	bool m_isDown;
+	float m_rightBoundary;
+	float m_leftBoundary;
 };

@@ -45,20 +45,20 @@ void MonsterManager::createMonsters(int iCurlevel){
 	this->addChild(monster1);
 
 	Monster* monster2 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv1);
-	monster2->setPosition(400, 200);
+	monster2->setPosition(4000, 200);
 	monster2->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster2);
-	m_monsterScreen1List.pushBack(monster2);
+	m_monsterScreen2List.pushBack(monster2);
 	m_showedMonsterList.pushBack(monster2);
 	this->addChild(monster2);
 
-	Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv1);
+	/*Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv1);
 	monster3->setPosition(400, 200);
 	monster3->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster3);
 	m_showedMonsterList.pushBack(monster3);
 	m_monsterScreen1List.pushBack(monster3);
-	this->addChild(monster3);
+	this->addChild(monster3);*/
 
 	//Rect rect = monster2->getBoundingBox();
 	//auto s = Director::getInstance()->getWinSize();

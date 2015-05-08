@@ -150,6 +150,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\models\MonsterFSM.cpp" />
     <ClCompile Include="..\Classes\models\StateAttack.cpp" />
     <ClCompile Include="..\Classes\models\StateUseSkill.cpp" />
+    <ClCompile Include="..\Classes\models\TreasureBox.cpp" />
     <ClCompile Include="..\Classes\scenes\BagLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\DetailLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
@@ -195,6 +196,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\SoundsDef.h" />
     <ClInclude Include="..\Classes\StateAttack.h" />
     <ClInclude Include="..\Classes\StateUseSkill.h" />
+    <ClInclude Include="..\Classes\TreasureBox.h" />
     <ClInclude Include="..\Classes\VideoPlay.h" />
     <ClInclude Include="..\Classes\VisibleRect.h" />
     <ClInclude Include="..\Classes\WinLayer.h" />

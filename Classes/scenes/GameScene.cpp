@@ -86,8 +86,8 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_map->addChild(m_hero, 10);
 	
 
-	ControllerMoveBase *controller = ControllerMoveBase::create(m_hero, m_map);
-	m_hero->setMoveController(controller);
+	m_controller = ControllerMoveBase::create(m_hero, m_map);
+	m_hero->setMoveController(m_controller);
 
 	__createStickBar();
     
@@ -344,6 +344,7 @@ void GameScene::update(float dt){
 
 void GameScene::postScreen1IsClear(){
 	log("====================screen 1 is clear!!!===============");
+	m_controller->setBoundary();
 }
 
 void GameScene::postWinMessage(float dt){
@@ -459,7 +460,7 @@ void GameScene::__useInventory(InventoryEnum type){
 	switch (type)
 	{
 	case InventoryEnum::sBlood:
-
+		log("========GameScene ======== %d", type);
 		break;
 	case InventoryEnum::bBlood:
 		break;
