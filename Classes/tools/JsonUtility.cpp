@@ -324,6 +324,7 @@ Tool JsonUtility::getTool(int ID)			//获取第i个工具
 	rapidjson::Value& tool_info = tool[ID];
 	info.ToolAddress = tool_info["ToolAddress"].GetString();
 	info.ToolInfo = tool_info["ToolInfo"].GetString();
+	info.ToolEffect = tool_info["ToolEffect"].GetString();
 	info.ToolName = tool_info["ToolName"].GetString();
 	info.ToolPrice = tool_info["ToolPrice"].GetInt();
 	return info;

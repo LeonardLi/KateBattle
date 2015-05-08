@@ -86,6 +86,7 @@ struct Tool								//工具信息
 	std::string ToolName;
 	std::string ToolAddress;
 	std::string ToolInfo;
+	std::string ToolEffect;
 	int ToolPrice;
 };
 
