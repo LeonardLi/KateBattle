@@ -37,19 +37,19 @@ USING_NS_CC;
 using namespace cocostudio;
 using namespace CocosDenshion;
 Hero::Hero() :
-m_curSpeed(2.0f),
-m_moveSpeed(2.0f),
+m_curSpeed(3.0f),
+m_moveSpeed(3.0f),
 
 m_attackRange(100.0f),
 
 m_curAttackValue(10.0f),
 m_equipAttackValue(10.0f),
 
-m_curHp(100.0f),
-m_upperHp(100.0f),
+m_curHp(1000.0f),
+m_upperHp(1000.0f),
 
-m_equipDefenceValue(0.0f),
-m_curDefenceValue(0.0f),
+m_equipDefenceValue(50.0f),
+m_curDefenceValue(50.0f),
 
 m_intelligenceValue(5.0f),
 m_curIntelligenceValue(5.0f),
@@ -403,7 +403,7 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		Sequence* seq1 = Sequence::create(action2, action3, NULL);
 		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 		label->runAction(seq2);
-		float iAfterHp = iCurHp - ivalue;
+		float iAfterHp = iCurHp - hurtValue;
 
 		
 		if (iAfterHp > 0)

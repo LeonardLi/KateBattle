@@ -304,7 +304,7 @@ void MonsterManager::__createMonsterLevel13()
 	number3BossCar.pushBack(car3);
 
 	Monster* monster8 = MonsterBossNum3::create(Sprite::create("wolf.png"), number3BossCar);
-	monster8->setPosition(3800, 200);
+	monster8->setPosition(4100, 200);
 	monster8->getFSM()->changeState(new BossStateUseSkill());
 	m_monsterList.pushBack(monster8);
 	m_showedMonsterList.pushBack(monster8);
@@ -441,7 +441,53 @@ void MonsterManager::__createMonsterLevel23()
 	m_showedMonsterList.pushBack(monster1);
 	this->addChild(monster1);
 
+	Monster* monster2 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv2);
+	monster2->setPosition(900, 100);
+	monster2->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster2);
+	m_monsterScreen1List.pushBack(monster2);
+	m_showedMonsterList.pushBack(monster2);
+	this->addChild(monster2);
 
+	Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootTypeLv2);
+	monster3->setPosition(1100, 200);
+	monster3->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster3);
+	m_monsterScreen1List.pushBack(monster3);
+	m_showedMonsterList.pushBack(monster3);
+	this->addChild(monster3);
+
+	Monster* monster4 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv2);
+	monster4->setPosition(1800, 300);
+	monster4->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster4);
+	m_monsterScreen1List.pushBack(monster4);
+	m_showedMonsterList.pushBack(monster4);
+	this->addChild(monster4);
+
+	Monster* monster5 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv2);
+	monster5->setPosition(1800, 100);
+	monster5->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster5);
+	m_monsterScreen1List.pushBack(monster5);
+	m_showedMonsterList.pushBack(monster5);
+	this->addChild(monster5);
+
+	Monster* monster6 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootTypeLv2);
+	monster6->setPosition(1900, 200);
+	monster6->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster6);
+	m_monsterScreen1List.pushBack(monster6);
+	m_showedMonsterList.pushBack(monster6);
+	this->addChild(monster6);
+
+	Monster* monster7 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster7->setPosition(2500, 100);
+	monster7->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster7);
+	m_monsterScreen1List.pushBack(monster7);
+	m_showedMonsterList.pushBack(monster7);
+	this->addChild(monster7);
 
 	//BOSS NUM 1
 	Vector<Monster*> number1BossShoot;
@@ -465,7 +511,7 @@ void MonsterManager::__createMonsterLevel23()
 	m_monsterList.pushBack(shoot3);
 
 	Monster* monster8 = MonsterBossNum1::create(Sprite::create("wolf.png"), number1BossShoot);
-	monster8->setPosition(3700, 200);
+	monster8->setPosition(4100, 200);
 	monster8->getFSM()->changeState(new BossStateUseSkill());
 	m_monsterList.pushBack(monster8);
 	m_showedMonsterList.pushBack(monster8);
@@ -473,37 +519,229 @@ void MonsterManager::__createMonsterLevel23()
 	this->addChild(monster8);
 	
 }
+
 void MonsterManager::__createMonsterLevel31()
 {
+	Monster* monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalTypeLv3);
+	monster1->setPosition(850, 250);
+	monster1->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster1);
+	m_monsterScreen1List.pushBack(monster1);
+	m_showedMonsterList.pushBack(monster1);
+	this->addChild(monster1);
+
+	Monster* monster2 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootTypeLv3);
+	monster2->setPosition(1000, 50);
+	monster2->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster2);
+	m_monsterScreen1List.pushBack(monster2);
+	m_showedMonsterList.pushBack(monster2);
+	this->addChild(monster2);
+
+	Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalIronTypeLv3);
+	monster3->setPosition(1600, 200);
+	monster3->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster3);
+	m_monsterScreen1List.pushBack(monster3);
+	m_showedMonsterList.pushBack(monster3);
+	this->addChild(monster3);
+
+	Monster* monster4 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalIronTypeLv3);
+	monster4->setPosition(1800, 300);
+	monster4->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster4);
+	m_monsterScreen1List.pushBack(monster4);
+	m_showedMonsterList.pushBack(monster4);
+	this->addChild(monster4);
+
+	Monster* monster5 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalTypeLv3);
+	monster5->setPosition(2500, 300);
+	monster5->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster5);
+	m_monsterScreen2List.pushBack(monster5);
+	m_showedMonsterList.pushBack(monster5);
+	this->addChild(monster5);
+
+	Monster* monster6 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalAggressiveTypeLv3);
+	monster6->setPosition(2700, 200);
+	monster6->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster6);
+	m_monsterScreen2List.pushBack(monster6);
+	m_showedMonsterList.pushBack(monster6);
+	this->addChild(monster6);
+
+	Monster* monster7 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalIronTypeLv3);
+	monster7->setPosition(3600, 100);
+	monster7->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster7);
+	m_monsterScreen2List.pushBack(monster7);
+	m_showedMonsterList.pushBack(monster7);
+	this->addChild(monster7);
+
+	Monster* monster8 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalAggressiveTypeLv3);
+	monster8->setPosition(3900, 300);
+	monster8->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster8);
+	m_monsterScreen2List.pushBack(monster8);
+	m_showedMonsterList.pushBack(monster8);
+	this->addChild(monster8);
 }
+
 void MonsterManager::__createMonsterLevel32()
 {
+	Monster* monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalMoveFastTypeLv3);
+	monster1->setPosition(850, 250);
+	monster1->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster1);
+	m_monsterScreen1List.pushBack(monster1);
+	m_showedMonsterList.pushBack(monster1);
+	this->addChild(monster1);
+
+	Monster* monster2 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootTypeLv3);
+	monster2->setPosition(1000, 50);
+	monster2->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster2);
+	m_monsterScreen1List.pushBack(monster2);
+	m_showedMonsterList.pushBack(monster2);
+	this->addChild(monster2);
+
+	Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster3->setPosition(1600, 200);
+	monster3->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster3);
+	m_monsterScreen1List.pushBack(monster3);
+	m_showedMonsterList.pushBack(monster3);
+	this->addChild(monster3);
+
+	Monster* monster4 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalTypeLv3);
+	monster4->setPosition(1800, 300);
+	monster4->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster4);
+	m_monsterScreen1List.pushBack(monster4);
+	m_showedMonsterList.pushBack(monster4);
+	this->addChild(monster4);
+
+	Monster* monster5 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster5->setPosition(2500, 300);
+	monster5->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster5);
+	m_monsterScreen2List.pushBack(monster5);
+	m_showedMonsterList.pushBack(monster5);
+	this->addChild(monster5);
+
+	Monster* monster6 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalAggressiveTypeLv3);
+	monster6->setPosition(2700, 200);
+	monster6->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster6);
+	m_monsterScreen2List.pushBack(monster6);
+	m_showedMonsterList.pushBack(monster6);
+	this->addChild(monster6);
+
+	Monster* monster7 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster7->setPosition(3500, 100);
+	monster7->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster7);
+	m_monsterScreen2List.pushBack(monster7);
+	m_showedMonsterList.pushBack(monster7);
+	this->addChild(monster7);
+
+	Monster* monster8 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster8->setPosition(3900, 300);
+	monster8->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster8);
+	m_monsterScreen2List.pushBack(monster8);
+	m_showedMonsterList.pushBack(monster8);
+	this->addChild(monster8);
 }
+
 void MonsterManager::__createMonsterLevel33()
 {
+	Monster* monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalAggressiveTypeLv3);
+	monster1->setPosition(900, 300);
+	monster1->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster1);
+	m_monsterScreen1List.pushBack(monster1);
+	m_showedMonsterList.pushBack(monster1);
+	this->addChild(monster1);
 
+	Monster* monster2 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalAggressiveTypeLv3);
+	monster2->setPosition(900, 100);
+	monster2->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster2);
+	m_monsterScreen1List.pushBack(monster2);
+	m_showedMonsterList.pushBack(monster2);
+	this->addChild(monster2);
+
+	Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalAggressiveTypeLv3);
+	monster3->setPosition(1100, 200);
+	monster3->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster3);
+	m_monsterScreen1List.pushBack(monster3);
+	m_showedMonsterList.pushBack(monster3);
+	this->addChild(monster3);
+
+	Monster* monster4 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster4->setPosition(1800, 200);
+	monster4->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster4);
+	m_monsterScreen1List.pushBack(monster4);
+	m_showedMonsterList.pushBack(monster4);
+	this->addChild(monster4);
+
+	Monster* monster5 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv3);
+	monster5->setPosition(1900, 100);
+	monster5->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster5);
+	m_monsterScreen1List.pushBack(monster5);
+	m_showedMonsterList.pushBack(monster5);
+	this->addChild(monster5);
+
+	Monster* monster6 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv3);
+	monster6->setPosition(1900, 250);
+	monster6->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster6);
+	m_monsterScreen1List.pushBack(monster6);
+	m_showedMonsterList.pushBack(monster6);
+	this->addChild(monster6);
+
+	Monster* monster7 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster7->setPosition(2400, 250);
+	monster7->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster7);
+	m_monsterScreen1List.pushBack(monster7);
+	m_showedMonsterList.pushBack(monster7);
+	this->addChild(monster7);
+
+	Monster* monster10 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalFatTypeLv3);
+	monster10->setPosition(2550, 250);
+	monster10->getFSM()->changeState(new StateUseSkill());
+	m_monsterList.pushBack(monster10);
+	m_monsterScreen1List.pushBack(monster10);
+	m_showedMonsterList.pushBack(monster10);
+	this->addChild(monster10);
 
 
 	//Boss Number 2
 
-	auto monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::monsterBossNum2Assister);
-	monster1->setPosition(Vec2(1040, 540));
-	monster1->getFSM()->changeState(new StateAttack());
-	m_monsterList.pushBack(monster1);
-	this->addChild(monster1);
+	auto monster8 = Monster::create(Sprite::create("wolf.png"), MonsterType::monsterBossNum2Assister);
+	monster8->setPosition(Vec2(3725, 540));
+	monster8->getFSM()->changeState(new StateAttack());
+	m_monsterList.pushBack(monster8);
+	this->addChild(monster8);
 
-	auto box = Sprite::create("box2.png");
+	auto box = Sprite::create("box3.png");
 	box->setScale(0.5);
-	box->setPosition(1100, 400);
+	box->setPosition(3790, 450);
 	this->addChild(box);
 
 
-	MonsterBossNum2* monster2 = MonsterBossNum2::create(Sprite::create("wolf.png"), monster1);
-	monster2->setPosition(Vec2(200, 200));
-	monster2->getFSM()->changeState(new BossStateUseSkill());
-	monster2->setAnchorPoint(Vec2(0.5, 0.5));
-	m_monsterList.pushBack(monster2);
-	m_showedMonsterList.pushBack(monster2);
-	this->addChild(monster2);
+	MonsterBossNum2* monster9 = MonsterBossNum2::create(Sprite::create("wolf.png"), monster8);
+	monster9->setPosition(Vec2(3700, 200));
+	monster9->getFSM()->changeState(new BossStateUseSkill());
+	monster9->setAnchorPoint(Vec2(0.5, 0.5));
+	m_monsterList.pushBack(monster9);
+	m_showedMonsterList.pushBack(monster9);
+	m_monsterScreen2List.pushBack(monster9);
+	this->addChild(monster9);
 
 }

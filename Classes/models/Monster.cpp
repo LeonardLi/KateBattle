@@ -263,6 +263,103 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			m_monsterType = MonsterType::shootSlowTypeLv2;
 			setattackRange(600.0);
 			break;
+
+		case  MonsterType::normalTypeLv3:
+			_loadCSB("monster1/monster1.csb", 17);
+			m_monsterType = MonsterType::normalTypeLv3;
+			setHp(150);
+			setupperHp(150);
+			setviewRange(500.0f);
+			setattackRange(100.0f);
+			setAttackValue(30.0f);
+			monsterLevel = 3;
+			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			break;
+		case MonsterType::normalAggressiveTypeLv3:
+			_loadCSB("monster1/monster1.csb", 17);
+			m_monsterType = MonsterType::normalAggressiveTypeLv3;
+			setHp(180);
+			setupperHp(180);
+			setattackRange(100.0f);
+			monsterLevel = 3;
+			setAttackValue(40.0f);
+			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			break;
+		case MonsterType::normalMoveFastTypeLv3:
+			_loadCSB("monster1/monster1.csb", 17);
+			m_monsterType = MonsterType::normalMoveFastTypeLv3;
+			setHp(150);
+			setupperHp(150);
+			setattackRange(100.0f);
+			setAttackValue(30.0f);
+			monsterLevel = 3;
+			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			setSpeedRate(1.0f);
+			break;
+		case MonsterType::normalAttackFastTypeLv3:
+			_loadCSB("monster1/monster1.csb", 17);
+			m_monsterType = MonsterType::normalAttackFastTypeLv3;
+			setHp(40);
+			setupperHp(40);
+			setattackRange(100.0f);
+			setAttackValue(20.0f);
+			setattackTime(1.0f);
+			monsterLevel = 3;
+			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			break;
+		case MonsterType::normalFatTypeLv3:
+			_loadCSB("monster9/monster9.csb", 33);
+			m_monsterType = MonsterType::normalFatTypeLv3;
+			setHp(300);
+			setupperHp(300);
+			setattackRange(120.0f);
+			setAttackValue(50.0f);
+			setattackTime(3.0f);
+			monsterLevel = 3;
+			setContentSize(Size(105, 165));
+			break;
+		case MonsterType::normalIronTypeLv3:
+			_loadCSB("monster2/monster2.csb", 19);
+			m_monsterType = MonsterType::normalFatTypeLv3;
+			setHp(180);
+			setupperHp(180);
+			setattackRange(100.0f);
+			setAttackValue(25.0f);
+			setDefenceValue(15.0f);
+			monsterLevel = 3;
+			setContentSize(Size(85, 105));
+			break;
+		case MonsterType::shootTypeLv3:
+			_loadCSB("monster8/monster8.csb", 31);
+			setContentSize(Size(100, 140));
+			setviewRange(600.0f);
+			setHp(80);
+			setupperHp(80);
+			monsterLevel = 3;
+			m_monsterType = MonsterType::shootTypeLv3;
+			setattackRange(600.0);
+			break;
+		case MonsterType::shootAggressiveTypeLv3:
+			_loadCSB("monster8/monster8.csb", 31);
+			setContentSize(Size(100, 140));
+
+			setHp(80);
+			setupperHp(80);
+			monsterLevel = 3;
+			m_monsterType = MonsterType::shootAggressiveTypeLv3;
+			setattackRange(600.0);
+			break;
+		case MonsterType::shootSlowTypeLv3:
+			_loadCSB("monster8/monster8.csb", 31);
+			setContentSize(Size(100, 140));
+
+			setHp(80);
+			setupperHp(80);
+			monsterLevel = 3;
+			m_monsterType = MonsterType::shootSlowTypeLv3;
+			setattackRange(600.0);
+			break;
+
 		case MonsterType::num1ShootType:
 			_loadCSB("monster8/monster8.csb", 31);
 			m_monsterType = MonsterType::num1ShootType;
@@ -353,6 +450,17 @@ void Monster::attackSequence(){
 		break;
 	case MonsterType::shootSlowTypeLv2:
 		__initBullet(7);
+	case MonsterType::shootTypeLv3:
+		__initBullet(8);
+		break;
+	case MonsterType::shootAggressiveTypeLv3:
+		__initBullet(9);
+		break;
+	case MonsterType::shootSlowTypeLv3:
+		__initBullet(10);
+
+
+
 
 	case MonsterType::monsterBossNum3:
 		this->schedule(schedule_selector(MonsterBossNum3::isHeroCloseToBoss));
@@ -400,6 +508,20 @@ void Monster::__initBullet(int bulletType){
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
 			bullet->setBulletValue(10, 0.0f, 0.5f, 5.0f);
 			break;
+		case 8:
+			bullet = BulletNormal::create(Sprite::create("bullet.png"));
+			bullet->setBulletValue(40, 0.0f, 0.5f, 5.0f);
+			break;
+		case 9:
+			bullet = BulletNormal::create(Sprite::create("bullet.png"));
+			bullet->setBulletValue(45, 0.0f, 0.0f, 0.0f);
+			break;
+		case 10:
+			bullet = BulletNormal::create(Sprite::create("bullet.png"));
+			bullet->setBulletValue(10, 0.0f, 0.5f, 5.0f);
+			break;
+
+
 		default:
 			break;
 		}		
@@ -637,14 +759,39 @@ void Monster::__attackafterMove(){
 		case MonsterType::normalAttackFastTypeLv1:
 		case MonsterType::normalIronTypeLv1:
 		case MonsterType::normalMoveFastTypeLv1:
+
+		case MonsterType::normalTypeLv2:
+		case MonsterType::normalFatTypeLv2:
+		case MonsterType::normalAggressiveTypeLv2:
+		case MonsterType::normalAttackFastTypeLv2:
+		case MonsterType::normalIronTypeLv2:
+		case MonsterType::normalMoveFastTypeLv2:
+
+		case MonsterType::normalTypeLv3:
+		case MonsterType::normalFatTypeLv3:
+		case MonsterType::normalAggressiveTypeLv3:
+		case MonsterType::normalAttackFastTypeLv3:
+		case MonsterType::normalIronTypeLv3:
+		case MonsterType::normalMoveFastTypeLv3:
+
+
+
 		case MonsterType::monsterBossNum2:
 		case MonsterType::monsterBossNum3:
+
 			__attackWithHand();
 			break;
-		case MonsterType::shootTypeLv1:
 		case MonsterType::num1ShootType:
+		case MonsterType::shootTypeLv1:
 		case MonsterType::shootAggressiveTypeLv1:
 		case MonsterType::shootSlowTypeLv1:
+		case MonsterType::shootTypeLv2:
+		case MonsterType::shootAggressiveTypeLv2:
+		case MonsterType::shootSlowTypeLv2:
+		case MonsterType::shootTypeLv3:
+		case MonsterType::shootAggressiveTypeLv3:
+		case MonsterType::shootSlowTypeLv3:
+
 			__attackWithBullet();
 			break;
 		default:
@@ -877,6 +1024,7 @@ void Monster::onDead(){
 	if (this->m_monsterType==MonsterType::num3BoxType)
 	{
 	}
+	
 	else
 	{
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_25.c_str());
@@ -902,7 +1050,10 @@ void Monster::onHurt(){
 	}
 	else
 	{
-		this->m_armature->getAnimation()->play("hurt", -1, 0);
+		if (getisDead()==false)
+		{
+			this->m_armature->getAnimation()->play("hurt", -1, 0);
+		}
 		auto callFunc = CallFunc::create([=](){
 			this->setAttacked(true);
 		});
@@ -915,21 +1066,17 @@ void Monster::update(float dt){
 }
 
 void Monster::__changeStun(float){
-	this->choiceDirectionToAction("stand");
-	if (getStun()==STUN)
+	if (getisDead()==false)
 	{
-		setStun(NOTSTUN);
-	}
+		this->choiceDirectionToAction("stand");
+		if (getStun() == STUN)
+		{
+			setStun(NOTSTUN);
+		}
+	}	
 }
 
 void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic){
-	
-	if (this->getStun()==NOTSTUN&&time>0.5)
-	{
-		this->setStun(STUN);
-		this->choiceDirectionToAction("dizzy");
-	}
-	
 	
 	float iCurHp = getHp();
 	float attatkValue;
@@ -1000,6 +1147,15 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 		}
 	}
 
+	if (this->getStun() == NOTSTUN&&time > 0.5)
+	{
+		this->setStun(STUN);
+		if (getisDead()==false)
+		{
+			this->choiceDirectionToAction("dizzy");
+		}		
+	}
+
 	if (m_isDead)
 	{	
 		if (isScheduled(schedule_selector(Monster::__readyForAttack)))
@@ -1052,14 +1208,17 @@ void Monster::skillShot(float dt){
 	this->getParent()->addChild(mark);
 
 	auto callfunc = CallFunc::create([=](){
-		this->m_armature->getAnimation()->play("stand");
+		if (getisDead()==false)
+		{
+			this->m_armature->getAnimation()->play("stand");
+		}	
 		this->getParent()->removeChild(fireBall);
 		this->getParent()->removeChild(mark);
 		this->showFire(temporaryLocation);
 	});
 	ccBezierConfig bezierCon;
 	bezierCon.controlPoint_1 = Vec2(this->getPositionX(), this->getPositionY());
-	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionX() + this->targetHero->getPositionX())/2+200);
+	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY())/2+200);
 	bezierCon.endPosition = Vec2(this->targetHero->getPositionX(), this->targetHero->getPositionY());
 	//throw time
 	BezierTo* bezierAction = BezierTo::create(4.0f, bezierCon);
@@ -1245,7 +1404,10 @@ void MonsterBossNum1::__isCollide(float dt){
 	{
 		this->unschedule(schedule_selector(MonsterBossNum1::__isCollide));
 		this->monsterGetHurt(100, 0.0f,false,true);
-		this->m_armature->getAnimation()->play("dizzy");
+		if (getisDead()==false)
+		{
+			this->m_armature->getAnimation()->play("dizzy");
+		}
 		this->targetHero->m_blockArea.eraseObject(m_boxes);
 		this->getParent()->removeChild(m_boxes);
 		if (this->getHp()>0)
@@ -1333,10 +1495,10 @@ bool MonsterBossNum2::init(Sprite* sprite, Monster* monster){
 		setviewRange(1500.0);
 		setattackTime(2.0f);
 		setattackRange(150.0);
-		setAttackValue(20.0f);
-		setHp(300.0f);
-		setupperHp(300.0f);
-		setDefenceValue(5.0f);
+		setAttackValue(60.0f);
+		setHp(600.0f);
+		setupperHp(600.0f);
+		setDefenceValue(10.0f);
 		setSpeedRate(0.6f);
 		setcanAttack(true);
 		setContentSize(Size(90, 110));
@@ -1372,7 +1534,7 @@ void MonsterBossNum2::__bossJump(){
 	setcanAttack(false);
 	ccBezierConfig bezierCon;
 	bezierCon.controlPoint_1 = Vec2(this->getPositionX(), this->getPositionY());
-	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY()) / 2 + 100);
+	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY()) / 2 + 200);
 	bezierCon.endPosition = Vec2(this->targetHero->getPositionX(), this->targetHero->getPositionY());
 	//throw time
 	BezierTo* bezierAction = BezierTo::create(3.0f, bezierCon);
@@ -1386,6 +1548,10 @@ void MonsterBossNum2::__bossJump(){
 }
 
 void MonsterBossNum2::__bossRotate(){
+	if (getisDead() == true)
+	{
+		return;
+	}
 	this->m_armature->getAnimation()->play("circle");
 	setcanAttack(false);
 	this->schedule(schedule_selector(MonsterBossNum2::__rotateAreaJudge),1.0f);
@@ -1404,7 +1570,10 @@ void MonsterBossNum2::__rotateAreaJudge(float dt){
 
 void MonsterBossNum2::__bossRotateStop(float dt){
 	this->unschedule(schedule_selector(MonsterBossNum2::__rotateAreaJudge));
-	//load the stun animation
+	if (getisDead() == true)
+	{
+		return;
+	}
 	this->m_armature->getAnimation()->play("dizzy");
 	setcanAttack(true);
 	this->scheduleOnce(schedule_selector(MonsterBossNum2::__bossRushToBox), 10.0f);
@@ -1419,11 +1588,15 @@ void MonsterBossNum2::__bossRotateStop(float dt){
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_26.c_str());
 		castMessage("move close to the boxes!!!");
 	});
-	this->runAction(Sequence::create(DelayTime::create(3.0f),callFunc1,MoveTo::create(2.0f, Vec2(200, 300)),callFunc,NULL));
+	this->runAction(Sequence::create(DelayTime::create(3.0f),callFunc1,MoveTo::create(2.0f, Vec2(3000, 300)),callFunc,NULL));
 }
 
 void MonsterBossNum2::__bossRushToBox(float dt){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_27.c_str(),true);
+	if (getisDead()==true)
+	{
+		return;
+	}
 	this->m_armature->getAnimation()->play("run");
 	castMessage("move away!!!");
 	float y = this->targetHero->getPositionY() - this->getPositionY();
@@ -1437,7 +1610,10 @@ void MonsterBossNum2::__bossRushToBox(float dt){
 		{
 			auto callFunc = CallFunc::create([=](){
 				SimpleAudioEngine::getInstance()->stopEffect(SimpleAudioEngine::getInstance()->playEffect(EFFECTS_27.c_str(), true));
-				this->m_armature->getAnimation()->play("dizzy");
+				if (getisDead()==false)
+				{
+					this->m_armature->getAnimation()->play("dizzy");
+				}				
 				if (isScheduled(schedule_selector(MonsterBossNum2::__bossRushJudge)))
 				{
 					this->unschedule(schedule_selector(MonsterBossNum2::__bossRushJudge));
@@ -1449,16 +1625,11 @@ void MonsterBossNum2::__bossRushToBox(float dt){
 				this->monsterGetHurt(50, 0.0, false,true);
 			});
 
-			this->runAction(Sequence::create(MoveBy::create(2.0f,Vec2(820, 0)),callFunc,NULL));			
-		}
-
-		else if (y>0)
-		{
-			this->runAction(MoveTo::create(2.0f, Vec2(200+(300 / tanf(y / x)), 600)));
+			this->runAction(Sequence::create(MoveBy::create(2.0f,Vec2(760, 0)),callFunc,NULL));			
 		}
 
 		else
-			this->runAction(MoveTo::create(2.0f, Vec2(200+(300 / abs(tanf(y / x))), 0)));
+			this->runAction(MoveTo::create(2.0f, Vec2(3000+(250 / tanf(abs(y) / x)), 50)));
 	}
 
 	else
@@ -1548,6 +1719,31 @@ void MonsterBossNum3::intoBoss3SkillSequence(float dt){
 
 void MonsterBossNum3::outBoss3SkillSequence(float dt){
 	this->scheduleOnce(schedule_selector(Monster::skillFinish), 10.0f);
+}
+
+void MonsterBossNum3::onDead(){
+	notFallBoxList.clear();
+	shadowList.clear();
+	fallingBoxList.clear();
+	boxList.clear();
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_25.c_str());
+	this->m_armature->getAnimation()->stop();
+	if (this->targetHero->getPositionX() < this->getPositionX())
+	{
+		m_armature->setScale(1.0f, 1.0f);
+		this->m_armature->getAnimation()->play("dead", -1, 0);
+
+	}
+	else
+	{
+		m_armature->setScale(-1.0f, 1.0f);
+		m_armature->getAnimation()->play("dead", -1, 0);
+	}
+	auto callFunc = CallFunc::create([=](){
+		this->removeFromParentAndCleanup(true);
+	});
+	this->runAction(Sequence::create(DelayTime::create(2.0f), callFunc, NULL));
+	
 }
 
 void MonsterBossNum3::showTheCar(float dt){
@@ -1766,7 +1962,10 @@ void MonsterBossNum3::__dropBoxEnd(float dt){
 	auto callFunc = CallFunc::create([=](){
 		this->monsterGetHurt(50, 0.0, 0,true);
 		this->m_armature->setScale(1.0f, 1.0f);
-		this->m_armature->getAnimation()->play("dizzy");
+		if (getisDead()==false)
+		{
+			this->m_armature->getAnimation()->play("dizzy");
+		}	
 	});
 	setcanAttack(true);
 	ccBezierConfig bezierCon;

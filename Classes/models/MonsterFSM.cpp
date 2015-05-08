@@ -62,14 +62,14 @@ void MonsterFSM::OnRecvWantToUseSkill(Ref* obj){
 }
 
 void MonsterFSM::OnRecvWantToAttack(Ref* obj){
-	if (state == toUseSkill||state ==blank)
+	if ((state == toUseSkill||state ==blank) && this->mCurState!=NULL)
 	{
 		this->state = toAttack;
 		this->mCurState->execute(monster, EnumMsgType::en_Msg_WantToAttack);
 	}
 }
 void MonsterFSM::OnRecvBossWantToUseSkill(Ref* obj){
-	if (state == BossToAttack || state == BossBlank)
+	if ((state == BossToAttack || state == BossBlank) && this->mCurState != NULL)
 	{
 		this->state = BosstoUseSkill;
 		this->mCurState->execute(monster, EnumMsgType::en_Msg_BossWantToUseSkill);

@@ -20,7 +20,7 @@ using namespace CocosDenshion;
 
 #define SKILL1COLDTIME 20
 #define SKILL2COLDTIME 30
-#define SKILL3COLDTIME 60
+#define SKILL3COLDTIME 2
 
 GameScene::GameScene():
 m_hero(nullptr),
@@ -348,6 +348,7 @@ void GameScene::postScreen1IsClear(){
 
 void GameScene::postWinMessage(float dt){
 	log("=============win!==============");
+
 	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
 	fakeBackground->begin();
 	this->getParent()->visit();

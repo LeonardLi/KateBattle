@@ -35,6 +35,18 @@ enum class MonsterType
 	shootTypeLv2,
 	shootAggressiveTypeLv2,
 	shootSlowTypeLv2,
+	
+	normalTypeLv3,
+	normalAttackFastTypeLv3,
+	normalMoveFastTypeLv3,
+	normalFatTypeLv3,
+	normalIronTypeLv3,
+	normalAggressiveTypeLv3,
+	shootTypeLv3,
+	shootAggressiveTypeLv3,
+	shootSlowTypeLv3,
+
+
 
 	monsterBossNum1,
 	num1ShootType,
@@ -77,7 +89,7 @@ public:
 
 	
 protected:
-	void onDead();
+	virtual void onDead();
 	void onHurt();
 	void _loadCSB(std::string csbfile,int tag);
 private:
@@ -220,6 +232,8 @@ public:
 	void outBoss3SkillSequence(float dt);
 
 	void isHeroCloseToBoss(float dt);
+
+	void onDead();
 private:
 	void __bossRunOutOfGround(float dt);
 	void __runTheCar(float dt);
