@@ -294,18 +294,18 @@
     "Clear_BlockID": [
       [
         1,
-        0,
-        0
+        1,
+        1
       ],
       [
-        0,
-        0,
-        0
+        1,
+        1,
+        1
       ],
       [
-        0,
-        0,
-        0
+        1,
+        1,
+        1
       ]
     ]
   },
@@ -464,8 +464,8 @@
         "EquipAddress": "bag/equ_21.png",
         "Defense": 0,
         "Blood": 0,
-        "Attack": 25,
-        "Intelligence": 15,
+        "Attack": 15,
+        "Intelligence": 10,
         "AttackRate": 0,
         "MoveRate": 0,
         "EquipPrice": 50,
@@ -477,7 +477,7 @@
         "EquipAddress": "bag/equ_22.png",
         "Defense": 0,
         "Blood": 0,
-        "Attack": 60,
+        "Attack": 30,
         "Intelligence": 25,
         "AttackRate": 0,
         "MoveRate": 0,
@@ -490,7 +490,7 @@
         "EquipAddress": "bag/equ_23.png",
         "Defense": 0,
         "Blood": 0,
-        "Attack": 110,
+        "Attack": 50,
         "Intelligence": 45,
         "AttackRate": 0,
         "MoveRate": 0,

@@ -167,8 +167,10 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 		{
 			for (auto equipment1 :equiped)
 			{
+				auto callFunc = CallFunc::create([=](){
+					equipment1->removeFromParent(); });
 				equipment1->setTouchEnabled(false);
-				equipment1->runAction(Sequence::create(ScaleBy::create(0.8, 1.4), ScaleBy::create(2.0, 0), NULL));
+				equipment1->runAction(Sequence::create(ScaleBy::create(0.8, 1.4), ScaleBy::create(2.0, 0), callFunc, NULL));
 				user.Equip[equipment1->getIndex()].ID = -1;
 			}
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_17.c_str());
