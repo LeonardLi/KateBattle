@@ -83,7 +83,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_hero->bloodBar = bar;
 
 	m_map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
-	m_map->addChild(m_hero, 3);
+	m_map->addChild(m_hero, 10);
 	
 
 	ControllerMoveBase *controller = ControllerMoveBase::create(m_hero, m_map);
@@ -296,17 +296,12 @@ void GameScene::skillBtn3OnClick(Ref* Sender){
 		this->addChild(shadow1, 3, 1);
 		shadow1->setType(ProgressTimer::Type::RADIAL);
 		shadow1->runAction(to2);
-
-
 	}
-
-
 }
 
 void GameScene::update(float dt){
 	for (auto monster : m_monsterMgr->getMonsterList())
 	{
-		monster->heroLocation = m_hero->getPosition();
 		monster->targetHero = m_hero;
 	}
 	if (m_hero->getisDead()==true)
@@ -315,20 +310,40 @@ void GameScene::update(float dt){
 		this->scheduleOnce(schedule_selector(GameScene::postLoseMessage), 3.0f);
 	}
 
-	for (auto monster1 : m_hero->m_heroMonsterList)
+	if (1==m_hero->getheroExistScreen())
 	{
-		if (monster1->bossOrNot == true&&monster1->getisDead()==true){
-			this->unscheduleUpdate();
-			this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
-			return;
-		}
-		if (monster1->getisDead()==false)
+		for (auto monster : m_monsterMgr->getMonsterScreen1List())
 		{
-			return;
+			if (monster->getisDead()==false)
+			{
+				return;
+			}
 		}
+		postScreen1IsClear();
+		m_hero->setheroExistScreen(2);
 	}
-	this->unscheduleUpdate();
-	this->scheduleOnce(schedule_selector(GameScene::postWinMessage),3.0f);
+	if (2==m_hero->getheroExistScreen())
+	{
+		for (auto monster : m_monsterMgr->getMonsterScreen2List())
+		{
+			if (monster->bossOrNot == true && monster->getisDead() == true){
+				this->unscheduleUpdate();
+				this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
+				return;
+			}
+			if (monster->getisDead() == false)
+			{
+				return;
+			}
+		}
+		this->unscheduleUpdate();
+		this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
+	}
+
+}
+
+void GameScene::postScreen1IsClear(){
+	log("====================screen 1 is clear!!!===============");
 }
 
 void GameScene::postWinMessage(float dt){

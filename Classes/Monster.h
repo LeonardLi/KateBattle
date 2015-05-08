@@ -56,16 +56,16 @@ public:
 	void skillFinish(float dt);
 
 	void skillShot(float dt);
-	void skillShotQuickly(float dt);
 
 	void boss2AssistStartSkill();
 	void showFire(cocos2d::Vec2 location);
 
 	void choiceDirectionToAction(std::string action);
 
-	void castMessage(std::string message
-		);
+	void createBloodBar(bool bossTypeOrNot);
+	void castMessage(std::string message);
 
+	
 protected:
 	void onDead();
 	void onHurt();
@@ -116,7 +116,6 @@ private:
 
 	void __changeStun(float dt);
 public:
-	cocos2d::Vec2 heroLocation;
 	cocos2d::Vector<BulletBase*> m_bulletList;
 	cocos2d::Vector<Monster*> dangerousAreaList;
 	Hero* targetHero;
@@ -126,6 +125,7 @@ public:
 	MonsterFSM* m_FSM;
 	bool skillOrAttack;
 	bool bossOrNot;
+	
 
 	cocos2d::Sprite* bloodBar;
 	cocos2d::ProgressTimer* blood;
@@ -139,15 +139,16 @@ private:
 	CC_SYNTHESIZE(float, m_upperHp, upperHp);
 	CC_SYNTHESIZE(float, m_attackTime, attackTime);
 	CC_SYNTHESIZE(float, m_viewRange, viewRange);
-	cocostudio::Armature* m_armature;
+
 	CC_SYNTHESIZE(bool, m_direction, direction);
 	CC_SYNTHESIZE(bool, m_canAttack, canAttack);
 	CC_SYNTHESIZE(bool, m_isMoving,isMoving);
 	CC_SYNTHESIZE(bool,m_isStanding,isStanding);
 	CC_SYNTHESIZE(bool, m_isDead, isDead);
 	CC_SYNTHESIZE(bool, m_Attacked, Attacked);
+	cocostudio::Armature* m_armature;
 	//be attacked just now
-
+	CC_SYNTHESIZE(int, m_existScreen, existScreen);
 };
 
 

@@ -57,6 +57,7 @@ m_curIntelligenceValue(5.0f),
 m_curAttackSpeed(1.5f),
 m_equipAttackSpeed(1.5f),
 
+m_heroExistScreen(1),
 m_AttackPos(1),
 m_direction(JoystickEnum::DEFAULT),
 m_canControl(true),
@@ -378,6 +379,7 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		//ËÀÍö
 		else
 		{
+			setcurHp(0);
 			this->setisDead(true);
 			onDead();
 			return;

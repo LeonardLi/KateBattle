@@ -123,6 +123,7 @@ private:
 	CC_SYNTHESIZE(float, m_curAttackSpeed, curAttackSpeed);
 	CC_SYNTHESIZE(float, m_equipAttackSpeed, equipAttackSpeed);
 
+	CC_SYNTHESIZE(int ,m_heroExistScreen, heroExistScreen);
 
 	JoystickEnum m_direction;
 	cocostudio::Armature* m_armature;
