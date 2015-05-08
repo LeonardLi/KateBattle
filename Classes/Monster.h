@@ -26,6 +26,16 @@ enum class MonsterType
 	shootTypeLv1,
 	shootAggressiveTypeLv1,
 	shootSlowTypeLv1,
+	normalTypeLv2,
+	normalAttackFastTypeLv2,
+	normalMoveFastTypeLv2,
+	normalFatTypeLv2,
+	normalIronTypeLv2,
+	normalAggressiveTypeLv2,
+	shootTypeLv2,
+	shootAggressiveTypeLv2,
+	shootSlowTypeLv2,
+
 	monsterBossNum1,
 	num1ShootType,
 	num1BoxType,
@@ -47,7 +57,7 @@ public:
 	
 	
 
-	void monsterGetHurt(float iValue, float time,bool isCrit);
+	void monsterGetHurt(float iValue, float time,bool isCrit,bool isMagic);
 	MonsterFSM* getFSM();
 	void attackSequence();
 	void useSkillSequence();
@@ -125,7 +135,7 @@ public:
 	MonsterFSM* m_FSM;
 	bool skillOrAttack;
 	bool bossOrNot;
-	
+	int monsterLevel;
 
 	cocos2d::Sprite* bloodBar;
 	cocos2d::ProgressTimer* blood;
@@ -209,6 +219,7 @@ public:
 	void intoBoss3SkillSequence(float dt);
 	void outBoss3SkillSequence(float dt);
 
+	void isHeroCloseToBoss(float dt);
 private:
 	void __bossRunOutOfGround(float dt);
 	void __runTheCar(float dt);

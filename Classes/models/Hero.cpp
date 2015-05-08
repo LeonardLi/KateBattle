@@ -37,8 +37,8 @@ USING_NS_CC;
 using namespace cocostudio;
 using namespace CocosDenshion;
 Hero::Hero() :
-m_curSpeed(1.0f),
-m_moveSpeed(1.0f),
+m_curSpeed(2.0f),
+m_moveSpeed(2.0f),
 
 m_attackRange(100.0f),
 
@@ -88,8 +88,7 @@ bool Hero::init(){
 	
 	do 
 	{
-		_loadCSB("hero1/hero1.csb");
-		
+		_loadCSB("hero1/hero1.csb");	
 		bRet = true;
 	} while (0);
 	this->scheduleUpdate();
@@ -123,11 +122,12 @@ void Hero::update(float dt){
 
 
 void Hero::ChangeDirection(JoystickEnum direction){
-	
 	m_direction = direction;
 }
 
 void Hero::onDead(){
+	this->stopAllActions();
+	this->m_armature->getAnimation()->stop();
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_16.c_str());
 	this->m_armature->getAnimation()->play("dead");
 
@@ -141,8 +141,11 @@ void Hero::onHurt(){
 void Hero::changeStun(float dt){
 	if (getStun() == STUN)
 		setStun(NOTSTUN);
+	if (getisDead()==false)
+	{
+		this->m_armature->getAnimation()->play("stand");
+	}
 
-	this->m_armature->getAnimation()->play("stand");
 }
 
 void Hero::changeCanControl(float time){
@@ -165,9 +168,15 @@ void Hero::herostun(float time)
 }
 
 void Hero::attack(){
+	
+	
 	int pos = getAttackPos();
 	float damageAddition=0.0f;
 	heroNotControl(1.0f);
+	if (getisDead()==true)
+	{
+		return;
+	}
 	switch (pos)
 	{
 	case 1:
@@ -220,10 +229,10 @@ void Hero::attack(){
 			float attackRate = randomNum2 / 2 + 0.75;
 			if (randomNum>0.8)
 			{
-				monster->monsterGetHurt((this->getcurAttackValue()+damageAddition) * 2 * attackRate, 0.0f,true);
+				monster->monsterGetHurt((this->getcurAttackValue()+damageAddition) * 2 * attackRate, 0.0f,true,false);
 			}
 			else
-				monster->monsterGetHurt((this->getcurAttackValue() + damageAddition) * attackRate, 0.0f,false);
+				monster->monsterGetHurt((this->getcurAttackValue() + damageAddition) * attackRate, 0.0f,false,false);
 			return;
 		}
 	}	
@@ -266,7 +275,7 @@ void Hero::hitGroundSkill()
 				Vec2 distance = Vec2(this->getPositionX() - monster->getPositionX(), this->getPositionY() - monster->getPositionY());
 				if (distance.length() <= 400)
 				{
-					monster->monsterGetHurt(10+this->getcurIntelligenceValue()*2, 1.0f,false);
+					monster->monsterGetHurt(this->getcurIntelligenceValue()*3, 2.0f,false,true);
 				}
 			}
 		}
@@ -276,7 +285,8 @@ void Hero::hitGroundSkill()
 
 void Hero::addDefenceValue(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_10.c_str());
-	Label* label = Label::create("Add defence value!", "fonts/Marker Felt.ttf", 30);
+	int value = getcurIntelligenceValue() * 2;
+	Label* label = Label::create("Defence + "+std::to_string(value)+" !", "fonts/Marker Felt.ttf", 30);
 	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
 	label->setColor(Color3B::BLACK);
 	this->addChild(label);
@@ -286,7 +296,7 @@ void Hero::addDefenceValue(){
 	Sequence* seq1 = Sequence::create(action2, action3, NULL);
 	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 	label->runAction(seq2);
-	this->setcurDefenceValue(getequipDefenceValue() + 50);
+	this->setcurDefenceValue(getequipDefenceValue() + getintelligenceValue()*2);
 	this->scheduleOnce(schedule_selector(Hero::recoverDefenceValue),5.0f);
 }
 
@@ -314,12 +324,12 @@ void Hero::blink(){
 	if (this->m_moveController->leftOrRight == false)
 	{
 		direction = 0;
-		desPoint = Vec2(this->getPositionX() - 200, this->getPositionY());		
+		desPoint = Vec2(this->getPositionX() - (175 + 5*getcurIntelligenceValue()), this->getPositionY());		
 	}
 	else
 	{
 		direction = 1;
-		desPoint = Vec2(this->getPositionX() + 200, this->getPositionY());
+		desPoint = Vec2(this->getPositionX() + (175 + 5 * getcurIntelligenceValue()), this->getPositionY());
 	}
 	for (auto monster : m_blockArea){
 		Rect rect = monster->getBoundingBox();
@@ -337,6 +347,8 @@ void Hero::blink(){
 	{
 		desPoint.x = 30;
 	}
+	//need amend!!!!!!!============================================
+
 	auto callFunc = CallFunc::create([=](){
 		this->setPosition(desPoint);
 	});
@@ -351,14 +363,35 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		float attackRate = randomNum2 / 2 + 0.75;
 		float afterValue = ivalue*attackRate;
 
-		
+		if (stunTime > 0)
+		{
+			this->herostun(stunTime);
+		}
+
+		if (slowValue > 0.01)
+		{
+			int time = slowTime;
+			Label* label = Label::create("Slow " + std::to_string(time) + " s!!!", "fonts/Marker Felt.ttf", 30);
+			label->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 60));
+			this->addChild(label, 4);
+			FadeIn* action1 = FadeIn::create(0.5f);
+			MoveBy* action2 = MoveBy::create(1.0f, Vec2(0, 20));
+			FadeOut* action3 = FadeOut::create(0.5f);
+			Sequence* seq1 = Sequence::create(action2, action3, NULL);
+			Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+			label->runAction(seq2);
+			this->herostun(stunTime);
+			this->changeSpeed(slowValue, slowTime);
+		}
 
 		if (afterValue<getcurDefenceValue())
 		{
 			return;
 		}
 
-		int hurtValue = afterValue;
+		int hurtValue = afterValue-getcurDefenceValue();
+
+
 		auto string = std::to_string(hurtValue);
 		Label* label = Label::create(string, "fonts/Marker Felt.ttf", 30);
 		label->setPosition(this->getBoundingBox().size.width/2,this->getBoundingBox().size.height+40);
@@ -386,14 +419,8 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 			return;
 		}
 
-		if (stunTime > 0)
-		{
-			this->herostun(stunTime);
-		}
-		if (slowValue > 0.01)
-		{
-			this->changeSpeed(slowValue, slowTime);
-		}
+		
+	
 	}
 }
 

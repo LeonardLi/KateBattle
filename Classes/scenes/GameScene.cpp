@@ -77,7 +77,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	
 
 	m_hero = Hero::create();
-	m_hero->setPosition(100, 100);
+	m_hero->setPosition(300, 200);
 
 	auto bar = static_cast<LoadingBar*>(controllayer->getChildByTag(7));
 	m_hero->bloodBar = bar;
@@ -91,7 +91,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 
 	__createStickBar();
     
-	m_monsterMgr = MonsterManager::createWithLevel(11);
+	m_monsterMgr = MonsterManager::createWithLevel(m_scenario,m_subscenario);
 	m_hero->m_heroMonsterList.clear();
 	m_hero->m_heroMonsterList = m_monsterMgr->m_showedMonsterList;
 	m_map->addChild(m_monsterMgr);
@@ -307,7 +307,7 @@ void GameScene::update(float dt){
 	if (m_hero->getisDead()==true)
 	{
 		this->unscheduleUpdate();
-		this->scheduleOnce(schedule_selector(GameScene::postLoseMessage), 3.0f);
+		this->scheduleOnce(schedule_selector(GameScene::postLoseMessage), 2.0f);
 	}
 
 	if (1==m_hero->getheroExistScreen())
@@ -328,7 +328,7 @@ void GameScene::update(float dt){
 		{
 			if (monster->bossOrNot == true && monster->getisDead() == true){
 				this->unscheduleUpdate();
-				this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
+				this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 2.0f);
 				return;
 			}
 			if (monster->getisDead() == false)
@@ -339,7 +339,6 @@ void GameScene::update(float dt){
 		this->unscheduleUpdate();
 		this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
 	}
-
 }
 
 void GameScene::postScreen1IsClear(){
