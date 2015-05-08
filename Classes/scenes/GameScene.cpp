@@ -16,6 +16,7 @@
 #include "TreasureBox.h"
 #include "VisibleRect.h"
 #include "LoadingScene.h"
+#include "JsonUtility.h"
 #include "coin.h"
 
 USING_NS_CC;
@@ -369,6 +370,18 @@ void GameScene::postLoseMessage(float dt){
 	fakeBackground->begin();
 	this->getParent()->visit();
 	fakeBackground->end();
+	User& user = JsonUtility::getInstance()->user;
+	user.UserCulHealth = user.UserHealth;
+	int money = user.UserGoldsNumber;
+	if (money-100*user.UserLevel<0)
+	{
+		user.UserGoldsNumber = 0;
+	}
+	else
+	{
+		user.UserGoldsNumber = money - 100 * user.UserLevel;
+	}
+
 	auto lose = LoseLayer::createScene(fakeBackground, m_scenario, m_subscenario);
 	Director::getInstance()->pushScene(lose);
 }

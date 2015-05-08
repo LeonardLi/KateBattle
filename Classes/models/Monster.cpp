@@ -1794,8 +1794,8 @@ bool MonsterBossNum3::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setviewRange(700.0);
 		setattackTime(2.0f);
 		setattackRange(100.0);	
-		setAttackValue(100.0f);
-		setDefenceValue(30.0f);
+		setAttackValue(140.0f);
+		setDefenceValue(45.0f);
 		setHp(600.0f);
 		setupperHp(600.0f);
 		setSpeedRate(0.5);
