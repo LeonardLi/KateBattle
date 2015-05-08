@@ -196,7 +196,7 @@ void Hero::herostun(float time)
 void Hero::attack(){
 	int pos = getAttackPos();
 	float damageAddition=0.0f;
-	heroNotControl(1.0f);
+	heroNotControl(0.8f);
 	if (getisDead()==true)
 	{
 		return;
@@ -227,6 +227,16 @@ void Hero::attack(){
 	default:
 		break;
 	}
+	if (isScheduled(schedule_selector(Hero::changeToStand)))
+	{
+		this->unschedule(schedule_selector(Hero::changeToStand));
+		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.0f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.0f);
+	}
+
 	if (this->isScheduled(schedule_selector(Hero::recoverAttackPosture)))
 	{
 		this->unschedule(schedule_selector(Hero::recoverAttackPosture));
@@ -260,6 +270,12 @@ void Hero::attack(){
 			return;
 		}
 	}	
+	
+	
+}
+
+void Hero::changeToStand(float dt){
+	this->getMoveController()->m_isStand = false;
 }
 
 void Hero::recoverAttackPosture(float dt){
@@ -305,6 +321,16 @@ void Hero::hitGroundSkill()
 		}
 	});
 	this->runAction(Sequence::create(DelayTime::create(1.5f), callFunc, NULL));
+	if (isScheduled(schedule_selector(Hero::changeToStand)))
+	{
+		this->unschedule(schedule_selector(Hero::changeToStand));
+		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.7f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.7f);
+	}
+
 }
 
 void Hero::addDefenceValue(){
@@ -330,7 +356,7 @@ void Hero::recoverDefenceValue(float dt){
 }
 
 void Hero::blink(){
-	heroNotControl(0.8f);
+	heroNotControl(1.5f);
 	Vec2 desPoint;
 	int direction;
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_8.c_str());
@@ -379,6 +405,16 @@ void Hero::blink(){
 		this->setPosition(desPoint);
 	});
 	this->runAction(Sequence::create(DelayTime::create(0.5), callFunc, NULL));
+	if (isScheduled(schedule_selector(Hero::changeToStand)))
+	{
+		this->unschedule(schedule_selector(Hero::changeToStand));
+		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.5f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.5f);
+	}
+
 }
 
 void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
@@ -618,6 +654,7 @@ void Hero::playAnimaitonAttack(Direction direction){
 		m_armature->setScale(0.2f, 0.2f);
 		m_armature->getAnimation()->play("attack");
 	}
+	this->getMoveController()->m_isStand = false;
 }
 void Hero::playAnimaitonStand(Direction direction){
 	if (direction == Direction::left)

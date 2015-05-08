@@ -23,7 +23,7 @@
 #define MONSTER1WIDTH 75
 #define MONSTER1HEIGHT 160
 
-#define BOXADDBLOOD 200
+#define BOXADDBLOOD 50
 
 USING_NS_CC;
 using namespace cocostudio;
@@ -82,7 +82,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setviewRange(500.0f);
 			setHp(150);
 			setupperHp(150);
-			setAttackValue(35.0f);
+			setAttackValue(45.0f);
 			setDefenceValue(18.0f);
 			setattackRange(100.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
@@ -96,7 +96,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setupperHp(180);
 			setattackRange(100.0f);
 			setAttackValue(70.0f);
-			setDefenceValue(30.0f);
+			setDefenceValue(22.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			createName("Cruel Manu Lv1", 90);
 			break;
@@ -134,8 +134,8 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setHp(200);
 			setupperHp(200);
 			setattackRange(120.0f);
-			setAttackValue(65.0f);
-			setDefenceValue(10.0f);
+			setAttackValue(70.0f);
+			setDefenceValue(25.0f);
 			setattackTime(2.0f);
 			setContentSize(Size(105, 165));
 			createName("Big Eater Lv1", 90);
@@ -194,8 +194,8 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setupperHp(100);
 			setviewRange(500.0f);
 			setattackRange(100.0f);
-			setAttackValue(70.0f);
-			setDefenceValue(40.0f);
+			setAttackValue(85.0f);
+			setDefenceValue(36.0f);
 			monsterLevel = 2;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			createName("Brown Hyde Lv2", 90);
@@ -692,7 +692,7 @@ void Monster::__monsterMoveToHero(float dt){
 		this->unschedule(schedule_selector(Monster::__monsterMoveToHero));
 		return;
 	}
-	if (distance.length() > this->getattackRange()*3/4)
+	if (distance.length() > this->getattackRange())
 	{
 		if (getisMoving() == false && getisStanding() == true)
 		{
@@ -863,12 +863,15 @@ void Monster::__attackWithHand(){
 		return;
 	}
 	auto callFunc = CallFunc::create([=](){		
+		if (getStun() == STUN || getisDead() == true)
+		{
+			return;
+		}
 		if (this->targetHero->getPositionX() < this->getPositionX())
 		{
 			setdirection(false);
 			m_armature->setScale(1.0f, 1.0f);
 			m_armature->getAnimation()->play("attack", -1, 0);
-
 		}
 		else
 		{
@@ -1223,7 +1226,6 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 	}
 
 
-	//����
 	else
 	{
 		setHp(0.0);
@@ -1241,8 +1243,9 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 		}
 	}
 
-	if (this->getStun() == NOTSTUN&&time > 0.5)
+	if (this->getStun() == NOTSTUN&&time > 0.5&&this->m_monsterType != MonsterType::num3BoxType)
 	{
+
 		this->setStun(STUN);
 		if (getisDead()==false)
 		{
@@ -1436,7 +1439,7 @@ bool MonsterBossNum1::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setAttackValue(220.0f);
 		setHp(2000.0f);
 		setupperHp(2000.0f);
-		setSpeedRate(0.6);
+		setSpeedRate(0.6f);
 		setcanAttack(true);	
 		setStun(NOTSTUNFOREVER);
 		this->setContentSize(Size(85, 160));
@@ -1791,7 +1794,7 @@ bool MonsterBossNum3::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setattackTime(2.0f);
 		setattackRange(100.0);	
 		setAttackValue(60.0f);
-		setDefenceValue(50.0f);
+		setDefenceValue(30.0f);
 		setHp(600.0f);
 		setupperHp(600.0f);
 		setSpeedRate(0.5);
@@ -1916,15 +1919,15 @@ void MonsterBossNum3::__runTheCar(float dt){
 }
 
 void MonsterBossNum3::__runNumber1Car(float dt){
-	this->carMonsterList.at(0)->runAction(Sequence::create(MoveBy::create(0.5f,Vec2(-30,0)),MoveBy::create(0.5f,Vec2(30,0)),EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)),4.0f),NULL));
+	this->carMonsterList.at(0)->runAction(Sequence::create(MoveBy::create(0.5f,Vec2(-30,0)),MoveBy::create(0.5f,Vec2(30,0)),EaseIn::create(MoveBy::create(6.0f, Vec2(-1400, 0)),4.0f),NULL));
 }
 
 void MonsterBossNum3::__runNumber2Car(float dt){
-	this->carMonsterList.at(1)->runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-30, 0)), MoveBy::create(0.5f, Vec2(30, 0)), EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)), 4.0f), NULL));
+	this->carMonsterList.at(1)->runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-30, 0)), MoveBy::create(0.5f, Vec2(30, 0)), EaseIn::create(MoveBy::create(6.0f, Vec2(-1400, 0)), 4.0f), NULL));
 }
 
 void MonsterBossNum3::__runNumber3Car(float dt){
-	this->carMonsterList.at(2)->runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-30, 0)), MoveBy::create(0.5f, Vec2(30, 0)), EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)), 4.0f), NULL));
+	this->carMonsterList.at(2)->runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-30, 0)), MoveBy::create(0.5f, Vec2(30, 0)), EaseIn::create(MoveBy::create(6.0f, Vec2(-1400, 0)), 4.0f), NULL));
 }
 
 void MonsterBossNum3::__removeTheCar(float dt){
@@ -1952,7 +1955,6 @@ void MonsterBossNum3::__isCarCollide(float dt){
 		if (monster->getBoundingBox().intersectsRect(targetHero->getBoundingBox()))
 		{		
 			targetHero->getHurt(100, 2.0f, 0, 0);
-			targetHero->runAction(MoveBy::create(1.0f,Vec2(-100,0)));
 			this->unschedule(schedule_selector(MonsterBossNum3::__isCarCollide));
 		}
 	}
@@ -1993,6 +1995,15 @@ void MonsterBossNum3::__skillDropBox(float dt){
 		this->bloodBar->setVisible(true);
 		auto shadow = Monster::create(Sprite::create("shadow.png"), MonsterType::block);
 		shadowList.pushBack(shadow);
+
+		Rect rect = box->getBoundingBox();
+		auto s = Director::getInstance()->getWinSize();
+		auto draw = DrawNode::create();
+		box->addChild(draw, 10);
+		Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
+		//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
+		draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
+
 	}
 
 	for (int i = 0; i < 4;i++)
@@ -2012,17 +2023,16 @@ void MonsterBossNum3::__isBoxNeedRemove(float dt){
 		if (monster->getisDead() == true)
 		{
 			this->unschedule(schedule_selector(MonsterBossNum3::__isBoxNeedRemove));
-
-			auto callFunc = CallFunc::create([=](){
-				notFallBoxList.pushBack(monster);
-				float locationX = monster->getPositionX();
-				monster->setPosition(locationX, 1000);
+			auto callFunc = CallFunc::create([=](){		
+				monster->setPosition((monster->getboxTag() + 1) * 320 + 2920, 1000);
 				monster->setHp(monster->getupperHp() + BOXADDBLOOD);
 				monster->setupperHp(monster->getupperHp() + BOXADDBLOOD);
 				monster->setisDead(false);
 				monster->bloodBar->setVisible(true);
 				monster->blood->setPercentage(100.0f);
 				isPlaceVacant[monster->getboxTag()] = 0;
+				notFallBoxList.pushBack(monster);
+				this->targetHero->m_heroMonsterList.eraseObject(monster);
 			});		
 			this->schedule(schedule_selector(MonsterBossNum3::__isBoxNeedRemove),0.0,kRepeatForever,1.0f);
 			monster->m_armature->getAnimation()->play("fade",-1,0);
@@ -2107,7 +2117,6 @@ void MonsterBossNum3::__findAnyVacantPlace(float dt){
 		{
 			this->notFallBoxList.eraseObject(boxList.at(lastBoxNumber));
 			this->targetHero->m_blockArea.pushBack(boxList.at(lastBoxNumber));			
-			//fallingBoxList.eraseObject(boxList.at(lastBoxNumber));
 			this->getParent()->removeChild(shadowList.at(lastBoxNumber));
 		}		
 	});

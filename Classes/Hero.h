@@ -75,6 +75,8 @@ public:
 
 	void useCrazyMedicines();
 
+	void changeToStand(float dt); 
+
 	//Animation play
 	void playAnimaitonStand(Direction);
 	void playAnimaitonWalk(Direction);

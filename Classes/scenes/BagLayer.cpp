@@ -506,7 +506,7 @@ void BagLayer::__updateHeroData(Equipment* newEqu, Equipment* oldEqu){
 	user.UserMoveRate = user.UserMoveRate - oldEqu->getMoveRate() + newEqu->getAttack();
 	user.UserAttackRate = user.UserAttackRate - oldEqu->getAttackRate() + newEqu->getAttackRate();
 	user.UserHealth = user.UserHealth - oldEqu->getBlood() + newEqu->getBlood();
-	user.UserCulHealth = user.UserCulHealth * healthRate;
+	user.UserCulHealth = user.UserHealth * healthRate;
 	user.UserDefense = user.UserDefense - oldEqu->getDenfense() + newEqu->getDenfense() ;
 	user.UserIntelligence = user.UserIntelligence - oldEqu->getIntelligence() + newEqu->getIntelligence();
 }
