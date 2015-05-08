@@ -18,6 +18,7 @@
 #include "SoundsController.h"
 #include "SoundsDef.h"
 #include "TreasureBox.h"
+#include "coin.h"
 #define SHOOTRATE 0.5
 #define MONSTER1WIDTH 75
 #define MONSTER1HEIGHT 160
@@ -646,7 +647,7 @@ void Monster::__attack(){
 		return;
 	}
 	float randomNum = CCRANDOM_0_1();
-	float moveAndAttack = 0.5;
+	float moveAndAttack = 0.3;
 	double standRate = 0.1;
 	setisStanding(true);
 	setisMoving(false);
@@ -1110,13 +1111,20 @@ void Monster::onDead(){
 				box->setPosition(this->getPositionX(), this->getPositionY() - 40);
 				this->getParent()->addChild(box);
 			}
+			else
+			{
+				float randomNum1 = RandomHelper::random_real(0.0f, 1.0f);
+				if (randomNum1>0.4)
+				{
+					auto coin = Coin::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
+					coin->setPosition(this->getPositionX(), this->getPositionY() - 40);
+					this->getParent()->addChild(coin);
+				}
+			}
 		}
 
 
 	}
-
-
-
 }
 
 void Monster::onHurt(){

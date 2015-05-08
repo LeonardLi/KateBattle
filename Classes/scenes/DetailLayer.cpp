@@ -239,17 +239,33 @@ void DetailLayer::onSaleButtonClicked(Ref* sender){
 
 void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
     User& user = JsonUtility::getInstance()->user;
-    user.ToolID[static_cast<int>(m_type)]++;
-    Node* node = static_cast<Node*>(sender);
-    node->setTag(99);
+	int price = JsonUtility::getInstance()->getTool(static_cast<int>(m_type)).ToolPrice;
+	if (user.UserGoldsNumber>=price)
+	{
+		user.UserGoldsNumber = user.UserGoldsNumber-price;
+		user.ToolID[static_cast<int>(m_type)]++;
+		Node* node = static_cast<Node*>(sender);
+		node->setTag(99);
+		if (m_callback && m_callbackListener)
+		{
+			(m_callbackListener->*m_callback)(node);
+		}	
+	}
+	else
+	{
+		Label* label = Label::create("You don't have enough money!", "fonts/arial.ttf", 20);
+		label->setPosition(Vec2(640, 410));
+		label->setColor(Color3B::BLACK);
+		this->addChild(label);
+		FadeIn* action1 = FadeIn::create(1.0f);
+		MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 460));
+		FadeOut* action3 = FadeOut::create(1.0f);
+		Sequence* seq1 = Sequence::create(action2, action3, NULL);
+		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+		label->runAction(seq2);
+	}
+	
     
-
-
-    if (m_callback && m_callbackListener)
-    {
-        (m_callbackListener->*m_callback)(node);
-    }
-    this->removeFromParent();
 }
 
 void DetailLayer::setCallbackFunc(Ref*target, cocos2d::SEL_CallFuncN callFun){

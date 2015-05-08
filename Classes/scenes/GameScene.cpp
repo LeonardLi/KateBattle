@@ -89,10 +89,6 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_controller = ControllerMoveBase::create(m_hero, m_map,  m_scenario, m_subscenario);
 	m_hero->setMoveController(m_controller);
 
-	Coin* coin = Coin::create(m_scenario);
-	coin->setPosition(VisibleRect::center());
-	this->addChild(coin);
-
 	__createStickBar();
     
 	m_monsterMgr = MonsterManager::createWithLevel(m_scenario,m_subscenario);
