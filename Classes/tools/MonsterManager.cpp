@@ -36,7 +36,7 @@ Vector<Monster*> MonsterManager::getMonsterScreen2List(){
 	return m_monsterScreen2List;
 }
 void MonsterManager::createMonsters(int iCurlevel){
-	Monster* monster1 = Monster::create(Sprite::create("wolf.png"),MonsterType::normalAggressiveTypeLv1);
+	/*Monster* monster1 = Monster::create(Sprite::create("wolf.png"),MonsterType::normalAggressiveTypeLv1);
 	monster1->setPosition(400, 200);
 	monster1->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster1);
@@ -112,7 +112,7 @@ void MonsterManager::createMonsters(int iCurlevel){
 
 	//Boss Number 2
 
-	/*auto monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::monsterBossNum2Assister);
+	auto monster1 = Monster::create(Sprite::create("wolf.png"), MonsterType::monsterBossNum2Assister);
 	monster1->setPosition(Vec2(1040,540));
 	monster1->getFSM()->changeState(new StateAttack());
 	m_monsterList.pushBack(monster1);
@@ -130,7 +130,7 @@ void MonsterManager::createMonsters(int iCurlevel){
 	monster2->setAnchorPoint(Vec2(0.5,0.5));
 	m_monsterList.pushBack(monster2);
 	m_showedMonsterList.pushBack(monster2);
-	this->addChild(monster2);*/
+	this->addChild(monster2);
 
 	//Rect rect = monster2->getBoundingBox();
 	//auto s = Director::getInstance()->getWinSize();

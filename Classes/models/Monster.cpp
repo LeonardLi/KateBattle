@@ -15,12 +15,15 @@
 #include "I_State.h"
 #include "StateAttack.h"
 #include "StateUseSkill.h"
+#include "SoundsController.h"
+#include "SoundsDef.h"
 #define SHOOTRATE 0.5
 #define MONSTER1WIDTH 75
 #define MONSTER1HEIGHT 160
 
 USING_NS_CC;
 using namespace cocostudio;
+using namespace CocosDenshion;
 
 #define DEFAULTVIEWRANGE 800.0f
 #define DEFAULTATTACKTIME 2.0f
@@ -597,6 +600,7 @@ void Monster::__attackWithBullet(){
 		BulletBase* bullet = this->__getAnyUnUsedBullet();
 		if (bullet != NULL)
 		{
+			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_20.c_str());
 			bullet->setPosition(this->getPositionX(),this->getPositionY()+this->getContentSize().height/2);
 			bullet->onLockAim(targetHero);
 		}
@@ -733,8 +737,11 @@ void Monster::onDead(){
 	{
 	}
 	else
-	this->m_armature->getAnimation()->play("dead", -1, 0);
-
+	{
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_25.c_str());
+		this->m_armature->getAnimation()->play("dead", -1, 0);
+	}
+	//this->targetHero->m_heroMonsterList.eraseObject(this);
 }
 
 void Monster::onHurt(){
@@ -765,7 +772,8 @@ void Monster::__changeStun(float){
 }
 
 void Monster::monsterGetHurt(float iValue, float time,bool isCrit){
-	
+	//this->setisAttacked(true);
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_23.c_str());
 	if (this->getStun()==NOTSTUN&&time>0.5)
 	{
 		this->setStun(STUN);
@@ -824,6 +832,7 @@ void Monster::monsterGetHurt(float iValue, float time,bool isCrit){
 	else
 	{
 		setHp(0.0);
+		if (this->getcanAttack() == true)
 		bloodBar->setVisible(false);
 		this->setisDead(true);
 		onDead();
@@ -871,6 +880,7 @@ void Monster::skillShot(float dt){
 		this->unschedule(schedule_selector(Monster::skillShot));
 		return;
 	}
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_21.c_str());
 	this->m_armature->getAnimation()->play("attack",-1,0);
 	static int times;
 	times++;
@@ -910,6 +920,7 @@ void Monster::showFire(Vec2 location){
 	{
 		return;
 	}
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_22.c_str());
 	auto fire = Monster::create(Sprite::create("water.png"), MonsterType::block);
 	fire->setPosition(location);
 	this->getParent()->addChild(fire,-1);
@@ -1244,12 +1255,14 @@ void MonsterBossNum2::__bossRotateStop(float dt){
 	auto callFunc1 = CallFunc::create([=](){
 		m_armature->setScale(-1.0f, 1.0f);
 		this->m_armature->getAnimation()->play("walk");
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_26.c_str());
 		castMessage("move close to the boxes!!!");
 	});
 	this->runAction(Sequence::create(DelayTime::create(3.0f),callFunc1,MoveTo::create(2.0f, Vec2(200, 300)),callFunc,NULL));
 }
 
 void MonsterBossNum2::__bossRushToBox(float dt){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_27.c_str(),true);
 	this->m_armature->getAnimation()->play("run");
 	castMessage("move away!!!");
 	float y = this->targetHero->getPositionY() - this->getPositionY();
@@ -1262,6 +1275,7 @@ void MonsterBossNum2::__bossRushToBox(float dt){
 		if (degrees<20)
 		{
 			auto callFunc = CallFunc::create([=](){
+				SimpleAudioEngine::getInstance()->stopEffect(SimpleAudioEngine::getInstance()->playEffect(EFFECTS_27.c_str(), true));
 				this->m_armature->getAnimation()->play("dizzy");
 				if (isScheduled(schedule_selector(MonsterBossNum2::__bossRushJudge)))
 				{

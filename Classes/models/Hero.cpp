@@ -141,6 +141,7 @@ void Hero::onHurt(){
 void Hero::changeStun(float dt){
 	if (getStun() == STUN)
 		setStun(NOTSTUN);
+
 	this->m_armature->getAnimation()->play("stand");
 }
 

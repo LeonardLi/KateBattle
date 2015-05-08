@@ -24,5 +24,12 @@ std::string EFFECTS_16 = "sounds/herodead.WAV";
 std::string EFFECTS_17 = "sounds/levelup.WAV";
 std::string EFFECTS_18 = "sounds/sysattention.WAV";
 std::string EFFECTS_19 = "sounds/backmenu.WAV";
-
+std::string EFFECTS_20 = "sounds/laser.WAV";
+std::string EFFECTS_21 = "sounds/skillshot.WAV";
+std::string EFFECTS_22 = "sounds/shotwater.WAV";
+std::string EFFECTS_23 = "sounds/monsterhurt.WAV";
+std::string EFFECTS_24 = "sounds/treasurebox.WAV";
+std::string EFFECTS_25 = "sounds/monsterdead.WAV";
+std::string EFFECTS_26 = "sounds/alarm.WAV";
+std::string EFFECTS_27 = "sounds/run.WAV";
 
