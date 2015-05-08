@@ -243,6 +243,8 @@ void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
     Node* node = static_cast<Node*>(sender);
     node->setTag(99);
     
+
+
     if (m_callback && m_callbackListener)
     {
         (m_callbackListener->*m_callback)(node);

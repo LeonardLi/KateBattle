@@ -91,30 +91,6 @@ void MonsterManager::createMonsters(ScenarioEnum scenario, SubScenarioEnum subsc
 	else{
 		return;
 	}
-	/*Monster* monster3 = Monster::create(Sprite::create("wolf.png"), MonsterType::shootAggressiveTypeLv1);
-	monster3->setPosition(400, 200);
-	monster3->getFSM()->changeState(new StateUseSkill());
-	m_monsterList.pushBack(monster3);
-	m_showedMonsterList.pushBack(monster3);
-	m_monsterScreen2List.pushBack(monster3);
-	this->addChild(monster3);
-*/
-	//Rect rect = monster2->getBoundingBox();
-	//auto s = Director::getInstance()->getWinSize();
-	//auto draw = DrawNode::create();
-	//this->addChild(draw, 10);
-	////Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
-	//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
-	//draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
-
-
-	/*
-	Monster* monster2 = Monster::create(Sprite::create("wolf.png"),MonsterType::shootTypeLv1);
-	monster2->setPosition(600, 200);
-	monster2->getFSM()->changeState(new StateUseSkill());
-	m_monsterList.pushBack(monster2);
-	this->addChild(monster2);*/
-
 }
 
 void MonsterManager::__createMonsterLevel11()

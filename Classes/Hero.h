@@ -61,7 +61,19 @@ public:
 
 	void flashHero();
 
-	void getMoney(bool BossOrNot);
+	void flashHeroDefault();
+
+	void getMoney(bool BossOrNot, int level);
+
+	void recoverHealth(float value);
+
+	void useFastMedicines();
+
+	void useIntelligenceMedicines();
+
+	void useUnmatchedMedicines();
+
+	void useCrazyMedicines();
 
 	//Animation play
 	void playAnimaitonStand(Direction);
@@ -91,10 +103,25 @@ private:
 
 	void changeSpeed(float slowValue, float slowTime);
 
+	void promoteSpeed(float dt);
+
 	void recoverSpeed(float dt);
 
+	void promoteAttackSpeed(float dt);
 
+	void recoverAttackSpeed(float dt);
+
+	void promoteIntelligence(float dt);
+
+	void recoverIntelligence(float dt);
+
+	void promoteAttackValue(float dt);
+
+	void recoverAttackValue(float dt);
 	
+	void promoteDefence(float dt);
+
+	void recoverDefence(float dt);
 
 
 public:
@@ -126,6 +153,9 @@ private:
 
 	CC_SYNTHESIZE(float, m_curAttackSpeed, curAttackSpeed);
 	CC_SYNTHESIZE(float, m_equipAttackSpeed, equipAttackSpeed);
+
+	CC_SYNTHESIZE(float, m_curDecreaseValue, curDecreaseValue);
+	CC_SYNTHESIZE(float, m_equipDecreaseValue, equipDecreaseValue);
 
 	CC_SYNTHESIZE(int ,m_heroExistScreen, heroExistScreen);
 

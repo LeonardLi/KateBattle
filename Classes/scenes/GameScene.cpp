@@ -25,7 +25,7 @@ using namespace CocosDenshion;
 
 #define SKILL1COLDTIME 20
 #define SKILL2COLDTIME 30
-#define SKILL3COLDTIME 2
+#define SKILL3COLDTIME 40
 
 GameScene::GameScene():
 m_hero(nullptr),
@@ -234,7 +234,7 @@ void GameScene::attackBtnOnClick(Ref* Sender){
 		auto callfunc = CallFunc::create([=](){
 			button->setTouchEnabled(true);
 		});
-		button->runAction(Sequence::create(DelayTime::create(m_hero->getcurAttackSpeed()), callfunc, NULL));
+		button->runAction(Sequence::create(DelayTime::create(2.0-m_hero->getcurAttackSpeed()/80), callfunc, NULL));
 	}
 }
 
@@ -359,15 +359,12 @@ void GameScene::postScreen1IsClear(){
 }
 
 void GameScene::postWinMessage(float dt){
-	log("=============win!==============");
-
 	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
 	fakeBackground->begin();
 	this->getParent()->visit();
 	fakeBackground->end();
 	auto win = WinLayer::createScene(fakeBackground, m_scenario, m_subscenario);
 	Director::getInstance()->pushScene(win);
-	
 }
 
 void GameScene::postLoseMessage(float dt){
@@ -469,17 +466,22 @@ void GameScene::__useInventory(InventoryEnum type){
 	switch (type)
 	{
 	case InventoryEnum::sBlood:
-		log("========GameScene ======== %d", type);
+		m_hero->recoverHealth(150.0f);
 		break;
 	case InventoryEnum::bBlood:
+		m_hero->recoverHealth(500.0f);
 		break;
 	case InventoryEnum::jifengyaoshui:
+		m_hero->useUnmatchedMedicines();
 		break;
 	case InventoryEnum::fengkuangyaoshui:
+		m_hero->useFastMedicines();
 		break;
 	case InventoryEnum::mianyiyaoshui:
+		m_hero->useCrazyMedicines();		
 		break;
 	case InventoryEnum::xianlingyaoshui:
+		m_hero->useIntelligenceMedicines();
 		break;
 	default:
 		break;

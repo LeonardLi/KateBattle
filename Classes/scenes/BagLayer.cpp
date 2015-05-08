@@ -167,6 +167,7 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 		{
 			for (auto equipment1 :equiped)
 			{
+				equipment1->setTouchEnabled(false);
 				equipment1->runAction(Sequence::create(ScaleBy::create(0.8, 1.4), ScaleBy::create(2.0, 0), NULL));
 				user.Equip[equipment1->getIndex()].ID = -1;
 			}
@@ -181,6 +182,8 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 			Sequence* seq1 = Sequence::create(action2, action3, NULL);
 			Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 			label->runAction(seq2);
+
+
 			log("==========advanced=========================");
 		}
 		else
@@ -272,12 +275,12 @@ void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
     }
 	InventoryEnum type = static_cast<InventoryEnum>(sender->getTag());
 	__flushInventory();
-	__flushHeroStatus();
 	__playAnimation(type);
 	if (m_callback && m_callbackListener)
 	{
 		(m_callbackListener->*m_callback)(sender);
 	}
+	__flushHeroStatus();
 }
 
 void BagLayer::__playAnimation(InventoryEnum type){
@@ -479,7 +482,7 @@ void BagLayer::__updateHeroData(Equipment* equ, bool type){
 		user.UserMoveRate = user.UserMoveRate - equ->getMoveRate();
 		user.UserAttackRate = user.UserAttackRate - equ->getAttackRate();
 		user.UserHealth = user.UserHealth - equ->getBlood();
-		user.UserCulHealth = user.UserCulHealth * healthRate;
+		user.UserCulHealth = user.UserHealth * healthRate;
 		user.UserDefense = user.UserDefense - equ->getDenfense();
 		user.UserIntelligence = user.UserIntelligence - equ->getIntelligence();
 	}
@@ -489,7 +492,7 @@ void BagLayer::__updateHeroData(Equipment* equ, bool type){
 		user.UserMoveRate = user.UserMoveRate + equ->getMoveRate();
 		user.UserAttackRate = user.UserAttackRate + equ->getAttackRate();
 		user.UserHealth = user.UserHealth + equ->getBlood();
-		user.UserCulHealth = user.UserCulHealth * healthRate;
+		user.UserCulHealth = user.UserHealth * healthRate;
 		user.UserDefense = user.UserDefense + equ->getDenfense();
 		user.UserIntelligence = user.UserIntelligence + equ->getIntelligence();
 	}

@@ -38,25 +38,28 @@ USING_NS_CC;
 using namespace cocostudio;
 using namespace CocosDenshion;
 Hero::Hero() :
-m_curSpeed(3.0f),
-m_moveSpeed(3.0f),
+m_curSpeed(1.0f),
+m_moveSpeed(1.0f),
 
 m_attackRange(100.0f),
 
 m_curAttackValue(32.0f),
 m_equipAttackValue(32.0f),
-	
+
 m_curHp(288.0f),
 m_upperHp(288.0f),
 
-m_equipDefenceValue(50.0f),
-m_curDefenceValue(50.0f),
+m_equipDefenceValue(0.0f),
+m_curDefenceValue(0.0f),
 
 m_intelligenceValue(26.0f),
 m_curIntelligenceValue(26.0f),
 
-m_curAttackSpeed(0.6f),
-m_equipAttackSpeed(0.6f),
+m_curAttackSpeed(12.0f),
+m_equipAttackSpeed(12.0f),
+
+m_equipDecreaseValue(0.0f),
+m_curDecreaseValue(0.0f),
 
 m_heroExistScreen(1),
 m_AttackPos(1),
@@ -90,7 +93,7 @@ bool Hero::init(){
 	do 
 	{
 		_loadCSB("hero1/hero1.csb");	
-		//flashHero();
+		flashHero();
 		bRet = true;
 	} while (0);
 	this->scheduleUpdate();
@@ -99,8 +102,8 @@ bool Hero::init(){
 
 void Hero::flashHero(){
 	User user = JsonUtility::getInstance()->user;
-	setMoveSpeed(user.UserMoveRate);
-	setCurSpeed(user.UserMoveRate);
+	setMoveSpeed(1.1 + user.UserMoveRate*0.014);
+	setCurSpeed(1.1 + user.UserMoveRate*0.014);
 	setequipAttackValue(user.UserAttack);
 	setcurAttackValue(user.UserAttack);
 	setupperHp(user.UserHealth);
@@ -111,13 +114,16 @@ void Hero::flashHero(){
 	setcurIntelligenceValue(user.UserIntelligence);
 	setequipAttackSpeed(user.UserAttackRate);
 	setcurAttackSpeed(user.UserAttackRate);
-	bloodBar->setPercent(getcurHp() / getupperHp()*100.0f);
+}
+
+void Hero::flashHeroDefault(){
+	User user = JsonUtility::getInstance()->user;
+
 }
 
 void Hero::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
 	m_armature = static_cast<Armature*>(mViewNode->getChildByTag(21));
-	//arm->setScale(-0.2,0.2);
 	m_armature->getAnimation()->play("stand");
 	
 	this->setAnchorPoint(Vec2(0.5, 0.5));
@@ -131,7 +137,9 @@ void Hero::update(float dt){
 	{
 		bloodBar->setPercent(0.0f);
 	}
-	bloodBar->setPercent(getcurHp() / getupperHp()*100.0f);
+	User user = JsonUtility::getInstance()->user;
+
+	bloodBar->setPercent(user.UserCulHealth / user.UserHealth*100.0f);
 	
 	if (getStun()!=STUN && m_isDead==false&&m_canControl==true)
 	m_moveController->simpleMove(m_direction);
@@ -186,8 +194,6 @@ void Hero::herostun(float time)
 }
 
 void Hero::attack(){
-	
-	
 	int pos = getAttackPos();
 	float damageAddition=0.0f;
 	heroNotControl(1.0f);
@@ -247,7 +253,7 @@ void Hero::attack(){
 			float attackRate = randomNum2 / 2 + 0.75;
 			if (randomNum>0.8)
 			{
-				monster->monsterGetHurt((this->getcurAttackValue()+damageAddition) * 2 * attackRate, 0.0f,true,false);
+				monster->monsterGetHurt((this->getcurAttackValue()+damageAddition) * 1.6 * attackRate, 0.0f,true,false);
 			}
 			else
 				monster->monsterGetHurt((this->getcurAttackValue() + damageAddition) * attackRate, 0.0f,false,false);
@@ -293,7 +299,7 @@ void Hero::hitGroundSkill()
 				Vec2 distance = Vec2(this->getPositionX() - monster->getPositionX(), this->getPositionY() - monster->getPositionY());
 				if (distance.length() <= 400)
 				{
-					monster->monsterGetHurt(this->getcurIntelligenceValue()*3, 2.5f,false,true);
+					monster->monsterGetHurt(this->getcurIntelligenceValue()*2, 2.5f,false,true);
 				}
 			}
 		}
@@ -303,7 +309,7 @@ void Hero::hitGroundSkill()
 
 void Hero::addDefenceValue(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_10.c_str());
-	int value = getcurIntelligenceValue() * 2;
+	int value = getcurIntelligenceValue() * 2 - 15;
 	Label* label = Label::create("Defence + "+std::to_string(value)+" !", "fonts/Marker Felt.ttf", 30);
 	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
 	label->setColor(Color3B::BLACK);
@@ -314,7 +320,7 @@ void Hero::addDefenceValue(){
 	Sequence* seq1 = Sequence::create(action2, action3, NULL);
 	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 	label->runAction(seq2);
-	this->setcurDefenceValue(getequipDefenceValue() + getintelligenceValue()*2);
+	this->setcurDefenceValue(getequipDefenceValue() + value);
 	this->scheduleOnce(schedule_selector(Hero::recoverDefenceValue),5.0f);
 }
 
@@ -344,12 +350,12 @@ void Hero::blink(){
 	if (this->m_moveController->leftOrRight == false)
 	{
 		direction = 0;
-		desPoint = Vec2(this->getPositionX() - (175 + 5*getcurIntelligenceValue()), this->getPositionY());		
+		desPoint = Vec2(this->getPositionX() - (175 + 3*getcurIntelligenceValue()), this->getPositionY());		
 	}
 	else
 	{
 		direction = 1;
-		desPoint = Vec2(this->getPositionX() + (175 + 5 * getcurIntelligenceValue()), this->getPositionY());
+		desPoint = Vec2(this->getPositionX() + (175 + 3 * getcurIntelligenceValue()), this->getPositionY());
 	}
 	for (auto monster : m_blockArea){
 		Rect rect = monster->getBoundingBox();
@@ -383,6 +389,13 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		float attackRate = randomNum2 / 2 + 0.75;
 		float afterValue = ivalue*attackRate;
 
+		if (afterValue<getcurDefenceValue())
+		{
+			return;
+		}
+
+		int hurtValue = (afterValue - getcurDefenceValue())*(1 - getcurDecreaseValue());
+
 		if (stunTime > 0)
 		{
 			this->herostun(stunTime);
@@ -404,14 +417,6 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 			this->changeSpeed(slowValue, slowTime);
 		}
 
-		if (afterValue<getcurDefenceValue())
-		{
-			return;
-		}
-
-		int hurtValue = afterValue-getcurDefenceValue();
-
-
 		auto string = std::to_string(hurtValue);
 		Label* label = Label::create(string, "fonts/Marker Felt.ttf", 30);
 		label->setPosition(this->getBoundingBox().size.width/2,this->getBoundingBox().size.height+40);
@@ -425,15 +430,16 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		label->runAction(seq2);
 		float iAfterHp = iCurHp - hurtValue;
 
-		
+		User& User = JsonUtility::getInstance()->user;
 		if (iAfterHp > 0)
 		{
 			setcurHp(iAfterHp);
+			User.UserCulHealth = iAfterHp;
 		}
-		//����
 		else
 		{
 			setcurHp(0);
+			User.UserCulHealth =0;
 			this->setisDead(true);
 			onDead();
 			return;
@@ -444,10 +450,131 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 	}
 }
 
-void Hero::getMoney(bool BossOrNot){
+void Hero::getMoney(bool BossOrNot,int level){
 	log("==============money!!==============");
 
 
+}
+
+
+void Hero::useFastMedicines(){
+	if (isScheduled(schedule_selector(Hero::promoteSpeed))==false)
+	this->schedule(schedule_selector(Hero::promoteSpeed));
+	if (isScheduled(schedule_selector(Hero::recoverSpeed)))
+	{
+		this->unschedule(schedule_selector(Hero::recoverSpeed));
+		this->scheduleOnce(schedule_selector(Hero::recoverSpeed), 15.0f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::recoverSpeed), 15.0f);
+	}
+}
+
+void Hero::promoteSpeed(float dt){
+	setCurSpeed(3.0f);
+}
+
+void Hero::recoverSpeed(float dt){
+	this->unschedule(schedule_selector(Hero::promoteSpeed));
+	User& user = JsonUtility::getInstance()->user;
+	this->setCurSpeed(1.1+0.014*user.UserMoveRate);
+}
+
+void Hero::useCrazyMedicines(){
+	if (isScheduled(schedule_selector(Hero::promoteAttackSpeed)) == false)
+		this->schedule(schedule_selector(Hero::promoteAttackSpeed));
+	if (isScheduled(schedule_selector(Hero::promoteAttackSpeed)))
+	{
+		this->unschedule(schedule_selector(Hero::recoverAttackSpeed));
+		this->scheduleOnce(schedule_selector(Hero::recoverAttackSpeed), 15.0f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::recoverAttackSpeed), 15.0f);
+	}
+	
+
+	if (isScheduled(schedule_selector(Hero::promoteAttackValue)) == false)
+		this->schedule(schedule_selector(Hero::promoteAttackValue));
+	if (isScheduled(schedule_selector(Hero::promoteAttackValue)))
+	{
+		this->unschedule(schedule_selector(Hero::recoverAttackValue));
+		this->scheduleOnce(schedule_selector(Hero::recoverAttackValue), 15.0f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::recoverAttackValue), 15.0f);
+	}
+}
+
+void Hero::promoteAttackSpeed(float percent){
+	User& user = JsonUtility::getInstance()->user;
+	setcurAttackSpeed(user.UserAttackRate*1.2);
+}
+
+void Hero::recoverAttackSpeed(float dt){
+	this->unschedule(schedule_selector(Hero::promoteAttackSpeed));
+	User& user = JsonUtility::getInstance()->user;
+	this->setcurAttackSpeed(user.UserAttackRate);
+}
+
+void Hero::promoteAttackValue(float percent){
+	User& user = JsonUtility::getInstance()->user;
+	setcurAttackSpeed(user.UserAttack*1.2);
+}
+
+void Hero::recoverAttackValue(float dt){
+	this->unschedule(schedule_selector(Hero::promoteAttackValue));
+	User& user = JsonUtility::getInstance()->user;
+	this->setcurAttackValue(user.UserAttack);
+}
+
+void Hero::useIntelligenceMedicines(){
+	if (isScheduled(schedule_selector(Hero::promoteIntelligence)) == false)
+		this->schedule(schedule_selector(Hero::promoteIntelligence));
+	if (isScheduled(schedule_selector(Hero::recoverIntelligence)))
+	{
+		this->unschedule(schedule_selector(Hero::recoverIntelligence));
+		this->scheduleOnce(schedule_selector(Hero::recoverIntelligence), 15.0f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::recoverIntelligence), 15.0f);
+	}
+}
+
+void Hero::promoteIntelligence(float percent){
+	User& user = JsonUtility::getInstance()->user;
+	setcurIntelligenceValue(user.UserIntelligence*1.2);
+}
+
+void Hero::recoverIntelligence(float dt){
+	this->unschedule(schedule_selector(Hero::promoteIntelligence));
+	User& user = JsonUtility::getInstance()->user;
+	setcurIntelligenceValue(user.UserIntelligence);
+}
+
+
+void Hero::useUnmatchedMedicines(){
+	promoteDefence(0.7f);
+}
+
+void Hero::recoverHealth(float value){
+	float blood = getcurHp();
+	float upperBlood = getupperHp();
+	float usedBlood = blood + value;
+	User& user = JsonUtility::getInstance()->user;
+	if (usedBlood>upperBlood)
+	{
+		setcurHp(upperBlood);
+		user.UserCulHealth = upperBlood;
+	}
+	else
+	{
+		setcurHp(usedBlood);
+		user.UserCulHealth = usedBlood;
+	}
 }
 
 void Hero::changeSpeed(float slowValue, float slowTime){
@@ -465,8 +592,19 @@ void Hero::changeSpeed(float slowValue, float slowTime){
 	}
 }
 
-void Hero::recoverSpeed(float dt){
-	this->setCurSpeed(this->getMoveSpeed());
+void Hero::promoteDefence(float percent){
+	setcurDecreaseValue(percent);
+	if (this->isScheduled(schedule_selector(Hero::recoverDefence)))
+	{
+		this->unschedule(schedule_selector(Hero::recoverDefence));
+		this->scheduleOnce(schedule_selector(Hero::recoverDefence), 15.0f);
+	}
+	else
+		this->scheduleOnce(schedule_selector(Hero::recoverDefence), 15.0f);
+}
+
+void Hero::recoverDefence(float dt){
+	setcurDecreaseValue(getequipDecreaseValue());
 }
 
 void Hero::playAnimaitonAttack(Direction direction){
