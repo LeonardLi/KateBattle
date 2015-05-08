@@ -328,7 +328,7 @@ void GameScene::update(float dt){
 		{
 			if (monster->bossOrNot == true && monster->getisDead() == true){
 				this->unscheduleUpdate();
-				this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 2.0f);
+				this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 6.0f);
 				return;
 			}
 			if (monster->getisDead() == false)
@@ -337,7 +337,7 @@ void GameScene::update(float dt){
 			}
 		}
 		this->unscheduleUpdate();
-		this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 3.0f);
+		this->scheduleOnce(schedule_selector(GameScene::postWinMessage), 6.0f);
 	}
 }
 

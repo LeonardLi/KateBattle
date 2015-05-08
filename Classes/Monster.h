@@ -84,6 +84,7 @@ public:
 
 	void choiceDirectionToAction(std::string action);
 
+	void createName(std::string str, int height);
 	void createBloodBar(bool bossTypeOrNot);
 	void castMessage(std::string message);
 
@@ -149,6 +150,7 @@ public:
 	bool bossOrNot;
 	int monsterLevel;
 
+	cocos2d::Label* nameLabel;
 	cocos2d::Sprite* bloodBar;
 	cocos2d::ProgressTimer* blood;
 private:

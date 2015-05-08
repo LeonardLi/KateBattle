@@ -51,7 +51,7 @@ void MonsterManager::createMonsters(ScenarioEnum scenario, SubScenarioEnum subsc
 		{
 		case SubScenarioEnum::LV1:
 			//__createMonsterLevel23();
-			__createMonsterLevel11();
+			__createMonsterLevel13();
 			break;
 		case SubScenarioEnum::LV2:
 			__createMonsterLevel12();
@@ -283,7 +283,7 @@ void MonsterManager::__createMonsterLevel13()
 	monster6->setPosition(2500, 200);
 	monster6->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster6);
-	m_monsterScreen1List.pushBack(monster6);
+	m_monsterScreen2List.pushBack(monster6);
 	m_showedMonsterList.pushBack(monster6);
 	this->addChild(monster6);
 

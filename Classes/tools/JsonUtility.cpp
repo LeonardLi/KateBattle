@@ -298,6 +298,7 @@ EquipmentInfo JsonUtility::getEquipment(int ID)	//获取第i个装备
 	EquipmentInfo equip = {};
 	rapidjson::Value& val = m_doc["Data"];
 	rapidjson::Value& equi = val["Equipment"];
+	log("==================%d================", ID);
 	if (ID >= equi.Capacity())
 	{
 		CCAssert(false, "wrong :exceed the limit of equipment");

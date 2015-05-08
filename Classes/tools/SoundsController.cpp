@@ -114,7 +114,7 @@ void SoundsController::_setBackSceneVolumLogic(float dt)
 
 void SoundsController::_setEffectVolumLogic(float dt)
 {
-	m_EffectMusicVolum -= 0.15;
+	m_EffectMusicVolum -= 0.15f;
 	if (m_EffectMusicVolum > 0)
 	{
 		SimpleAudioEngine::getInstance()->setEffectsVolume(m_EffectMusicVolum);

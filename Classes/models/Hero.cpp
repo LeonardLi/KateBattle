@@ -11,6 +11,7 @@
 #include "JoyStick.h"
 #include "SoundsDef.h"
 #include "SoundsController.h"
+#include "JsonUtility.h"
 
 //default speed
 #define DEFAULTSPEED 1.0f
@@ -42,17 +43,17 @@ m_moveSpeed(3.0f),
 
 m_attackRange(100.0f),
 
-m_curAttackValue(10.0f),
-m_equipAttackValue(10.0f),
-
-m_curHp(1000.0f),
-m_upperHp(1000.0f),
+m_curAttackValue(32.0f),
+m_equipAttackValue(32.0f),
+	
+m_curHp(288.0f),
+m_upperHp(288.0f),
 
 m_equipDefenceValue(50.0f),
 m_curDefenceValue(50.0f),
 
-m_intelligenceValue(5.0f),
-m_curIntelligenceValue(5.0f),
+m_intelligenceValue(26.0f),
+m_curIntelligenceValue(26.0f),
 
 m_curAttackSpeed(1.5f),
 m_equipAttackSpeed(1.5f),
@@ -89,12 +90,29 @@ bool Hero::init(){
 	do 
 	{
 		_loadCSB("hero1/hero1.csb");	
+		//flashHero();
 		bRet = true;
 	} while (0);
 	this->scheduleUpdate();
 	return bRet;
 }
 
+void Hero::flashHero(){
+	User user = JsonUtility::getInstance()->user;
+	setMoveSpeed(user.UserMoveRate);
+	setCurSpeed(user.UserMoveRate);
+	setequipAttackValue(user.UserAttack);
+	setcurAttackValue(user.UserAttack);
+	setupperHp(user.UserHealth);
+	setcurHp(user.UserCulHealth);
+	setequipDefenceValue(user.UserDefense);
+	setcurDefenceValue(user.UserDefense);
+	setintelligenceValue(user.UserIntelligence);
+	setcurIntelligenceValue(user.UserIntelligence);
+	setequipAttackSpeed(user.UserAttackRate);
+	setcurAttackSpeed(user.UserAttackRate);
+	bloodBar->setPercent(getcurHp() / getupperHp()*100.0f);
+}
 
 void Hero::_loadCSB(std::string csbfile){
 	mViewNode = static_cast<Node*>(CSLoader::createNode(csbfile));
@@ -275,7 +293,7 @@ void Hero::hitGroundSkill()
 				Vec2 distance = Vec2(this->getPositionX() - monster->getPositionX(), this->getPositionY() - monster->getPositionY());
 				if (distance.length() <= 400)
 				{
-					monster->monsterGetHurt(this->getcurIntelligenceValue()*3, 2.0f,false,true);
+					monster->monsterGetHurt(this->getcurIntelligenceValue()*3, 2.5f,false,true);
 				}
 			}
 		}
@@ -321,6 +339,8 @@ void Hero::blink(){
 	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 	label->runAction(seq2);
 	this->m_armature->getAnimation()->play("blink", -1, 0);
+	
+
 	if (this->m_moveController->leftOrRight == false)
 	{
 		direction = 0;

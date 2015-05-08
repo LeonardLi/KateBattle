@@ -17,6 +17,7 @@
 #include "StateUseSkill.h"
 #include "SoundsController.h"
 #include "SoundsDef.h"
+#include "TreasureBox.h"
 #define SHOOTRATE 0.5
 #define MONSTER1WIDTH 75
 #define MONSTER1HEIGHT 160
@@ -49,8 +50,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 	bool bRet = false;
 	do
 	{
-		setStun(NOTSTUN);
-		
+		setStun(NOTSTUN);	
 		setboxTag(-1);
 		setattackRange(100.0f);
 		setAttackValue(10.0f);
@@ -82,8 +82,9 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setupperHp(50);
 			setviewRange(500.0f);
 			setattackRange(100.0f);
-			setAttackValue(10.0f);
+			setAttackValue(10.0f);		
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Brown Hyde Lv1", 90);
 			break;
 		case MonsterType::normalAggressiveTypeLv1:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -94,6 +95,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackRange(100.0f);
 			setAttackValue(20.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Cruel Manu Lv1", 90);
 			break;
 		case MonsterType::normalMoveFastTypeLv1:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -105,6 +107,8 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setAttackValue(10.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			setSpeedRate(0.8f);
+			createName("Swift Doug Lv1", 90);
+			
 			break;
 		case MonsterType::normalAttackFastTypeLv1:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -116,6 +120,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setAttackValue(10.0f);
 			setattackTime(1.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Shadowless Lv1", 90);
 			break;
 		case MonsterType::normalFatTypeLv1:
 			_loadCSB("monster9/monster9.csb", 33);
@@ -127,6 +132,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setAttackValue(20.0f);
 			setattackTime(3.0f);
 			setContentSize(Size(105, 165));
+			createName("Big Eater Lv1", 90);
 			break;
 		case MonsterType::normalIronTypeLv1:
 			_loadCSB("monster2/monster2.csb", 19);
@@ -138,6 +144,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setAttackValue(15.0f);
 			setDefenceValue(8.0f);
 			setContentSize(Size(85, 105));
+			createName("Stone Johnson Lv1", 90);
 			break;	
 		case MonsterType::shootTypeLv1:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -148,6 +155,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			m_monsterType = MonsterType::shootTypeLv1;
 			monsterLevel = 1;
 			setattackRange(500.0);
+			createName("EF Shooter Lv1", 90);
 			break;
 		case MonsterType::shootAggressiveTypeLv1:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -157,6 +165,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			m_monsterType = MonsterType::shootAggressiveTypeLv1;
 			monsterLevel = 1;
 			setattackRange(500.0);
+			createName("EF Master Shooter Lv1", 90);
 			break;
 		case MonsterType::shootSlowTypeLv1:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -167,6 +176,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			m_monsterType = MonsterType::shootSlowTypeLv1;
 			monsterLevel = 1;
 			setattackRange(500.0);
+			createName("EF Slug Lv1", 90);
 			break;
 		case  MonsterType::normalTypeLv2:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -178,6 +188,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setAttackValue(18.0f);
 			monsterLevel = 2;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Brown Hyde Lv2", 90);
 			break;
 		case MonsterType::normalAggressiveTypeLv2:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -188,6 +199,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 2;
 			setAttackValue(30.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Cruel Manu Lv2", 90);
 			break;
 		case MonsterType::normalMoveFastTypeLv2:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -199,6 +211,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 2;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			setSpeedRate(1.0f);
+			createName("Swift Doug Lv2", 90);
 			break;
 		case MonsterType::normalAttackFastTypeLv2:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -210,6 +223,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackTime(1.0f);
 			monsterLevel = 2;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Shadowless Lv2", 90);
 			break;
 		case MonsterType::normalFatTypeLv2:
 			_loadCSB("monster9/monster9.csb", 33);
@@ -221,6 +235,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackTime(3.0f);
 			monsterLevel = 2;
 			setContentSize(Size(105, 165));
+			createName("Big Eater Lv2", 90);
 			break;
 		case MonsterType::normalIronTypeLv2:
 			_loadCSB("monster2/monster2.csb", 19);
@@ -232,6 +247,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setDefenceValue(15.0f);
 			monsterLevel = 2;
 			setContentSize(Size(85, 105));
+			createName("Stone Johnson Lv2", 90);
 			break;
 		case MonsterType::shootTypeLv2:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -242,6 +258,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 2;
 			m_monsterType = MonsterType::shootTypeLv2;
 			setattackRange(600.0);
+			createName("EF Shooter Lv2", 90);
 			break;
 		case MonsterType::shootAggressiveTypeLv2:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -252,6 +269,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 2;
 			m_monsterType = MonsterType::shootAggressiveTypeLv2;
 			setattackRange(600.0);
+			createName("EF Master Shooter Lv2", 90);
 			break;
 		case MonsterType::shootSlowTypeLv2:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -262,6 +280,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 2;
 			m_monsterType = MonsterType::shootSlowTypeLv2;
 			setattackRange(600.0);
+			createName("EF Slug Lv2", 90);
 			break;
 
 		case  MonsterType::normalTypeLv3:
@@ -274,6 +293,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setAttackValue(30.0f);
 			monsterLevel = 3;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Brown Hyde Lv3", 90);
 			break;
 		case MonsterType::normalAggressiveTypeLv3:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -284,6 +304,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 3;
 			setAttackValue(40.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Cruel Manu Lv3", 90);
 			break;
 		case MonsterType::normalMoveFastTypeLv3:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -295,6 +316,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 3;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
 			setSpeedRate(1.0f);
+			createName("Swift Doug Lv3", 90);
 			break;
 		case MonsterType::normalAttackFastTypeLv3:
 			_loadCSB("monster1/monster1.csb", 17);
@@ -306,6 +328,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackTime(1.0f);
 			monsterLevel = 3;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			createName("Shadowless Lv3", 90);
 			break;
 		case MonsterType::normalFatTypeLv3:
 			_loadCSB("monster9/monster9.csb", 33);
@@ -317,6 +340,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackTime(3.0f);
 			monsterLevel = 3;
 			setContentSize(Size(105, 165));
+			createName("Big Eater Lv3", 90);
 			break;
 		case MonsterType::normalIronTypeLv3:
 			_loadCSB("monster2/monster2.csb", 19);
@@ -328,6 +352,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setDefenceValue(15.0f);
 			monsterLevel = 3;
 			setContentSize(Size(85, 105));
+			createName("Stone Johnson Lv3", 90);
 			break;
 		case MonsterType::shootTypeLv3:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -338,16 +363,17 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 3;
 			m_monsterType = MonsterType::shootTypeLv3;
 			setattackRange(600.0);
+			createName("EF Shooter Lv3", 90);
 			break;
 		case MonsterType::shootAggressiveTypeLv3:
 			_loadCSB("monster8/monster8.csb", 31);
 			setContentSize(Size(100, 140));
-
 			setHp(80);
 			setupperHp(80);
 			monsterLevel = 3;
 			m_monsterType = MonsterType::shootAggressiveTypeLv3;
 			setattackRange(600.0);
+			createName("EF Master Shooter Lv3", 90);
 			break;
 		case MonsterType::shootSlowTypeLv3:
 			_loadCSB("monster8/monster8.csb", 31);
@@ -358,6 +384,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 3;
 			m_monsterType = MonsterType::shootSlowTypeLv3;
 			setattackRange(600.0);
+			createName("EF Slug Lv3", 90);
 			break;
 
 		case MonsterType::num1ShootType:
@@ -367,6 +394,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackRange(1500.0);
 			setHp(100);
 			setupperHp(100);
+			createName("Helper", 90);
 			break;
 		case MonsterType::num1BoxType:
 			break;
@@ -385,7 +413,8 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			_loadCSB("jbox/jbox.csb", 9);
 			setHp(20);
 			setupperHp(20);
-			setContentSize(Size(330,260));		
+			setContentSize(Size(330,260));	
+			createName("Box", 90);
 			break;
 		case MonsterType::monsterBossNum2Assister:
 			m_monsterType = MonsterType::monsterBossNum2Assister;
@@ -450,6 +479,7 @@ void Monster::attackSequence(){
 		break;
 	case MonsterType::shootSlowTypeLv2:
 		__initBullet(7);
+		break;
 	case MonsterType::shootTypeLv3:
 		__initBullet(8);
 		break;
@@ -458,10 +488,7 @@ void Monster::attackSequence(){
 		break;
 	case MonsterType::shootSlowTypeLv3:
 		__initBullet(10);
-
-
-
-
+		break;
 	case MonsterType::monsterBossNum3:
 		this->schedule(schedule_selector(MonsterBossNum3::isHeroCloseToBoss));
 		//this->scheduleOnce(schedule_selector(MonsterBossNum3::showTheCar), 5.0f);
@@ -584,20 +611,19 @@ void Monster::__isInViewRange(float dt){
 	{
 		log("hero  InView!!!!!!!!!!");
 		__attack();
-
 		this->unschedule(schedule_selector(Monster::__isInViewRange));
 	}
 	
 }
 
 void Monster::__attack(){
-	float randomNum = CCRANDOM_0_1();
-	float moveAndAttack = 0.5;
-	double standRate = 0.1;
-	if (getStun() == STUN||getisDead()==true)
+	if (getStun() == STUN || getisDead() == true)
 	{
 		return;
 	}
+	float randomNum = CCRANDOM_0_1();
+	float moveAndAttack = 0.5;
+	double standRate = 0.1;
 	setisStanding(true);
 	setisMoving(false);
 	choiceDirectionToAction("stand");
@@ -747,12 +773,11 @@ void Monster::__attackafterMove(){
 		return;
 	}
 	float randomNum = CCRANDOM_0_1();
-	if (randomNum > 0.25)
+	if (randomNum > 0.2)
 	{
 		log("monster attack!!! after move ");
 		switch (m_monsterType)
-		{
-		case MonsterType::monsterBossNum1:
+		{	
 		case MonsterType::normalTypeLv1:
 		case MonsterType::normalFatTypeLv1:
 		case MonsterType::normalAggressiveTypeLv1:
@@ -774,8 +799,7 @@ void Monster::__attackafterMove(){
 		case MonsterType::normalIronTypeLv3:
 		case MonsterType::normalMoveFastTypeLv3:
 
-
-
+		case MonsterType::monsterBossNum1:
 		case MonsterType::monsterBossNum2:
 		case MonsterType::monsterBossNum3:
 
@@ -834,7 +858,7 @@ void Monster::__attackWithHand(){
 	if (m_monsterType==MonsterType::monsterBossNum1||m_monsterType==MonsterType::monsterBossNum2)
 	{
 		float randomNum = CCRANDOM_0_1();
-		if (randomNum >= 0.25&&randomNum <= 0.75)
+		if (randomNum >= 0.25&&randomNum <= 0.8)
 		{
 			this->getFSM()->OnRecvBossWantToUseSkill(this);
 		}
@@ -931,13 +955,11 @@ void Monster::__readyForUseSkill(float dt){
 	if (this->getFSM()->getState() == MonsterFSM::toUseSkill)
 	{
 		this->schedule(schedule_selector(Monster::__intoSkillSequence));
-		log("ready to skill!!~~");
 	}
 
 	else if (this->getFSM()->getState() == MonsterFSM::BosstoUseSkill)
 	{
 		this->schedule(schedule_selector(Monster::__intoSkillSequence));
-		log("ready to skill!!~~");
 	}
 
 	else
@@ -952,7 +974,6 @@ void Monster::__intoSkillSequence(float dt){
 		this->unschedule(schedule_selector(Monster::__intoSkillSequence));
 		this->__skill();
 	}
-
 }
 
 void Monster::__skill(){
@@ -1024,7 +1045,6 @@ void Monster::onDead(){
 	if (this->m_monsterType==MonsterType::num3BoxType)
 	{
 	}
-	
 	else
 	{
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_25.c_str());
@@ -1041,6 +1061,29 @@ void Monster::onDead(){
 			m_armature->getAnimation()->play("dead",-1,0);
 		}
 	}
+
+	if (this->m_monsterType != MonsterType::num3BoxType)
+	{
+		if (this->bossOrNot==true)
+		{
+			auto box = TreasureBox::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
+			box->setPosition(this->getPositionX(), this->getPositionY() - 40);
+			this->getParent()->addChild(box);
+		}
+		else
+		{
+			float randomNum = RandomHelper::random_real(0.0f, 1.0f);
+			if (randomNum>0.8)
+			{
+				auto box = TreasureBox::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
+				box->setPosition(this->getPositionX(), this->getPositionY() - 40);
+				this->getParent()->addChild(box);
+			}
+		}
+	}
+
+
+
 }
 
 void Monster::onHurt(){
@@ -1138,7 +1181,11 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 	{
 		setHp(0.0);
 		if (this->getcanAttack() == true)
-		bloodBar->setVisible(false);
+		{
+			bloodBar->setVisible(false);
+			nameLabel->setVisible(false);
+		}
+		
 		this->setisDead(true);
 		onDead();
 		if (getcanAttack() == true)
@@ -1167,7 +1214,6 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 
 	if (this->getStun() == STUN)
 	{
-
 		if (isScheduled(schedule_selector(Monster::__changeStun)))
 		{
 			unschedule(schedule_selector(Monster::__changeStun));
@@ -1179,13 +1225,12 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 		if (isScheduled(schedule_selector(Monster::__readyForAttack)))
 		{
 			unschedule(schedule_selector(Monster::__readyForAttack));
-			this->scheduleOnce(schedule_selector(Monster::__readyForAttack), time+0.3f);
+			this->scheduleOnce(schedule_selector(Monster::__readyForAttack), time + 0.3f);
 		}
 		else
-			this->scheduleOnce(schedule_selector(Monster::__readyForAttack), time+0.3f);
+			this->scheduleOnce(schedule_selector(Monster::__readyForAttack), time + 0.3f);
 
 	}
-
 }
 
 void Monster::skillShot(float dt){
@@ -1302,6 +1347,15 @@ void Monster::createBloodBar(bool isBossOrNot){
 	}
 }
 
+void Monster::createName(std::string str,int height){
+	nameLabel = Label::create(str, "fonts/Marker Felt.ttf", 24);
+	nameLabel->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + height));
+	nameLabel->setColor(Color3B::BLACK);
+	this->addChild(nameLabel, 4);
+}
+
+
+
 //Boss number 1
 
 MonsterBossNum1* MonsterBossNum1::create(Sprite* sprite, Vector<Monster*> monsterList){
@@ -1339,8 +1393,9 @@ bool MonsterBossNum1::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setcanAttack(true);	
 		setStun(NOTSTUNFOREVER);
 		this->setContentSize(Size(85, 160));
+		monsterLevel = 2;
 		m_monsterType = MonsterType::monsterBossNum1;
-
+		createName("Hercules", 110);
 		createBloodBar(true);
 
 		m_FSM = MonsterFSM::createWithMonster(this);
@@ -1355,7 +1410,6 @@ void MonsterBossNum1::__skillRushBox(float dt){
 	{
 		return;
 	}
-	
 	
 	this->schedule(schedule_selector(MonsterBossNum1::__skillRush), 0.0, kRepeatForever, 10.0f);
 	auto box = Monster::create(Sprite::create("box.png"), MonsterType::block);
@@ -1502,9 +1556,9 @@ bool MonsterBossNum2::init(Sprite* sprite, Monster* monster){
 		setSpeedRate(0.6f);
 		setcanAttack(true);
 		setContentSize(Size(90, 110));
-		
+		monsterLevel = 3;
 		createBloodBar(true);
-
+		createName("Evil Twins", 110);
 		m_FSM = MonsterFSM::createWithMonster(this);
 		bRet = true;
 	} while (0);
@@ -1531,6 +1585,7 @@ void MonsterBossNum2::__dangerousAreaJudge(float dt){
 }
 
 void MonsterBossNum2::__bossJump(){
+	castMessage("run away!!!");
 	setcanAttack(false);
 	ccBezierConfig bezierCon;
 	bezierCon.controlPoint_1 = Vec2(this->getPositionX(), this->getPositionY());
@@ -1697,12 +1752,12 @@ bool MonsterBossNum3::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setStun(NOTSTUNFOREVER);
 
 		setContentSize(Size(80, 100));
-
+		monsterLevel = 1;
 		//attackrange+100 = move range
 		carMonsterList = monsterList;
 		m_monsterType = MonsterType::monsterBossNum3;
 		createBloodBar(true);
-
+		createName("Big Eye", 110);
 		m_FSM = MonsterFSM::createWithMonster(this);
 		bRet = true;
 	} while (0);
@@ -1728,6 +1783,8 @@ void MonsterBossNum3::onDead(){
 	boxList.clear();
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_25.c_str());
 	this->m_armature->getAnimation()->stop();
+	bloodBar->setVisible(false);
+	nameLabel->setVisible(false);
 	if (this->targetHero->getPositionX() < this->getPositionX())
 	{
 		m_armature->setScale(1.0f, 1.0f);
@@ -1744,6 +1801,9 @@ void MonsterBossNum3::onDead(){
 	});
 	this->runAction(Sequence::create(DelayTime::create(2.0f), callFunc, NULL));
 	
+	auto box = TreasureBox::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
+	box->setPosition(this->getPositionX(), this->getPositionY() - 40);
+	this->getParent()->addChild(box);
 }
 
 void MonsterBossNum3::showTheCar(float dt){
@@ -1786,10 +1846,10 @@ void MonsterBossNum3::__runTheCar(float dt){
 		runTime3 = 4.0f;
 		break;
 	case 2:
-		//321
-		runTime1 = 3.5f;
+		//213
+		runTime1 = 4.0f;
 		runTime2 = 2.0f;
-		runTime3 = 5.0f;
+		runTime3 = 6.0f;
 		break;
 	default:
 		//123
@@ -1809,15 +1869,15 @@ void MonsterBossNum3::__runTheCar(float dt){
 }
 
 void MonsterBossNum3::__runNumber1Car(float dt){
-	this->carMonsterList.at(0)->runAction(EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)),4.0f));
+	this->carMonsterList.at(0)->runAction(Sequence::create(MoveBy::create(0.5f,Vec2(-30,0)),MoveBy::create(0.5f,Vec2(30,0)),EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)),4.0f),NULL));
 }
 
 void MonsterBossNum3::__runNumber2Car(float dt){
-	this->carMonsterList.at(1)->runAction(EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)), 4.0f));
+	this->carMonsterList.at(1)->runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-30, 0)), MoveBy::create(0.5f, Vec2(30, 0)), EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)), 4.0f), NULL));
 }
 
 void MonsterBossNum3::__runNumber3Car(float dt){
-	this->carMonsterList.at(2)->runAction(EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)), 4.0f));
+	this->carMonsterList.at(2)->runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-30, 0)), MoveBy::create(0.5f, Vec2(30, 0)), EaseIn::create(MoveBy::create(5.0f, Vec2(-1400, 0)), 4.0f), NULL));
 }
 
 void MonsterBossNum3::__removeTheCar(float dt){

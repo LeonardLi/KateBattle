@@ -59,6 +59,8 @@ public:
 
 	void recoverAttackPosture(float dt);
 
+	void flashHero();
+
 	//Animation play
 	void playAnimaitonStand(Direction);
 	void playAnimaitonWalk(Direction);
@@ -109,7 +111,7 @@ private:
 	CC_SYNTHESIZE(float, m_moveSpeed, MoveSpeed);
 
 	CC_SYNTHESIZE(float, m_curAttackValue, curAttackValue);
-	CC_SYNTHESIZE(float, m_equipAttackValue, equipCurAttackValue);
+	CC_SYNTHESIZE(float, m_equipAttackValue, equipAttackValue);
 
 	CC_SYNTHESIZE(float, m_curHp, curHp);
 	CC_SYNTHESIZE(float, m_upperHp, upperHp);
