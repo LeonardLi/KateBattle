@@ -68,6 +68,8 @@ void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Value& EquiNumber = val["EquipmentNumber"];
 	EquiNumber.SetInt(user.EquipmentNumber);
 	rapidjson::Value& skill = val["SkillID"];
+	
+
 	if (skill.IsArray())
 	{
 		for (int i = 0; i < skill.Capacity(); i++)
@@ -110,6 +112,7 @@ void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 			scenod7.SetDouble(user.Equip[i].AttackRate);
 			rapidjson::Value&scenod8 = first["MoveRate"];
 			scenod8.SetDouble(user.Equip[i].MoveRate);
+
 		}
 	}
 	rapidjson::Value& clear = val["Clear_BlockID"];

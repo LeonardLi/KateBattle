@@ -38,6 +38,7 @@ private:
 	void onInventoryClickedListener(cocos2d::Ref*);
 	void onEquipmentClickedListener(cocos2d::Ref*);
 	void onBackButtonClickListener(cocos2d::Ref*);
+	void onAdvancedButtonClickListener(cocos2d::Ref*);
 
 	bool __initFromFile();
 	void __playAnimation(InventoryEnum);

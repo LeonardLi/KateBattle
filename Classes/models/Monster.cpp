@@ -1060,6 +1060,13 @@ void Monster::onDead(){
 			m_armature->setScale(-1.0f, 1.0f);
 			m_armature->getAnimation()->play("dead",-1,0);
 		}
+		if (bossOrNot == true)
+		{
+			this->targetHero->getMoney(true);
+		}
+		else
+			this->targetHero->getMoney(false);
+
 	}
 
 	if (this->m_monsterType != MonsterType::num3BoxType)

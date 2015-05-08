@@ -61,6 +61,8 @@ public:
 
 	void flashHero();
 
+	void getMoney(bool BossOrNot);
+
 	//Animation play
 	void playAnimaitonStand(Direction);
 	void playAnimaitonWalk(Direction);

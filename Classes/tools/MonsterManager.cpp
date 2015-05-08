@@ -37,21 +37,12 @@ Vector<Monster*> MonsterManager::getMonsterScreen2List(){
 	return m_monsterScreen2List;
 }
 void MonsterManager::createMonsters(ScenarioEnum scenario, SubScenarioEnum subscenario){
-	//Rect rect = monster2->getBoundingBox();
-	//auto s = Director::getInstance()->getWinSize();
-	//auto draw = DrawNode::create();
-	//this->addChild(draw, 10);
-	////Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
-	//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
-	//draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
-
 	if (scenario==ScenarioEnum::Port)
 	{
 		switch (subscenario)
 		{
 		case SubScenarioEnum::LV1:
-			//__createMonsterLevel23();
-			__createMonsterLevel13();
+			__createMonsterLevel11();
 			break;
 		case SubScenarioEnum::LV2:
 			__createMonsterLevel12();

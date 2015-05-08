@@ -55,8 +55,8 @@ m_curDefenceValue(50.0f),
 m_intelligenceValue(26.0f),
 m_curIntelligenceValue(26.0f),
 
-m_curAttackSpeed(1.5f),
-m_equipAttackSpeed(1.5f),
+m_curAttackSpeed(0.6f),
+m_equipAttackSpeed(0.6f),
 
 m_heroExistScreen(1),
 m_AttackPos(1),
@@ -442,6 +442,12 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		
 	
 	}
+}
+
+void Hero::getMoney(bool BossOrNot){
+	log("==============money!!==============");
+
+
 }
 
 void Hero::changeSpeed(float slowValue, float slowTime){

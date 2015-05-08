@@ -107,7 +107,10 @@ void BagLayer::__loadPicFromCSB(){
 	m_baglayer = static_cast<Node*>(CSLoader::createNode("bag/bag.csb"));
 	Button* backButton = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(76));
 	backButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onBackButtonClickListener, this));
-		
+	
+	Button* advancedButton = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(121));
+	advancedButton->addClickEventListener(CC_CALLBACK_1(BagLayer::onAdvancedButtonClickListener, this));
+
 	__flushHeroStatus();
 	__flushEquipment();
     __flushInventory();
@@ -130,6 +133,85 @@ void BagLayer::onEnter(){
 
 }
 
+void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
+	Vector<Equipment*> equiped;
+	for (auto equipment:m_equipmentVec)
+	{
+		if (equipment->getUsed()==true)
+		{
+			equiped.pushBack(equipment);
+		}
+	}
+	if (equiped.size()==4)
+	{
+		int level=equiped.at(0)->getEquipmentID()%3;
+		for (int i = 1; i < 4;i++)
+		{
+			if (level!=equiped.at(i)->getEquipmentID()%3)
+			{
+				Label* label = Label::create("make sure these 4 items in one level!", "fonts/arial.ttf", 20);
+				label->setPosition(Vec2(640, 360));
+				label->setColor(Color3B::BLACK);
+				this->addChild(label);
+				FadeIn* action1 = FadeIn::create(1.0f);
+				MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
+				FadeOut* action3 = FadeOut::create(1.0f);
+				Sequence* seq1 = Sequence::create(action2, action3, NULL);
+				Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+				label->runAction(seq2);
+				return;
+			}
+		}
+		User& user = JsonUtility::getInstance()->user;
+		if (user.UserLevel==level)
+		{
+			for (auto equipment1 :equiped)
+			{
+				equipment1->runAction(Sequence::create(ScaleBy::create(0.8, 1.4), ScaleBy::create(2.0, 0), NULL));
+				user.Equip[equipment1->getIndex()].ID = -1;
+			}
+			Label* label = Label::create("Level Up!!!", "fonts/arial.ttf", 30);
+			label->setPosition(Vec2(640, 360));
+			label->setColor(Color3B::BLACK);
+			this->addChild(label);
+			FadeIn* action1 = FadeIn::create(1.0f);
+			MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
+			FadeOut* action3 = FadeOut::create(1.0f);
+			Sequence* seq1 = Sequence::create(action2, action3, NULL);
+			Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+			label->runAction(seq2);
+			log("==========advanced=========================");
+		}
+		else
+		{
+			Label* label = Label::create("please use the correct level equipment!", "fonts/arial.ttf", 20);
+			label->setPosition(Vec2(640, 360));
+			label->setColor(Color3B::BLACK);
+			this->addChild(label);
+			FadeIn* action1 = FadeIn::create(1.0f);
+			MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
+			FadeOut* action3 = FadeOut::create(1.0f);
+			Sequence* seq1 = Sequence::create(action2, action3, NULL);
+			Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+			label->runAction(seq2);
+		}
+	}
+	else
+	{
+		Label* label = Label::create("please collect 4 items!", "fonts/arial.ttf", 20);
+		label->setPosition(Vec2(640, 360));
+		label->setColor(Color3B::BLACK);
+		this->addChild(label);
+		FadeIn* action1 = FadeIn::create(1.0f);
+		MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
+		FadeOut* action3 = FadeOut::create(1.0f);
+		Sequence* seq1 = Sequence::create(action2, action3, NULL);
+		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+		label->runAction(seq2);
+	}
+
+}
+
 void BagLayer::onInventoryClickedListener(cocos2d::Ref* sender){
 	Node* node = static_cast<Node*>(sender);
 	//log("inside========= %d", node->getTag());
@@ -147,6 +229,9 @@ void BagLayer::onEquipmentClickedListener(cocos2d::Ref* sender){
 	detail->setCallbackFunc(this, callfuncN_selector(BagLayer::__handleEquipmentDetailLayer));
 	this->addChild(detail);
 }
+
+
+
 
 void BagLayer::onBackButtonClickListener(Ref* sender){
 	Node* node = static_cast<Node*>(sender);
