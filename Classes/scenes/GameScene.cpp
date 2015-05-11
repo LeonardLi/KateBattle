@@ -15,6 +15,7 @@
 #include "Inventory.h"
 #include "TreasureBox.h"
 #include "VisibleRect.h"
+#include "LoadingScene.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -421,7 +422,6 @@ void GameScene::_popupSetupMenu(cocos2d::Ref* sender){
 	Director::getInstance()->pushScene(setupLayer);
 }
 
-
 void GameScene::_handlePopupSetupMenu(cocos2d::Node* sender){
 	if (m_isSilence){
 		m_isSilence = false;
@@ -448,15 +448,7 @@ void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
 }
 
 void GameScene::__updateHero(){
-	User user = JsonUtility::getInstance()->user;
-	m_hero->setcurHp(user.UserCulHealth);
-	m_hero->setMoveSpeed(user.UserMoveRate);
-	m_hero->setupperHp(user.UserHealth);
-	m_hero->setequipDefenceValue(user.UserDefense);
-	m_hero->setcurAttackSpeed(user.UserAttackRate);
-	m_hero->setintelligenceValue(user.UserIntelligence);
-	m_hero->setcurAttackValue(user.UserAttack);
-	
+	//update hero
 	//update Control layer
 	
 }
@@ -649,25 +641,23 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 			break;
 		case 6:
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
-			scene = GameScene::createScene(scenario, SubScenarioEnum::LV1);
-			SoundsController::getInstance()->stopBackgroundMusic(scenario);
+			scene = LoadingScene::createScene(scenario, SubScenarioEnum::LV1);
 			break;
 		case 7:
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
-			scene = GameScene::createScene(scenario, SubScenarioEnum::LV2);
-			SoundsController::getInstance()->stopBackgroundMusic(scenario);
+			scene = LoadingScene::createScene(scenario, SubScenarioEnum::LV2);
+
 			break;
 		case 8:
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
-			scene = GameScene::createScene(scenario, SubScenarioEnum::LV3);
-			SoundsController::getInstance()->stopBackgroundMusic(scenario);
+			scene = LoadingScene::createScene(scenario, SubScenarioEnum::LV3);
 			break;
 		default:
 			break;
 	}
 	
-		auto transition = TransitionFadeBL::create(3.8f, scene);
-		Director::getInstance()->replaceScene(transition);
+		
+		Director::getInstance()->replaceScene(scene);
 }
 
 

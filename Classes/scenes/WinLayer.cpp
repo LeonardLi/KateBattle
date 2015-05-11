@@ -5,6 +5,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "GameScene.h"
 #include "MenuScene.h"
+#include "SoundsController.h"
+#include "LoadingScene.h"
 USING_NS_CC;
 using namespace ui;
 
@@ -120,14 +122,15 @@ void WinLayer::onNextButtonClicked(cocos2d::Ref*){
 		int i = static_cast<int>(m_subScenario);
 		i++;
 		m_subScenario = static_cast<SubScenarioEnum>(i);
-		scene = GameScene::createScene(m_scenario, m_subScenario);
+		scene = LoadingScene::createScene(m_scenario, m_subScenario);
 	}
 	else if (m_scenario != ScenarioEnum::Sewer){
 		int k = static_cast<int>(m_scenario);
 		k++;
 		m_scenario = static_cast<ScenarioEnum>(k);
 		m_subScenario = SubScenarioEnum::LV1;
-		scene = GameScene::createScene(m_scenario, m_subScenario);
+		scene = LoadingScene::createScene(m_scenario, m_subScenario);
+		SoundsController::getInstance()->stopBackgroundMusic(m_scenario);
 		
 	}
 	else{

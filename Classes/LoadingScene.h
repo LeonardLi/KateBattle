@@ -9,15 +9,18 @@
 #pragma once
 #include "cocos2d.h"
 
+
+enum class ScenarioEnum;
+enum class SubScenarioEnum;
 class LoadingScene : public cocos2d::Layer{
 public:
-    CREATE_FUNC(LoadingScene);
+	static LoadingScene* create(ScenarioEnum, SubScenarioEnum);
     LoadingScene();
     ~LoadingScene();
-    static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(ScenarioEnum, SubScenarioEnum);
     
 private:
-    virtual bool init();
-    void __jumpToGame();
-    
+	virtual bool init(ScenarioEnum, SubScenarioEnum);
+	ScenarioEnum m_scenario;
+	SubScenarioEnum m_subscenario;
 };
