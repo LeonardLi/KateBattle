@@ -5,8 +5,12 @@
 #include "GameScene.h"
 #include "MenuScene.h"
 #include "VisibleRect.h"
+#include "SoundsController.h"
+#include "SoundsDef.h"
 USING_NS_CC;
 using namespace ui;
+using namespace CocosDenshion;
+
 
 LoseLayer::LoseLayer(){
 
@@ -70,6 +74,7 @@ bool LoseLayer::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	m_scenario = scenario;
 	m_subScenario = subscenario;
+    __loadPicFromCSB();
 	return true;
 }
 
@@ -90,8 +95,11 @@ void LoseLayer::onEnter(){
 
 void LoseLayer::__onBackMenuButtonClicked(cocos2d::Ref*)
 {
-	auto scene = MenuScene::createScene();
+	auto scene = ChooseGameScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str(),true);
+    
 }
 
 void LoseLayer::__onReloadButtonClicked(cocos2d::Ref*)

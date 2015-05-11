@@ -37,6 +37,7 @@ private:
 	void onUseButtonClicked(cocos2d::Ref*);
 	void onEquipBuntonClicked(cocos2d::Ref*);
 	void onBackupButtonClicked(cocos2d::Ref*);
+    void onSaleButtonClicked(cocos2d::Ref*);
 
 	cocos2d::Ref* m_callbackListener;
 	cocos2d::SEL_CallFuncN m_callback;

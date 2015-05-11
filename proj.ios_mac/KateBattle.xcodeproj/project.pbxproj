@@ -118,6 +118,16 @@
 		D71421501AFE6AFB00097200 /* TreasureBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D714214E1AFE6AFB00097200 /* TreasureBox.cpp */; };
 		D71421531AFE6B1700097200 /* VideoPlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71421521AFE6B1700097200 /* VideoPlay.cpp */; };
 		D71421541AFE6B1700097200 /* VideoPlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D71421521AFE6B1700097200 /* VideoPlay.cpp */; };
+		D71421571B00BD2000097200 /* tbox in Resources */ = {isa = PBXBuildFile; fileRef = D71421561B00BD2000097200 /* tbox */; };
+		D71421581B00BD2000097200 /* tbox in Resources */ = {isa = PBXBuildFile; fileRef = D71421561B00BD2000097200 /* tbox */; };
+		D714215B1B00BD5600097200 /* LoseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D714215A1B00BD5600097200 /* LoseLayer.cpp */; };
+		D714215C1B00BD5600097200 /* LoseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D714215A1B00BD5600097200 /* LoseLayer.cpp */; };
+		D714215E1B00BD6A00097200 /* failpage in Resources */ = {isa = PBXBuildFile; fileRef = D714215D1B00BD6A00097200 /* failpage */; };
+		D714215F1B00BD6A00097200 /* failpage in Resources */ = {isa = PBXBuildFile; fileRef = D714215D1B00BD6A00097200 /* failpage */; };
+		D71421631B00D0D100097200 /* crit.png in Resources */ = {isa = PBXBuildFile; fileRef = D71421621B00D0D100097200 /* crit.png */; };
+		D71421641B00D0D100097200 /* crit.png in Resources */ = {isa = PBXBuildFile; fileRef = D71421621B00D0D100097200 /* crit.png */; };
+		D71421661B00D1B700097200 /* passpage in Resources */ = {isa = PBXBuildFile; fileRef = D71421651B00D1B700097200 /* passpage */; };
+		D71421671B00D1B700097200 /* passpage in Resources */ = {isa = PBXBuildFile; fileRef = D71421651B00D1B700097200 /* passpage */; };
 		D726772E1AEE4ECA0051B814 /* bag in Resources */ = {isa = PBXBuildFile; fileRef = D726772D1AEE4ECA0051B814 /* bag */; };
 		D726772F1AEE4ECA0051B814 /* bag in Resources */ = {isa = PBXBuildFile; fileRef = D726772D1AEE4ECA0051B814 /* bag */; };
 		D72677321AEE4EE50051B814 /* caozonggan1.png in Resources */ = {isa = PBXBuildFile; fileRef = D72677301AEE4EE50051B814 /* caozonggan1.png */; };
@@ -361,6 +371,12 @@
 		D714214E1AFE6AFB00097200 /* TreasureBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreasureBox.cpp; path = models/TreasureBox.cpp; sourceTree = "<group>"; };
 		D71421511AFE6B0A00097200 /* VideoPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlay.h; sourceTree = "<group>"; };
 		D71421521AFE6B1700097200 /* VideoPlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VideoPlay.cpp; path = tools/VideoPlay.cpp; sourceTree = "<group>"; };
+		D71421561B00BD2000097200 /* tbox */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tbox; sourceTree = "<group>"; };
+		D71421591B00BD4C00097200 /* LoseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseLayer.h; sourceTree = "<group>"; };
+		D714215A1B00BD5600097200 /* LoseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoseLayer.cpp; path = scenes/LoseLayer.cpp; sourceTree = "<group>"; };
+		D714215D1B00BD6A00097200 /* failpage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = failpage; sourceTree = "<group>"; };
+		D71421621B00D0D100097200 /* crit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crit.png; sourceTree = "<group>"; };
+		D71421651B00D1B700097200 /* passpage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = passpage; sourceTree = "<group>"; };
 		D726772D1AEE4ECA0051B814 /* bag */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bag; sourceTree = "<group>"; };
 		D72677301AEE4EE50051B814 /* caozonggan1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caozonggan1.png; sourceTree = "<group>"; };
 		D72677311AEE4EE50051B814 /* caozonggan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caozonggan2.png; sourceTree = "<group>"; };
@@ -547,11 +563,15 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D71421621B00D0D100097200 /* crit.png */,
 				D714214A1AFE6A3B00097200 /* video2.mp4 */,
 				D714213E1AFE69E900097200 /* blood.png */,
 				D714213F1AFE69E900097200 /* bloodBar.png */,
 				D71421401AFE69E900097200 /* bossBloodBar.png */,
 				D714213B1AFE69D900097200 /* arrow.jpg */,
+				D71421651B00D1B700097200 /* passpage */,
+				D714215D1B00BD6A00097200 /* failpage */,
+				D71421561B00BD2000097200 /* tbox */,
 				D71421471AFE6A0000097200 /* loa */,
 				D7F235E91AFA5494007C3DF2 /* gamemenu */,
 				D7F235BF1AFA5344007C3DF2 /* monster1 */,
@@ -672,6 +692,8 @@
 		D71056961ABBA4A000130056 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D714215A1B00BD5600097200 /* LoseLayer.cpp */,
+				D71421591B00BD4C00097200 /* LoseLayer.h */,
 				D7F235BA1AFA0FCF007C3DF2 /* LoadingScene.cpp */,
 				D70F9E6A1AF8CE8600EBED37 /* BagLayer.cpp */,
 				D70F9E6B1AF8CE8600EBED37 /* DetailLayer.cpp */,
@@ -916,7 +938,11 @@
 				D7F235D01AFA5344007C3DF2 /* monster5 in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				D714215E1B00BD6A00097200 /* failpage in Resources */,
+				D71421571B00BD2000097200 /* tbox in Resources */,
 				D72677481AEE4F4C0051B814 /* gangkou3 in Resources */,
+				D71421661B00D1B700097200 /* passpage in Resources */,
+				D71421631B00D0D100097200 /* crit.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				D72677321AEE4EE50051B814 /* caozonggan1.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
@@ -949,8 +975,10 @@
 				D726772F1AEE4ECA0051B814 /* bag in Resources */,
 				D72677671AEF6E080051B814 /* sounds in Resources */,
 				D7F235D71AFA5344007C3DF2 /* monster8 in Resources */,
+				D71421641B00D0D100097200 /* crit.png in Resources */,
 				D7F235D11AFA5344007C3DF2 /* monster5 in Resources */,
 				D7F244461ADB56F400D121FB /* Default in Resources */,
+				D71421581B00BD2000097200 /* tbox in Resources */,
 				D72F22301AE2827300CA03C8 /* mainmenu in Resources */,
 				D7F235DC1AFA535B007C3DF2 /* water.png in Resources */,
 				D7F235E21AFA537A007C3DF2 /* skillshadow.png in Resources */,
@@ -964,6 +992,7 @@
 				D714213D1AFE69D900097200 /* arrow.jpg in Resources */,
 				D72677531AEE4F4C0051B814 /* market in Resources */,
 				D70F9E4B1AF7B6EE00EBED37 /* box.png in Resources */,
+				D71421671B00D1B700097200 /* passpage in Resources */,
 				D7E1FD041ACACAFF00AA36EC /* wolf.png in Resources */,
 				D7F235C91AFA5344007C3DF2 /* monster1 in Resources */,
 				D72677591AEE4F4C0051B814 /* sewer in Resources */,
@@ -985,6 +1014,7 @@
 				D726774F1AEE4F4C0051B814 /* jishi2 in Resources */,
 				D714214C1AFE6A3B00097200 /* video2.mp4 in Resources */,
 				D72677451AEE4F4C0051B814 /* gangkou1 in Resources */,
+				D714215F1B00BD6A00097200 /* failpage in Resources */,
 				D72677621AEE4F8D0051B814 /* groot.json in Resources */,
 				D72677491AEE4F4C0051B814 /* gangkou3 in Resources */,
 				D70F9E7B1AF8CE9900EBED37 /* inventorytest in Resources */,
@@ -1012,6 +1042,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D75DE61A1ACD3D3C00A15E6D /* Equipment.cpp in Sources */,
+				D714215B1B00BD5600097200 /* LoseLayer.cpp in Sources */,
 				D7503E071ABBCA5500566380 /* JoyStick.cpp in Sources */,
 				D7F244611ADD513B00D121FB /* BulletManager.cpp in Sources */,
 				D710569E1ABBAC7800130056 /* Hero.cpp in Sources */,
@@ -1073,6 +1104,7 @@
 				D7503E081ABBCA5500566380 /* JoyStick.cpp in Sources */,
 				D71056A31ABBAD9D00130056 /* Monster.cpp in Sources */,
 				D73D58051AD8BF87003D6A7C /* MonsterManager.cpp in Sources */,
+				D714215C1B00BD5600097200 /* LoseLayer.cpp in Sources */,
 				D73D58001AD80040003D6A7C /* StateUseSkill.cpp in Sources */,
 				D73D57FA1AD80040003D6A7C /* I_State.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,

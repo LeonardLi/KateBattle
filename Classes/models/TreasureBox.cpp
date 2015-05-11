@@ -82,7 +82,19 @@ void TreasureBox::onBoxClicked(cocos2d::Ref*){
 
 void TreasureBox::__writeInfo(){
 	User &user = JsonUtility::getInstance()->user;
-	int number = user.EquipmentNumber;
+    int number = -1;
+    for (int i= 0; i < 24; i++){
+        if(-1 == user.Equip[i].ID){
+            number = i;
+            break;
+        }
+    }
+    
+    if (-1 == number) {
+        log("==== full bag ====");
+    }
+    else
+    {
 	user.Equip[number].Attack = m_equ->getAttack();
 	user.Equip[number].AttackRate = m_equ->getAttackRate();
 	user.Equip[number].Blood = m_equ->getBlood();
@@ -92,6 +104,7 @@ void TreasureBox::__writeInfo(){
 	user.Equip[number].ID = m_equ->getEquipmentID();
 	user.Equip[number].Style = m_equ->getEquipmentStyle();
 	user.Equip[number].Used = false;
-	number++;
-	user.EquipmentNumber = number;
+    user.EquipmentNumber = user.EquipmentNumber + 1;
+    }
+    
 }

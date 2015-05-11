@@ -47,9 +47,11 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 	Node* rootNode = CSLoader::createNode("equ/equ_on.csb");
 	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));
     Button* Equip = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
+    Button* sell = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(195));
     ImageView* image = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
     Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(6));
     Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
+    Text* price = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(197));
 
 	Text* speed = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(194));
 	Text* attackValue = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(192));
@@ -61,6 +63,8 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 
     Equip->addClickEventListener(CC_CALLBACK_1(DetailLayer::onEquipBuntonClicked, this));
 	backButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
+    sell->addClickEventListener(CC_CALLBACK_1(DetailLayer::onSaleButtonClicked, this));
+    
 	EquipmentInfo info = JsonUtility::getInstance()->getEquipment(eq->getEquipmentID());
     image->loadTexture(info.EquipAddress);
     name->setString(info.EquipName);
@@ -74,7 +78,7 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 	defence->setString(std::to_string((int)eq->getDenfense()));
 	intelligence->setString(std::to_string((int)eq->getIntelligence()));
 	attackValue->setString(std::to_string((int)eq->getAttack()));
-
+    price->setString(std::to_string(JsonUtility::getInstance()->getEquipment(m_equipment->getEquipmentID()).EquipPrice));
 
     this->addChild(rootNode);
 }
@@ -211,6 +215,19 @@ void DetailLayer::onEquipBuntonClicked(Ref* sender){
 void DetailLayer::onBackupButtonClicked(Ref* sender){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 	this->removeFromParent();
+}
+
+void DetailLayer::onSaleButtonClicked(Ref* sender){
+    User& user = JsonUtility::getInstance()->user;
+    
+    user.Equip[m_equipment->getIndex()].ID = -1;
+    user.UserGoldsNumber = user.UserGoldsNumber + JsonUtility::getInstance()->getEquipment(m_equipment->getEquipmentID()).EquipPrice;
+    m_equipment->setEquipmentID(-1);
+    if (m_callback && m_callbackListener)
+    {
+        (m_callbackListener->*m_callback)(dynamic_cast<Node*>(m_equipment));
+    }
+    this->removeFromParent();
 }
 
 void DetailLayer::setCallbackFunc(Ref*target, cocos2d::SEL_CallFuncN callFun){

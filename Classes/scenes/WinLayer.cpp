@@ -7,8 +7,11 @@
 #include "MenuScene.h"
 #include "SoundsController.h"
 #include "LoadingScene.h"
+#include "SoundsDef.h"
 USING_NS_CC;
 using namespace ui;
+using namespace CocosDenshion;
+
 
 WinLayer::WinLayer():
 m_callback(nullptr),
@@ -106,8 +109,10 @@ void WinLayer::onEnter(){
 }
 
 void WinLayer::onBackButtonClicked(cocos2d::Ref*){
-	auto scene = MenuScene::createScene();
+	auto scene = ChooseGameScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str(),true);
 }
 
 void WinLayer::onReloadButtonClicked(cocos2d::Ref*){

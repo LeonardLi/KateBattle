@@ -55,10 +55,6 @@ bool BagLayer::init(){
 	{
 		return false;
 	}
-	if (!__initFromFile())
-	{
-		return false;
-	}
 	//delegate the Touch event
 	m_listener = EventListenerTouchOneByOne::create();
 	m_listener->setSwallowTouches(true);
@@ -77,8 +73,12 @@ bool BagLayer::init(){
 }
 
 bool BagLayer::__initFromFile(){
-	User& user = JsonUtility::getInstance()->user;
-	for (int i = 0; i < user.EquipmentNumber; i++) {
+	User user = JsonUtility::getInstance()->user;
+    m_equipmentVec.clear();
+	for (int i = 0; i < 24; i++) {
+        if (user.Equip[i].ID == -1) {
+            continue;
+        }
 			std::string file = JsonUtility::getInstance()->getEquipment(user.Equip[i].ID).EquipAddress;
 			Equipment* aEquipment = Equipment::create(file, file, file);
 			aEquipment->setBlood(user.Equip[i].Blood);
@@ -161,6 +161,10 @@ void BagLayer::onBackButtonClickListener(Ref* sender){
 
 void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 	Equipment* equ = static_cast<Equipment*>(sender);
+    if(equ->getEquipmentID() == -1){
+        
+    }
+    else{
 	if (equ->getUsed()){
 		//equip 
 		__replaceEquipment(equ);
@@ -170,7 +174,7 @@ void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 		//unequip
 		__updateHeroData(equ, true);
 	}
-
+    }
 	__flushEquipment();
 	__flushHeroStatus();
 }
@@ -304,7 +308,7 @@ void BagLayer::__flushInventory(){
 }
 
 void BagLayer::__flushEquipment(){
-
+    __initFromFile();
 	ImageView* equip[24] = { nullptr };
 	int i = 142;
 	for (int k = 142; k < 164; k++)
