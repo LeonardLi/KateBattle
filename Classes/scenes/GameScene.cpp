@@ -8,10 +8,13 @@
 #include "JoyStick.h"
 #include "I_State.h"
 #include "WinLayer.h"
+#include "LoseLayer.h"
 #include "MenuScene.h"
 #include "SoundsController.h"
 #include "SoundsDef.h"
 #include "Inventory.h"
+#include "TreasureBox.h"
+#include "VisibleRect.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -71,10 +74,6 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	
 	auto controllayer = loadControlLayer();
 	this->addChild(controllayer, 1);
-
-	
-
-	
 
 	m_hero = Hero::create();
 	m_hero->setPosition(300, 200);
@@ -360,6 +359,12 @@ void GameScene::postWinMessage(float dt){
 
 void GameScene::postLoseMessage(float dt){
 	log("=============lose!==============");
+	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
+	fakeBackground->begin();
+	this->getParent()->visit();
+	fakeBackground->end();
+	auto lose = LoseLayer::createScene(fakeBackground, m_scenario, m_subscenario);
+	Director::getInstance()->pushScene(lose);
 }
 
 void GameScene::menuCloseCallback(Ref* pSender)

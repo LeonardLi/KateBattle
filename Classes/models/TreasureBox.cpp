@@ -3,6 +3,8 @@
 #include "JsonUtility.h"
 #include "cocos2d.h"
 USING_NS_CC;
+using namespace ui;
+using namespace cocostudio;
 TreasureBox::TreasureBox(){
 }
 
@@ -29,20 +31,27 @@ bool TreasureBox::init(ScenarioEnum scenario){
 
 
 	__loadCSB();
-
+	__createEquipment(scenario);
 	return true;
 }
 
 void TreasureBox::__loadCSB(){
-	
+	Node* rootNode = CSLoader::createNode("tbox/tbox.csb");
+	Button* clickButton = static_cast<Button*>(rootNode->getChildByTag(14));
+	m_armature = static_cast<Armature*>(rootNode->getChildByTag(13));
+	m_armature->getAnimation()->play("stand");
+	clickButton->addClickEventListener(CC_CALLBACK_1(TreasureBox::onBoxClicked, this));
+	this->addChild(rootNode);
 }
 
 void TreasureBox::__createEquipment(ScenarioEnum scenario){
 	 m_equ = Equipment::create("Default/Button_Disable.png","Default/Button_Disable.png","Default/Button_Disable.png");
 	int i = static_cast<int>(scenario);	
 	int j =	RandomHelper::random_int(0, 3);	
+	EquipmentType type = static_cast<EquipmentType>(j);
 	int ID = j * 3 + i;
-
+	m_equ->setEquipmentID(ID);
+	m_equ->setEquipmentStyle(type);
 	EquipmentInfo info = JsonUtility::getInstance()->getEquipment(ID);
 	float percent = RandomHelper::random_real(0.8f, 1.2f);
 	m_equ->setAttack(info.Attack * percent);
@@ -56,4 +65,33 @@ void TreasureBox::__createEquipment(ScenarioEnum scenario){
 	m_equ->setIntelligence(info.Intelligence * percent);
 	percent = RandomHelper::random_real(0.8f, 1.2f);
 	m_equ->setBlood(info.Blood * percent);
+	m_equ->retain();
+}
+
+void TreasureBox::onBoxClicked(cocos2d::Ref*){
+	__writeInfo();
+	auto callfuncPlay = CallFunc::create([=](){
+		m_armature->getAnimation()->play("release", -1 , 0);
+	});
+	auto callfuncRemove = CallFunc::create([=](){
+		this->removeFromParent();
+	});
+	this->runAction(Sequence::create(callfuncPlay, DelayTime::create(3.5f), callfuncRemove ,NULL));
+
+}
+
+void TreasureBox::__writeInfo(){
+	User &user = JsonUtility::getInstance()->user;
+	int number = user.EquipmentNumber;
+	user.Equip[number].Attack = m_equ->getAttack();
+	user.Equip[number].AttackRate = m_equ->getAttackRate();
+	user.Equip[number].Blood = m_equ->getBlood();
+	user.Equip[number].Defense = m_equ->getDenfense();
+	user.Equip[number].Intelligence = m_equ->getIntelligence();
+	user.Equip[number].MoveRate = m_equ->getMoveRate();
+	user.Equip[number].ID = m_equ->getEquipmentID();
+	user.Equip[number].Style = m_equ->getEquipmentStyle();
+	user.Equip[number].Used = false;
+	number++;
+	user.EquipmentNumber = number;
 }

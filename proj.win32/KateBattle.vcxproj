@@ -155,6 +155,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\scenes\DetailLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
     <ClCompile Include="..\Classes\scenes\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\LoseLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\scenes\PopupLayer.cpp" />
     <ClCompile Include="..\Classes\scenes\SetupLayer.cpp" />
@@ -185,6 +186,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\JsonUtility.h" />
     <ClInclude Include="..\Classes\Kernal.h" />
     <ClInclude Include="..\Classes\LoadingScene.h" />
+    <ClInclude Include="..\Classes\LoseLayer.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MonsterFSM.h" />

@@ -77,6 +77,8 @@ bool WinLayer::init(ScenarioEnum scenario, SubScenarioEnum subscenario){
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	m_scenario = scenario;
 	m_subScenario = subscenario;
+
+	__unlockScenario();
 	__loadPicFromCSB();
 	return true;
 }
@@ -132,4 +134,23 @@ void WinLayer::onNextButtonClicked(cocos2d::Ref*){
 		//Over game
 	}
 	Director::getInstance()->replaceScene(scene);
+}
+
+void WinLayer::__unlockScenario(){
+	User &user = JsonUtility::getInstance()->user;
+	if (m_subScenario < SubScenarioEnum::LV3)
+	{
+		int i = static_cast<int>(m_scenario);
+		int j = static_cast<int>(m_subScenario);
+		user.Clear_BlockID[i][j + 1] = 1;
+	}
+	else if (m_scenario != ScenarioEnum::Sewer)
+	{
+		int i = static_cast<int>(m_scenario);
+		user.Clear_BlockID[i + 1][0] = 1;
+	}
+	else
+	{
+		//game over
+	}
 }
