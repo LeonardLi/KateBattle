@@ -48,6 +48,7 @@ Scene* WinLayer::createScene(cocos2d::RenderTexture* sqr, ScenarioEnum scenario,
 	fakeSprite->setFlippedY(true);
 	fakeSprite->setColor(Color3B::GRAY);
 	scene->addChild(fakeSprite, 0);
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_14.c_str());
 	return scene;
 }
 void WinLayer::__loadPicFromCSB(){
@@ -109,6 +110,7 @@ void WinLayer::onEnter(){
 }
 
 void WinLayer::onBackButtonClicked(cocos2d::Ref*){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_19.c_str());
 	auto scene = ChooseGameScene::createScene();
 	Director::getInstance()->replaceScene(scene);
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
@@ -116,11 +118,13 @@ void WinLayer::onBackButtonClicked(cocos2d::Ref*){
 }
 
 void WinLayer::onReloadButtonClicked(cocos2d::Ref*){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_18.c_str());
 	auto scene = GameScene::createScene(m_scenario, m_subScenario);
 	Director::getInstance()->replaceScene(scene);
 }
 
 void WinLayer::onNextButtonClicked(cocos2d::Ref*){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_18.c_str());
 	Scene* scene = nullptr;
 	if (m_subScenario < SubScenarioEnum::LV3)
 	{

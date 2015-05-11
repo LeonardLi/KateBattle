@@ -43,6 +43,7 @@ Scene* LoseLayer::createScene(cocos2d::RenderTexture* sqr, ScenarioEnum scenario
 	fakeSprite->setFlippedY(true);
 	fakeSprite->setColor(Color3B::GRAY);
 	scene->addChild(fakeSprite, 0);
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_28.c_str());
 	return scene;
 }
 
@@ -95,6 +96,7 @@ void LoseLayer::onEnter(){
 
 void LoseLayer::__onBackMenuButtonClicked(cocos2d::Ref*)
 {
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_19.c_str());
 	auto scene = ChooseGameScene::createScene();
 	Director::getInstance()->replaceScene(scene);
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
@@ -104,6 +106,7 @@ void LoseLayer::__onBackMenuButtonClicked(cocos2d::Ref*)
 
 void LoseLayer::__onReloadButtonClicked(cocos2d::Ref*)
 {
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_18.c_str());
 	auto scene = GameScene::createScene(m_scenario, m_subScenario);
 	Director::getInstance()->replaceScene(scene);
 }

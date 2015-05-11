@@ -1128,6 +1128,7 @@ void Monster::__changeStun(float){
 
 void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic){
 	
+	
 	float iCurHp = getHp();
 	float attatkValue;
 	if (isMagic==true)
@@ -1143,6 +1144,11 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 		attatkValue = 0;
 	}
 	
+	else
+	{
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_23.c_str());
+	}
+
 	int valueInt = attatkValue;
 	auto value = std::to_string(valueInt);
 		

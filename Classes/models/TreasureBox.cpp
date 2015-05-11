@@ -2,9 +2,12 @@
 #include "GameScene.h"
 #include "JsonUtility.h"
 #include "cocos2d.h"
+#include "SoundsDef.h"
+#include "SoundsController.h"
 USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
+using namespace CocosDenshion;
 TreasureBox::TreasureBox(){
 }
 
@@ -70,6 +73,7 @@ void TreasureBox::__createEquipment(ScenarioEnum scenario){
 
 void TreasureBox::onBoxClicked(cocos2d::Ref*){
 	__writeInfo();
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_24.c_str());
 	auto callfuncPlay = CallFunc::create([=](){
 		m_armature->getAnimation()->play("release", -1 , 0);
 	});

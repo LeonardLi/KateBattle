@@ -32,4 +32,5 @@ std::string EFFECTS_24 = "sounds/treasurebox.WAV";
 std::string EFFECTS_25 = "sounds/monsterdead.WAV";
 std::string EFFECTS_26 = "sounds/alarm.WAV";
 std::string EFFECTS_27 = "sounds/run.WAV";
+std::string EFFECTS_28 = "sounds/fail.WAV";
 
