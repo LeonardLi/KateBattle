@@ -660,7 +660,7 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 			break;
 	}
 	
-		auto transition = TransitionFadeBL::create(2.f, scene);
+		auto transition = TransitionFadeBL::create(3.8f, scene);
 		Director::getInstance()->replaceScene(transition);
 }
 

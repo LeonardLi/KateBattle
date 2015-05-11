@@ -40,7 +40,7 @@ bool MenuScene::init(){
 	}
 
 	if (!SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str());
+	SimpleAudioEngine::getInstance()->playBackgroundMusic(MUSIC_1.c_str(),true);
 	loadCSBFromfile();
 	m_isSilence = false;
 	return true;
