@@ -87,8 +87,7 @@ void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Value& equip = val["EquipID"];           //need to modify
 	if (equip.IsArray())
 	{
-		int length = user.EquipmentNumber;
-		for (int i = 0; i < length; i++)
+		for (int i = 0; i < 24; i++)
 		{
 			rapidjson::Value&first = equip[i];
 			rapidjson::Value&scenod = first["ID"];
@@ -185,8 +184,7 @@ User JsonUtility::getUser()					//获取用户信息
 	rapidjson::Value& equip = val["EquipID"];                      //need to modify
 	if (equip.IsArray())
 	{
-		int length = user.EquipmentNumber;
-		for (i = 0; i < length; i++)
+		for (i = 0; i < 24; i++)
 		{
 			rapidjson::Value&first = equip[i];
 			rapidjson::Value&scenod = first["ID"];
