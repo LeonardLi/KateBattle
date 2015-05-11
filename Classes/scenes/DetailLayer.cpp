@@ -8,6 +8,7 @@
 #include "JsonUtility.h"
 #include "SoundsDef.h"
 #include "SoundsController.h"
+#include <string>
 
 USING_NS_CC;
 using namespace ui;
@@ -87,8 +88,12 @@ void DetailLayer::__loadPicFromCSB(InventoryEnum type){
 	Node* rootNode = CSLoader::createNode("inventorytest/inventorytest.csb");
 	Button* UseButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
 	Button* BackupButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
+    Button* BuyButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));
 	UseButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
 	BackupButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
+    BuyButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBuyButtonClicked, this));
+    
+    Text* price = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(10));
 	Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
 	Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(5));
 	ImageView* avatar = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
@@ -102,6 +107,7 @@ void DetailLayer::__loadPicFromCSB(InventoryEnum type){
 	name->setString(inventory.ToolName);
 	intro->setString(inventory.ToolInfo);
 	avatar->loadTexture(inventory.ToolAddress);
+    price->setString(std::to_string(JsonUtility::getInstance()->getTool(static_cast<int>(type)).ToolPrice));
 	this->addChild(rootNode);
 }
 
@@ -185,8 +191,6 @@ void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
 	{
 		(m_callbackListener->*m_callback)(node);
 	}
-
-
 	this->removeFromParent();
 
 }
@@ -203,7 +207,6 @@ void DetailLayer::onEquipBuntonClicked(Ref* sender){
 		user.Equip[m_equipment->getIndex()].Used = true;
 		m_equipment->setUsed(true);
 	}
-
 
 	if (m_callback && m_callbackListener)
 	{
@@ -226,6 +229,19 @@ void DetailLayer::onSaleButtonClicked(Ref* sender){
     if (m_callback && m_callbackListener)
     {
         (m_callbackListener->*m_callback)(dynamic_cast<Node*>(m_equipment));
+    }
+    this->removeFromParent();
+}
+
+void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
+    User& user = JsonUtility::getInstance()->user;
+    user.ToolID[static_cast<int>(m_type)]++;
+    Node* node = static_cast<Node*>(sender);
+    node->setTag(99);
+    
+    if (m_callback && m_callbackListener)
+    {
+        (m_callbackListener->*m_callback)(node);
     }
     this->removeFromParent();
 }

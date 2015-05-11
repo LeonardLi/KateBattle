@@ -265,6 +265,10 @@ void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 }
 
 void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
+    if (sender->getTag() == 99) {
+       	__flushInventory();
+        return;
+    }
 	InventoryEnum type = static_cast<InventoryEnum>(sender->getTag());
 	__flushInventory();
 	__flushHeroStatus();
@@ -372,17 +376,16 @@ void BagLayer::__flushInventory(){
         Button* button = static_cast<Button*>(m_baglayer->getChildByTag(139)->getChildByTag(301 + j));
         inventory[j] = Inventory::create();
         inventory[j]->setInventoryButton(button);
+        inventory[j]->getInventoryButton()->setBright(true);
+        inventory[j]->getInventoryButton()->setEnabled(true);
+        inventory[j]->getInventoryButton()->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
         if (m_user.ToolID[j] != 0){
-            inventory[j]->getInventoryButton()->setBright(true);
-            inventory[j]->getInventoryButton()->setEnabled(true);
             inventory[j]->setAmount(m_user.ToolID[j]);
             Text* text = inventory[j]->getInventoryButton()->getChildByName<Text*>("text");
 			text->setString(std::to_string(m_user.ToolID[j]));
-            inventory[j]->getInventoryButton()->addClickEventListener(CC_CALLBACK_1(BagLayer::onInventoryClickedListener, this));
         }
         else
         {
-            inventory[j]->getInventoryButton()->setBright(false);
             Text* text = inventory[j]->getInventoryButton()->getChildByName<Text*>("text");
             text->setString(" ");
             
