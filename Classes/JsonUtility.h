@@ -30,6 +30,7 @@ struct EquipID
 struct User								//玩家用户信息
 {
 	std::string UserName;
+	int UserLevel;
 	int UserBonesNumber;
 	int UserGoldsNumber;
 	int EquipmentNumber;      //change 

@@ -45,6 +45,8 @@ void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Value& val = m_doc["User"];
 	rapidjson::Value& tem = val["UserName"];
 	tem.SetString(user.UserName.c_str());
+	rapidjson::Value& level = val["UserLevel"];
+	level.SetInt(user.UserLevel);
 	rapidjson::Value& bon = val["UserBonesNumber"];
 	bon.SetInt(user.UserBonesNumber);
 	rapidjson::Value& gold = val["UserGoldsNumber"];
@@ -144,6 +146,8 @@ User JsonUtility::getUser()					//获取用户信息
 	user.UserName = tem.GetString();
 	rapidjson::Value& bon = val["UserBonesNumber"];
 	user.UserBonesNumber = bon.GetInt();
+	rapidjson::Value& level = val["UserLevel"];
+	user.UserLevel = level.GetInt();
 	rapidjson::Value& gold = val["UserGoldsNumber"];
 	user.UserGoldsNumber = gold.GetInt();
 	rapidjson::Value& logNum = val["LogNumber"];
