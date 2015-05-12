@@ -316,6 +316,8 @@ EquipmentInfo JsonUtility::getEquipment(int ID)	//获取第i个装备
 	equip.AttackRate = equi_info["AttackRate"].GetDouble();
 	equip.Blood = equi_info["Blood"].GetDouble();
 	equip.Defense = equi_info["Defense"].GetDouble();
+	equip.Intelligence = equi_info["Intelligence"].GetDouble();
+	equip.MoveRate = equi_info["MoveRate"].GetDouble();
 	equip.EquipAddress = equi_info["EquipAddress"].GetString();
 	equip.EquipType = static_cast<EquipmentType>(equi_info["EquipType"].GetInt());
 	return equip;
