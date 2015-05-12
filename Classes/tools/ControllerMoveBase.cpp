@@ -334,15 +334,20 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		if (!m_isStand)
 		{
 			m_isStand = true;
-			if (m_isRight)
+			if (!m_isRight)
 			{
-				m_hero->playAnimaitonStand(Direction::right);
-				m_isRight = false; 
+                m_hero->playAnimaitonStand(Direction::left);
+                m_isLeft = true;
+                m_isUp = false;
+                m_isDown = false;
 			}
-			else if (m_isLeft)
+			else if (!m_isLeft)
 			{
-				m_hero->playAnimaitonStand(Direction::left);
-				m_isLeft = false;
+                m_hero->playAnimaitonStand(Direction::right);
+                m_isRight = true;
+                m_isUp = false;
+                m_isDown = false;
+
 			}
 			
 		}

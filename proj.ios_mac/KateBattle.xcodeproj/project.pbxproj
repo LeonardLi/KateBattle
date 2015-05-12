@@ -128,6 +128,10 @@
 		D71421641B00D0D100097200 /* crit.png in Resources */ = {isa = PBXBuildFile; fileRef = D71421621B00D0D100097200 /* crit.png */; };
 		D71421661B00D1B700097200 /* passpage in Resources */ = {isa = PBXBuildFile; fileRef = D71421651B00D1B700097200 /* passpage */; };
 		D71421671B00D1B700097200 /* passpage in Resources */ = {isa = PBXBuildFile; fileRef = D71421651B00D1B700097200 /* passpage */; };
+		D714216B1B02148B00097200 /* gold in Resources */ = {isa = PBXBuildFile; fileRef = D714216A1B02148B00097200 /* gold */; };
+		D714216C1B02148B00097200 /* gold in Resources */ = {isa = PBXBuildFile; fileRef = D714216A1B02148B00097200 /* gold */; };
+		D714216F1B0214CA00097200 /* coin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D714216E1B0214CA00097200 /* coin.cpp */; };
+		D71421701B0214CA00097200 /* coin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D714216E1B0214CA00097200 /* coin.cpp */; };
 		D726772E1AEE4ECA0051B814 /* bag in Resources */ = {isa = PBXBuildFile; fileRef = D726772D1AEE4ECA0051B814 /* bag */; };
 		D726772F1AEE4ECA0051B814 /* bag in Resources */ = {isa = PBXBuildFile; fileRef = D726772D1AEE4ECA0051B814 /* bag */; };
 		D72677321AEE4EE50051B814 /* caozonggan1.png in Resources */ = {isa = PBXBuildFile; fileRef = D72677301AEE4EE50051B814 /* caozonggan1.png */; };
@@ -377,6 +381,9 @@
 		D714215D1B00BD6A00097200 /* failpage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = failpage; sourceTree = "<group>"; };
 		D71421621B00D0D100097200 /* crit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crit.png; sourceTree = "<group>"; };
 		D71421651B00D1B700097200 /* passpage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = passpage; sourceTree = "<group>"; };
+		D714216A1B02148B00097200 /* gold */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gold; sourceTree = "<group>"; };
+		D714216D1B0214C100097200 /* coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coin.h; sourceTree = "<group>"; };
+		D714216E1B0214CA00097200 /* coin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coin.cpp; path = models/coin.cpp; sourceTree = "<group>"; };
 		D726772D1AEE4ECA0051B814 /* bag */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bag; sourceTree = "<group>"; };
 		D72677301AEE4EE50051B814 /* caozonggan1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caozonggan1.png; sourceTree = "<group>"; };
 		D72677311AEE4EE50051B814 /* caozonggan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caozonggan2.png; sourceTree = "<group>"; };
@@ -563,6 +570,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D714216A1B02148B00097200 /* gold */,
 				D71421621B00D0D100097200 /* crit.png */,
 				D714214A1AFE6A3B00097200 /* video2.mp4 */,
 				D714213E1AFE69E900097200 /* blood.png */,
@@ -717,6 +725,8 @@
 		D71056971ABBA5F600130056 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				D714216E1B0214CA00097200 /* coin.cpp */,
+				D714216D1B0214C100097200 /* coin.h */,
 				D714214E1AFE6AFB00097200 /* TreasureBox.cpp */,
 				D714214D1AFE6AEA00097200 /* TreasureBox.h */,
 				D7F244671ADD514900D121FB /* Inventory.h */,
@@ -926,6 +936,7 @@
 				D72F222F1AE2827300CA03C8 /* mainmenu in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				D726774A1AEE4F4C0051B814 /* hero1 in Resources */,
+				D714216B1B02148B00097200 /* gold in Resources */,
 				D70F9E541AF7B71B00EBED37 /* jz in Resources */,
 				D70F9E4E1AF7B6EE00EBED37 /* car.png in Resources */,
 				D71421451AFE69E900097200 /* bossBloodBar.png in Resources */,
@@ -978,6 +989,7 @@
 				D71421641B00D0D100097200 /* crit.png in Resources */,
 				D7F235D11AFA5344007C3DF2 /* monster5 in Resources */,
 				D7F244461ADB56F400D121FB /* Default in Resources */,
+				D714216C1B02148B00097200 /* gold in Resources */,
 				D71421581B00BD2000097200 /* tbox in Resources */,
 				D72F22301AE2827300CA03C8 /* mainmenu in Resources */,
 				D7F235DC1AFA535B007C3DF2 /* water.png in Resources */,
@@ -1043,6 +1055,7 @@
 			files = (
 				D75DE61A1ACD3D3C00A15E6D /* Equipment.cpp in Sources */,
 				D714215B1B00BD5600097200 /* LoseLayer.cpp in Sources */,
+				D714216F1B0214CA00097200 /* coin.cpp in Sources */,
 				D7503E071ABBCA5500566380 /* JoyStick.cpp in Sources */,
 				D7F244611ADD513B00D121FB /* BulletManager.cpp in Sources */,
 				D710569E1ABBAC7800130056 /* Hero.cpp in Sources */,
@@ -1099,6 +1112,7 @@
 				D7F2444A1ADB581700D121FB /* VisibleRect.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				D710569F1ABBAC7800130056 /* Hero.cpp in Sources */,
+				D71421701B0214CA00097200 /* coin.cpp in Sources */,
 				D70F9E781AF8CE8600EBED37 /* WinLayer.cpp in Sources */,
 				D70F9E761AF8CE8600EBED37 /* SetupLayer.cpp in Sources */,
 				D7503E081ABBCA5500566380 /* JoyStick.cpp in Sources */,
