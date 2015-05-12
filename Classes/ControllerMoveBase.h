@@ -2,6 +2,8 @@
 #include "cocos2d.h"
 
 enum class JoystickEnum;
+enum class ScenarioEnum;
+enum class SubScenarioEnum;
 class Hero;
 
 class ControllerMoveBase{
@@ -21,11 +23,11 @@ public:
 
 	void setBoundary();
 
-	static ControllerMoveBase* create(Hero* hero, cocos2d::Sprite* map);
+	static ControllerMoveBase* create(Hero* hero, cocos2d::Sprite* map, ScenarioEnum, SubScenarioEnum);
 
 private:
 	
-	bool init(Hero* hero, cocos2d::Sprite* map);
+	bool init(Hero* hero, cocos2d::Sprite* map, ScenarioEnum, SubScenarioEnum);
 
 	void __rollmapForward();
 	void __rollmapBackward();
@@ -55,4 +57,6 @@ private:
 	bool m_isDown;
 	float m_rightBoundary;
 	float m_leftBoundary;
+	ScenarioEnum m_scenario;
+	SubScenarioEnum m_subscenario;
 };

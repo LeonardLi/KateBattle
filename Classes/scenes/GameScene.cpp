@@ -86,7 +86,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_map->addChild(m_hero, 10);
 	
 
-	m_controller = ControllerMoveBase::create(m_hero, m_map);
+	m_controller = ControllerMoveBase::create(m_hero, m_map,  m_scenario, m_subscenario);
 	m_hero->setMoveController(m_controller);
 
 	__createStickBar();
@@ -447,10 +447,10 @@ void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){
 	
 }
 
-void GameScene::__updateHero(){
-	//update hero
-	//update Control layer
+void GameScene::__updateHero(){	
 	
+	m_hero->flashHero();
+
 }
 
 void GameScene::__useInventory(InventoryEnum type){

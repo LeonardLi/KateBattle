@@ -98,7 +98,11 @@ void DetailLayer::__loadPicFromCSB(InventoryEnum type){
 	Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(5));
 	ImageView* avatar = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
 
-
+	int number = JsonUtility::getInstance()->user.ToolID[static_cast<int>(type)];
+	if (number <= 0){
+		UseButton->setBright(false);
+		UseButton->setEnabled(false);
+	}
 
 	Tool inventory = JsonUtility::getInstance()->getTool(static_cast<int>(type));
 	intro->ignoreContentAdaptWithSize(false);

@@ -283,7 +283,7 @@ void BagLayer::__handleInventoryDetailLayer(cocos2d::Node* sender){
 void BagLayer::__playAnimation(InventoryEnum type){
 	//show different thing according to the type
 	Tool inventory = JsonUtility::getInstance()->getTool(static_cast<int>(type));
-	Label* label = Label::create(inventory.ToolEffect,"fonts/arial.ttf", 20);
+	Label* label = Label::create(inventory.ToolEffect,"Arial", 20);
 	label->setPosition(Vec2(640, 360));
 	this->addChild(label);
 	FadeIn* action1 = FadeIn::create(1.0f);
@@ -325,7 +325,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 		}
 		else
 		{
-			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
+			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(179)->getChildren().at(0));
 			temp->setUsed(false);
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;
@@ -341,7 +341,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 		}
 		else
 		{
-			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
+			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(180)->getChildren().at(0));
 			temp->setUsed(false);
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;
@@ -357,7 +357,7 @@ void BagLayer::__replaceEquipment(Equipment* equ){
 		}
 		else
 		{
-			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(178)->getChildren().at(0));
+			Equipment* temp = static_cast<Equipment*>(bg->getChildByTag(181)->getChildren().at(0));
 			temp->setUsed(false);
 			equ->setUsed(true);
 			user.Equip[temp->getIndex()].Used = false;

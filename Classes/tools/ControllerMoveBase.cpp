@@ -2,6 +2,7 @@
 #include "Hero.h"
 #include "Monster.h"
 #include "JoyStick.h"
+#include "GameScene.h"
 #define SPEED 1
 
 #define LEFT 2
@@ -31,10 +32,10 @@ ControllerMoveBase::~ControllerMoveBase(){
 
 }
 
-ControllerMoveBase* ControllerMoveBase::create(Hero* hero, Sprite* map){
+ControllerMoveBase* ControllerMoveBase::create(Hero* hero, Sprite* map, ScenarioEnum scenario, SubScenarioEnum subscenario){
 	ControllerMoveBase* ctrMoveBase = new ControllerMoveBase();
 
-	if (ctrMoveBase && ctrMoveBase->init(hero, map)){
+	if (ctrMoveBase && ctrMoveBase->init(hero, map, scenario, subscenario)){
 	}
 	else{
 		CC_SAFE_DELETE(ctrMoveBase);
@@ -43,7 +44,7 @@ ControllerMoveBase* ControllerMoveBase::create(Hero* hero, Sprite* map){
 
 }
 
-bool ControllerMoveBase::init(Hero* hero, Sprite* map){
+bool ControllerMoveBase::init(Hero* hero, Sprite* map, ScenarioEnum scenario, SubScenarioEnum subscenario){
 
 	if (hero == nullptr || map == nullptr)
 	{
@@ -51,9 +52,12 @@ bool ControllerMoveBase::init(Hero* hero, Sprite* map){
 	}
 	this->m_hero = hero;
 	this->m_map = map;
+	m_scenario = scenario;
+	m_subscenario = subscenario;
 
-	m_rightBoundary = -1 * (m_map->getContentSize().width - 1280.0f);
+	m_rightBoundary = -1 * (m_map->getContentSize().width - 1280.0f);	
 	m_leftBoundary = 0.0f;
+
 	return true;
 }
 
@@ -164,7 +168,27 @@ void ControllerMoveBase::resetHeroDirection(){
 }
 
 void ControllerMoveBase::setBoundary(){
-	m_rightBoundary = -1 * (m_map->getContentSize().width * 2 - 1280.0f);
+	if (m_subscenario == SubScenarioEnum::LV3)
+	{
+		switch (m_scenario)
+		{
+		case ScenarioEnum::Port:
+			m_rightBoundary = -3000.0f;
+			break;
+		case ScenarioEnum::Market:
+			m_rightBoundary = -3000.0f;
+			break;
+		case ScenarioEnum::Sewer:
+			m_rightBoundary = -2691.0f;
+			break;	
+		default:
+			break;
+		}
+	}
+	else{
+		m_rightBoundary = -1 * (m_map->getContentSize().width * 2 - 1280.0f);
+		
+	}
 	m_leftBoundary = -1 * (m_map->getContentSize().width);
 }
 void ControllerMoveBase::simpleMove(JoystickEnum direction){
