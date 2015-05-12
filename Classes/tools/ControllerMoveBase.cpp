@@ -19,7 +19,7 @@ m_isMoving(false),
 m_hero(nullptr),
 m_map(nullptr),
 m_isLeft(false),
-m_isRight(false),
+m_isRight(true),
 m_isStand(false),
 m_isUp(false),
 m_isDown(false),
@@ -191,6 +191,7 @@ void ControllerMoveBase::setBoundary(){
 	}
 	m_leftBoundary = -1 * (m_map->getContentSize().width);
 }
+
 void ControllerMoveBase::simpleMove(JoystickEnum direction){
 
 	heroDirection = direction;
