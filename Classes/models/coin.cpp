@@ -3,9 +3,12 @@
 #include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "SoundsDef.h"
+#include "SoundsController.h"
 USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
+using namespace CocosDenshion;
 
 
 Coin::Coin(){
@@ -46,7 +49,7 @@ void Coin::__loadCSB(){
 }
 
 void Coin::onCoinClicked(Ref*){
-
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_29.c_str());
 	User& user = JsonUtility::getInstance()->user;
 	user.UserGoldsNumber = user.UserGoldsNumber + m_coin;
 	auto callfuncPlay = CallFunc::create([=](){
