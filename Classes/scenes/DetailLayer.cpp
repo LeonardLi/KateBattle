@@ -85,34 +85,28 @@ void DetailLayer::__loadPicFromCSB(Equipment* eq){
 }
 
 void DetailLayer::__loadPicFromCSB(InventoryEnum type){
-	Node* rootNode = CSLoader::createNode("inventorytest/inventorytest.csb");
-	Button* UseButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
-	Button* BackupButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
+	 Node* rootNode = CSLoader::createNode("inventorytest/inventorytest.csb");
+    m_useButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
+    Button* BackupButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
     Button* BuyButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));
-	UseButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
-	BackupButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
+    m_useButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onUseButtonClicked, this));
+    BackupButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBackupButtonClicked, this));
     BuyButton->addClickEventListener(CC_CALLBACK_1(DetailLayer::onBuyButtonClicked, this));
     
     Text* price = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(10));
-	Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
-	Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(5));
-	ImageView* avatar = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
-
-	int number = JsonUtility::getInstance()->user.ToolID[static_cast<int>(type)];
-	if (number <= 0){
-		UseButton->setBright(false);
-		UseButton->setEnabled(false);
-	}
-
-	Tool inventory = JsonUtility::getInstance()->getTool(static_cast<int>(type));
-	intro->ignoreContentAdaptWithSize(false);
-	intro->setContentSize(Size(200.0f,115.0f));
-	intro->setPosition(Vec2(225.0f,105.0f));
-	name->setString(inventory.ToolName);
-	intro->setString(inventory.ToolInfo);
-	avatar->loadTexture(inventory.ToolAddress);
-    price->setString(std::to_string(JsonUtility::getInstance()->getTool(static_cast<int>(type)).ToolPrice));
-	this->addChild(rootNode);
+    Text* name = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(4));
+    Text* intro = static_cast<Text*>(rootNode->getChildByTag(2)->getChildByTag(5));
+    ImageView* avatar = static_cast<ImageView*>(rootNode->getChildByTag(2)->getChildByTag(3));
+    Tool inventory = JsonUtility::getInstance()->getTool(static_cast<int>(m_type));
+    intro->ignoreContentAdaptWithSize(false);
+    intro->setContentSize(Size(200.0f,115.0f));
+    intro->setPosition(Vec2(225.0f,105.0f));
+    name->setString(inventory.ToolName);
+    intro->setString(inventory.ToolInfo);
+    avatar->loadTexture(inventory.ToolAddress);
+    price->setString(std::to_string(JsonUtility::getInstance()->getTool(static_cast<int>(m_type)).ToolPrice));
+    __flushDetailLayer();
+    this->addChild(rootNode);
 }
 
 bool DetailLayer::init(Equipment* eq){
@@ -264,7 +258,7 @@ void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
 		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 		label->runAction(seq2);
 	}
-	
+    __flushDetailLayer();
     
 }
 
@@ -277,3 +271,16 @@ void DetailLayer::onEnter(){
 	PopupLayer::onEnter();
 }
 
+void DetailLayer::__flushDetailLayer(){
+   
+    
+    int number = JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)];
+    if (number <= 0){
+        m_useButton->setBright(false);
+        m_useButton->setEnabled(false);
+    }else{
+        m_useButton->setBright(true);
+        m_useButton->setEnabled(true);
+    }
+
+}

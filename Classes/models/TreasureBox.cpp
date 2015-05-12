@@ -40,10 +40,10 @@ bool TreasureBox::init(ScenarioEnum scenario){
 
 void TreasureBox::__loadCSB(){
 	Node* rootNode = CSLoader::createNode("tbox/tbox.csb");
-	Button* clickButton = static_cast<Button*>(rootNode->getChildByTag(14));
+	m_clickButton = static_cast<Button*>(rootNode->getChildByTag(14));
 	m_armature = static_cast<Armature*>(rootNode->getChildByTag(13));
 	m_armature->getAnimation()->play("stand");
-	clickButton->addClickEventListener(CC_CALLBACK_1(TreasureBox::onBoxClicked, this));
+	m_clickButton->addClickEventListener(CC_CALLBACK_1(TreasureBox::onBoxClicked, this));
 	this->addChild(rootNode);
 }
 
@@ -72,6 +72,7 @@ void TreasureBox::__createEquipment(ScenarioEnum scenario){
 }
 
 void TreasureBox::onBoxClicked(cocos2d::Ref*){
+    m_clickButton->setEnabled(false);
 	__writeInfo();
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_24.c_str());
 	auto callfuncPlay = CallFunc::create([=](){

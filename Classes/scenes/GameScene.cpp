@@ -489,7 +489,10 @@ void GameScene::updateBar(float dt){
 	this->getChildByTag(99)->removeChildByTag(19);
 	if (m_showcoin < m_coin){		
 		m_showcoin++;		
-	}
+    }
+    else if(m_showcoin > m_coin){
+        m_showcoin--;
+    }
 	m_label = Label::create(std::to_string(m_showcoin),"Arial", 30);
 	m_label->setPosition(m_position);
 	m_label->setTag(19);

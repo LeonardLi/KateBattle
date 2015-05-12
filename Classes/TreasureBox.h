@@ -1,5 +1,6 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 enum class ScenarioEnum;
 class Equipment;
 
@@ -20,4 +21,5 @@ private:
 
 	cocostudio::Armature* m_armature;
 	Equipment* m_equ;
+    cocos2d::ui::Button* m_clickButton;
 };

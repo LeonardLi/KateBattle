@@ -9,6 +9,7 @@ Date: 2015/4/27
 #pragma once
 #include "PopupLayer.h"
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 class Equipment;
 enum class InventoryEnum;
 class DetailLayer : public PopupLayer{
@@ -22,6 +23,7 @@ public:
 private:
 	void __loadPicFromCSB(Equipment*);
 	void __loadPicFromCSB(InventoryEnum type);
+    void __flushDetailLayer();
 	virtual bool init();
 
 	bool init(Equipment*);
@@ -44,4 +46,5 @@ private:
 	cocos2d::SEL_CallFuncN m_callback;
 	Equipment* m_equipment;
 	InventoryEnum m_type;
+    cocos2d::ui::Button* m_useButton;
 };

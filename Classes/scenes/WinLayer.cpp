@@ -53,9 +53,9 @@ Scene* WinLayer::createScene(cocos2d::RenderTexture* sqr, ScenarioEnum scenario,
 }
 void WinLayer::__loadPicFromCSB(){
 	Node* rootNode = CSLoader::createNode("passpage/passpage.csb");
-	Button* reloadButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(6));
-	Button* nextButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(7));
-	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(2)->getChildByTag(8));
+	Button* reloadButton = static_cast<Button*>(rootNode->getChildByTag(1)->getChildByTag(4));
+	Button* nextButton = static_cast<Button*>(rootNode->getChildByTag(1)->getChildByTag(3));
+	Button* backButton = static_cast<Button*>(rootNode->getChildByTag(1)->getChildByTag(5));
 
 	if (m_scenario == ScenarioEnum::Sewer && m_subScenario ==SubScenarioEnum::LV3)
 	{

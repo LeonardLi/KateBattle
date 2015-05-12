@@ -1,5 +1,6 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 enum class ScenarioEnum;
 class Coin :public cocos2d::Node{
 public:
@@ -16,4 +17,5 @@ private:
 	CC_SYNTHESIZE(int, m_coin, CoinNumber);
 	cocostudio::Armature* m_armature;
 	ScenarioEnum m_scenario;
+    cocos2d::ui::Button* m_click;
 };

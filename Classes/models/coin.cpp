@@ -41,15 +41,16 @@ bool Coin::init(ScenarioEnum scenario){
 
 void Coin::__loadCSB(){
 	Node* root = CSLoader::createNode("gold/gold.csb");
-	Button* click = static_cast<Button*>(root->getChildByTag(6));
+	m_click = static_cast<Button*>(root->getChildByTag(6));
 	m_armature = static_cast<Armature*>(root->getChildByTag(19));
 	m_armature->getAnimation()->play("stand");
-	click->addClickEventListener(CC_CALLBACK_1(Coin::onCoinClicked, this));
+	m_click->addClickEventListener(CC_CALLBACK_1(Coin::onCoinClicked, this));
 	this->addChild(root);
 }
 
 void Coin::onCoinClicked(Ref*){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_29.c_str());
+    m_click->setEnabled(false);
 	User& user = JsonUtility::getInstance()->user;
 	user.UserGoldsNumber = user.UserGoldsNumber + m_coin;
 	auto callfuncPlay = CallFunc::create([=](){
