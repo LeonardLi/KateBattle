@@ -3,6 +3,7 @@
 #include "ui/CocosGUI.h" 
 #include "Equipment.h"
 #include "JsonUtility.h"
+#include "cocostudio/CocoStudio.h"
 class Hero;
 class MonsterManager;
 class Joystick;
@@ -89,6 +90,9 @@ private:
 	void postBossAttackNotification(float dt);
 	void postBossUseSkillNotification(float dt);
 
+	//update
+	void updateBar(float dt);
+
 	Hero* m_hero;
 	Joystick* m_stick;
 	MonsterManager* m_monsterMgr;
@@ -97,6 +101,11 @@ private:
 	ScenarioEnum m_scenario;
 	SubScenarioEnum m_subscenario;
 	ControllerMoveBase* m_controller;
+	CC_SYNTHESIZE(cocos2d::ui::Text* ,m_coinsNum,CoinNumber);
+	cocos2d::Label* m_label;
+	int m_coin;
+	int m_showcoin;
+	cocos2d::Vec2 m_position;
 };
 
 /************************************************************************/

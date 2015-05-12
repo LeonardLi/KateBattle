@@ -251,15 +251,15 @@ void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
         
     }
     else{
-	if (equ->getUsed()){
+		if (equ->getUsed()){
 		//equip 
 		__replaceEquipment(equ);
-	
-	}
-	else{
+		
+		}
+		else{
 		//unequip
 		__updateHeroData(equ, true);
-	}
+		}
     }
 	__flushEquipment();
 	__flushHeroStatus();

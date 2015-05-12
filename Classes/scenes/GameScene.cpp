@@ -16,6 +16,7 @@
 #include "TreasureBox.h"
 #include "VisibleRect.h"
 #include "LoadingScene.h"
+#include "coin.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -85,9 +86,12 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	m_map = static_cast<Sprite*>(rootnode->getChildByTag(80));	
 	m_map->addChild(m_hero, 10);
 	
-
 	m_controller = ControllerMoveBase::create(m_hero, m_map,  m_scenario, m_subscenario);
 	m_hero->setMoveController(m_controller);
+
+	Coin* coin = Coin::create(m_scenario);
+	coin->setPosition(VisibleRect::center());
+	this->addChild(coin);
 
 	__createStickBar();
     
@@ -99,7 +103,8 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	this->scheduleUpdate();	
 	this->scheduleOnce(schedule_selector(GameScene::postAttackNotification), 1.0f);
 	this->scheduleOnce(schedule_selector(GameScene::postBossAttackNotification), 1.0f);
-    return true;
+	this->schedule(schedule_selector(GameScene::updateBar), 0, kRepeatForever, 0);
+	return true;
 }
 
 Node* GameScene::loadCSB(ScenarioEnum scenario, SubScenarioEnum subscenario){
@@ -179,7 +184,12 @@ Layer* GameScene::loadControlLayer(){
 	Layer* control = static_cast<Layer*>(CSLoader::createNode("renwujiemian/renwujiemian.csb"));
 	Button* setupButton = static_cast<Button*>(control->getChildByTag(9));
 	Button* bagButton = static_cast<Button*>(control->getChildByTag(8));
-
+	Text* m_coinsNum = static_cast<Text*>(control->getChildByTag(19));
+	Text* bonesNumber = static_cast<Text*>(control->getChildByTag(18));
+	m_coin = JsonUtility::getInstance()->user.UserGoldsNumber;
+	m_showcoin = m_coin;
+	m_coinsNum->setString(std::to_string(m_showcoin));
+	m_position = m_coinsNum->getPosition();
 	setupButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupSetupMenu, this));
 	bagButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupBagLayer, this));
 
@@ -195,8 +205,10 @@ Layer* GameScene::loadControlLayer(){
 
 	auto SkillButton3 = static_cast<Button*>(control->getChildByTag(14));
 	SkillButton3->addClickEventListener(CC_CALLBACK_1(GameScene::skillBtn3OnClick, this));
+	control->setTag(99);
 	return control;
 
+	
 }
 
 void GameScene::onDirectionChange(JoystickEnum direction){
@@ -474,6 +486,18 @@ void GameScene::__useInventory(InventoryEnum type){
 	}
 }
 
+void GameScene::updateBar(float dt){
+	m_coin = JsonUtility::getInstance()->user.UserGoldsNumber;
+	this->getChildByTag(99)->removeChildByTag(19);
+	if (m_showcoin < m_coin){		
+		m_showcoin++;		
+	}
+	m_label = Label::create(std::to_string(m_showcoin),"Arial", 30);
+	m_label->setPosition(m_position);
+	m_label->setTag(19);
+	this->getChildByTag(99)->addChild(m_label);
+	
+}
 //////////////////////////////////////////////////////////////////////////
 
 Scene* ChooseGameScene::createScene(){

@@ -127,6 +127,9 @@
     <ClCompile Include="..\Classes\scenes\LoseLayer.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\models\coin.cpp">
+      <Filter>src\models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -225,6 +228,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LoseLayer.h">
       <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\coin.h">
+      <Filter>src\models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
