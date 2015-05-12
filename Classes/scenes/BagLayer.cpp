@@ -253,8 +253,13 @@ void BagLayer::onBackButtonClickListener(Ref* sender){
 void BagLayer::__handleEquipmentDetailLayer(cocos2d::Node* sender){
 	Equipment* equ = static_cast<Equipment*>(sender);
     if(equ->getEquipmentID() == -1){
-       //sell
-        __updateHeroData(equ, true);
+        if(equ->getUsed()){
+            //sell the equiped thing
+            __updateHeroData(equ, true);
+        }
+        else{
+            //sell the not equiped thing
+        }
     }
     else{
 		if (equ->getUsed()){

@@ -212,11 +212,15 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			{	
 				m_isUp = true;
                 m_isRight = true;
+                m_isDown = false;
+                m_isLeft = false;
 				m_hero->playAnimaitonWalk(Direction::right);
 			}
 			else if (!m_isLeft && !m_isUp){
 				m_isUp = true;
-                m_isDown = true;
+                m_isLeft = true;
+                m_isDown = false;
+                m_isRight = false;
 				m_hero->playAnimaitonWalk(Direction::left);
 			}
 		}	
@@ -230,12 +234,16 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			{	
 				m_isDown = true;
                 m_isRight = true;
+                m_isUp = false;
+                m_isLeft = false;
 				m_hero->playAnimaitonWalk(Direction::right);
 			}
 			else if(!m_isLeft && !m_isDown)
 			{
 				m_isDown = true;
                 m_isLeft = true;
+                m_isUp = false;
+                m_isRight = false;
 				m_hero->playAnimaitonWalk(Direction::left);
 			}
 		}
@@ -245,12 +253,17 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 		if (getisAllowToLeft() && m_map->convertToWorldSpace(m_hero->getPosition()).x >= 50)
 		{
 			leftOrRight = false;
+            
 			m_hero->setPosition(pos.x - moveSpeed, pos.y);
 			if (!m_isLeft)
 			{
-				m_isLeft = true;
+                
+				
 				m_hero->playAnimaitonWalk(Direction::left);
+                m_isLeft = true;
 				m_isRight = false;
+                m_isUp = false;
+                m_isDown = false;
 			}
 			__rollmapBackward();
 		}
@@ -263,9 +276,12 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			m_hero->setPosition(pos.x + moveSpeed, pos.y);
 			if (!m_isRight)
 			{
-				m_isRight = true;
+				
 				m_hero->playAnimaitonWalk(Direction::right);
+                m_isRight = true;
 				m_isLeft = false;
+                m_isUp = false;
+                m_isDown = false;
 			}
 			__rollmapForward();
 		}
@@ -278,9 +294,12 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			m_hero->setPosition(pos.x - moveSpeed, pos.y + moveSpeed);
 			if (!m_isLeft)
 			{
-				m_isLeft = true;
+				
 				m_hero->playAnimaitonWalk(Direction::left);
+                m_isLeft = true;
 				m_isRight = false;
+                m_isUp = false;
+                m_isDown = false;
 			}
 			__rollmapBackward();
 		}
@@ -294,9 +313,12 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			m_hero->setPosition(pos.x + moveSpeed, pos.y + moveSpeed);
 			if (!m_isRight)
 			{
-				m_isRight = true;
+				
 				m_hero->playAnimaitonWalk(Direction::right);
+                m_isRight = true;
 				m_isLeft = false;
+                m_isUp = false;
+                m_isDown = false;
 			}
 			__rollmapForward();
 		}
@@ -310,10 +332,13 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			m_hero->setPosition(pos.x - moveSpeed, pos.y - moveSpeed);
 			if (!m_isLeft)
 			{
-				m_isLeft = true;
+				
 				m_hero->playAnimaitonWalk(Direction::left);
+                m_isLeft = true;
 				m_isRight = false;
-			}			
+                m_isUp = false;
+                m_isDown = false;
+			}
 			__rollmapBackward();
 		}
 
@@ -326,9 +351,12 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
 			m_hero->setPosition(pos.x + moveSpeed, pos.y - moveSpeed);
 			if (!m_isRight)
 			{
-				m_isRight = true;
+				
 				m_hero->playAnimaitonWalk(Direction::right);
+                m_isRight = true;
 				m_isLeft = false;
+                m_isUp = false;
+                m_isDown = false;
 			}
 			__rollmapForward();
 		}
@@ -344,6 +372,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
                 m_isRight = false;
                 m_isUp = false;
                 m_isDown = false;
+                m_isLeft = false;
 			}
 			else if (m_isLeft)
 			{
@@ -351,6 +380,7 @@ void ControllerMoveBase::simpleMove(JoystickEnum direction){
                 m_isLeft = false;
                 m_isUp = false;
                 m_isDown = false;
+                m_isRight = false;
 
 			}
 			
