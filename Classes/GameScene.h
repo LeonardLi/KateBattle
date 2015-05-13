@@ -105,6 +105,7 @@ private:
 	cocos2d::Label* m_label;
 	int m_coin;
 	int m_showcoin;
+	bool m_lock;
 
 	cocos2d::Vec2 m_position;
 };

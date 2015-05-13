@@ -130,6 +130,9 @@
     <ClCompile Include="..\Classes\models\coin.cpp">
       <Filter>src\models</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\AboutLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -231,6 +234,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\coin.h">
       <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AboutLayer.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

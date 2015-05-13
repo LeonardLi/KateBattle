@@ -14,6 +14,7 @@
 #include "SoundsController.h"
 #include "SetupLayer.h"
 #include "AboutLayer.h"
+#include "VideoPlay.h"
 
 #define INTRODUCTION 14
 #define SCENARIO     35
@@ -109,7 +110,8 @@ void MenuScene::onButtonClicked(Ref* ButtonClicked){
 }
 
 void MenuScene::_playCG(){
-
+	Scene* video = VideoPlay::createScene();
+	Director::getInstance()->replaceScene(video);
 }
 
 void MenuScene::_ChooseScenario(){

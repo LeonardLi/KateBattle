@@ -33,7 +33,8 @@ m_hero(nullptr),
 m_stick(nullptr),
 m_monsterMgr(nullptr),
 m_map(nullptr),
-m_isSilence(false)
+m_isSilence(false),
+m_lock(false)
 {
 
 }
@@ -418,15 +419,19 @@ void GameScene::postBossUseSkillNotification(float dt){
 }
 
 void GameScene::_popupBagLayer(cocos2d::Ref* sender){
-	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_13.c_str());
-	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
-	fakeBackground->begin();
-	this->getParent()->visit();
-	fakeBackground->end();	
-	auto bag = BagLayer::createScene(fakeBackground);
-	BagLayer* layer = static_cast<BagLayer*>(bag->getChildByTag(99));
-	layer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
-	Director::getInstance()->pushScene(bag);
+	if (!m_lock)
+	{
+		m_lock = true;
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_13.c_str());
+		RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
+		fakeBackground->begin();
+		this->getParent()->visit();
+		fakeBackground->end();
+		auto bag = BagLayer::createScene(fakeBackground);
+		BagLayer* layer = static_cast<BagLayer*>(bag->getChildByTag(99));
+		layer->setCallbackFunc(this, callfuncN_selector(GameScene::_handlePopupBagLayer));
+		Director::getInstance()->pushScene(bag);
+	}
 }
 
 void GameScene::_popupSetupMenu(cocos2d::Ref* sender){

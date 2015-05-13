@@ -510,7 +510,7 @@ void BagLayer::__updateHeroData(Equipment* newEqu, Equipment* oldEqu){
 	User& user = JsonUtility::getInstance()->user;
 	float healthRate = user.UserCulHealth / user.UserHealth;
 	user.UserAttack = user.UserAttack - oldEqu->getAttack() + newEqu->getAttack();
-	user.UserMoveRate = user.UserMoveRate - oldEqu->getMoveRate() + newEqu->getAttack();
+	user.UserMoveRate = user.UserMoveRate - oldEqu->getMoveRate() + newEqu->getMoveRate();
 	user.UserAttackRate = user.UserAttackRate - oldEqu->getAttackRate() + newEqu->getAttackRate();
 	user.UserHealth = user.UserHealth - oldEqu->getBlood() + newEqu->getBlood();
 	user.UserCulHealth = user.UserHealth * healthRate;
