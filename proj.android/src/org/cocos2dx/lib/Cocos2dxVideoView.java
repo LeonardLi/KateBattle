@@ -31,6 +31,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.MediaController.MediaPlayerControl;
 
@@ -370,8 +371,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         
         getHolder().setFixedSize(mVisibleWidth, mVisibleHeight);
         
-        FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
         lParams.leftMargin = mVisibleLeft;
         lParams.topMargin = mVisibleTop;
         lParams.gravity = Gravity.TOP | Gravity.LEFT;
@@ -381,7 +382,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     protected 
     MediaPlayer.OnVideoSizeChangedListener mSizeChangedListener =
         new MediaPlayer.OnVideoSizeChangedListener() {
-            public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+            @Override
+			public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
                 mVideoWidth = mp.getVideoWidth();
                 mVideoHeight = mp.getVideoHeight();
                 if (mVideoWidth != 0 && mVideoHeight != 0) {
@@ -392,7 +394,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     
 
     MediaPlayer.OnPreparedListener mPreparedListener = new MediaPlayer.OnPreparedListener() {
-        public void onPrepared(MediaPlayer mp) {
+        @Override
+		public void onPrepared(MediaPlayer mp) {
             mCurrentState = STATE_PREPARED;
 
             if (mOnPreparedListener != null) {
@@ -419,7 +422,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
 
     private MediaPlayer.OnCompletionListener mCompletionListener =
         new MediaPlayer.OnCompletionListener() {
-        public void onCompletion(MediaPlayer mp) {
+        @Override
+		public void onCompletion(MediaPlayer mp) {
             mCurrentState = STATE_PLAYBACK_COMPLETED;
             mTargetState = STATE_PLAYBACK_COMPLETED;
             
@@ -443,7 +447,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
 
     private MediaPlayer.OnErrorListener mErrorListener =
         new MediaPlayer.OnErrorListener() {
-        public boolean onError(MediaPlayer mp, int framework_err, int impl_err) {
+        @Override
+		public boolean onError(MediaPlayer mp, int framework_err, int impl_err) {
             Log.d(TAG, "Error: " + framework_err + "," + impl_err);
             mCurrentState = STATE_ERROR;
             mTargetState = STATE_ERROR;
@@ -480,7 +485,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
                         .setMessage(messageId)
                         .setPositiveButton(r.getString(buttonStringId),
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                    @Override
+									public void onClick(DialogInterface dialog, int whichButton) {
                                         /* If we get here, there is no onError listener, so
                                          * at least inform them that the video is over.
                                          */
@@ -498,7 +504,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
 
     private MediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener =
         new MediaPlayer.OnBufferingUpdateListener() {
-        public void onBufferingUpdate(MediaPlayer mp, int percent) {
+        @Override
+		public void onBufferingUpdate(MediaPlayer mp, int percent) {
             mCurrentBufferPercentage = percent;
         }
     };
@@ -540,7 +547,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
 
     SurfaceHolder.Callback mSHCallback = new SurfaceHolder.Callback()
     {
-        public void surfaceChanged(SurfaceHolder holder, int format,
+        @Override
+		public void surfaceChanged(SurfaceHolder holder, int format,
                                     int w, int h)
         {
             boolean isValidState =  (mTargetState == STATE_PLAYING);
@@ -553,13 +561,15 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
             }
         }
 
-        public void surfaceCreated(SurfaceHolder holder)
+        @Override
+		public void surfaceCreated(SurfaceHolder holder)
         {
             mSurfaceHolder = holder;
             openVideo();
         }
 
-        public void surfaceDestroyed(SurfaceHolder holder)
+        @Override
+		public void surfaceDestroyed(SurfaceHolder holder)
         {
             // after we return from this we can't use the surface any more
             mSurfaceHolder = null;
@@ -583,7 +593,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         }
     }
     
-    public void start() {
+    @Override
+	public void start() {
         if (isInPlaybackState()) {
             mMediaPlayer.start();
             mCurrentState = STATE_PLAYING;
@@ -594,7 +605,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         mTargetState = STATE_PLAYING;
     }
 
-    public void pause() {
+    @Override
+	public void pause() {
         if (isInPlaybackState()) {
             if (mMediaPlayer.isPlaying()) {
                 mMediaPlayer.pause();
@@ -643,7 +655,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         }
     }
     // cache duration as mDuration for faster access
-    public int getDuration() {
+    @Override
+	public int getDuration() {
         if (isInPlaybackState()) {
             if (mDuration > 0) {
                 return mDuration;
@@ -655,14 +668,16 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         return mDuration;
     }
 
-    public int getCurrentPosition() {
+    @Override
+	public int getCurrentPosition() {
         if (isInPlaybackState()) {
             return mMediaPlayer.getCurrentPosition();
         }
         return 0;
     }
 
-    public void seekTo(int msec) {
+    @Override
+	public void seekTo(int msec) {
         if (isInPlaybackState()) {
             mMediaPlayer.seekTo(msec);
             mSeekWhenPrepared = 0;
@@ -671,11 +686,13 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         }
     }
 
-    public boolean isPlaying() {
+    @Override
+	public boolean isPlaying() {
         return isInPlaybackState() && mMediaPlayer.isPlaying();
     }
 
-    public int getBufferPercentage() {
+    @Override
+	public int getBufferPercentage() {
         if (mMediaPlayer != null) {
             return mCurrentBufferPercentage;
         }
@@ -707,7 +724,8 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
         return true;
     }
         
-    public int getAudioSessionId () {
+    @Override
+	public int getAudioSessionId () {
        // TODO Auto-generated method stub
        return mMediaPlayer.getAudioSessionId();
     }

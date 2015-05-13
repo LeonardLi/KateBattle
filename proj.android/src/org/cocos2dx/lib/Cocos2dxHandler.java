@@ -62,7 +62,8 @@ public class Cocos2dxHandler extends Handler {
     // Methods
     // ===========================================================
 
-    public void handleMessage(Message msg) {
+    @Override
+	public void handleMessage(Message msg) {
         switch (msg.what) {
         case Cocos2dxHandler.HANDLER_SHOW_DIALOG:
             showDialog(msg);

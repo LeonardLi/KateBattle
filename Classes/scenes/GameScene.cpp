@@ -463,7 +463,7 @@ void GameScene::_handlePopupBagLayer(cocos2d::Node* sender){
 	else{
 		__useInventory(static_cast<InventoryEnum>(sender->getTag()));
 	}
-	
+    m_lock = false;
 }
 
 void GameScene::_handlePopupWinLayer(cocos2d::Node* sender){

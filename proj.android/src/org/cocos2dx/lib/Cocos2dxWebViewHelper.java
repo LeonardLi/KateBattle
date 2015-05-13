@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 import java.util.concurrent.Callable;
@@ -61,8 +62,8 @@ public class Cocos2dxWebViewHelper {
             public void run() {
                 Cocos2dxWebView webView = new Cocos2dxWebView(sCocos2dxActivity, index);
                 FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT);
+                        LayoutParams.WRAP_CONTENT,
+                        LayoutParams.WRAP_CONTENT);
                 sLayout.addView(webView, lParams);
 
                 webViews.put(index, webView);

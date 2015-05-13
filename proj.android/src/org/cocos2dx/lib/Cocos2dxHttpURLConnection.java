@@ -39,7 +39,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -56,7 +55,6 @@ import javax.net.ssl.TrustManagerFactory;
 
 import org.cocos2dx.lib.Cocos2dxHelper;
 
-import android.content.res.AssetManager;
 import android.util.Log;
 
 public class Cocos2dxHttpURLConnection
