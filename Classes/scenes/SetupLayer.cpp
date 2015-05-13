@@ -132,6 +132,7 @@ void SetupLayer::onSoundControlButtonClicked(cocos2d::Ref* sender){
 
 void SetupLayer::onBackMenuButtonClicked(cocos2d::Ref*){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_19.c_str());
+	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     auto scene = MenuScene::createScene();
     Director::getInstance()->replaceScene(scene);
 
