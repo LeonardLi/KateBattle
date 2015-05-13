@@ -175,6 +175,10 @@
 		D72F222A1AE2825700CA03C8 /* hero in Resources */ = {isa = PBXBuildFile; fileRef = D72F22281AE2825700CA03C8 /* hero */; };
 		D72F222F1AE2827300CA03C8 /* mainmenu in Resources */ = {isa = PBXBuildFile; fileRef = D72F222E1AE2827300CA03C8 /* mainmenu */; };
 		D72F22301AE2827300CA03C8 /* mainmenu in Resources */ = {isa = PBXBuildFile; fileRef = D72F222E1AE2827300CA03C8 /* mainmenu */; };
+		D736AB9F1B025CCA00D15B91 /* about in Resources */ = {isa = PBXBuildFile; fileRef = D736AB9E1B025CCA00D15B91 /* about */; };
+		D736ABA01B025CCA00D15B91 /* about in Resources */ = {isa = PBXBuildFile; fileRef = D736AB9E1B025CCA00D15B91 /* about */; };
+		D736ABA31B025F1900D15B91 /* AboutLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D736ABA11B025F1900D15B91 /* AboutLayer.cpp */; };
+		D736ABA41B025F1900D15B91 /* AboutLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D736ABA11B025F1900D15B91 /* AboutLayer.cpp */; };
 		D73D57F11AD8000F003D6A7C /* SoundsDef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D73D57EE1AD8000F003D6A7C /* SoundsDef.cpp */; };
 		D73D57F21AD8000F003D6A7C /* SoundsDef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D73D57EE1AD8000F003D6A7C /* SoundsDef.cpp */; };
 		D73D57F91AD80040003D6A7C /* I_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D73D57F51AD80040003D6A7C /* I_State.cpp */; };
@@ -405,6 +409,9 @@
 		D72677651AEF6E080051B814 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		D72F22281AE2825700CA03C8 /* hero */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hero; sourceTree = "<group>"; };
 		D72F222E1AE2827300CA03C8 /* mainmenu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mainmenu; sourceTree = "<group>"; };
+		D736AB9E1B025CCA00D15B91 /* about */ = {isa = PBXFileReference; lastKnownFileType = folder; path = about; sourceTree = "<group>"; };
+		D736ABA11B025F1900D15B91 /* AboutLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AboutLayer.cpp; path = scenes/AboutLayer.cpp; sourceTree = "<group>"; };
+		D736ABA51B025F5500D15B91 /* AboutLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutLayer.h; sourceTree = "<group>"; };
 		D73D57EE1AD8000F003D6A7C /* SoundsDef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundsDef.cpp; path = tools/SoundsDef.cpp; sourceTree = "<group>"; };
 		D73D57F41AD80026003D6A7C /* SoundsDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundsDef.h; sourceTree = "<group>"; };
 		D73D57F51AD80040003D6A7C /* I_State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = I_State.cpp; path = models/I_State.cpp; sourceTree = "<group>"; };
@@ -570,6 +577,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D736AB9E1B025CCA00D15B91 /* about */,
 				D714216A1B02148B00097200 /* gold */,
 				D71421621B00D0D100097200 /* crit.png */,
 				D714214A1AFE6A3B00097200 /* video2.mp4 */,
@@ -700,6 +708,7 @@
 		D71056961ABBA4A000130056 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D736ABA51B025F5500D15B91 /* AboutLayer.h */,
 				D714215A1B00BD5600097200 /* LoseLayer.cpp */,
 				D71421591B00BD4C00097200 /* LoseLayer.h */,
 				D7F235BA1AFA0FCF007C3DF2 /* LoadingScene.cpp */,
@@ -718,6 +727,7 @@
 				D71056A41ABBAE1900130056 /* MenuScene.cpp */,
 				D71056A81ABBAE3E00130056 /* GameScene.cpp */,
 				D70F9E7C1AF8DAD100EBED37 /* LoadingScene.h */,
+				D736ABA11B025F1900D15B91 /* AboutLayer.cpp */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -919,6 +929,7 @@
 				D72677661AEF6E080051B814 /* sounds in Resources */,
 				D726775E1AEE4F4C0051B814 /* xiashuidao3 in Resources */,
 				D72677461AEE4F4C0051B814 /* gangkou2 in Resources */,
+				D736AB9F1B025CCA00D15B91 /* about in Resources */,
 				D7F235D81AFA5344007C3DF2 /* monster9 in Resources */,
 				D7E1FD031ACACAFF00AA36EC /* wolf.png in Resources */,
 				D726774E1AEE4F4C0051B814 /* jishi2 in Resources */,
@@ -989,6 +1000,7 @@
 				D71421641B00D0D100097200 /* crit.png in Resources */,
 				D7F235D11AFA5344007C3DF2 /* monster5 in Resources */,
 				D7F244461ADB56F400D121FB /* Default in Resources */,
+				D736ABA01B025CCA00D15B91 /* about in Resources */,
 				D714216C1B02148B00097200 /* gold in Resources */,
 				D71421581B00BD2000097200 /* tbox in Resources */,
 				D72F22301AE2827300CA03C8 /* mainmenu in Resources */,
@@ -1066,6 +1078,7 @@
 				D70F9E711AF8CE8600EBED37 /* DetailLayer.cpp in Sources */,
 				D73D57F11AD8000F003D6A7C /* SoundsDef.cpp in Sources */,
 				D7788FDF1AD55D72005524A0 /* MonsterManager.cpp in Sources */,
+				D736ABA31B025F1900D15B91 /* AboutLayer.cpp in Sources */,
 				D7F244631ADD513B00D121FB /* BulletNormal.cpp in Sources */,
 				D7F244651ADD513B00D121FB /* Inventory.cpp in Sources */,
 				D714214F1AFE6AFB00097200 /* TreasureBox.cpp in Sources */,
@@ -1108,6 +1121,7 @@
 				D7F2446B1ADD516500D121FB /* JsonUtility.cpp in Sources */,
 				D7F235BC1AFA0FCF007C3DF2 /* LoadingScene.cpp in Sources */,
 				D71421541AFE6B1700097200 /* VideoPlay.cpp in Sources */,
+				D736ABA41B025F1900D15B91 /* AboutLayer.cpp in Sources */,
 				D73D57FE1AD80040003D6A7C /* StateAttack.cpp in Sources */,
 				D7F2444A1ADB581700D121FB /* VisibleRect.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,

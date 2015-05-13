@@ -13,10 +13,11 @@
 #include "SoundsDef.h"
 #include "SoundsController.h"
 #include "SetupLayer.h"
+#include "AboutLayer.h"
 
 #define INTRODUCTION 14
 #define SCENARIO     35
-#define MODE		 36
+#define ABOUT		 36
 #define SETUP		 37
 #define QUIT		 38
 USING_NS_CC;
@@ -49,9 +50,9 @@ bool MenuScene::init(){
 
 void MenuScene::menuCloseCallback(Ref* pSender)
 {
-	auto scene = ChooseGameScene::createScene();//´´½¨´ıÇĞ»»µÄ³¡¾°
-	auto transition = TransitionFadeBL::create(2.f, scene);//¸ø³¡¾°°ü×°¶¯»­ÌØĞ§ 
-	Director::getInstance()->replaceScene(transition);//ÔËÓÃµ¼ÑİÀàÀ´½øĞĞÇĞ»»³¡¾°
+	auto scene = ChooseGameScene::createScene();//Â¥Â¥Î©Â®Â¥ËÂ«â€“ÂªÂªÂµÆ’â‰¥Â°Ã¦âˆ
+	auto transition = TransitionFadeBL::create(2.f, scene);//âˆÂ¯â‰¥Â°Ã¦âˆâˆÂ¸â—Šâˆâˆ‚Ã˜Âªâ‰ ÃƒÃ¿â€“ÃŸ 
+	Director::getInstance()->replaceScene(transition);//â€˜Ã€â€âˆšÂµÂºâ€”â€ºÂ¿â€¡Â¿Â¥Î©Â¯â€“â€“Â«â€“ÂªÂªâ‰¥Â°Ã¦âˆ
 
 }
 
@@ -63,7 +64,7 @@ void MenuScene::loadCSBFromfile(){
 
 	Button* IntroButton = static_cast<Button*>(rootNode->getChildByTag(INTRODUCTION));
 	Button* ScenarioButton = static_cast<Button*>(rootNode->getChildByTag(SCENARIO));
-	Button* ModeButton = static_cast<Button*>(rootNode->getChildByTag(MODE));
+	Button* ModeButton = static_cast<Button*>(rootNode->getChildByTag(ABOUT));
 	Button* setupButton = static_cast<Button*>(rootNode->getChildByTag(SETUP));
 	Button* quitButton = static_cast<Button*>(rootNode->getChildByTag(QUIT));
 
@@ -90,8 +91,9 @@ void MenuScene::onButtonClicked(Ref* ButtonClicked){
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
 		_ChooseScenario();
 		break;
-	case MODE:
+	case ABOUT:
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
+        _showAbout();
 		break;
 	case SETUP:
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_1.c_str());
@@ -107,6 +109,7 @@ void MenuScene::onButtonClicked(Ref* ButtonClicked){
 }
 
 void MenuScene::_playCG(){
+
 }
 
 void MenuScene::_ChooseScenario(){
@@ -147,3 +150,9 @@ void MenuScene::__handlePopupSetupMenu(Node* sender){
 		m_isSilence = true;
 	}
 }
+
+void MenuScene::_showAbout(){
+    auto about = AboutLayer::create();
+    this->addChild(about);
+}
+

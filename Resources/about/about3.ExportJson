@@ -4,14 +4,45 @@
     {
       "strVersion": "1.5.0.0",
       "version": 1.5,
-      "name": "wave1",
+      "name": "about3",
       "bone_data": [
         {
-          "name": "Layer2",
+          "name": "Layer8",
           "parent": "",
           "dI": 0,
-          "x": 1025.5,
-          "y": 136.67315673828125,
+          "x": 0.0,
+          "y": -150.0,
+          "z": 6,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": 0.0,
+          "kY": 0.0,
+          "arrow_x": 0.0,
+          "arrow_y": 0.0,
+          "effectbyskeleton": false,
+          "display_data": [
+            {
+              "name": "about_28.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Layer7",
+          "parent": "",
+          "dI": 0,
+          "x": 0.5,
+          "y": -85.0,
           "z": 5,
           "cX": 1.0,
           "cY": 1.0,
@@ -22,7 +53,7 @@
           "effectbyskeleton": false,
           "display_data": [
             {
-              "name": "wave2.png",
+              "name": "about_26.png",
               "displayType": 0,
               "skin_data": [
                 {
@@ -38,11 +69,11 @@
           ]
         },
         {
-          "name": "Layer1",
+          "name": "Layer6",
           "parent": "",
           "dI": 0,
-          "x": 869.5001220703125,
-          "y": 152.673095703125,
+          "x": 0.0,
+          "y": -20.0,
           "z": 4,
           "cX": 1.0,
           "cY": 1.0,
@@ -53,69 +84,7 @@
           "effectbyskeleton": false,
           "display_data": [
             {
-              "name": "wave1.png",
-              "displayType": 0,
-              "skin_data": [
-                {
-                  "x": 0.0,
-                  "y": 0.0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Layer3",
-          "parent": "",
-          "dI": 0,
-          "x": 725.857177734375,
-          "y": 140.7445068359375,
-          "z": 3,
-          "cX": 1.0,
-          "cY": 1.0,
-          "kX": 0.0,
-          "kY": 0.0,
-          "arrow_x": 0.0,
-          "arrow_y": 0.0,
-          "effectbyskeleton": false,
-          "display_data": [
-            {
-              "name": "wave3.png",
-              "displayType": 0,
-              "skin_data": [
-                {
-                  "x": 0.0,
-                  "y": 0.0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Layer4",
-          "parent": "",
-          "dI": 0,
-          "x": 694.35736083984375,
-          "y": 141.2447509765625,
-          "z": 2,
-          "cX": 1.0,
-          "cY": 1.0,
-          "kX": 0.0,
-          "kY": 0.0,
-          "arrow_x": 0.0,
-          "arrow_y": 0.0,
-          "effectbyskeleton": false,
-          "display_data": [
-            {
-              "name": "wave4.png",
+              "name": "about_22.png",
               "displayType": 0,
               "skin_data": [
                 {
@@ -134,8 +103,70 @@
           "name": "Layer5",
           "parent": "",
           "dI": 0,
-          "x": 646.35736083984375,
-          "y": 148.7445068359375,
+          "x": 0.0,
+          "y": 45.0,
+          "z": 3,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": 0.0,
+          "kY": 0.0,
+          "arrow_x": 0.0,
+          "arrow_y": 0.0,
+          "effectbyskeleton": false,
+          "display_data": [
+            {
+              "name": "about_16.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Layer4",
+          "parent": "",
+          "dI": 0,
+          "x": 0.5,
+          "y": 110.0,
+          "z": 2,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": 0.0,
+          "kY": 0.0,
+          "arrow_x": 0.0,
+          "arrow_y": 0.0,
+          "effectbyskeleton": false,
+          "display_data": [
+            {
+              "name": "about_13.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Layer3",
+          "parent": "",
+          "dI": 0,
+          "x": 0.0,
+          "y": 175.0,
           "z": 1,
           "cX": 1.0,
           "cY": 1.0,
@@ -146,7 +177,7 @@
           "effectbyskeleton": false,
           "display_data": [
             {
-              "name": "wave5.png",
+              "name": "about_09.png",
               "displayType": 0,
               "skin_data": [
                 {
@@ -166,25 +197,25 @@
   ],
   "animation_data": [
     {
-      "name": "wave1",
+      "name": "about3",
       "mov_data": [
         {
           "name": "Animation1",
-          "dr": 16,
+          "dr": 31,
           "lp": true,
           "to": 0,
           "drTW": 0,
           "twE": 0,
-          "sc": 0.0333333351,
+          "sc": 0.0833333358,
           "mov_bone_data": [
             {
-              "name": "Layer2",
+              "name": "Layer8",
               "dl": 0.0,
               "frame_data": [
                 {
                   "dI": 0,
-                  "x": 985.66668701171875,
-                  "y": -49.333335876464844,
+                  "x": 0.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
@@ -192,25 +223,100 @@
                   "kY": 0.0,
                   "fi": 0,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
-                  "x": -14.33331298828125,
-                  "y": -49.0,
+                  "x": 0.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 10,
+                  "fi": 20,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
-                  "x": -14.33331298828125,
-                  "y": -49.0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 25,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 30,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Layer7",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
@@ -220,7 +326,45 @@
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
-                    "a": 0,
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 20,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 25,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
                     "r": 255,
                     "g": 255,
                     "b": 255
@@ -229,13 +373,13 @@
               ]
             },
             {
-              "name": "Layer1",
+              "name": "Layer6",
               "dl": 0.0,
               "frame_data": [
                 {
                   "dI": 0,
-                  "x": 1055.666748046875,
-                  "y": -42.666664123535156,
+                  "x": 0.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
@@ -243,12 +387,18 @@
                   "kY": 0.0,
                   "fi": 0,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
-                  "x": 55.666748046875,
-                  "y": -42.0,
+                  "x": 0.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
@@ -256,12 +406,18 @@
                   "kY": 0.0,
                   "fi": 10,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
-                  "x": 55.666748046875,
-                  "y": -42.0,
+                  "x": 0.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
@@ -271,7 +427,26 @@
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
-                    "a": 0,
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 20,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
                     "r": 255,
                     "g": 255,
                     "b": 255
@@ -280,36 +455,23 @@
               ]
             },
             {
-              "name": "Layer3",
+              "name": "Layer5",
               "dl": 0.0,
               "frame_data": [
                 {
                   "dI": 0,
                   "x": 0.0,
-                  "y": -4.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 0,
-                  "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": -4.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0174532924,
-                  "kY": 0.0174532924,
                   "fi": 5,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
-                    "a": 100,
+                    "a": 80,
                     "r": 255,
                     "g": 255,
                     "b": 255
@@ -318,20 +480,26 @@
                 {
                   "dI": 0,
                   "x": 0.0,
-                  "y": -4.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
-                  "kX": -0.0349065848,
-                  "kY": 0.104719743,
+                  "kX": 0.0,
+                  "kY": 0.0,
                   "fi": 10,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
                   "x": 0.0,
-                  "y": -4.0,
+                  "y": 0.0,
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
@@ -339,7 +507,13 @@
                   "kY": 0.0,
                   "fi": 15,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 }
               ]
             },
@@ -358,33 +532,13 @@
                   "kY": 0.0,
                   "fi": 0,
                   "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": -0.0349065848,
-                  "kY": 0.0349065848,
-                  "fi": 5,
-                  "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": -0.0174532924,
-                  "kY": 0.0174532924,
-                  "fi": 10,
-                  "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
@@ -395,14 +549,39 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 15,
+                  "fi": 5,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 10,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 }
               ]
             },
             {
-              "name": "Layer5",
+              "name": "Layer3",
               "dl": 0.0,
               "frame_data": [
                 {
@@ -416,33 +595,13 @@
                   "kY": 0.0,
                   "fi": 0,
                   "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.05235988,
-                  "kY": -0.05235988,
-                  "fi": 5,
-                  "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": -0.05235988,
-                  "kY": 0.05235988,
-                  "fi": 10,
-                  "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
@@ -453,9 +612,53 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 15,
+                  "fi": 5,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 25,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 80,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 30,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 }
               ]
             }
@@ -466,50 +669,58 @@
   ],
   "texture_data": [
     {
-      "name": "wave1",
-      "width": 978.0,
-      "height": 202.0,
+      "name": "about_09",
+      "width": 130.0,
+      "height": 50.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
-      "name": "wave2",
-      "width": 747.0,
-      "height": 158.0,
+      "name": "about_13",
+      "width": 130.0,
+      "height": 50.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
-      "name": "wave3",
-      "width": 1378.0,
-      "height": 252.0,
+      "name": "about_16",
+      "width": 130.0,
+      "height": 50.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
-      "name": "wave4",
-      "width": 1393.0,
-      "height": 275.0,
+      "name": "about_22",
+      "width": 130.0,
+      "height": 50.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
-      "name": "wave5",
-      "width": 1456.0,
-      "height": 338.0,
+      "name": "about_26",
+      "width": 130.0,
+      "height": 50.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "about_28",
+      "width": 130.0,
+      "height": 50.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     }
   ],
   "config_file_path": [
-    "wave10.plist"
+    "about30.plist"
   ],
   "config_png_path": [
-    "wave10.png"
+    "about30.png"
   ]
 }

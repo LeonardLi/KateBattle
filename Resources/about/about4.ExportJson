@@ -4,15 +4,15 @@
     {
       "strVersion": "1.5.0.0",
       "version": 1.5,
-      "name": "dengta1",
+      "name": "about4",
       "bone_data": [
         {
-          "name": "Layer1",
+          "name": "Layer10",
           "parent": "",
           "dI": 0,
-          "x": 255.0,
-          "y": 235.67333984375,
-          "z": 1,
+          "x": -39.500022888183594,
+          "y": 3.6733434200286865,
+          "z": 2,
           "cX": 1.0,
           "cY": 1.0,
           "kX": 0.0,
@@ -22,7 +22,7 @@
           "effectbyskeleton": false,
           "display_data": [
             {
-              "name": "灯塔1part1.png",
+              "name": "about_18.png",
               "displayType": 0,
               "skin_data": [
                 {
@@ -38,62 +38,31 @@
           ]
         },
         {
-          "name": "Layer6",
+          "name": "Layer9",
           "parent": "",
           "dI": 0,
-          "x": 211.21054077148438,
-          "y": 415.26541137695312,
-          "z": 3,
+          "x": 22.499998092651367,
+          "y": 3.6733434200286865,
+          "z": 1,
           "cX": 1.0,
           "cY": 1.0,
-          "kX": 3.12118721,
-          "kY": -3.12118721,
-          "arrow_x": 85.235069274902344,
-          "arrow_y": -7.8936587669886649E-05,
-          "effectbyskeleton": true,
+          "kX": 0.0,
+          "kY": 0.0,
+          "arrow_x": 0.0,
+          "arrow_y": 0.0,
+          "effectbyskeleton": false,
           "display_data": [
             {
-              "name": "灯塔1part2.png",
+              "name": "about_18.png",
               "displayType": 0,
               "skin_data": [
                 {
-                  "x": 115.971146,
-                  "y": 6.35186768,
-                  "cX": 1.47723556,
-                  "cY": 0.710393667,
-                  "kX": 0.0204068422,
-                  "kY": -0.02040562
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Layer3",
-          "parent": "",
-          "dI": 0,
-          "x": 215.36807250976563,
-          "y": 414.79107666015625,
-          "z": 2,
-          "cX": 1.0,
-          "cY": 1.0,
-          "kX": -0.0199973341,
-          "kY": 0.0199973341,
-          "arrow_x": 133.35981750488281,
-          "arrow_y": -2.1378422388806939E-05,
-          "effectbyskeleton": true,
-          "display_data": [
-            {
-              "name": "灯塔1part2.png",
-              "displayType": 0,
-              "skin_data": [
-                {
-                  "x": 124.022125,
-                  "y": 8.103577,
-                  "cX": 1.57271993,
-                  "cY": 0.9919311,
-                  "kX": 0.0199991465,
-                  "kY": -0.0199975278
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
                 }
               ]
             }
@@ -104,11 +73,11 @@
   ],
   "animation_data": [
     {
-      "name": "dengta1",
+      "name": "about4",
       "mov_data": [
         {
           "name": "Animation1",
-          "dr": 41,
+          "dr": 16,
           "lp": true,
           "to": 0,
           "drTW": 0,
@@ -116,7 +85,7 @@
           "sc": 0.0833333358,
           "mov_bone_data": [
             {
-              "name": "Layer1",
+              "name": "Layer10",
               "dl": 0.0,
               "frame_data": [
                 {
@@ -128,14 +97,58 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 0,
+                  "fi": 3,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 7,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 15,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 }
               ]
             },
             {
-              "name": "Layer6",
+              "name": "Layer9",
               "dl": 0.0,
               "frame_data": [
                 {
@@ -149,7 +162,13 @@
                   "kY": 0.0,
                   "fi": 0,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 40,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
@@ -158,11 +177,36 @@
                   "z": 0,
                   "cX": 1.0,
                   "cY": 1.0,
-                  "kX": -0.481691658,
-                  "kY": 0.481691658,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 5,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
                   "fi": 10,
                   "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
@@ -173,67 +217,15 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 13,
                   "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.421196461,
-                  "kY": -0.421196461,
-                  "fi": 30,
-                  "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 40,
-                  "twE": 0,
-                  "tweenFrame": true
-                }
-              ]
-            },
-            {
-              "name": "Layer3",
-              "dl": 0.0,
-              "frame_data": [
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 0,
-                  "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.414970666,
-                  "kY": -0.414970666,
-                  "fi": 10,
-                  "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 },
                 {
                   "dI": 0,
@@ -244,35 +236,15 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 15,
                   "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": -0.478620321,
-                  "kY": 0.478620321,
-                  "fi": 30,
-                  "twE": 0,
-                  "tweenFrame": true
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 40,
-                  "twE": 0,
-                  "tweenFrame": true
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 40,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  }
                 }
               ]
             }
@@ -283,26 +255,18 @@
   ],
   "texture_data": [
     {
-      "name": "灯塔1part1",
-      "width": 510.0,
-      "height": 470.0,
-      "pX": 0.5,
-      "pY": 0.5,
-      "plistFile": ""
-    },
-    {
-      "name": "灯塔1part2",
-      "width": 158.0,
-      "height": 52.0,
+      "name": "about_18",
+      "width": 82.0,
+      "height": 84.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     }
   ],
   "config_file_path": [
-    "dengta10.plist"
+    "about40.plist"
   ],
   "config_png_path": [
-    "dengta10.png"
+    "about40.png"
   ]
 }
