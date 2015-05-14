@@ -223,6 +223,7 @@ void DetailLayer::onSaleButtonClicked(Ref* sender){
     user.Equip[m_equipment->getIndex()].ID = -1;
     user.UserGoldsNumber = user.UserGoldsNumber + JsonUtility::getInstance()->getEquipment(m_equipment->getEquipmentID()).EquipPrice;
     m_equipment->setEquipmentID(-1);
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_11.c_str());
     if (m_callback && m_callbackListener)
     {
         (m_callbackListener->*m_callback)(dynamic_cast<Node*>(m_equipment));
@@ -235,6 +236,7 @@ void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
 	int price = JsonUtility::getInstance()->getTool(static_cast<int>(m_type)).ToolPrice;
 	if (user.UserGoldsNumber>=price)
 	{
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_31.c_str());
 		user.UserGoldsNumber = user.UserGoldsNumber-price;
 		user.ToolID[static_cast<int>(m_type)]++;
 		Node* node = static_cast<Node*>(sender);
@@ -246,6 +248,7 @@ void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
 	}
 	else
 	{
+		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
 		Label* label = Label::create("You don't have enough money!", "fonts/arial.ttf", 20);
 		label->setPosition(Vec2(640, 410));
 		label->setColor(Color3B::WHITE);

@@ -34,4 +34,6 @@ std::string EFFECTS_26 = "sounds/alarm.WAV";
 std::string EFFECTS_27 = "sounds/run.WAV";
 std::string EFFECTS_28 = "sounds/fail.WAV";
 std::string EFFECTS_29 = "sounds/gold.WAV";
+std::string EFFECTS_30 = "sounds/sale.WAV";
+std::string EFFECTS_31 = "sounds/buy.WAV";
 

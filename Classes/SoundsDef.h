@@ -35,3 +35,5 @@ extern std::string EFFECTS_26;
 extern std::string EFFECTS_27;
 extern std::string EFFECTS_28;
 extern std::string EFFECTS_29;
+extern std::string EFFECTS_30;
+extern std::string EFFECTS_31;
