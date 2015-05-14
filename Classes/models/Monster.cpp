@@ -89,7 +89,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			createName("Brown Hyde Lv1", 90);
 			break;
 		case MonsterType::normalAggressiveTypeLv1:
-			_loadCSB("monster1/monster1.csb", 17);
+			_loadCSB("monster3/monster3.csb", 21);
 			m_monsterType = MonsterType::normalAggressiveTypeLv1;
 			monsterLevel = 1;
 			setHp(180);
@@ -97,7 +97,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setattackRange(100.0f);
 			setAttackValue(100.0f);
 			setDefenceValue(26.0f);
-			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			setContentSize(Size(80, 150));
 			createName("Cruel Manu Lv1", 90);
 			break;
 		case MonsterType::normalMoveFastTypeLv1:
@@ -201,7 +201,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			createName("Brown Hyde Lv2", 90);
 			break;
 		case MonsterType::normalAggressiveTypeLv2:
-			_loadCSB("monster1/monster1.csb", 17);
+			_loadCSB("monster3/monster3.csb", 21);
 			m_monsterType = MonsterType::normalAggressiveTypeLv2;
 			setHp(270);
 			setupperHp(270);
@@ -209,7 +209,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 2;
 			setAttackValue(240.0f);
 			setDefenceValue(55.0f);
-			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			setContentSize(Size(80, 150));
 			createName("Cruel Manu Lv2", 90);
 			break;
 		case MonsterType::normalMoveFastTypeLv2:
@@ -314,7 +314,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			createName("Brown Hyde Lv3", 90);
 			break;
 		case MonsterType::normalAggressiveTypeLv3:
-			_loadCSB("monster1/monster1.csb", 17);
+			_loadCSB("monster3/monster3.csb", 21);
 			m_monsterType = MonsterType::normalAggressiveTypeLv3;
 			setHp(800);
 			setupperHp(800);
@@ -322,7 +322,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			monsterLevel = 3;
 			setAttackValue(500.0f);
 			setDefenceValue(90.0f);
-			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
+			setContentSize(Size(80, 150));
 			createName("Cruel Manu Lv3", 90);
 			break;
 		case MonsterType::normalMoveFastTypeLv3:
@@ -357,7 +357,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setHp(1200);
 			setupperHp(1200);
 			setattackRange(120.0f);
-			setAttackValue(650.0f);
+			setAttackValue(700.0f);
 			setattackTime(3.0f);
 			setDefenceValue(100.0f);
 			monsterLevel = 3;
@@ -447,6 +447,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			_loadCSB("monster7/monster7.csb", 29);
 			setHp(50);
 			setupperHp(50);
+			setDefenceValue(0.0f);
 			setcanAttack(false);
 			skillOrAttack = true;
 			break;
@@ -550,11 +551,11 @@ void Monster::__initBullet(int bulletType){
 			break;
 		case 5:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(2400, 0.0f, 0.5f, 5.0f);
+			bullet->setBulletValue(240, 0.0f, 0.5f, 5.0f);
 			break;
 		case 6:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(300, 0.0f, 0.0f, 0.0f);
+			bullet->setBulletValue(280, 0.0f, 0.0f, 0.0f);
 			break;
 		case 7:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
@@ -566,7 +567,7 @@ void Monster::__initBullet(int bulletType){
 			break;
 		case 9:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(700, 0.0f, 0.0f, 0.0f);
+			bullet->setBulletValue(650, 0.0f, 0.0f, 0.0f);
 			break;
 		case 10:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
@@ -862,6 +863,15 @@ void Monster::__attackWithHand(){
 	{
 		return;
 	}
+	Rect rect = this->getBoundingBox();
+	auto s = Director::getInstance()->getWinSize();
+	auto draw = DrawNode::create();
+	this->addChild(draw, 10);
+	Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
+	//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
+	draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
+
+
 	auto callFunc = CallFunc::create([=](){		
 		if (getStun() == STUN || getisDead() == true)
 		{
@@ -1098,7 +1108,7 @@ void Monster::onDead(){
 
 	}
 
-	if (this->m_monsterType != MonsterType::num3BoxType)
+	if (this->m_monsterType != MonsterType::num3BoxType&&m_monsterType != MonsterType::num1ShootType&&m_monsterType!=MonsterType::monsterBossNum2Assister)
 	{
 		if (this->bossOrNot==true)
 		{
@@ -1109,7 +1119,7 @@ void Monster::onDead(){
 		else
 		{
 			float randomNum = RandomHelper::random_real(0.0f, 1.0f);
-			if (randomNum>0.8)
+			if (randomNum>0.01)
 			{
 				auto box = TreasureBox::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
 				box->setPosition(this->getPositionX(), this->getPositionY() - 40);
@@ -1133,7 +1143,7 @@ void Monster::onDead(){
 
 void Monster::onHurt(){
 	
-	if (this->m_monsterType == MonsterType::num3BoxType || this->m_monsterType == MonsterType::monsterBossNum1 || this->m_monsterType == MonsterType::monsterBossNum3 || this->m_monsterType == MonsterType::monsterBossNum2)
+	if (this->m_monsterType == MonsterType::num3BoxType || this->m_monsterType == MonsterType::monsterBossNum1 || this->m_monsterType == MonsterType::monsterBossNum3 || this->m_monsterType == MonsterType::monsterBossNum2||this->m_monsterType==MonsterType::monsterBossNum2Assister)
 	{
 	}
 	else
@@ -1234,14 +1244,11 @@ void Monster::monsterGetHurt(float iValue, float time, bool isCrit, bool isMagic
 		{
 			bloodBar->setVisible(false);
 			nameLabel->setVisible(false);
+			this->blood->setPercentage(0.0f);
 		}
 		
 		this->setisDead(true);
 		onDead();
-		if (getcanAttack() == true)
-		{
-			this->blood->setPercentage(0.0f);
-		}
 	}
 
 	if (this->getStun() == NOTSTUN&&time > 0.5&&this->m_monsterType != MonsterType::num3BoxType)
@@ -1314,7 +1321,7 @@ void Monster::skillShot(float dt){
 	});
 	ccBezierConfig bezierCon;
 	bezierCon.controlPoint_1 = Vec2(this->getPositionX(), this->getPositionY());
-	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY())/2+200);
+	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY())/2+400);
 	bezierCon.endPosition = Vec2(this->targetHero->getPositionX(), this->targetHero->getPositionY());
 	//throw time
 	BezierTo* bezierAction = BezierTo::create(4.0f, bezierCon);
@@ -1435,11 +1442,11 @@ bool MonsterBossNum1::init(Sprite* sprite, Vector<Monster*> monsterList){
 		//set attribute
 		setviewRange(700.0);
 		setattackRange(160.0);
-		setDefenceValue(93.0f);
+		setDefenceValue(85.0f);
 		setattackTime(2.0f);
-		setAttackValue(220.0f);
-		setHp(1200.0f);
-		setupperHp(1200.0f);
+		setAttackValue(290.0f);
+		setHp(1500.0f);
+		setupperHp(1500.0f);
 		setSpeedRate(0.6f);
 		setcanAttack(true);	
 		setStun(NOTSTUNFOREVER);
@@ -1597,14 +1604,14 @@ bool MonsterBossNum2::init(Sprite* sprite, Monster* monster){
 		setisDead(false);
 		setStun(NOTSTUNFOREVER);
 
-		setviewRange(1500.0);
+		setviewRange(700.0);
 		setattackTime(2.0f);
 		setattackRange(150.0);
 		setAttackValue(800.0f);
 		setHp(2000.0f);
 		setupperHp(2000.0f);
 		setDefenceValue(120.0f);
-		setSpeedRate(0.6f);
+		setSpeedRate(0.9f);
 		setcanAttack(true);
 		setContentSize(Size(90, 110));
 		monsterLevel = 3;
@@ -1629,7 +1636,7 @@ void MonsterBossNum2::__dangerousAreaJudge(float dt){
 	{
 		if (monster->getBoundingBox().intersectsRect(this->targetHero->getBoundingBox()))
 		{
-			this->targetHero->getHurt(5.0f, 0.0f, 0.0f, 0.0f);
+			this->targetHero->getHurt(450.0f, 0.0f, 0.0f, 0.0f);
 		}
 	}
 
@@ -1640,7 +1647,7 @@ void MonsterBossNum2::__bossJump(){
 	setcanAttack(false);
 	ccBezierConfig bezierCon;
 	bezierCon.controlPoint_1 = Vec2(this->getPositionX(), this->getPositionY());
-	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY()) / 2 + 200);
+	bezierCon.controlPoint_2 = Vec2((this->getPositionX() + this->targetHero->getPositionX()) / 2, (this->getPositionY() + this->targetHero->getPositionY()) / 2 + 400);
 	bezierCon.endPosition = Vec2(this->targetHero->getPositionX(), this->targetHero->getPositionY());
 	//throw time
 	BezierTo* bezierAction = BezierTo::create(3.0f, bezierCon);
@@ -1694,7 +1701,7 @@ void MonsterBossNum2::__bossRotateStop(float dt){
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_26.c_str());
 		castMessage("move close to the boxes!!!");
 	});
-	this->runAction(Sequence::create(DelayTime::create(3.0f),callFunc1,MoveTo::create(2.0f, Vec2(3000, 300)),callFunc,NULL));
+	this->runAction(Sequence::create(DelayTime::create(3.0f),callFunc1,MoveTo::create(2.0f, Vec2(3000, 350)),callFunc,NULL));
 }
 
 void MonsterBossNum2::__bossRushToBox(float dt){
@@ -1735,7 +1742,14 @@ void MonsterBossNum2::__bossRushToBox(float dt){
 		}
 
 		else
-			this->runAction(MoveTo::create(2.0f, Vec2(3000+(250 / tanf(abs(y) / x)), 50)));
+		{
+			auto callFunc = CallFunc::create([=](){
+				this->unschedule(schedule_selector(MonsterBossNum2::__bossRushJudge));
+			});
+			this->runAction(Sequence::create(MoveTo::create(2.0f, Vec2(3000 + (250 / tanf(abs(y) / x)), 50)),callFunc ,NULL));
+
+
+		}
 	}
 
 	else
@@ -1793,7 +1807,7 @@ bool MonsterBossNum3::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setisDead(false);	
 		setviewRange(700.0);
 		setattackTime(2.0f);
-		setattackRange(100.0);	
+		setattackRange(150.0);	
 		setAttackValue(140.0f);
 		setDefenceValue(33.0f);
 		setHp(600.0f);
@@ -1997,14 +2011,7 @@ void MonsterBossNum3::__skillDropBox(float dt){
 		auto shadow = Monster::create(Sprite::create("shadow.png"), MonsterType::block);
 		shadowList.pushBack(shadow);
 
-		//Rect rect = box->getBoundingBox();
-		//auto s = Director::getInstance()->getWinSize();
-		//auto draw = DrawNode::create();
-		//box->addChild(draw, 10);
-		//Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
-		////Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
-		//draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
-
+	
 	}
 
 	for (int i = 0; i < 4;i++)

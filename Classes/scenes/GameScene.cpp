@@ -34,7 +34,8 @@ m_stick(nullptr),
 m_monsterMgr(nullptr),
 m_map(nullptr),
 m_isSilence(false),
-m_lock(false)
+m_lock(false),
+bloodNum(nullptr)
 {
 
 }
@@ -93,10 +94,10 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 
 	__createStickBar();
     
-	bloodNum = Label::create(" ","fonts/Marker Felt.ttf", 30);
-	bloodNum->setPosition(Vec2(400, 700));
+	bloodNum = Label::create(" ","fonts/Marker Felt.ttf",30);
+	bloodNum->setPosition(Vec2(370, 635));
 	bloodNum->setColor(Color3B::BLACK);
-	this->addChild(bloodNum, 4);
+	this->addChild(bloodNum);
 
 	m_monsterMgr = MonsterManager::createWithLevel(m_scenario,m_subscenario);
 	m_hero->m_heroMonsterList.clear();
@@ -191,6 +192,7 @@ Layer* GameScene::loadControlLayer(){
     Text* bonesNumber = static_cast<Text*>(control->getChildByTag(18));
 	m_coin = JsonUtility::getInstance()->user.UserGoldsNumber;
     int bones = JsonUtility::getInstance()->user.UserBonesNumber;
+	bonesNumber->setFontName("fonts/Marker Felt.ttf");
     bonesNumber->setString(std::to_string(bones));
    
 	m_showcoin = m_coin;
@@ -198,7 +200,7 @@ Layer* GameScene::loadControlLayer(){
 	m_position = m_coinsNum->getPosition();
     m_coinsNum->removeFromParentAndCleanup(true);
     
-    m_label = Label::createWithTTF(std::to_string(m_showcoin),"fonts/arial.ttf", 30);
+	m_label = Label::create(std::to_string(m_showcoin), "fonts/Marker Felt.ttf", 30);
     m_label->setPosition(m_position);
     control->addChild(m_label);
 	setupButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupSetupMenu, this));
@@ -379,7 +381,6 @@ void GameScene::postWinMessage(float dt){
 }
 
 void GameScene::postLoseMessage(float dt){
-	log("=============lose!==============");
 	RenderTexture* fakeBackground = RenderTexture::create(1280, 720);
 	fakeBackground->begin();
 	this->getParent()->visit();
@@ -530,7 +531,7 @@ void GameScene::updateBar(float dt){
 	int upperBlood = JsonUtility::getInstance()->user.UserHealth;
 	bloodNum->setString(std::to_string(Blood) + " / " + std::to_string(upperBlood));
 }
-//////////////////////////////////////////////////////////////////////////
+
 
 Scene* ChooseGameScene::createScene(){
 	Scene* scene = Scene::create();

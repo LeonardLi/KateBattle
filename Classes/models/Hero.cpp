@@ -71,7 +71,12 @@ m_armature(nullptr),
 infengkuangBuff(0),
 inmianyiBuff(0),
 injifengBuff(0),
-inzhiliBuff(0)
+inzhiliBuff(0),
+jifengBuff(nullptr),
+fengkuangBuff(nullptr),
+mianyiBuff(nullptr),
+zhiliBuff(nullptr)
+
 {}
 
 Hero* Hero::create(){
@@ -352,7 +357,7 @@ void Hero::hitGroundSkill()
 void Hero::addDefenceValue(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_10.c_str());
 	int value = getcurIntelligenceValue() * 2 - 15;
-	Label* label = Label::create("Defence + "+std::to_string(value)+" !", "fonts/Marker Felt.ttf", 30);
+	Label* label = Label::create("Defence + " + std::to_string(value) + " !", "fonts/Marker Felt.ttf", 30);
 	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
 	label->setColor(Color3B::BLACK);
 	this->addChild(label);
@@ -461,6 +466,7 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 			{
 				this->scheduleOnce(schedule_selector(Hero::changeToStand), stunTime);
 			}
+			resetDirection();
 		}
 
 		if (slowValue > 0.01)

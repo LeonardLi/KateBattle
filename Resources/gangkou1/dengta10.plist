@@ -4,25 +4,6 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>灯塔1part2.png</key>
-			<dict>
-				<key>width</key>
-				<integer>158</integer>
-				<key>height</key>
-				<integer>52</integer>
-				<key>originalWidth</key>
-				<integer>158</integer>
-				<key>originalHeight</key>
-				<integer>52</integer>
-				<key>x</key>
-				<integer>0</integer>
-				<key>y</key>
-				<integer>0</integer>
-				<key>offsetX</key>
-				<real>0</real>
-				<key>offsetY</key>
-				<real>0</real>
-			</dict>
 			<key>灯塔1part1.png</key>
 			<dict>
 				<key>width</key>
@@ -34,7 +15,26 @@
 				<key>originalHeight</key>
 				<integer>470</integer>
 				<key>x</key>
-				<integer>160</integer>
+				<integer>0</integer>
+				<key>y</key>
+				<integer>0</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>灯塔1part2.png</key>
+			<dict>
+				<key>width</key>
+				<integer>158</integer>
+				<key>height</key>
+				<integer>52</integer>
+				<key>originalWidth</key>
+				<integer>158</integer>
+				<key>originalHeight</key>
+				<integer>52</integer>
+				<key>x</key>
+				<integer>512</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
