@@ -151,7 +151,7 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 			{
 				Label* label = Label::create("make sure these 4 items in one level!", "fonts/arial.ttf", 20);
 				label->setPosition(Vec2(640, 360));
-				label->setColor(Color3B::BLACK);
+				label->setColor(Color3B::WHITE);
 				this->addChild(label);
 				FadeIn* action1 = FadeIn::create(1.0f);
 				MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
@@ -168,7 +168,7 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 			for (auto equipment1 :equiped)
 			{
 				auto callFunc = CallFunc::create([=](){
-					equipment1->removeFromParent(); });
+				equipment1->removeFromParent(); });
 				equipment1->setTouchEnabled(false);
 				equipment1->runAction(Sequence::create(ScaleBy::create(0.8, 1.4), ScaleBy::create(2.0, 0), callFunc, NULL));
 				user.Equip[equipment1->getIndex()].ID = -1;
@@ -177,7 +177,7 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_17.c_str());
 			Label* label = Label::create("Level Up!!!", "fonts/arial.ttf", 30);
 			label->setPosition(Vec2(640, 360));
-			label->setColor(Color3B::BLACK);
+			label->setColor(Color3B::WHITE);
 			this->addChild(label);
 			FadeIn* action1 = FadeIn::create(1.0f);
 			MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
@@ -185,15 +185,13 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 			Sequence* seq1 = Sequence::create(action2, action3, NULL);
 			Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 			label->runAction(seq2);
-
-
 			log("==========advanced=========================");
 		}
 		else
 		{
 			Label* label = Label::create("please use the correct level equipment!", "fonts/arial.ttf", 20);
 			label->setPosition(Vec2(640, 360));
-			label->setColor(Color3B::BLACK);
+			label->setColor(Color3B::WHITE);
 			this->addChild(label);
 			FadeIn* action1 = FadeIn::create(1.0f);
 			MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));
@@ -205,9 +203,9 @@ void BagLayer::onAdvancedButtonClickListener(cocos2d::Ref* sender){
 	}
 	else
 	{
-		Label* label = Label::create("please collect 4 items!", "fonts/arial.ttf", 20);
+		Label* label = Label::create("please collect 4 items in one level!", "fonts/arial.ttf", 20);
 		label->setPosition(Vec2(640, 360));
-		label->setColor(Color3B::BLACK);
+		label->setColor(Color3B::WHITE);
 		this->addChild(label);
 		FadeIn* action1 = FadeIn::create(1.0f);
 		MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 380));

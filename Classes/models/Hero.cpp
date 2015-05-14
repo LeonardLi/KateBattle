@@ -67,7 +67,11 @@ m_direction(JoystickEnum::DEFAULT),
 m_canControl(true),
 m_isDead(false),
 m_moveController(nullptr),
-m_armature(nullptr)
+m_armature(nullptr),
+infengkuangBuff(0),
+inmianyiBuff(0),
+injifengBuff(0),
+inzhiliBuff(0)
 {}
 
 Hero* Hero::create(){
@@ -102,8 +106,8 @@ bool Hero::init(){
 
 void Hero::flashHero(){
 	User user = JsonUtility::getInstance()->user;
-	setMoveSpeed(0.9 + user.UserMoveRate*0.011);
-	setCurSpeed(0.9 + user.UserMoveRate*0.011);
+	setMoveSpeed(1.2 + user.UserMoveRate*0.01);
+	setCurSpeed(1.2+ user.UserMoveRate*0.01);
 	setequipAttackValue(user.UserAttack);
 	setcurAttackValue(user.UserAttack);
 	setupperHp(user.UserHealth);
@@ -193,6 +197,14 @@ void Hero::herostun(float time)
 	
 }
 
+void Hero::resetDirection(){
+	this->m_moveController->m_isStand = true;
+	this->m_moveController->m_isLeft = false;
+	this->m_moveController->m_isRight = false;
+	this->m_moveController->m_isUp = false;
+	this->m_moveController->m_isDown = false;
+}
+
 void Hero::attack(){
 	int pos = getAttackPos();
 	float damageAddition=0.0f;
@@ -211,13 +223,13 @@ void Hero::attack(){
 	case 2:
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_6.c_str());
 		this->m_armature->getAnimation()->play("attack2", -1, 0);
-		damageAddition = this->getcurAttackValue() / 5;
+		damageAddition = this->getcurAttackValue() / 6;
 		setAttackPos(3);
 		break;
 	case 3:
 		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_7.c_str());
 		this->m_armature->getAnimation()->play("attack3", -1, 0);
-		damageAddition = this->getcurAttackValue() / 3;
+		damageAddition = this->getcurAttackValue() / 4;
 		if (this->isScheduled(schedule_selector(Hero::recoverAttackPosture)))
 		{
 			this->unschedule(schedule_selector(Hero::recoverAttackPosture));
@@ -246,14 +258,16 @@ void Hero::attack(){
 	else
 		this->scheduleOnce(schedule_selector(Hero::recoverAttackPosture), 3.0f);
 
+	resetDirection();
+
 	Rect rect;
 	if (this->m_moveController->leftOrRight == false)
 	{
-		rect = Rect(this->getPositionX() - this->getattackRange(), this->getPositionY()-30, this->getattackRange()-30, this->getattackRange() / 2+20);
+		rect = Rect(this->getPositionX() - this->getattackRange(), this->getPositionY()-30, this->getattackRange()-45, this->getattackRange() / 2+20);
 	}
 	else
 	{
-		rect = Rect(this->getPositionX() + this->getContentSize().width-20, this->getPositionY()-30, this->getattackRange() - 20.0f, this->getattackRange() / 2+20);
+		rect = Rect(this->getPositionX() + this->getContentSize().width-20, this->getPositionY()-30, this->getattackRange() - 35.0f, this->getattackRange() / 2+20);
 	}
 	for (auto monster : m_heroMonsterList)
 	{
@@ -298,6 +312,7 @@ void Hero::hitGroundSkill()
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_9.c_str());
 	this->m_armature->getAnimation()->play("aoe",-1,0);
 	heroNotControl(1.7f);
+	resetDirection();
 	Label* label = Label::create("Tear the ground!", "fonts/Marker Felt.ttf", 30);
 	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
 	label->setColor(Color3B::BLACK);
@@ -348,7 +363,7 @@ void Hero::addDefenceValue(){
 	Sequence* seq2 = Sequence::create(action1, seq1, NULL);
 	label->runAction(seq2);
 	this->setcurDefenceValue(getequipDefenceValue() + value);
-	this->scheduleOnce(schedule_selector(Hero::recoverDefenceValue),5.0f);
+	this->scheduleOnce(schedule_selector(Hero::recoverDefenceValue),10.0f);
 }
 
 void Hero::recoverDefenceValue(float dt){
@@ -360,6 +375,7 @@ void Hero::blink(){
 	heroNotControl(1.5f);
 	Vec2 desPoint;
 	int direction;
+	resetDirection();
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_8.c_str());
 	Label* label = Label::create("Blink!", "fonts/Marker Felt.ttf", 30);
 	label->setPosition(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 80);
@@ -504,6 +520,21 @@ void Hero::getMoney(bool BossOrNot,int level){
 
 
 void Hero::useFastMedicines(){
+	if (injifengBuff==1)
+	{
+		jifengBuff->setPercentage(100.0f);
+	}
+	else
+	{
+		jifengBuff = ProgressTimer::create(Sprite::create("jifeng.png"));
+		jifengBuff->setPosition(450, 565);
+		this->getParent()->getParent()->addChild(jifengBuff, 3, 1);
+		jifengBuff->setType(ProgressTimer::Type::RADIAL);
+	}
+	injifengBuff = 1;
+	auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(15.0f, 0));
+	jifengBuff->runAction(to2);
+
 	if (isScheduled(schedule_selector(Hero::promoteSpeed))==false)
 	this->schedule(schedule_selector(Hero::promoteSpeed));
 	if (isScheduled(schedule_selector(Hero::recoverSpeed)))
@@ -524,10 +555,25 @@ void Hero::promoteSpeed(float dt){
 void Hero::recoverSpeed(float dt){
 	this->unschedule(schedule_selector(Hero::promoteSpeed));
 	User& user = JsonUtility::getInstance()->user;
-	this->setCurSpeed(1.1+0.014*user.UserMoveRate);
+	this->setCurSpeed(1.2+0.01*user.UserMoveRate);
 }
 
 void Hero::useCrazyMedicines(){
+	if (infengkuangBuff==1)
+	{
+		fengkuangBuff->setPercentage(100.0f);
+	}
+	else
+	{
+		fengkuangBuff = ProgressTimer::create(Sprite::create("fengkuang.png"));
+		fengkuangBuff->setPosition(550, 565);
+		this->getParent()->getParent()->addChild(fengkuangBuff);
+		fengkuangBuff->setType(ProgressTimer::Type::RADIAL);
+	}
+	infengkuangBuff = 1;
+	auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(15.0f, 0));
+	fengkuangBuff->runAction(to2);
+	
 	if (isScheduled(schedule_selector(Hero::promoteAttackSpeed)) == false)
 		this->schedule(schedule_selector(Hero::promoteAttackSpeed));
 	if (isScheduled(schedule_selector(Hero::promoteAttackSpeed)))
@@ -539,8 +585,6 @@ void Hero::useCrazyMedicines(){
 	{
 		this->scheduleOnce(schedule_selector(Hero::recoverAttackSpeed), 15.0f);
 	}
-	
-
 	if (isScheduled(schedule_selector(Hero::promoteAttackValue)) == false)
 		this->schedule(schedule_selector(Hero::promoteAttackValue));
 	if (isScheduled(schedule_selector(Hero::promoteAttackValue)))
@@ -577,22 +621,41 @@ void Hero::recoverAttackValue(float dt){
 }
 
 void Hero::useIntelligenceMedicines(){
-	if (isScheduled(schedule_selector(Hero::promoteIntelligence)) == false)
-		this->schedule(schedule_selector(Hero::promoteIntelligence));
-	if (isScheduled(schedule_selector(Hero::recoverIntelligence)))
+	if (inzhiliBuff==1)
 	{
-		this->unschedule(schedule_selector(Hero::recoverIntelligence));
-		this->scheduleOnce(schedule_selector(Hero::recoverIntelligence), 15.0f);
+		zhiliBuff->setPercentage(100.0f);
 	}
 	else
 	{
-		this->scheduleOnce(schedule_selector(Hero::recoverIntelligence), 15.0f);
+		zhiliBuff = ProgressTimer::create(Sprite::create("zhili.png"));
+		zhiliBuff->setPosition(650, 565);
+		this->getParent()->getParent()->addChild(zhiliBuff, 3, 1);
+		zhiliBuff->setType(ProgressTimer::Type::RADIAL);
+	}
+	inzhiliBuff = 1;
+	auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(30.0f, 0));
+	zhiliBuff->runAction(to2);
+
+
+	if (isScheduled(schedule_selector(Hero::promoteIntelligence)) == false)
+		this->schedule(schedule_selector(Hero::promoteIntelligence));
+
+	if (isScheduled(schedule_selector(Hero::recoverIntelligence)))
+	{
+		this->unschedule(schedule_selector(Hero::recoverIntelligence));
+		this->scheduleOnce(schedule_selector(Hero::recoverIntelligence), 30.0f);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(Hero::recoverIntelligence), 30.0f);
 	}
 }
 
 void Hero::promoteIntelligence(float percent){
 	User& user = JsonUtility::getInstance()->user;
 	setcurIntelligenceValue(user.UserIntelligence*1.2);
+	
+
 }
 
 void Hero::recoverIntelligence(float dt){
@@ -603,6 +666,20 @@ void Hero::recoverIntelligence(float dt){
 
 
 void Hero::useUnmatchedMedicines(){
+	if (inmianyiBuff==1)
+	{
+		mianyiBuff->setPercentage(100.0f);
+	}
+	else
+	{
+		mianyiBuff = ProgressTimer::create(Sprite::create("mianyi.png"));
+		mianyiBuff->setPosition(350, 565);
+		this->getParent()->getParent()->addChild(mianyiBuff);
+		mianyiBuff->setType(ProgressTimer::Type::RADIAL);
+	}
+	inmianyiBuff = 1;
+	auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(15.0f, 0));	
+	mianyiBuff->runAction(to2);
 	promoteDefence(0.7f);
 }
 
@@ -624,7 +701,7 @@ void Hero::recoverHealth(float value){
 }
 
 void Hero::changeSpeed(float slowValue, float slowTime){
-	float speed = this->getMoveSpeed();
+	float speed = this->getCurSpeed();
 	if (speed==this->getMoveSpeed())
 	{
 		this->setCurSpeed(speed*(1 - slowValue));

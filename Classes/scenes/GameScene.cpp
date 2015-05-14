@@ -93,6 +93,11 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 
 	__createStickBar();
     
+	bloodNum = Label::create(" ","fonts/Marker Felt.ttf", 30);
+	bloodNum->setPosition(Vec2(400, 700));
+	bloodNum->setColor(Color3B::BLACK);
+	this->addChild(bloodNum, 4);
+
 	m_monsterMgr = MonsterManager::createWithLevel(m_scenario,m_subscenario);
 	m_hero->m_heroMonsterList.clear();
 	m_hero->m_heroMonsterList = m_monsterMgr->m_showedMonsterList;
@@ -240,7 +245,7 @@ void GameScene::attackBtnOnClick(Ref* Sender){
 		auto callfunc = CallFunc::create([=](){
 			button->setTouchEnabled(true);
 		});
-		button->runAction(Sequence::create(DelayTime::create(2.0-m_hero->getcurAttackSpeed()*3/260), callfunc, NULL));
+		button->runAction(Sequence::create(DelayTime::create(1.683-m_hero->getcurAttackSpeed()*0.007), callfunc, NULL));
 	}
 }
 
@@ -308,9 +313,9 @@ void GameScene::skillBtn3OnClick(Ref* Sender){
 		shadow->setReverseProgress(true);
 		shadow->runAction(to1);
 
-		auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(5.0f, 0));
+		auto to2 = Sequence::createWithTwoActions(ProgressTo::create(0, 100), ProgressTo::create(10.0f, 0));
 		auto shadow1 = ProgressTimer::create(Sprite::create("sheld.png"));
-		shadow1->setPosition(250,600);
+		shadow1->setPosition(250,565);
 		this->addChild(shadow1, 3, 1);
 		shadow1->setType(ProgressTimer::Type::RADIAL);
 		shadow1->runAction(to2);
@@ -521,6 +526,9 @@ void GameScene::updateBar(float dt){
         }
         m_label->setString(std::to_string(m_showcoin));
     }
+	int Blood = JsonUtility::getInstance()->user.UserCulHealth;
+	int upperBlood = JsonUtility::getInstance()->user.UserHealth;
+	bloodNum->setString(std::to_string(Blood) + " / " + std::to_string(upperBlood));
 }
 //////////////////////////////////////////////////////////////////////////
 

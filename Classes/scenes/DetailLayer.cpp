@@ -178,7 +178,6 @@ void DetailLayer::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){
 }
 
 void DetailLayer::onUseButtonClicked(cocos2d::Ref* sender){
-	//log("====================== use ===============");
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_11.c_str());
 	int i = JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)];
 	JsonUtility::getInstance()->user.ToolID[static_cast<int>(m_type)] = i - 1;
@@ -249,13 +248,12 @@ void DetailLayer::onBuyButtonClicked(cocos2d::Ref *sender){
 	{
 		Label* label = Label::create("You don't have enough money!", "fonts/arial.ttf", 20);
 		label->setPosition(Vec2(640, 410));
-		label->setColor(Color3B::BLACK);
-		this->addChild(label);
+		label->setColor(Color3B::WHITE);
+		this->getParent()->addChild(label);
 		FadeIn* action1 = FadeIn::create(1.0f);
-		MoveTo* action2 = MoveTo::create(1.0f, Vec2(640, 460));
 		FadeOut* action3 = FadeOut::create(1.0f);
-		Sequence* seq1 = Sequence::create(action2, action3, NULL);
-		Sequence* seq2 = Sequence::create(action1, seq1, NULL);
+
+		Sequence* seq2 = Sequence::create(action1, action3, NULL);
 		label->runAction(seq2);
 	}
     __flushDetailLayer();

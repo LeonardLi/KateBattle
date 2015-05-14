@@ -106,6 +106,8 @@ private:
 	int m_coin;
 	int m_showcoin;
 	bool m_lock;
+	cocos2d::Label* bloodNum;
+
 
 	cocos2d::Vec2 m_position;
 };

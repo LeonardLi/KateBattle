@@ -125,12 +125,19 @@ private:
 
 	void recoverDefence(float dt);
 
+	void resetDirection();
 
 public:
 	bool m_canControl;
 	cocos2d::ui::LoadingBar* bloodBar;
 	cocos2d::Vector <Monster*> m_blockArea;
 	cocos2d::Vector <Monster*> m_heroMonsterList;
+
+	cocos2d::ProgressTimer* jifengBuff;
+	cocos2d::ProgressTimer* zhiliBuff;
+	cocos2d::ProgressTimer* fengkuangBuff;
+	cocos2d::ProgressTimer* mianyiBuff;
+
 private:
 	CC_SYNTHESIZE(int, m_AttackPos, AttackPos);
 	CC_SYNTHESIZE(float, m_attackRange, attackRange);
@@ -163,6 +170,11 @@ private:
 
 	JoystickEnum m_direction;
 	cocostudio::Armature* m_armature;
+
+	int inmianyiBuff;
+	int injifengBuff;
+	int infengkuangBuff;
+	int inzhiliBuff;
 
 };
 

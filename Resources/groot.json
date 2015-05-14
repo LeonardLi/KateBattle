@@ -10,7 +10,7 @@
     "UserAttack": 36,
     "UserIntelligence": 10,
     "UserAttackRate": 12,
-    "UserMoveRate": 35  ,
+    "UserMoveRate": 30  ,
     "EquipmentNumber": 1,
     "SkillID": [
       1,
@@ -378,42 +378,42 @@
       {
         "ToolName": "小血瓶",
         "ToolInfo": "恢复人物150点生命值",
-        "ToolEffect": "+150生命值",
+        "ToolEffect": "恢复150生命值",
         "ToolPrice": 100,
         "ToolAddress": "bag/inv_1.png"
       },
       {
         "ToolName": "大血瓶",
         "ToolInfo": "恢复人物500点生命值",
-        "ToolEffect": "+500生命值",
+        "ToolEffect": "恢复500生命值",
         "ToolPrice": 350,
         "ToolAddress": "bag/inv_2.png"
       },
       {
         "ToolName": "免疫药水",
         "ToolInfo": "15秒内所受伤害减少70%",
-        "ToolEffect": "+70%抗性",
+        "ToolEffect": "收到所有伤害减少70%",
         "ToolPrice": 500,
         "ToolAddress": "bag/inv_3.png"
       },
       {
         "ToolName": "疾风药水",
         "ToolInfo": "15秒内提升到最快的移动速度",
-        "ToolEffect": "+极限移动速度",
+        "ToolEffect": "移动速度达到极限",
         "ToolPrice": 400,
         "ToolAddress": "bag/inv_4.png"
       },
       {
         "ToolName": "疯狂药水",
-        "ToolInfo": "15秒内增加人物30%的攻击速度和攻击强度",
-        "ToolEffect": "+30%攻击强度，+30%攻击速度",
+        "ToolInfo": "15秒内增加人物20%的攻击速度和攻击强度",
+        "ToolEffect": "提高20%攻击强度，提高20%攻击速度",
         "ToolPrice": 800,
         "ToolAddress": "bag/inv_5.png"
       },
       {
         "ToolName": "仙灵药水",
-        "ToolInfo": "15秒内提升30%智力",
-        "ToolEffect": "+30%智力",
+        "ToolInfo": "30秒内提升20%智力",
+        "ToolEffect": "提高20%智力",
         "ToolPrice": 400,
         "ToolAddress": "bag/inv_6.png"
       }
