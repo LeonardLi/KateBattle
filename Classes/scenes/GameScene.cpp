@@ -183,11 +183,19 @@ Layer* GameScene::loadControlLayer(){
 	Button* setupButton = static_cast<Button*>(control->getChildByTag(9));
 	Button* bagButton = static_cast<Button*>(control->getChildByTag(8));
 	Text* m_coinsNum = static_cast<Text*>(control->getChildByTag(19));
-	Text* bonesNumber = static_cast<Text*>(control->getChildByTag(18));
+    Text* bonesNumber = static_cast<Text*>(control->getChildByTag(18));
 	m_coin = JsonUtility::getInstance()->user.UserGoldsNumber;
+    int bones = JsonUtility::getInstance()->user.UserBonesNumber;
+    bonesNumber->setString(std::to_string(bones));
+   
 	m_showcoin = m_coin;
-	m_coinsNum->setString(std::to_string(m_showcoin));
+	
 	m_position = m_coinsNum->getPosition();
+    m_coinsNum->removeFromParentAndCleanup(true);
+    
+    m_label = Label::createWithTTF(std::to_string(m_showcoin),"fonts/arial.ttf", 30);
+    m_label->setPosition(m_position);
+    control->addChild(m_label);
 	setupButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupSetupMenu, this));
 	bagButton->addClickEventListener(CC_CALLBACK_1(GameScene::_popupBagLayer, this));
 
@@ -504,18 +512,15 @@ void GameScene::__useInventory(InventoryEnum type){
 
 void GameScene::updateBar(float dt){
 	m_coin = JsonUtility::getInstance()->user.UserGoldsNumber;
-	this->getChildByTag(99)->removeChildByTag(19);
-	if (m_showcoin < m_coin){		
-		m_showcoin++;		
+    if(m_label != nullptr){
+        if (m_showcoin < m_coin){
+            m_showcoin++;
+        }
+        else if(m_showcoin > m_coin){
+            m_showcoin--;
+        }
+        m_label->setString(std::to_string(m_showcoin));
     }
-    else if(m_showcoin > m_coin){
-        m_showcoin--;
-    }
-	m_label = Label::create(std::to_string(m_showcoin),"Arial", 30);
-	m_label->setPosition(m_position);
-	m_label->setTag(19);
-	this->getChildByTag(99)->addChild(m_label);
-	
 }
 //////////////////////////////////////////////////////////////////////////
 

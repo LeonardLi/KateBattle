@@ -910,12 +910,12 @@ void Monster::__judgeAttackHero(){
 		rect = Rect(this->getPositionX(), this->getPositionY(), this->getattackRange()*0.85 + this->getContentSize().width / 2, this->getattackRange() / 2);
 
 	//Rect rect1 = rect->getBoundingBox();
-	auto s = Director::getInstance()->getWinSize();
-	auto draw = DrawNode::create();
-	this->getParent()->addChild(draw, 10);
-	//Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
-	Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
-	draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
+//	auto s = Director::getInstance()->getWinSize();
+//	auto draw = DrawNode::create();
+//	this->getParent()->addChild(draw, 10);
+//	//Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
+//	Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
+//	draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
 
 	if (this->targetHero->getBoundingBox().intersectsRect(rect)&&this->targetHero->getisDead()==false)
 	{

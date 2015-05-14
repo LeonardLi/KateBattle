@@ -227,6 +227,7 @@ void Hero::attack(){
 	default:
 		break;
 	}
+    
 	if (isScheduled(schedule_selector(Hero::changeToStand)))
 	{
 		this->unschedule(schedule_selector(Hero::changeToStand));

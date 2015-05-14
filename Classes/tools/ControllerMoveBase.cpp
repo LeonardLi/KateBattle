@@ -81,7 +81,7 @@ void ControllerMoveBase::judgeBlock(){
 			float isRightThanBlock = (heroRightLineX - blockLeftLineX)*(heroRightLineX - blockRightLineX);
 
 
-			if (isUpThanBlock > 0 && isDownThanBlock > 0 || isUpThanBlock < 0 && isDownThanBlock < 0)
+			if ((isUpThanBlock > 0 && isDownThanBlock > 0 )|| (isUpThanBlock < 0 && isDownThanBlock < 0))
 			{
 				if (isLeftThanBlock >= 0 && isRightThanBlock <= 0)
 				{
@@ -97,7 +97,7 @@ void ControllerMoveBase::judgeBlock(){
 				}
 			}
 
-			else if (isLeftThanBlock > 0 && isRightThanBlock > 0 || isLeftThanBlock < 0 && isRightThanBlock < 0)
+			else if ((isLeftThanBlock > 0 && isRightThanBlock > 0 )|| (isLeftThanBlock < 0 && isRightThanBlock < 0))
 			{
 				if (isUpThanBlock >= 0 && isDownThanBlock <= 0)
 				{

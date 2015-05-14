@@ -15,6 +15,8 @@ enum class EnumMsgType{
 
 class I_State{
 public:
+    I_State();
+    ~I_State();
 	virtual void execute(Monster* monster,EnumMsgType type) = 0;
 };
 
