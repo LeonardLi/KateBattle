@@ -863,13 +863,6 @@ void Monster::__attackWithHand(){
 	{
 		return;
 	}
-	Rect rect = this->getBoundingBox();
-	auto s = Director::getInstance()->getWinSize();
-	auto draw = DrawNode::create();
-	this->addChild(draw, 10);
-	Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
-	//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
-	draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
 
 
 	auto callFunc = CallFunc::create([=](){		
@@ -1343,14 +1336,14 @@ void Monster::showFire(Vec2 location){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_22.c_str());
 	auto fire = Monster::create(Sprite::create("water.png"), MonsterType::block);
 	fire->setPosition(location);
-	this->getParent()->addChild(fire,-1);
+	this->getParent()->addChild(fire,1);
 	dangerousAreaList.pushBack(fire);
 	auto callfunc = CallFunc::create([=](){
 		this->getParent()->removeChild(fire);
 		dangerousAreaList.eraseObject(fire);
 	});
 	//disappear time 
-	fire->runAction(Sequence::create(DelayTime::create(10.0f), callfunc,NULL));
+	fire->runAction(Sequence::create(DelayTime::create(16.0f), callfunc,NULL));
 }
 
 void Monster::boss2AssistStartSkill(){
@@ -1676,7 +1669,7 @@ void MonsterBossNum2::__bossRotate(){
 void MonsterBossNum2::__rotateAreaJudge(float dt){
 	if (this->getBoundingBox().intersectsRect(this->targetHero->getBoundingBox()))
 	{
-		this->targetHero->getHurt(600.0f, 0.0f, 0.2f, 1.0f);
+		this->targetHero->getHurt(600.0f, 0.0f, 0.3f, 1.0f);
 		log("=============== hurt and slow ==============");
 	}
 }
