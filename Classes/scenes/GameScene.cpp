@@ -95,7 +95,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	__createStickBar();
     
 	bloodNum = Label::create(" ","fonts/Marker Felt.ttf",30);
-	bloodNum->setPosition(Vec2(370, 635));
+	bloodNum->setPosition(Vec2(360, 640));
 	bloodNum->setColor(Color3B::BLACK);
 	this->addChild(bloodNum,3);
 
@@ -586,21 +586,40 @@ void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
 	switch (button->getTag())
 	{
 	case 43:
-		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
-		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Port));
+		changeToPort();
 		break;
 	case 44:
-		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
-		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Market));
+		changeToMarket();
 		break;
 	case 45:
-		SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
-		Director::getInstance()->replaceScene(SubChooseGameScene::createScene(ScenarioEnum::Sewer));
+		changeToSewer();
 		break;
 	default:
 		break;
 	}
 }
+
+void ChooseGameScene::changeToMarket(){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
+	auto scene = SubChooseGameScene::createScene(ScenarioEnum::Market);
+	auto transition = TransitionMoveInR::create(2.0f, scene);
+	Director::getInstance()->replaceScene(transition);
+}
+
+void ChooseGameScene::changeToPort(){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
+	auto scene = SubChooseGameScene::createScene(ScenarioEnum::Port);
+	auto transition = TransitionMoveInR::create(2.0f, scene);
+	Director::getInstance()->replaceScene(transition);
+}
+
+void ChooseGameScene::changeToSewer(){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
+	auto scene = SubChooseGameScene::createScene(ScenarioEnum::Sewer);
+	auto transition = TransitionMoveInR::create(2.0f, scene);
+	Director::getInstance()->replaceScene(transition);
+}
+
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -693,31 +712,37 @@ void SubChooseGameScene::onSubScenarioChooseCallback(cocos2d::Ref* Sender,Scenar
 		switch (sender->getTag())
 	{
 		case 5:
-			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
-			scene = ChooseGameScene::createScene();
+			backToChooseGame();
 			break;
 		case 6:
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
 			scene = LoadingScene::createScene(scenario, SubScenarioEnum::LV1);
+			Director::getInstance()->replaceScene(scene);
 			break;
 		case 7:
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
 			scene = LoadingScene::createScene(scenario, SubScenarioEnum::LV2);
-
+			Director::getInstance()->replaceScene(scene);
 			break;
 		case 8:
 			SimpleAudioEngine::getInstance()->playEffect(EFFECTS_3.c_str());
 			scene = LoadingScene::createScene(scenario, SubScenarioEnum::LV3);
+			Director::getInstance()->replaceScene(scene);
 			break;
 		default:
 			break;
 	}
 	
 		
-		Director::getInstance()->replaceScene(scene);
+		
 }
 
-
+void SubChooseGameScene::backToChooseGame(){
+	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_2.c_str());
+	auto scene = ChooseGameScene::createScene();
+	auto transition = TransitionFade::create(1.0f, scene);
+	Director::getInstance()->replaceScene(transition);
+}
 
 
 //////////////////////////////////////////////////////////////////////////

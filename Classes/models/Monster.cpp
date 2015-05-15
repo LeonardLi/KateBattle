@@ -551,11 +551,11 @@ void Monster::__initBullet(int bulletType){
 			break;
 		case 5:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(240, 0.0f, 0.5f, 5.0f);
+			bullet->setBulletValue(190, 0.0f, 0.5f, 5.0f);
 			break;
 		case 6:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(280, 0.0f, 0.0f, 0.0f);
+			bullet->setBulletValue(240, 0.0f, 0.0f, 0.0f);
 			break;
 		case 7:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
@@ -563,11 +563,11 @@ void Monster::__initBullet(int bulletType){
 			break;
 		case 8:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(500, 0.0f, 0.5f, 5.0f);
+			bullet->setBulletValue(450, 0.0f, 0.5f, 5.0f);
 			break;
 		case 9:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
-			bullet->setBulletValue(650, 0.0f, 0.0f, 0.0f);
+			bullet->setBulletValue(600, 0.0f, 0.0f, 0.0f);
 			break;
 		case 10:
 			bullet = BulletNormal::create(Sprite::create("bullet.png"));
@@ -915,9 +915,9 @@ void Monster::__judgeAttackHero(){
 	if (this->targetHero->getBoundingBox().intersectsRect(rect)&&this->targetHero->getisDead()==false)
 	{
 		float time = 0.0f;
-		if (getAttackValue()-this->targetHero->getcurDefenceValue()>30)
+		if (getAttackValue()-this->targetHero->getcurDefenceValue()>20)
 		{
-			time = 1.5f;
+			time = 1.2f;
 		}
 		this->targetHero->getHurt(getAttackValue(), time, 0.0f, 0.0);
 	}
@@ -939,7 +939,7 @@ void Monster::__attackWithBullet(){
 
 	float randomNum = CCRANDOM_0_1();
 	{
-		if (randomNum <= SHOOTRATE)
+		if (randomNum <= 0.4)
 		choiceDirectionToAction("attack");
 		BulletBase* bullet = this->__getAnyUnUsedBullet();
 		if (bullet != NULL)

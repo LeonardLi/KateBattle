@@ -135,6 +135,10 @@ private:
 	void onBackButtonClicked(cocos2d::Ref*);
 	void onScenarioChosenClicked(cocos2d::Ref*);
 
+	void changeToPort();
+	void changeToMarket();
+	void changeToSewer();
+
 };
 
 /************************************************************************/
@@ -164,6 +168,8 @@ private:
 	void onScenarioChosenClicked(cocos2d::Ref*);
 
 	void onSubScenarioChooseCallback(cocos2d::Ref*, ScenarioEnum);
+
+	void backToChooseGame();
 };
 
 

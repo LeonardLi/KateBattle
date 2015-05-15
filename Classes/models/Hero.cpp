@@ -245,15 +245,7 @@ void Hero::attack(){
 		break;
 	}
     
-	if (isScheduled(schedule_selector(Hero::changeToStand)))
-	{
-		this->unschedule(schedule_selector(Hero::changeToStand));
-		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.0f);
-	}
-	else
-	{
-		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.0f);
-	}
+
 
 	if (this->isScheduled(schedule_selector(Hero::recoverAttackPosture)))
 	{
@@ -294,9 +286,7 @@ void Hero::attack(){
 	
 }
 
-void Hero::changeToStand(float dt){
-	this->getMoveController()->m_isStand = false;
-}
+
 
 void Hero::recoverAttackPosture(float dt){
 	setAttackPos(1);
@@ -342,16 +332,6 @@ void Hero::hitGroundSkill()
 		}
 	});
 	this->runAction(Sequence::create(DelayTime::create(1.5f), callFunc, NULL));
-	if (isScheduled(schedule_selector(Hero::changeToStand)))
-	{
-		this->unschedule(schedule_selector(Hero::changeToStand));
-		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.7f);
-	}
-	else
-	{
-		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.7f);
-	}
-
 }
 
 void Hero::addDefenceValue(){
@@ -417,25 +397,25 @@ void Hero::blink(){
 				desPoint = Vec2(rect.origin.x, this->getPositionY());
 		}
 	}
-	if (desPoint.x<0)
+	
+	if (this->m_moveController->m_map->convertToWorldSpace(desPoint).x<0)
 	{
-		desPoint.x = 30;
+		Vec2 des = this->getParent()->convertToNodeSpace(Vec2(0,0));
+		desPoint.x = des.x + 40;
 	}
-	//need amend!!!!!!!============================================
+	else if (this->m_moveController->m_map->convertToWorldSpace(desPoint).x>1280)
+	{
+		Vec2 des = this->getParent()->convertToNodeSpace(Vec2(1280, 0));
+		desPoint.x = des.x - 40;
+	}
+	
+
 
 	auto callFunc = CallFunc::create([=](){
 		this->setPosition(desPoint);
 	});
 	this->runAction(Sequence::create(DelayTime::create(0.5), callFunc, NULL));
-	if (isScheduled(schedule_selector(Hero::changeToStand)))
-	{
-		this->unschedule(schedule_selector(Hero::changeToStand));
-		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.5f);
-	}
-	else
-	{
-		this->scheduleOnce(schedule_selector(Hero::changeToStand), 1.5f);
-	}
+	
 
 }
 
@@ -457,15 +437,6 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		if (stunTime > 0)
 		{
 			this->herostun(stunTime);
-			if (isScheduled(schedule_selector(Hero::changeToStand)))
-			{
-				this->unschedule(schedule_selector(Hero::changeToStand));
-				this->scheduleOnce(schedule_selector(Hero::changeToStand), stunTime);
-			}
-			else
-			{
-				this->scheduleOnce(schedule_selector(Hero::changeToStand), stunTime);
-			}
 			resetDirection();
 		}
 
