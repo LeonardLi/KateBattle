@@ -97,7 +97,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
 	bloodNum = Label::create(" ","fonts/Marker Felt.ttf",30);
 	bloodNum->setPosition(Vec2(370, 635));
 	bloodNum->setColor(Color3B::BLACK);
-	this->addChild(bloodNum);
+	this->addChild(bloodNum,3);
 
 	m_monsterMgr = MonsterManager::createWithLevel(m_scenario,m_subscenario);
 	m_hero->m_heroMonsterList.clear();

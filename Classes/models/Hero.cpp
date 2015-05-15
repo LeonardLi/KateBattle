@@ -472,7 +472,7 @@ void Hero::getHurt(float ivalue,float stunTime,float slowValue,float slowTime){
 		if (slowValue > 0.01)
 		{
 			int time = slowTime;
-			Label* label = Label::create("Slow " + std::to_string(time) + " s!!!", "fonts/Marker Felt.ttf", 30);
+			Label* label = Label::create("Slow !!!" , "fonts/Marker Felt.ttf", 30);
 			label->setPosition(Vec2(this->getBoundingBox().size.width / 2, this->getBoundingBox().size.height + 60));
 			this->addChild(label, 4);
 			FadeIn* action1 = FadeIn::create(0.5f);
