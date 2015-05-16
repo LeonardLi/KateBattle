@@ -398,15 +398,16 @@ void Hero::blink(){
 		}
 	}
 	
-	if (this->m_moveController->m_map->convertToWorldSpace(desPoint).x<0)
+	if (desPoint.x< this->getParent()->convertToNodeSpace(Vec2(0, 0)).x)
 	{
 		Vec2 des = this->getParent()->convertToNodeSpace(Vec2(0,0));
-		desPoint.x = des.x + 40;
+		desPoint.x = des.x + 50;
 	}
-	else if (this->m_moveController->m_map->convertToWorldSpace(desPoint).x>1280)
+	else if (desPoint.x>this->getParent()->convertToNodeSpace(Vec2(1280, 0)).x)
 	{
+		
 		Vec2 des = this->getParent()->convertToNodeSpace(Vec2(1280, 0));
-		desPoint.x = des.x - 40;
+		desPoint.x = des.x - 50;
 	}
 	
 

@@ -120,7 +120,7 @@ void MonsterManager::__createMonsterLevel11()
 	this->addChild(monster3);
 
 	Monster* monster4 = Monster::create(Sprite::create("wolf.png"), MonsterType::normalMoveFastTypeLv1);
-	monster4->setPosition(2500, 300);
+	monster4->setPosition(2800, 300);
 	monster4->getFSM()->changeState(new StateUseSkill());
 	m_monsterList.pushBack(monster4);
 	m_monsterScreen2List.pushBack(monster4);

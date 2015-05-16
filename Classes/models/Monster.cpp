@@ -80,8 +80,8 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			m_monsterType = MonsterType::normalTypeLv1;
 			monsterLevel = 1;
 			setviewRange(500.0f);
-			setHp(150);
-			setupperHp(150);
+			setHp(90);
+			setupperHp(90);
 			setAttackValue(60.0f);
 			setDefenceValue(24.0f);
 			setattackRange(100.0f);
@@ -1112,7 +1112,7 @@ void Monster::onDead(){
 		else
 		{
 			float randomNum = RandomHelper::random_real(0.0f, 1.0f);
-			if (randomNum>0.01)
+			if (randomNum>0.75)
 			{
 				auto box = TreasureBox::create(static_cast<ScenarioEnum>(this->monsterLevel - 1));
 				box->setPosition(this->getPositionX(), this->getPositionY() - 40);

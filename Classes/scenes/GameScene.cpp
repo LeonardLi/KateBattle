@@ -25,7 +25,7 @@ using namespace cocostudio::timeline;
 using namespace CocosDenshion;
 
 #define SKILL1COLDTIME 20
-#define SKILL2COLDTIME 30
+#define SKILL2COLDTIME 3
 #define SKILL3COLDTIME 40
 
 GameScene::GameScene():
@@ -96,7 +96,7 @@ bool GameScene::init(ScenarioEnum scenario, SubScenarioEnum subscenario)
     
 	bloodNum = Label::create(" ","fonts/Marker Felt.ttf",30);
 	bloodNum->setPosition(Vec2(360, 640));
-	bloodNum->setColor(Color3B::BLACK);
+	bloodNum->setColor(Color3B::WHITE);
 	this->addChild(bloodNum,3);
 
 	m_monsterMgr = MonsterManager::createWithLevel(m_scenario,m_subscenario);
@@ -602,21 +602,21 @@ void ChooseGameScene::onScenarioChosenClicked(cocos2d::Ref* Sender){
 void ChooseGameScene::changeToMarket(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
 	auto scene = SubChooseGameScene::createScene(ScenarioEnum::Market);
-	auto transition = TransitionMoveInR::create(2.0f, scene);
+	auto transition = TransitionMoveInL::create(2.0f, scene);
 	Director::getInstance()->replaceScene(transition);
 }
 
 void ChooseGameScene::changeToPort(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
 	auto scene = SubChooseGameScene::createScene(ScenarioEnum::Port);
-	auto transition = TransitionMoveInR::create(2.0f, scene);
+	auto transition = TransitionMoveInL::create(2.0f, scene);
 	Director::getInstance()->replaceScene(transition);
 }
 
 void ChooseGameScene::changeToSewer(){
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_4.c_str());
 	auto scene = SubChooseGameScene::createScene(ScenarioEnum::Sewer);
-	auto transition = TransitionMoveInR::create(2.0f, scene);
+	auto transition = TransitionMoveInL::create(2.0f, scene);
 	Director::getInstance()->replaceScene(transition);
 }
 
