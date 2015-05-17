@@ -130,8 +130,8 @@ private:
     User getUser();					//获取用户信息 
 	void _read();                   //初始化时读取json文件
 	void _write();		   //将修改的内容写入json文件
-	
-
+	void _readLocal();
+	void _readAssets();
 private:
 	static JsonUtility* m_JsonUtility;
 	rapidjson::Document m_doc;

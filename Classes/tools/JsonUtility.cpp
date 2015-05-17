@@ -11,15 +11,27 @@
 #include "Inventory.h"
 USING_NS_CC;
 JsonUtility* JsonUtility::m_JsonUtility = nullptr;
-
-void JsonUtility::_read()
+void JsonUtility::_readLocal()
 {
-	std::string filePath = FileUtils::getInstance()->fullPathForFilename("groot.json");
-	std::string contentStr = FileUtils::getInstance()->getStringFromFile(filePath);
-	m_doc.Parse<rapidjson::ParseFlag::kParseDefaultFlags>(contentStr.c_str());
+	auto filePath = FileUtils::getInstance()->getWritablePath();
+	log("filepath:%s", filePath.c_str());
+	filePath.append("groot.json");
+	ssize_t size = 0;
+	std::string load_str;
+	unsigned char* titlech = FileUtils::getInstance()->getFileData(filePath, "r", &size);
+	load_str = std::string((const char*)titlech, size);
+	log("filepath of readLocal:%s", filePath.c_str());
+	m_doc.Parse<0>(load_str.c_str());
+
+	rapidjson::StringBuffer buffer;
+	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
+	m_doc.Accept(writer);
+	const char * lin = buffer.GetString();
+	log("GROOT of readLocal:%s", lin);
+
 	if (m_doc.HasParseError())
 	{
-		CCAssert(false,"GetParseError");
+		CCAssert(false, "GetParseError");
 		CCLOG("GetParseError %s\n", m_doc.GetParseError());
 	}
 	if (!m_doc.IsObject())
@@ -34,6 +46,49 @@ void JsonUtility::_read()
 	{
 		CCAssert(false, "No Data!");
 	}
+}
+void JsonUtility::_readAssets()
+{
+	std::string filePath = FileUtils::getInstance()->fullPathForFilename("groot.json");
+	log("filePath:%s", filePath.c_str());
+	std::string contentStr = FileUtils::getInstance()->getStringFromFile(filePath);
+	m_doc.Parse<rapidjson::ParseFlag::kParseDefaultFlags>(contentStr.c_str());
+	rapidjson::StringBuffer buffer;
+	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
+	m_doc.Accept(writer);
+	const char * lin = buffer.GetString();
+	log("GROOT of readAssest:%s", lin);
+
+	if (m_doc.HasParseError())
+	{
+		CCAssert(false, "GetParseError");
+		CCLOG("GetParseError %s\n", m_doc.GetParseError());
+	}
+	if (!m_doc.IsObject())
+	{
+		CCAssert(false, "no object!");
+	}
+	if (!m_doc.HasMember("User"))
+	{
+		CCAssert(false, "No User!");
+	}
+	if (!m_doc.HasMember("Data"))
+	{
+		CCAssert(false, "No Data!");
+	}
+}
+void JsonUtility::_read()
+{
+	auto filePath = FileUtils::getInstance()->getWritablePath();
+	filePath.append("groot.json");
+	FILE* file = fopen(filePath.c_str(), "r");
+	if (file)
+	{
+		fclose(file);
+		_readLocal();
+	}
+	else
+		_readAssets();
 }
 
 void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
@@ -130,14 +185,20 @@ void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
 	m_doc.Accept(writer);
 	const char * lin = buffer.GetString();
-	log("GROOT1:%s", lin);
-	FILE* file = fopen("groot.json", "wb");
+	log("GROOT of write:%s", lin);
+	auto  path = FileUtils::getInstance()->getWritablePath();
+	log("path:%s", path.c_str());
+	path.append("groot.json");
+	FILE* file = fopen(path.c_str(), "wb+");
 	if (file)
 	{
+		log("****************************");
+		log("****************************");
+		log("****************************");
+		log("****************************");
 		fputs(buffer.GetString(), file);
 		fclose(file);
 	}
-	
 	_read();
 }    
 
@@ -388,5 +449,6 @@ bool JsonUtility::init()
 {
 	_read();
 	user = getUser();
+	_write();
 	return true;
 }

@@ -49,6 +49,7 @@ Scene* WinLayer::createScene(cocos2d::RenderTexture* sqr, ScenarioEnum scenario,
 	fakeSprite->setColor(Color3B::GRAY);
 	scene->addChild(fakeSprite, 0);
 	SimpleAudioEngine::getInstance()->playEffect(EFFECTS_14.c_str());
+	JsonUtility::getInstance()->setUser();
 	return scene;
 }
 void WinLayer::__loadPicFromCSB(){
