@@ -31,6 +31,7 @@ public:
 	void pauseEffect();//关闭音效音乐,音效从当前音乐大小逐次减小
 	
 	static SoundsController* getInstance();
+	float musicVolum = 0.5f;
 private:
 	ScenarioEnum scenario;
 	float m_BackMusicVolum;  //背景音乐音量的大小

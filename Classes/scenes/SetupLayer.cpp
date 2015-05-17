@@ -102,7 +102,9 @@ void SetupLayer::onSlider(cocos2d::Ref* sender, Slider::EventType type){
 		Slider* slider = dynamic_cast<Slider*>(sender);
 		int out = slider->getPercent();
 		float percent = (float)out / 100;
+		SoundsController::getInstance()->musicVolum = percent;
 		SoundsController::getInstance()->setMusicVolum(percent);
+		SimpleAudioEngine::getInstance()->setEffectsVolume(percent);
 		//log("==== %f =====", percent);
 	}
 }
@@ -117,14 +119,19 @@ void SetupLayer::onSoundControlButtonClicked(cocos2d::Ref* sender){
 	if (m_isSilence){
 		m_isSilence = false;
 		m_slider->setPercent(25);
-        SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-        SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
+		//SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
+		SimpleAudioEngine::getInstance()->setEffectsVolume(0.25f);
+		SoundsController::getInstance()->musicVolum = 0.25f;
 	}
 	else{
 		m_isSilence = true;
 		m_slider->setPercent(0.0f);
+		SoundsController::getInstance()->musicVolum = 0.0f;
 		//SoundsController::getInstance()->pauseBackgroundMusic();
-        SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+        //SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.0f);
+		SimpleAudioEngine::getInstance()->setEffectsVolume(0.0f);
 	}
 	__flushSlider();
 
