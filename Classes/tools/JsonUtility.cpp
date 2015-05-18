@@ -23,11 +23,6 @@ void JsonUtility::_readLocal()
 	log("filepath of readLocal:%s", filePath.c_str());
 	m_doc.Parse<0>(load_str.c_str());
 
-	rapidjson::StringBuffer buffer;
-	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
-	m_doc.Accept(writer);
-	const char * lin = buffer.GetString();
-	log("GROOT of readLocal:%s", lin);
 
 	if (m_doc.HasParseError())
 	{
@@ -53,11 +48,6 @@ void JsonUtility::_readAssets()
 	log("filePath:%s", filePath.c_str());
 	std::string contentStr = FileUtils::getInstance()->getStringFromFile(filePath);
 	m_doc.Parse<rapidjson::ParseFlag::kParseDefaultFlags>(contentStr.c_str());
-	rapidjson::StringBuffer buffer;
-	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
-	m_doc.Accept(writer);
-	const char * lin = buffer.GetString();
-	log("GROOT of readAssest:%s", lin);
 
 	if (m_doc.HasParseError())
 	{
@@ -79,18 +69,22 @@ void JsonUtility::_readAssets()
 }
 void JsonUtility::_read()
 {
-	auto filePath = FileUtils::getInstance()->getWritablePath();
-	filePath.append("groot.json");
-	FILE* file = fopen(filePath.c_str(), "r");
-	if (file)
+	if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	{
-		fclose(file);
-		_readLocal();
+		auto filePath = FileUtils::getInstance()->getWritablePath();
+		filePath.append("groot.json");
+		FILE* file = fopen(filePath.c_str(), "r");
+		if (file)
+		{
+			fclose(file);
+			_readLocal();
+		}
+		else
+			_readAssets();
 	}
 	else
 		_readAssets();
 }
-
 void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 {
 	if (!m_doc.IsObject())
@@ -180,15 +174,24 @@ void JsonUtility::_write()    //写是数组类型的元素，只写json数组的大小
 			secons.SetInt(user.Clear_BlockID[i][j]);
 		}
 	}
-	//clear.SetInt(user.Clear_BlockID);
+	
 	rapidjson::StringBuffer buffer;
 	rapidjson::Writer< rapidjson::StringBuffer > writer(buffer);
 	m_doc.Accept(writer);
 	const char * lin = buffer.GetString();
 	log("GROOT of write:%s", lin);
-	auto  path = FileUtils::getInstance()->getWritablePath();
-	log("path:%s", path.c_str());
-	path.append("groot.json");
+	
+	std::string  path;
+	if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	{
+		path = FileUtils::getInstance()->getWritablePath();
+		log("path:%s", path.c_str());
+		path.append("groot.json");
+	}
+	else
+	{
+		path = "groot.json";
+	}
 	FILE* file = fopen(path.c_str(), "wb+");
 	if (file)
 	{
