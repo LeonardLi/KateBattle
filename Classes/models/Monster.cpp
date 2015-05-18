@@ -194,7 +194,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setupperHp(200);
 			setviewRange(500.0f);
 			setattackRange(100.0f);
-			setAttackValue(180.0f);
+			setAttackValue(150.0f);
 			setDefenceValue(40.0f);
 			monsterLevel = 2;
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
@@ -522,7 +522,6 @@ void Monster::attackSequence(){
 	default:
 		break;
 	}
-	log("monster attackSequence_______");
 	__readyForAttack(1.0f);
 }
 
@@ -594,8 +593,7 @@ void Monster::__bulletLogicCheck(float dt){
 			if (aim != NULL)
 			{
 				if (bullet->getBoundingBox().intersectsRect(targetHero->getBoundingBox())&&targetHero->getisDead()==false)
-				{
-					log("hero get hurt~~~~~~~");		
+				{	
 					targetHero->getHurt(bullet->bulletDamage,bullet->bulletStunTime,bullet->bulletSlowDown,bullet->bulletSlowDownTime);
 					bullet->stopAllActions();
 					bullet->m_isArrive = true;
@@ -612,7 +610,6 @@ void Monster::__bulletLogicCheck(float dt){
 void Monster::__readyForAttack(float dt){
 	if (this->getFSM()->getState() == MonsterFSM::toAttack || this->getFSM()->getState() == MonsterFSM::BossToAttack)
 	{
-		log("attack state!!~~");
 		this->schedule(schedule_selector(Monster::__intoAttackSequence));
 	}
 
@@ -635,7 +632,6 @@ void Monster::__isInViewRange(float dt){
 	Vec2 distance = Vec2(targetHero->getPositionX() - this->getPositionX(), targetHero->getPositionY() - this->getPositionY());
 	if (distance.length() <= this->getviewRange())
 	{
-		log("hero  InView!!!!!!!!!!");
 		__attack();
 		this->unschedule(schedule_selector(Monster::__isInViewRange));
 	}
@@ -665,12 +661,10 @@ void Monster::__attack(){
 	}	
 	if (randomNum > moveAndAttack)
 	{
-		log("move to hero!!!!!!");
 		this->schedule(schedule_selector(Monster::__monsterMoveToHero));
 	}
 	else if (randomNum >= standRate&&randomNum <= moveAndAttack)
 	{
-		log("random move!!!!");
 		__monsterRandomMove();
 	}
 	else if (randomNum > 0 && randomNum < standRate)
@@ -681,7 +675,6 @@ void Monster::__attack(){
 			setisMoving(false);
 			choiceDirectionToAction("stand");
 		}
-		log("stand for 2s~~~~");
 		this->scheduleOnce(schedule_selector(Monster::__readyForAttack), 2.0f);
 	}
 }
@@ -726,7 +719,6 @@ void Monster::__monsterMoveToHero(float dt){
 	}
 	else
 	{
-		log("hero in range");
 		this->unschedule(schedule_selector(Monster::__monsterMoveToHero));
 		setisMoving(false);
 		setisStanding(true);
@@ -801,7 +793,6 @@ void Monster::__attackafterMove(){
 	float randomNum = CCRANDOM_0_1();
 	if (randomNum > 0.2)
 	{
-		log("monster attack!!! after move ");
 		switch (m_monsterType)
 		{	
 		case MonsterType::normalTypeLv1:
@@ -853,7 +844,6 @@ void Monster::__attackafterMove(){
 		setisMoving(false);
 		setisStanding(true);
 		choiceDirectionToAction("stand");
-		log("stand---------------");
 		this->scheduleOnce(schedule_selector(Monster::__finishAttack), 2.0f);
 	}
 }
@@ -976,7 +966,6 @@ void Monster::__finishAttack(float dt){
 		choiceDirectionToAction("stand");
 	}
 	this->__readyForAttack(1.0f);
-	log("finish attack~~~~");
 }
 
 void Monster::useSkillSequence(){
@@ -1012,19 +1001,15 @@ void Monster::__skill(){
 	switch (m_monsterType)
 	{
 	case MonsterType::monsterBossNum1:
-		log("Boss1 Skill~~~~~~~~");
 		this->scheduleOnce(schedule_selector(MonsterBossNum1::intoBoss1SkillSequence), 0.0f);
 		break;
 	case MonsterType::monsterBossNum2:
-		log("boss num 2 skill-++++++++++++++++++");
 		this->scheduleOnce(schedule_selector(MonsterBossNum2::intoBoss2SkillSequence), 0.0f);
 		break;
 	case MonsterType::monsterBossNum3:
-		log("Number3 BOSS!-------- skill!!");
 		this->scheduleOnce(schedule_selector(MonsterBossNum3::intoBoss3SkillSequence),0.0f);
 		break;
 	case MonsterType::monsterBossNum2Assister:
-		log("Boss 2 assister skill------------------");
 		break;
 	default:
 		break;
@@ -1040,12 +1025,8 @@ void Monster::__moveCloseToHero(Vec2 distance){
 }
 
 void Monster::skillFinish(float dt){
-	log("finishskill!");
 	skillOrAttack = false;
-	__postBossAttackMessage(1.0f);
-	//readyForUseSkill(1.0f);
-	
-	
+	__postBossAttackMessage(1.0f);	
 }
 
 void Monster::__postBossAttackMessage(float dt){
@@ -1670,7 +1651,6 @@ void MonsterBossNum2::__rotateAreaJudge(float dt){
 	if (this->getBoundingBox().intersectsRect(this->targetHero->getBoundingBox()))
 	{
 		this->targetHero->getHurt(600.0f, 0.0f, 0.3f, 1.0f);
-		log("=============== hurt and slow ==============");
 	}
 }
 
@@ -1756,7 +1736,6 @@ void MonsterBossNum2::__bossRushToBox(float dt){
 void MonsterBossNum2::__bossRushJudge(float dt){
 	if (this->getBoundingBox().intersectsRect(this->targetHero->getBoundingBox()))
 	{
-		log("=========boss rush hurt ===============");
 		this->targetHero->getHurt(800.0f, 2.0f, 0.0, 0.0);
 		this->unschedule(schedule_selector(MonsterBossNum2::__bossRushJudge));
 	}

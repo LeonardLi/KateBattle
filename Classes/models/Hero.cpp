@@ -111,8 +111,8 @@ bool Hero::init(){
 
 void Hero::flashHero(){
 	User user = JsonUtility::getInstance()->user;
-	setMoveSpeed(1.2 + user.UserMoveRate*0.01);
-	setCurSpeed(1.2+ user.UserMoveRate*0.01);
+	setMoveSpeed(2.2 + user.UserMoveRate*0.01);
+	setCurSpeed(2.2+ user.UserMoveRate*0.01);
 	setequipAttackValue(user.UserAttack);
 	setcurAttackValue(user.UserAttack);
 	setupperHp(user.UserHealth);
@@ -203,7 +203,7 @@ void Hero::herostun(float time)
 }
 
 void Hero::resetDirection(){
-	this->m_moveController->m_isStand = true;
+	this->m_moveController->m_isStand = false;
 	this->m_moveController->m_isLeft = false;
 	this->m_moveController->m_isRight = false;
 	this->m_moveController->m_isUp = false;
@@ -533,7 +533,7 @@ void Hero::promoteSpeed(float dt){
 void Hero::recoverSpeed(float dt){
 	this->unschedule(schedule_selector(Hero::promoteSpeed));
 	User& user = JsonUtility::getInstance()->user;
-	this->setCurSpeed(1.2+0.01*user.UserMoveRate);
+	this->setCurSpeed(2.2+0.01*user.UserMoveRate);
 }
 
 void Hero::useCrazyMedicines(){

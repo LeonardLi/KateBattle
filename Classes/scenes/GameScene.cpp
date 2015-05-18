@@ -25,7 +25,7 @@ using namespace cocostudio::timeline;
 using namespace CocosDenshion;
 
 #define SKILL1COLDTIME 20
-#define SKILL2COLDTIME 3
+#define SKILL2COLDTIME 30
 #define SKILL3COLDTIME 40
 
 GameScene::GameScene():
