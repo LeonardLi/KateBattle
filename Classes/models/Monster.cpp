@@ -31,7 +31,7 @@ using namespace CocosDenshion;
 
 #define DEFAULTVIEWRANGE 500.0f
 #define DEFAULTATTACKTIME 2.0f
-#define DEFAULTSPEEDRATE 0.5f
+#define DEFAULTSPEEDRATE 0.8f
 #define DEFAULTDEFENCEVALUE 0.0f
 
 Monster* Monster::create(Sprite* sprite, MonsterType type){
@@ -110,7 +110,7 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 			setDefenceValue(20.0f);
 			setAttackValue(60.0f);
 			setContentSize(Size(MONSTER1WIDTH, MONSTER1HEIGHT));
-			setSpeedRate(0.9f);
+			setSpeedRate(1.0f);
 			createName("Swift Doug Lv1", 90);
 			
 			break;
@@ -354,8 +354,8 @@ bool Monster::init(Sprite* sprite, MonsterType type){
 		case MonsterType::normalFatTypeLv3:
 			_loadCSB("monster9/monster9.csb", 33);
 			m_monsterType = MonsterType::normalFatTypeLv3;
-			setHp(1200);
-			setupperHp(1200);
+			setHp(1000);
+			setupperHp(1000);
 			setattackRange(120.0f);
 			setAttackValue(700.0f);
 			setattackTime(3.0f);
@@ -876,7 +876,7 @@ void Monster::__attackWithHand(){
 	});
 	this->m_armature->getAnimation()->gotoAndPause(0);
 	this->runAction(Sequence::create(DelayTime::create(getattackTime()), callFunc, NULL));
-	if (m_monsterType==MonsterType::monsterBossNum1||m_monsterType==MonsterType::monsterBossNum2)
+	if (m_monsterType==MonsterType::monsterBossNum1)
 	{
 		float randomNum = CCRANDOM_0_1();
 		if (randomNum >= 0.25&&randomNum <= 0.8)
@@ -884,6 +884,15 @@ void Monster::__attackWithHand(){
 			this->getFSM()->OnRecvBossWantToUseSkill(this);
 		}
 	}
+	else if (m_monsterType == MonsterType::monsterBossNum2)
+	{
+		float randomNum = CCRANDOM_0_1();
+		if (randomNum >= 0.25&&randomNum <= 0.75)
+		{
+			this->getFSM()->OnRecvBossWantToUseSkill(this);
+		}
+	}
+
 	this->scheduleOnce(schedule_selector(Monster::__finishAttack), 3.0f + getattackTime());
 }
 
@@ -919,13 +928,6 @@ void Monster::__attackWithBullet(){
 	{
 		return;
 	}
-	//Rect rect = this->getBoundingBox();
-	//auto s = Director::getInstance()->getWinSize();
-	//auto draw = DrawNode::create();
-	//this->getParent()->addChild(draw, 10);
-	////Vec2 points[] = { Vec2(0, 0), Vec2(rect.size.width, 0), Vec2(rect.size.width, rect.size.height), Vec2(0, rect.size.height) };
-	//Vec2 points[] = { Vec2(rect.origin.x, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y), Vec2(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height), Vec2(rect.origin.x, rect.origin.y + rect.size.height) };
-	//draw->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(1, 0, 0, 0.5), 4, Color4F(0, 0, 1, 1));
 
 	float randomNum = CCRANDOM_0_1();
 	{
@@ -1421,7 +1423,7 @@ bool MonsterBossNum1::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setAttackValue(290.0f);
 		setHp(1500.0f);
 		setupperHp(1500.0f);
-		setSpeedRate(0.6f);
+		setSpeedRate(0.8f);
 		setcanAttack(true);	
 		setStun(NOTSTUNFOREVER);
 		this->setContentSize(Size(85, 160));
@@ -1464,9 +1466,9 @@ void MonsterBossNum1::__skillRushBox(float dt){
 	}
 	else
 		boxPoint = Vec2(4100, 280);
-
+	this->m_armature->getAnimation()->play("walk_attack");
 	box->setPosition(boxPoint);
-	this->getParent()->addChild(box);
+	this->getParent()->addChild(box,0);
 	m_boxes = box;
 	castMessage("hide behind the box!!!");
 	targetHero->m_blockArea.pushBack(box);
@@ -1610,7 +1612,7 @@ void MonsterBossNum2::__dangerousAreaJudge(float dt){
 	{
 		if (monster->getBoundingBox().intersectsRect(this->targetHero->getBoundingBox()))
 		{
-			this->targetHero->getHurt(450.0f, 0.0f, 0.0f, 0.0f);
+			this->targetHero->getHurt(350.0f, 0.0f, 0.0f, 0.0f);
 		}
 	}
 
@@ -1650,7 +1652,7 @@ void MonsterBossNum2::__bossRotate(){
 void MonsterBossNum2::__rotateAreaJudge(float dt){
 	if (this->getBoundingBox().intersectsRect(this->targetHero->getBoundingBox()))
 	{
-		this->targetHero->getHurt(600.0f, 0.0f, 0.3f, 1.0f);
+		this->targetHero->getHurt(450.0f, 0.0f, 0.3f, 1.0f);
 	}
 }
 
@@ -1784,7 +1786,7 @@ bool MonsterBossNum3::init(Sprite* sprite, Vector<Monster*> monsterList){
 		setDefenceValue(33.0f);
 		setHp(600.0f);
 		setupperHp(600.0f);
-		setSpeedRate(0.5);
+		setSpeedRate(0.7);
 		setcanAttack(true);
 		setStun(NOTSTUNFOREVER);
 
