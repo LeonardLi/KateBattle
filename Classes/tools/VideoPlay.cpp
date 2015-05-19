@@ -33,7 +33,7 @@ void VideoPlay::showVideo(){
 	this->addChild(videoPlayer);
 	if (videoPlayer)
 	{
-		videoPlayer->setFileName("video2.mp4");
+		videoPlayer->setFileName("caty.mp4");
 		videoPlayer->play();
 	}
 	videoPlayer->addEventListener(CC_CALLBACK_2(VideoPlay::videoEventCallback, this));
