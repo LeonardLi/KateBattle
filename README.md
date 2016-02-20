@@ -3,7 +3,7 @@
 ## What is KateBattle?
  This project is my undergraduate project, the last project we engage ourselves in for college time.
  We build this game using cocos2dx engine. With the great support the engine provide and the great effort
- we have gave, this game comes out and we hope when it show up it also show off ~ 
+ we have gave, this game comes out and we hope when it shows up it also shows off ~ 
  
 ### when *first* clone the project, Do REMEMBER Do this:
 
